@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agastya Residency — Dharamshala, Himachal Pradesh</title>
+<meta name="description" content="Agastya Residency — A beautiful boutique hotel in Dharamshala with stunning Dhauladhar mountain views, cozy rooms, and an in-house restaurant. Book directly for the best rates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c8a96e;
+  --gold-light: #e8d5b0;
+  --deep: #1a1a0e;
+  --forest: #2d3a2e;
+  --cream: #faf8f3;
+  --text: #2a2a1e;
+  --muted: #7a7a6a;
+  --border: rgba(200,169,110,0.25);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+nav.scrolled {
+  background: rgba(26,26,14,0.97);
+  backdrop-filter: blur(12px);
+  padding: 14px 48px;
+  box-shadow: 0 1px 30px rgba(0,0,0,0.3);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  color: white; letter-spacing: 1px;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  background: var(--gold); color: var(--deep);
+  font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  padding: 10px 24px; border-radius: 2px; text-decoration: none;
+  transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ---- HERO ---- */
+.hero {
+  height: 100vh; min-height: 700px;
+  background: linear-gradient(160deg, #0d1a0d 0%, #1a2a1a 40%, #2d1a0a 100%);
+  position: relative; display: flex; align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80') center/cover;
+  opacity: 0.45;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(10,15,10,0.85) 0%, rgba(10,15,10,0.4) 60%, transparent 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 80px; max-width: 700px;
+}
+.hero-tag {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-tag::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 7vw, 88px);
+  font-weight: 300; color: white; line-height: 1.05;
+  margin-bottom: 24px;
+}
+.hero h1 em { font-style: italic; color: var(--gold-light); }
+.hero p {
+  color: rgba(255,255,255,0.7); font-size: 16px; font-weight: 300;
+  line-height: 1.8; max-width: 440px; margin-bottom: 40px;
+}
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--gold); color: var(--deep);
+  font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  padding: 16px 36px; border-radius: 2px; text-decoration: none;
+  transition: all 0.3s; border: none; cursor: pointer;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,169,110,0.3); }
+.btn-outline {
+  background: transparent; color: white;
+  font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  padding: 16px 36px; border-radius: 2px; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.4); transition: all 0.3s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-stats {
+  position: absolute; bottom: 48px; right: 80px; z-index: 2;
+  display: flex; gap: 48px;
+}
+.hero-stat { text-align: center; }
+.hero-stat .num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px; font-weight: 300; color: var(--gold); display: block;
+}
+.hero-stat .lbl { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+
+/* ---- BOOKING BAR ---- */
+.booking-bar {
+  background: var(--deep); padding: 0 80px;
+}
+.booking-bar-inner {
+  display: flex; align-items: center; gap: 0;
+  border: 1px solid var(--border); border-top: none;
+}
+.booking-field {
+  flex: 1; padding: 22px 28px; border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 4px; cursor: pointer;
+  transition: background 0.2s;
+}
+.booking-field:hover { background: rgba(200,169,110,0.06); }
+.booking-field label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); font-weight: 600;
+}
+.booking-field select, .booking-field input {
+  background: transparent; border: none; outline: none;
+  font-family: 'Jost', sans-serif; font-size: 14px; color: white;
+  cursor: pointer; width: 100%;
+}
+.booking-field select option { background: var(--deep); }
+.booking-submit {
+  background: var(--gold); border: none; padding: 22px 40px;
+  font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--deep);
+  cursor: pointer; transition: all 0.3s; white-space: nowrap;
+}
+.booking-submit:hover { background: var(--gold-light); }
+
+/* ---- AMENITIES ---- */
+.amenities-strip {
+  background: var(--forest); padding: 28px 80px;
+  display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+}
+.amenity {
+  display: flex; align-items: center; gap: 10px;
+  color: rgba(255,255,255,0.6); font-size: 12px;
+  letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+}
+.amenity svg { opacity: 0.7; }
+
+/* ---- SECTIONS ---- */
+.section { padding: 100px 80px; }
+.section-label {
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 54px); font-weight: 300; line-height: 1.15;
+  color: var(--text); margin-bottom: 20px;
+}
+.section-title em { font-style: italic; color: var(--forest); }
+
+/* ---- ABOUT ---- */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  margin-top: 56px;
+}
+.about-img-stack { position: relative; }
+.about-img-main {
+  width: 100%; height: 520px; object-fit: cover; border-radius: 2px;
+  display: block;
+}
+.about-img-accent {
+  position: absolute; bottom: -32px; right: -32px;
+  width: 55%; height: 260px; object-fit: cover;
+  border: 6px solid var(--cream); border-radius: 2px;
+}
+.about-text p {
+  font-size: 16px; font-weight: 300; line-height: 1.9;
+  color: var(--muted); margin-bottom: 20px;
+}
+.about-features { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.about-feature {
+  padding: 16px 0; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--text); font-weight: 500;
+  display: flex; align-items: center; gap: 10px;
+}
+.about-feature::before { content: '—'; color: var(--gold); font-weight: 300; }
+
+/* ---- ROOMS ---- */
+.rooms-section { background: #f4f1ea; }
+.rooms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 56px; }
+.room-card {
+  background: white; border-radius: 2px; overflow: hidden;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.room-card:hover { transform: translateY(-6px); box-shadow: 0 16px 60px rgba(0,0,0,0.12); }
+.room-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+.room-body { padding: 28px 32px; }
+.room-type {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 10px;
+}
+.room-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 300; margin-bottom: 12px;
+}
+.room-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+.room-price {
+  display: flex; align-items: baseline; gap: 6px;
+  margin-bottom: 20px;
+}
+.room-price .from { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.room-price .amount {
+  font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300;
+  color: var(--text);
+}
+.room-price .per { font-size: 12px; color: var(--muted); }
+.room-amenities { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.room-amenity { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+.room-cta {
+  display: inline-block; width: 100%; text-align: center;
+  background: var(--deep); color: white;
+  font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  padding: 14px 24px; border-radius: 2px; text-decoration: none;
+  transition: all 0.3s;
+}
+.room-cta:hover { background: var(--forest); }
+
+/* ---- VIEWS ---- */
+.views-section {
+  background: var(--deep); padding: 100px 80px;
+  position: relative; overflow: hidden;
+}
+.views-section::before {
+  content: 'VIEWS';
+  position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+  font-family: 'Cormorant Garamond', serif; font-size: 200px; font-weight: 300;
+  color: rgba(255,255,255,0.02); pointer-events: none;
+}
+.views-section .section-title { color: white; }
+.views-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 12px; margin-top: 56px;
+}
+.view-item {
+  overflow: hidden; border-radius: 2px; position: relative;
+  cursor: pointer;
+}
+.view-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.view-item:hover img { transform: scale(1.05); }
+.view-item:first-child { grid-row: 1 / 3; }
+.view-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  display: flex; align-items: flex-end; padding: 20px;
+}
+.view-item:hover .view-overlay { opacity: 1; }
+.view-overlay span { color: white; font-size: 13px; letter-spacing: 1px; }
+
+/* ---- RESTAURANT ---- */
+.restaurant-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  margin-top: 56px;
+}
+.restaurant-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.restaurant-imgs img { width: 100%; height: 200px; object-fit: cover; border-radius: 2px; }
+.restaurant-imgs img:first-child { grid-column: 1 / 3; height: 280px; }
+.restaurant-text p {
+  font-size: 16px; font-weight: 300; line-height: 1.9;
+  color: var(--muted); margin-bottom: 20px;
+}
+.cuisine-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.cuisine-tag {
+  padding: 7px 18px; border: 1px solid var(--border);
+  font-size: 12px; letter-spacing: 1px; color: var(--gold);
+  border-radius: 20px;
+}
+
+/* ---- REVIEWS ---- */
+.reviews-section { background: var(--forest); padding: 100px 80px; }
+.reviews-section .section-label { color: var(--gold-light); }
+.reviews-section .section-title { color: white; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.review-card {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  padding: 32px; border-radius: 2px;
+}
+.review-stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; letter-spacing: 3px; }
+.review-text {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.85);
+  line-height: 1.7; margin-bottom: 20px;
+}
+.review-author { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.review-platform { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 4px; }
+
+/* ---- SIGHTSEEING ---- */
+.sights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.sight-card {
+  position: relative; overflow: hidden; border-radius: 2px;
+  height: 320px; cursor: pointer;
+}
+.sight-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.sight-card:hover img { transform: scale(1.08); }
+.sight-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);
+  padding: 28px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.sight-dist { font-size: 11px; letter-spacing: 2px; color: var(--gold); margin-bottom: 6px; }
+.sight-name {
+  font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300;
+  color: white; margin-bottom: 6px;
+}
+.sight-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+/* ---- CONTACT ---- */
+.contact-section { background: var(--deep); padding: 100px 80px; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 56px; }
+.contact-info { }
+.contact-info .section-title { color: white; }
+.contact-detail {
+  display: flex; gap: 16px; margin-bottom: 28px; align-items: flex-start;
+}
+.contact-icon {
+  width: 44px; height: 44px; border: 1px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-detail-text label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); display: block; margin-bottom: 6px;
+}
+.contact-detail-text a, .contact-detail-text span {
+  font-size: 15px; color: rgba(255,255,255,0.75); text-decoration: none; line-height: 1.6;
+  display: block;
+}
+.contact-detail-text a:hover { color: var(--gold); }
+.contact-form-side { }
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); display: block; margin-bottom: 8px;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(200,169,110,0.2); border-radius: 2px;
+  padding: 14px 18px; font-family: 'Jost', sans-serif; font-size: 14px;
+  color: white; outline: none; transition: border-color 0.3s;
+  appearance: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--gold);
+}
+.form-group select option { background: var(--deep); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.whatsapp-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #25d366; color: white; text-decoration: none;
+  font-size: 13px; font-weight: 500; letter-spacing: 1px;
+  padding: 14px 28px; border-radius: 2px; margin-top: 8px;
+  transition: all 0.3s;
+}
+.whatsapp-btn:hover { background: #20b558; transform: translateY(-1px); }
+
+/* ---- FOOTER ---- */
+footer {
+  background: #0d0d08; padding: 40px 80px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(200,169,110,0.1);
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif; font-size: 20px;
+  color: white; text-decoration: none;
+}
+.footer-logo span { color: var(--gold); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+.footer-socials { display: flex; gap: 20px; }
+.footer-social {
+  width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px;
+  transition: all 0.3s;
+}
+.footer-social:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ---- FLOATING WHATSAPP ---- */
+.float-wa {
+  position: fixed; bottom: 32px; right: 32px; z-index: 200;
+  background: #25d366; width: 56px; height: 56px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none;
+  transition: transform 0.3s;
+}
+.float-wa:hover { transform: scale(1.1); }
+.float-wa svg { width: 28px; height: 28px; fill: white; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 32px; }
+  .hero-stats { right: 32px; gap: 24px; }
+  .section { padding: 70px 32px; }
+  .booking-bar { padding: 0 32px; }
+  .booking-bar-inner { flex-direction: column; }
+  .booking-field { border-right: none; border-bottom: 1px solid var(--border); }
+  .amenities-strip { padding: 20px 32px; gap: 24px; }
+  .about-grid, .restaurant-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-img-accent { display: none; }
+  .rooms-grid { grid-template-columns: 1fr; }
+  .views-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .views-gallery .view-item:first-child { grid-row: auto; grid-column: 1 / 3; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .sights-grid { grid-template-columns: 1fr 1fr; }
+  .views-section, .reviews-section, .contact-section { padding: 70px 32px; }
+  footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Agastya <span>Residency</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#restaurant">Restaurant</a></li>
+    <li><a href="#sightseeing">Explore</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Dharamshala, Himachal Pradesh</div>
+    <h1>Where the Himalayas<br><em>Greet the Morning</em></h1>
+    <p>A peaceful mountain retreat on the Dharamshala–McLeod Ganj road, with panoramic Dhauladhar views, warm hospitality, and flavours from across India.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Reserve Your Room</a>
+      <a href="#rooms" class="btn-outline">Explore Rooms</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="num">12</span><span class="lbl">Rooms</span></div>
+    <div class="hero-stat"><span class="num">4.7★</span><span class="lbl">Guest Rating</span></div>
+    <div class="hero-stat"><span class="num">3km</span><span class="lbl">To McLeodganj</span></div>
+  </div>
+</section>
+
+<!-- BOOKING BAR -->
+<div class="booking-bar">
+  <div class="booking-bar-inner">
+    <div class="booking-field">
+      <label>Check In</label>
+      <input type="date" />
+    </div>
+    <div class="booking-field">
+      <label>Check Out</label>
+      <input type="date" />
+    </div>
+    <div class="booking-field">
+      <label>Room Type</label>
+      <select>
+        <option>Any Room</option>
+        <option>Super Deluxe Room</option>
+        <option>Family Room</option>
+      </select>
+    </div>
+    <div class="booking-field">
+      <label>Guests</label>
+      <select>
+        <option>1 Guest</option>
+        <option>2 Guests</option>
+        <option>3 Guests</option>
+        <option>4+ Guests</option>
+      </select>
+    </div>
+    <button class="booking-submit" onclick="alert('Please call +91 70180 56716 or WhatsApp us to confirm your reservation.')">Check Availability</button>
+  </div>
+</div>
+
+<!-- AMENITIES STRIP -->
+<div class="amenities-strip">
+  <div class="amenity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+    Free Wi-Fi
+  </div>
+  <div class="amenity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l4-8 4 4 4-6 4 10"/></svg>
+    Mountain Views
+  </div>
+  <div class="amenity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 6v2h-7V8zM5 21a1 1 0 1 0 2 0 1 1 0 0 0-2 0m11 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/></svg>
+    Free Parking
+  </div>
+  <div class="amenity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M10 20a1 1 0 1 0 2 0 1 1 0 0 0-2 0m6 0a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/></svg>
+    Restaurant
+  </div>
+  <div class="amenity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+    Peaceful Location
+  </div>
+  <div class="amenity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5zM3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14zM14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5zM2 8.5C2 7.67 2.67 7 3.5 7h5c.83 0 1.5.67 1.5 1.5S9.33 10 8.5 10h-5C2.67 10 2 9.33 2 8.5z"/></svg>
+    24/7 Hot Water
+  </div>
+  <div class="amenity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Family Friendly
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-label">Our Story</div>
+  <div class="section-title">A Sanctuary in the<br><em>Heart of the Himalayas</em></div>
+  <div class="about-grid">
+    <div class="about-img-stack">
+      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=700&q=80" alt="Hotel exterior view with mountains" class="about-img-main">
+      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80" alt="Cozy hotel room interior" class="about-img-accent">
+    </div>
+    <div class="about-text">
+      <p>Nestled on the Dharamshala–McLeod Ganj road, Agastya Residency is a newly built boutique hotel offering the perfect blend of modern comfort and Himalayan tranquillity.</p>
+      <p>Our 12 thoughtfully designed rooms provide breathtaking valley and mountain views, making every morning feel like an escape. The Dhauladhar ranges greet you from your balcony, while the spiritual energy of McLeod Ganj is just minutes away.</p>
+      <p>From our in-house restaurant serving North Indian, South Indian, Gujarati, Chinese, and Continental cuisine, to our attentive staff — every detail is crafted for your comfort.</p>
+      <div class="about-features">
+        <div class="about-feature">12 Curated Rooms</div>
+        <div class="about-feature">Himalayan Views</div>
+        <div class="about-feature">In-House Restaurant</div>
+        <div class="about-feature">3km to McLeodganj</div>
+        <div class="about-feature">Free Parking</div>
+        <div class="about-feature">Friendly Staff</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="section rooms-section" id="rooms">
+  <div class="section-label">Accommodation</div>
+  <div class="section-title">Rest in Comfort,<br><em>Wake to Mountains</em></div>
+  <div class="rooms-grid">
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Super Deluxe Room at Agastya Residency Dharamshala" class="room-img">
+      <div class="room-body">
+        <div class="room-type">Signature Room</div>
+        <div class="room-name">Super Deluxe Room</div>
+        <p class="room-desc">Elegantly appointed with double bed, premium interiors, and an attached bath. Enjoy the valley views from your private balcony with a cup of morning tea.</p>
+        <div class="room-price">
+          <span class="from">Starting from</span>
+          <span class="amount">₹1,800</span>
+          <span class="per">/ night</span>
+        </div>
+        <div class="room-amenities">
+          <span class="room-amenity">🛏 Double Bed</span>
+          <span class="room-amenity">🏔 Mountain View</span>
+          <span class="room-amenity">🚿 Attached Bath</span>
+          <span class="room-amenity">📶 Free Wi-Fi</span>
+        </div>
+        <a href="#contact" class="room-cta">Reserve This Room</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=700&q=80" alt="Family Room at Agastya Residency Dharamshala" class="room-img">
+      <div class="room-body">
+        <div class="room-type">Family Suite</div>
+        <div class="room-name">Family Room</div>
+        <p class="room-desc">A spacious, elegantly crafted room with two beds — designed for families who want to stay together in comfort. Beautiful interiors, ample storage, and stunning views.</p>
+        <div class="room-price">
+          <span class="from">Starting from</span>
+          <span class="amount">₹2,800</span>
+          <span class="per">/ night</span>
+        </div>
+        <div class="room-amenities">
+          <span class="room-amenity">🛏🛏 2 Beds</span>
+          <span class="room-amenity">🏔 Valley View</span>
+          <span class="room-amenity">🛁 Spacious Bath</span>
+          <span class="room-amenity">🅿 Free Parking</span>
+        </div>
+        <a href="#contact" class="room-cta">Reserve This Room</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIEWS / GALLERY -->
+<div class="views-section" id="gallery">
+  <div class="section-label" style="color: var(--gold-light)">Gallery</div>
+  <div class="section-title">A Glimpse of<br><em>Agastya Residency</em></div>
+  <div class="views-gallery">
+    <div class="view-item">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="Dhauladhar mountain view from hotel balcony">
+      <div class="view-overlay"><span>Balcony Mountain View</span></div>
+    </div>
+    <div class="view-item">
+      <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400&q=80" alt="Hotel room interior">
+      <div class="view-overlay"><span>Deluxe Room</span></div>
+    </div>
+    <div class="view-item">
+      <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80" alt="Hotel pool area">
+      <div class="view-overlay"><span>Hotel Exterior</span></div>
+    </div>
+    <div class="view-item">
+      <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=400&q=80" alt="Valley view from room window">
+      <div class="view-overlay"><span>Valley View</span></div>
+    </div>
+    <div class="view-item">
+      <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80" alt="Terrace view of Dharamshala">
+      <div class="view-overlay"><span>Hotel Terrace</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESTAURANT -->
+<section class="section" id="restaurant">
+  <div class="section-label">Dining</div>
+  <div class="section-title">A Culinary Journey<br><em>Across India & Beyond</em></div>
+  <div class="restaurant-grid">
+    <div class="restaurant-imgs">
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700&q=80" alt="Indian cuisine spread at Agastya Residency restaurant">
+      <img src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=400&q=80" alt="Restaurant dining area">
+      <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=400&q=80" alt="Mountain view from restaurant">
+    </div>
+    <div class="restaurant-text">
+      <p>Our in-house restaurant is where flavours of the subcontinent meet. From hearty North Indian dals to crispy South Indian dosas, light Gujarati thalis to sizzling Chinese stir-fries — we celebrate the full range of Indian cuisine under one roof.</p>
+      <p>Every meal is prepared fresh with locally sourced ingredients where possible. Dine with the Dhauladhar ranges as your backdrop, and let our kitchen turn a meal into a memory.</p>
+      <div class="cuisine-tags">
+        <span class="cuisine-tag">North Indian</span>
+        <span class="cuisine-tag">South Indian</span>
+        <span class="cuisine-tag">Gujarati</span>
+        <span class="cuisine-tag">Chinese</span>
+        <span class="cuisine-tag">Continental</span>
+        <span class="cuisine-tag">Breakfast Buffet</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-label">Guest Stories</div>
+  <div class="section-title">What Our Guests<br><em>Remember Most</em></div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"My anniversary stay was everything I dreamed of. The warmth of the staff, the surreal mountain views from the balcony — we will return every year."</div>
+      <div class="review-author">Priya M.</div>
+      <div class="review-platform">via Google Reviews</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Rooms are incredibly spacious, bathrooms spotless. The view of the Dhauladhar mountains from the room is nothing short of spectacular. Highly recommended."</div>
+      <div class="review-author">Rajesh K.</div>
+      <div class="review-platform">via TripAdvisor</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Excellent hospitality, excellent food, excellent hygiene. Special thanks to Mr. Sher for making our stay so special. Best hotel in Dharamshala without question."</div>
+      <div class="review-author">Ananya S.</div>
+      <div class="review-platform">via Google Reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGHTSEEING -->
+<section class="section" id="sightseeing">
+  <div class="section-label">Explore</div>
+  <div class="section-title">Discover the Magic<br><em>Around You</em></div>
+  <div class="sights-grid">
+    <div class="sight-card">
+      <img src="https://images.unsplash.com/photo-1605649461784-edc04ef9c140?w=500&q=80" alt="McLeod Ganj Tibetan market and temple">
+      <div class="sight-overlay">
+        <div class="sight-dist">3 km · 10 min</div>
+        <div class="sight-name">McLeod Ganj</div>
+        <div class="sight-desc">The vibrant Tibetan cultural hub with cafes, monasteries, and trekking trails.</div>
+      </div>
+    </div>
+    <div class="sight-card">
+      <img src="https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?w=500&q=80" alt="Dal Lake Dharamshala">
+      <div class="sight-overlay">
+        <div class="sight-dist">1 km · 3 min</div>
+        <div class="sight-name">Dal Lake</div>
+        <div class="sight-desc">A sacred, panoramic lake surrounded by Deodar cedar forests.</div>
+      </div>
+    </div>
+    <div class="sight-card">
+      <img src="https://images.unsplash.com/photo-1598511726623-d2e9996892f0?w=500&q=80" alt="St. John in the Wilderness Church Dharamshala">
+      <div class="sight-overlay">
+        <div class="sight-dist">2 km · 7 min</div>
+        <div class="sight-name">St. John Church</div>
+        <div class="sight-desc">The beautiful 19th-century church in the wilderness, en route to McLeodganj.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-label" style="color:var(--gold-light)">Get in Touch</div>
+      <div class="section-title" style="color:white">Reserve Your<br><em>Mountain Escape</em></div>
+      <br>
+      <div class="contact-detail">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <label>Address</label>
+          <span>Near C'valik School, Cantt Road,<br>Dharamshala, Himachal Pradesh 176215</span>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24l3-.02a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <label>Phone</label>
+          <a href="tel:+917018056716">+91 70180 56716</a>
+          <a href="tel:+918904500009">+91 89045 00009</a>
+          <a href="tel:+919805066880">+91 98050 66880</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <label>Email</label>
+          <a href="mailto:bookagastyaresidency@gmail.com">bookagastyaresidency@gmail.com</a>
+          <a href="mailto:agastyaresidency78@gmail.com">agastyaresidency78@gmail.com</a>
+        </div>
+      </div>
+      <a href="https://wa.me/917018056716?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20room%20availability%20at%20Agastya%20Residency." class="whatsapp-btn" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Chat on WhatsApp
+      </a>
+    </div>
+    <div class="contact-form-side">
+      <div style="margin-bottom:28px">
+        <div class="section-label" style="color:var(--gold-light)">Reservation Enquiry</div>
+        <p style="color:rgba(255,255,255,0.5); font-size:14px; margin-top:8px">Fill in your details and we'll confirm your room within a few hours.</p>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" placeholder="+91 ...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Check-in Date</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Check-out Date</label>
+          <input type="date">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Room Type</label>
+          <select>
+            <option>Super Deluxe Room</option>
+            <option>Family Room</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>No. of Guests</label>
+          <select>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Special Requests</label>
+        <textarea rows="3" placeholder="Any special requirements, early check-in, etc."></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%; border:none; font-size:13px" onclick="alert('Thank you! We will contact you shortly on WhatsApp to confirm your booking.')">Send Reservation Request</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Agastya <span>Residency</span></a>
+  <div class="footer-copy">© 2026 Agastya Residency, Dharamshala · All Rights Reserved</div>
+  <div class="footer-socials">
+    <a href="#" class="footer-social" title="Instagram">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="https://maps.app.goo.gl/PDJSKKCBB9mTZthN9" target="_blank" class="footer-social" title="Google Maps">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+    </a>
+    <a href="https://wa.me/917018056716" target="_blank" class="footer-social" title="WhatsApp">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/917018056716?text=Hi%2C%20I%20want%20to%20book%20a%20room%20at%20Agastya%20Residency." class="float-wa" target="_blank" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  // Sticky nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21 Stories | Shop Our Collection</title>
+    <!-- Google Fonts: Assistant is the standard Shopify font -->
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #121212;
+            --white: #ffffff;
+            --light-gray: #f3f3f3;
+            --gray: #707070;
+            --accent: #334fb4; /* Shopify blue accent */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Assistant', sans-serif; color: var(--black); line-height: 1.6; }
+
+        /* Header & Nav */
+        header { border-bottom: 1px solid #e8e8e8; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: white; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        nav a { text-decoration: none; color: var(--black); margin: 0 15px; font-size: 14px; text-transform: capitalize; }
+        .icons { font-size: 18px; cursor: pointer; }
+
+        /* Hero Section */
+        .hero { 
+            position: relative; 
+            height: 80vh; 
+            background: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
+        .hero-content { position: relative; z-index: 1; max-width: 600px; padding: 20px; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .btn { display: inline-block; padding: 12px 30px; background: var(--white); color: var(--black); text-decoration: none; font-weight: 600; border-radius: 2px; transition: 0.3s; }
+        .btn:hover { background: var(--black); color: var(--white); }
+
+        /* Featured Products */
+        .section-padding { padding: 60px 5%; }
+        .section-title { text-align: center; margin-bottom: 40px; font-size: 28px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .product-card { border-radius: 4px; overflow: hidden; transition: 0.3s; cursor: pointer; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img { width: 100%; height: 350px; object-fit: cover; background: var(--light-gray); }
+        .product-info { padding: 15px 0; }
+        .product-title { font-weight: 600; font-size: 16px; margin-bottom: 5px; }
+        .product-price { color: var(--gray); font-size: 14px; }
+
+        /* Reviews Section */
+        .reviews { background: var(--light-gray); }
+        .review-container { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; scroll-snap-type: x mandatory; }
+        .review-card { 
+            min-width: 300px; background: white; padding: 30px; border-radius: 8px; 
+            scroll-snap-align: start; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .stars { color: #ffcc00; margin-bottom: 10px; }
+        .review-text { font-style: italic; font-size: 14px; margin-bottom: 15px; }
+        .reviewer-name { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Instagram Section */
+        .insta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .insta-grid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+
+        /* Footer */
+        footer { background: var(--black); color: white; padding: 50px 5%; text-align: center; }
+        .footer-links { margin: 20px 0; }
+        .footer-links a { color: #ccc; text-decoration: none; margin: 0 10px; font-size: 12px; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .insta-grid { grid-template-columns: repeat(2, 1fr); }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Announcement Bar -->
+    <div style="background: var(--black); color: white; text-align: center; padding: 8px; font-size: 12px; letter-spacing: 1px;">
+        FREE SHIPPING ON ALL ORDERS OVER ₹999
+    </div>
+
+    <header>
+        <div class="logo">21 Stories</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Shop All</a>
+            <a href="#">New Arrivals</a>
+            <a href="#">Reviews</a>
+        </nav>
+        <div class="icons">
+            <span>🔍</span> &nbsp; <span>🛒</span>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Curated Stories, Crafted for You.</h1>
+            <p style="margin-bottom: 30px;">Discover our latest collection inspired by everyday journeys.</p>
+            <a href="#" class="btn">Shop the Collection</a>
+        </div>
+    </section>
+
+    <!-- Featured Products (Shopify Style) -->
+    <section class="section-padding">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?auto=format&fit=crop&w=500&q=80" alt="Product">
+                <div class="product-info">
+                    <div class="product-title">The Classic Story Journal</div>
+                    <div class="product-price">₹499.00</div>
+                </div>
+            </div>
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80" alt="Product">
+                <div class="product-info">
+                    <div class="product-title">Minimalist Gold Necklace</div>
+                    <div class="product-price">₹1,299.00</div>
+                </div>
+            </div>
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=500&q=80" alt="Product">
+                <div class="product-info">
+                    <div class="product-title">Organic Cotton Tee</div>
+                    <div class="product-price">₹899.00</div>
+                </div>
+            </div>
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=500&q=80" alt="Product">
+                <div class="product-info">
+                    <div class="product-title">Vintage Aesthetic Tote</div>
+                    <div class="product-price">₹650.00</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="section-padding reviews">
+        <h2 class="section-title">What Our Community Says</h2>
+        <div class="review-container">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Absolutely love the quality! The packaging was so thoughtful, it really felt like a story unfolding."</p>
+                <p class="reviewer-name">— Anjali R.</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Fast shipping and the product looks even better than the Instagram photos. Highly recommend 21 Stories!"</p>
+                <p class="reviewer-name">— Rohan M.</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"The minimalist aesthetic is exactly what I was looking for. Perfect for gifting."</p>
+                <p class="reviewer-name">— Sneha P.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed Preview -->
+    <section class="section-padding">
+        <h2 class="section-title" style="margin-bottom: 10px;">Follow Us @21stories.co.in</h2>
+        <p style="text-align: center; margin-bottom: 30px; color: var(--gray);">Tag us to be featured!</p>
+        <div class="insta-grid">
+            <img src="https://images.unsplash.com/photo-1529139513055-07f90feda3f0?auto=format&fit=crop&w=400&q=80" alt="Instagram Post">
+            <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=400&q=80" alt="Instagram Post">
+            <img src="https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&w=400&q=80" alt="Instagram Post">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80" alt="Instagram Post">
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo" style="color: white; margin-bottom: 20px;">21 Stories</div>
+        <p style="font-size: 14px; color: #888;">Modern essentials for the mindful individual.</p>
+        <div class="footer-links">
+            <a href="#">Search</a>
+            <a href="#">Refund Policy</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <p style="font-size: 11px; color: #555; margin-top: 20px;">&copy; 2024, 21 Stories. Powered by Shopify Style.</p>
+    </footer>
+
+</body>
+</html>

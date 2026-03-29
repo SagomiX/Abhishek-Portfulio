@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Projects | WEB X HUB — Abhishek's Portfolio</title>
+<meta name="description" content="Custom HTML web design projects by Abhishek at WEB X HUB."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+canvas#leaf-canvas,canvas#firefly-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.6}
+#birds-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+#snake-canvas{position:fixed;right:0;top:0;height:100%;pointer-events:none;z-index:2;opacity:.4}
+.par-section{position:relative;min-height:50vh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.par-section::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;z-index:8;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--void))}
+.par-bg{position:absolute;inset:-40% 0;z-index:0;will-change:transform;pointer-events:none}
+.par-overlay{position:absolute;inset:0;z-index:1;pointer-events:none}
+.par-content{position:relative;z-index:5;width:100%;max-width:1200px;margin:0 auto;padding:0 5vw}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;position:relative;z-index:10}
+.proj-card{background:rgba(15,31,21,.88);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;cursor:none}
+.proj-card:hover{transform:translateY(-10px) scale(1.015);border-color:rgba(120,255,82,.35);box-shadow:0 28px 80px rgba(0,0,0,.7),0 0 40px rgba(120,255,82,.08)}
+.proj-info{padding:1.2rem 1.5rem 1.5rem}
+.proj-info h3{font-family:var(--font-head);font-weight:800;font-size:1rem;margin-bottom:.3rem}
+.proj-info p{color:var(--muted);font-size:.82rem}
+.grid-loading{grid-column:1/-1;text-align:center;padding:4rem 0;color:var(--muted)}
+.grid-loading .spinner{width:36px;height:36px;border:3px solid rgba(120,255,82,.15);border-top-color:rgba(120,255,82,.6);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.grid-empty{grid-column:1/-1;text-align:center;padding:4rem 0;color:var(--muted)}
+@media(max-width:1024px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.projects-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="leaf-canvas"></canvas><canvas id="firefly-canvas"></canvas>
+<canvas id="snake-canvas"></canvas><div id="birds-layer"></div>
+<div id="cursor"></div><div id="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span class="leaf">🌿</span>WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB</a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="works.html">Works</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Hire Me 🌿</a></li>
+  </ul>
+</nav>
+
+  <p>text</p>
+
+<section class="par-section" data-speed="0.35" style="padding:calc(var(--nav-h)+80px) 0 60px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(10,30,15,.95),var(--void))">
+  <div class="par-bg">
+    <svg width="100%" height="180%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <g fill="rgba(5,18,10,.75)">
+        <ellipse cx="0" cy="900" rx="200" ry="500"/>
+        <ellipse cx="400" cy="900" rx="180" ry="460"/>
+        <ellipse cx="800" cy="900" rx="210" ry="520"/>
+        <ellipse cx="1200" cy="900" rx="190" ry="480"/>
+        <ellipse cx="1440" cy="900" rx="180" ry="450"/>
+      </g>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom,rgba(2,5,8,.65),rgba(2,5,8,.3) 50%,rgba(2,5,8,.75))"></div>
+  <div class="par-content" style="text-align:center;">
+    <div class="section-label reveal">HTML Projects</div>
+    <h1 class="section-title reveal rd2">Custom Built <em>Websites</em></h1>
+    <p style="color:var(--muted);max-width:520px;margin:.8rem auto 0;" class="reveal rd3">Every project built from scratch — Figma designed, hand-coded in clean HTML/CSS/JS. Click to explore fully.</p>
+    <div class="filter-bar reveal rd4">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="hotel">Hotels</button>
+      <button class="filter-btn" data-filter="food">Food & Dining</button>
+      <button class="filter-btn" data-filter="architect">Architecture</button>
+      <button class="filter-btn" data-filter="travel">Travel & Rentals</button>
+      <button class="filter-btn" data-filter="other">Other</button>
+    </div>
+  </div>
+</section>
+
+<section class="par-section" data-speed="0.2" style="padding:4rem 0 8rem;min-height:auto;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(5,18,10,.6),var(--void))">
+  <div class="par-overlay" style="background:rgba(2,5,8,.4)"></div>
+  <div class="par-content">
+    <div class="projects-grid" id="projects-grid">
+      <div class="grid-loading">
+        <div class="spinner"></div>
+        <p>Loading projects…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="text-decoration:none;"><span class="leaf">🌿</span>WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB</a>
+      <p>Custom HTML projects, WordPress, Shopify and more.</p>
+      <div class="social-links" style="margin-top:1.2rem;">
+        <a href="mailto:kumarabhishek180502@gmail.com">✉</a>
+        <a href="tel:+918580999516">📞</a>
+        <a href="https://www.linkedin.com/in/abhishek-undefined-1982913b8/" target="_blank">in</a>
+        <a href="https://www.instagram.com/web_x_hub/" target="_blank">◎</a>
+        <a href="https://wa.me/918580999516" target="_blank">💬</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="projects.html">Projects</a></li><li><a href="works.html">Works</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Custom HTML</a></li><li><a href="#">WordPress</a></li><li><a href="#">Shopify</a></li><li><a href="#">Webflow</a></li><li><a href="#">Figma Design</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+918580999516">+91 85809 99516</a></li><li><a href="mailto:kumarabhishek180502@gmail.com">kumarabhishek180502@gmail.com</a></li><li><a href="https://wa.me/918580999516" target="_blank">WhatsApp 💬</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 WEB X HUB · Abhishek. All rights reserved.</p>
+    <p style="color:var(--lime);opacity:.6">// grown with ❤️ in the digital jungle</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+(function () {
+  const grid = document.getElementById('projects-grid');
+  let allProjects = [];
+  let activeFilter = 'all';
+
+  function renderCards(projects) {
+    if (!projects.length) {
+      grid.innerHTML = '<div class="grid-empty"><p>No projects in this category yet.</p></div>';
+      return;
+    }
+    grid.innerHTML = projects.map((p, i) => {
+      const delay = ['', 'rd1', 'rd2'][i % 3];
+      const tagsHtml = (p.tags || []).map(([label, cls]) =>
+        `<span class="tag ${cls}">${label}</span>`
+      ).join('');
+      return `
+        <a href="projects/${p.file}" class="proj-card reveal ${delay}" data-category="${p.category}" target="_blank">
+          <div class="proj-thumb">
+            <iframe src="projects/${p.file}" loading="lazy" scrolling="no"></iframe>
+            <div class="proj-thumb-overlay"><span>Open Project ↗</span></div>
+          </div>
+          <div class="proj-info">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.6rem">${tagsHtml}</div>
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+          </div>
+        </a>`;
+    }).join('');
+    if (typeof window.initReveal === 'function') window.initReveal();
+  }
+
+  function applyFilter(filter) {
+    activeFilter = filter;
+    const filtered = filter === 'all'
+      ? allProjects
+      : allProjects.filter(p => p.category === filter);
+    renderCards(filtered);
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  fetch('projects/manifest.json?v=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('manifest not found');
+      return r.json();
+    })
+    .then(data => {
+      allProjects = data;
+      applyFilter(activeFilter);
+    })
+    .catch(() => {
+      grid.innerHTML = `<div class="grid-empty"><p>Could not load projects.<br>Make sure <code>projects/manifest.json</code> exists.</p></div>`;
+    });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>White Oak Restaurant — Paharganj, New Delhi | North Indian · Chinese · Italian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --green:     #2d5a3d;
+  --green-l:   #3d7a54;
+  --green-xl:  #4d9a6a;
+  --mint:      #e8f5ee;
+  --sage:      #8ab89a;
+  --oak:       #6b4c2a;
+  --oak-l:     #9b7a4a;
+  --cream:     #faf8f4;
+  --warm-w:    #f5f0e8;
+  --parch:     #ede5d4;
+  --ink:       #1a1a16;
+  --charcoal:  #2e2e28;
+  --stone:     #7a7468;
+  --border:    rgba(45,90,61,.12);
+  --gold:      #c8960a;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--green)}
+
+/* grain */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 4rem;
+  transition:all .5s cubic-bezier(.22,1,.36,1);
+}
+nav.on{
+  background:rgba(250,248,244,.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:1rem 4rem;
+  box-shadow:0 2px 30px rgba(45,90,61,.05);
+}
+.brand{display:flex;flex-direction:column;gap:0}
+.brand-name{
+  font-family:'Fraunces',serif;
+  font-size:1.35rem;font-weight:600;letter-spacing:.02em;
+  color:#fff;transition:color .4s;line-height:1;
+}
+nav.on .brand-name{color:var(--green)}
+.brand-loc{
+  font-size:.46rem;letter-spacing:.4em;text-transform:uppercase;font-weight:500;
+  color:rgba(255,255,255,.5);transition:color .4s;line-height:1.6;
+}
+nav.on .brand-loc{color:var(--sage)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+  color:rgba(255,255,255,.7);text-decoration:none;transition:color .3s;
+}
+nav.on .nav-links a{color:var(--charcoal)}
+.nav-links a:hover{color:var(--green-xl)!important}
+.nav-btn{
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  background:var(--green);color:#fff;
+  padding:.55rem 1.4rem;text-decoration:none;
+  border-radius:2px;transition:all .3s;
+}
+.nav-btn:hover{background:var(--green-l);transform:translateY(-1px)}
+
+/* ── HERO ── */
+#hero{
+  position:relative;height:100vh;min-height:640px;
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(130deg,rgba(26,26,22,.9) 0%,rgba(45,90,61,.4) 50%,rgba(26,26,22,.85) 100%);
+}
+.hero-img{
+  position:absolute;inset:0;z-index:-1;
+  background:
+    url('https://b.zmtcdn.com/data/pictures/0/19613590/f29d3f9e81b9e49c7ead4b5c83f6d1a2.jpg?fit=around|771.75:580&crop=771.75:580;*,*') center/cover,
+    url('https://b.zmtcdn.com/data/pictures/5/20565855/9c71d44d67b7eff3d1e1e5ac21f31b28.jpg') center/cover,
+    linear-gradient(135deg,#2d3a28,#1a1a16);
+  filter:brightness(.55) saturate(.85);
+  transition:transform 9s ease;
+}
+#hero:hover .hero-img{transform:scale(1.04)}
+
+/* floating leaf particles */
+.leaves{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.leaf{
+  position:absolute;opacity:0;
+  animation:leaf-fall var(--ld) ease-in-out infinite;
+  animation-delay:var(--ldel);
+  left:var(--lx);top:var(--ly);
+  width:var(--lw);height:var(--lh);
+  background:var(--lc);border-radius:50% 0 50% 0;
+  transform-origin:center;
+}
+@keyframes leaf-fall{
+  0%{opacity:0;transform:rotate(var(--lr)) translateY(0) scale(0.6)}
+  15%{opacity:.35}
+  85%{opacity:.2}
+  100%{opacity:0;transform:rotate(calc(var(--lr) + 40deg)) translateY(80px) scale(1)}
+}
+
+.hero-content{
+  position:relative;z-index:5;
+  padding:0 5rem;
+  max-width:820px;
+}
+.h-eyebrow{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;font-weight:500;
+  color:var(--sage);margin-bottom:1.8rem;
+  animation:slide-up .8s .1s cubic-bezier(.22,1,.36,1) both;
+}
+.h-eyebrow-dot{width:5px;height:5px;background:var(--green-xl);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+@keyframes slide-up{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+
+.h-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(3.5rem,9vw,8rem);
+  font-weight:400;line-height:.9;color:#fff;
+  margin-bottom:.6rem;
+  animation:slide-up .8s .25s cubic-bezier(.22,1,.36,1) both;
+}
+.h-title em{display:block;font-style:italic;color:rgba(138,184,154,.85);font-weight:300}
+.h-sep{
+  display:flex;align-items:center;gap:1rem;margin:.8rem 0 1.5rem;
+  animation:slide-up .8s .4s cubic-bezier(.22,1,.36,1) both;
+}
+.h-sep-line{flex:0 0 55px;height:1px;background:rgba(255,255,255,.2)}
+.h-sep-txt{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:.85rem;color:rgba(255,255,255,.5);letter-spacing:.04em;
+}
+.h-desc{
+  font-size:.9rem;line-height:1.85;color:rgba(255,255,255,.6);
+  margin-bottom:2.5rem;max-width:500px;font-weight:300;
+  animation:slide-up .8s .52s cubic-bezier(.22,1,.36,1) both;
+}
+.h-chips{
+  display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem;
+  animation:slide-up .8s .62s cubic-bezier(.22,1,.36,1) both;
+}
+.chip{
+  font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+  border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);
+  padding:.3rem .85rem;border-radius:2px;transition:all .3s;
+}
+.chip:hover{border-color:var(--sage);color:var(--sage)}
+.h-btns{
+  display:flex;gap:.8rem;flex-wrap:wrap;
+  animation:slide-up .8s .76s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-primary{
+  font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+  background:var(--green);color:#fff;
+  padding:.9rem 2.4rem;text-decoration:none;border-radius:3px;
+  position:relative;overflow:hidden;transition:all .35s;
+}
+.btn-primary::after{
+  content:'';position:absolute;inset:0;
+  background:var(--green-l);transform:scaleX(0);transform-origin:right;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.btn-primary:hover::after{transform:scaleX(1);transform-origin:left}
+.btn-primary span{position:relative}
+.btn-secondary{
+  font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+  border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);
+  padding:.9rem 2rem;text-decoration:none;border-radius:3px;transition:all .3s;
+}
+.btn-secondary:hover{border-color:var(--sage);color:var(--sage)}
+
+/* scroll cue */
+.h-scroll{
+  position:absolute;bottom:2.5rem;right:5rem;z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  animation:slide-up .8s 1s both;
+}
+.h-scroll-label{font-size:.45rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.h-scroll-track{
+  width:1px;height:50px;
+  background:linear-gradient(to bottom,rgba(138,184,154,.6),transparent);
+  position:relative;overflow:hidden;
+}
+.h-scroll-track::after{
+  content:'';position:absolute;top:-20px;left:0;right:0;height:20px;
+  background:var(--sage);opacity:.6;
+  animation:track-drip 2.2s ease-in-out infinite;
+}
+@keyframes track-drip{from{top:-20px}to{top:70px}}
+
+/* stats bar */
+.stats-bar{
+  background:var(--green);
+  display:flex;gap:0;
+}
+.sbar-item{
+  flex:1;padding:1.4rem 2rem;text-align:center;
+  border-right:1px solid rgba(255,255,255,.1);
+  transition:background .3s;
+}
+.sbar-item:last-child{border-right:none}
+.sbar-item:hover{background:var(--green-l)}
+.sbar-val{
+  font-family:'Fraunces',serif;
+  font-size:1.8rem;font-weight:600;color:#fff;line-height:1;
+}
+.sbar-key{
+  font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+  color:rgba(255,255,255,.55);margin-top:.3rem;
+}
+
+/* ── SHARED ── */
+.sec{padding:7rem 4rem}
+.tag{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-size:.54rem;letter-spacing:.38em;text-transform:uppercase;font-weight:600;
+  color:var(--green);margin-bottom:.8rem;
+}
+.tag::before{content:'';width:20px;height:2px;background:var(--green);border-radius:1px}
+
+/* ── ABOUT ── */
+#about{background:var(--warm-w)}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:center;
+}
+.about-text h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.4rem,4vw,3.6rem);font-weight:400;
+  line-height:1.1;color:var(--ink);margin-bottom:1.8rem;
+}
+.about-text h2 em{font-style:italic;color:var(--green)}
+.about-text p{
+  font-size:.9rem;line-height:1.9;color:var(--stone);
+  margin-bottom:1.3rem;font-weight:300;
+}
+.about-pull{
+  border-left:3px solid var(--green-xl);
+  padding:.9rem 1.4rem;
+  background:var(--mint);
+  margin:2rem 0;border-radius:0 4px 4px 0;
+}
+.about-pull p{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:1rem;color:var(--green);line-height:1.6;
+}
+.known-for{
+  display:flex;gap:.5rem;flex-wrap:wrap;margin-top:2rem;
+}
+.kf-tag{
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;
+  background:var(--mint);color:var(--green);
+  padding:.35rem .9rem;border-radius:20px;border:1px solid rgba(45,90,61,.15);
+}
+/* Visual */
+.about-visual{position:relative}
+.about-img-main{
+  width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;
+  border-radius:4px;
+}
+.about-photo{
+  width:100%;height:100%;
+  background:
+    url('https://b.zmtcdn.com/data/pictures/0/19613590/f29d3f9e81b9e49c7ead4b5c83f6d1a2.jpg?fit=around|771.75:580&crop=771.75:580;*,*') center/cover,
+    linear-gradient(145deg,#2d5a3d,#1a2616);
+  filter:brightness(.88);transition:all .6s;
+}
+.about-img-main:hover .about-photo{transform:scale(1.04);filter:brightness(.95)}
+.about-badge{
+  position:absolute;bottom:-1.5rem;left:-1.5rem;
+  background:var(--green);
+  padding:1.4rem 1.6rem;border-radius:3px;
+  text-align:center;
+}
+.ab-val{
+  font-family:'Fraunces',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1;
+}
+.ab-key{
+  font-size:.44rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-top:.2rem;
+}
+.about-float{
+  position:absolute;top:-1.2rem;right:-1.2rem;
+  background:var(--warm-w);border:1px solid var(--border);
+  padding:1.1rem;border-radius:4px;max-width:160px;
+  box-shadow:0 8px 30px rgba(45,90,61,.1);
+}
+.af-stars{color:var(--gold);font-size:.7rem;letter-spacing:.06em;margin-bottom:.2rem}
+.af-text{font-size:.68rem;color:var(--charcoal);line-height:1.4}
+.af-src{font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-top:.3rem}
+
+/* ── MENU ── */
+#menu{background:var(--ink)}
+.menu-top{text-align:center;margin-bottom:3.5rem}
+.menu-top .tag{color:var(--sage);justify-content:center}
+.menu-top .tag::before{background:var(--sage)}
+.menu-top h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);font-weight:400;
+  color:#fff;margin-bottom:.4rem;
+}
+.menu-top h2 em{font-style:italic;color:var(--sage)}
+.menu-top p{font-size:.78rem;color:rgba(255,255,255,.35);letter-spacing:.1em}
+.menu-tabs{
+  display:flex;justify-content:center;gap:0;
+  max-width:760px;margin:0 auto 3rem;
+  border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;
+}
+.mtab{
+  flex:1;padding:.72rem;background:transparent;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+  color:rgba(255,255,255,.35);cursor:pointer;border:none;
+  border-right:1px solid rgba(255,255,255,.08);transition:all .3s;
+}
+.mtab:last-child{border-right:none}
+.mtab.on,.mtab:hover{background:var(--green);color:#fff}
+.dishes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;max-width:1200px;margin:0 auto;
+  background:rgba(255,255,255,.05);
+}
+.dish{
+  background:var(--ink);padding:2rem 1.8rem;
+  position:relative;overflow:hidden;transition:background .4s;
+}
+.dish-shine{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--green),var(--green-xl));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.dish:hover{background:rgba(45,90,61,.08)}
+.dish:hover .dish-shine{transform:scaleX(1)}
+.dish-cat{
+  font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;
+  color:var(--green-xl);margin-bottom:.5rem;
+}
+.dish h3{
+  font-family:'Fraunces',serif;
+  font-size:1.12rem;font-weight:400;color:#fff;margin-bottom:.5rem;line-height:1.25;
+}
+.dish p{font-size:.73rem;line-height:1.8;color:rgba(255,255,255,.38);font-weight:300}
+.dish-price{
+  margin-top:1rem;font-family:'Fraunces',serif;font-style:italic;
+  font-size:.82rem;color:var(--gold);letter-spacing:.04em;
+}
+.veg,.nv{
+  position:absolute;top:1.1rem;right:1.1rem;
+  width:10px;height:10px;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+.veg{border:1.5px solid #4ec94e}.veg::after{content:'';width:4px;height:4px;background:#4ec94e;border-radius:50%}
+.nv{border:1.5px solid #d84040}.nv::after{content:'';width:4px;height:4px;background:#d84040;border-radius:50%}
+
+/* ── GALLERY ── */
+#gallery{background:var(--parch);padding:7rem 0}
+.gal-hdr{padding:0 4rem;margin-bottom:2.5rem}
+.gal-hdr h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.2rem,4vw,3.2rem);font-weight:400;color:var(--ink);
+}
+.gal-hdr h2 em{font-style:italic;color:var(--green)}
+.gal-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:210px 210px;
+  gap:3px;padding:0 4rem;
+}
+.gc{overflow:hidden;position:relative;background:var(--parch);cursor:pointer}
+.gc.tall{grid-row:span 2}.gc.wide{grid-column:span 2}
+.gc-img{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  filter:brightness(.8) saturate(.8);
+  transition:all .55s cubic-bezier(.22,1,.36,1);
+}
+.gc:hover .gc-img{filter:brightness(1) saturate(1.05);transform:scale(1.07)}
+.gc-over{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,26,22,.85),transparent 55%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:1.1rem;
+}
+.gc:hover .gc-over{opacity:1}
+.gc-lbl{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:.82rem;color:#fff;
+}
+.gal-reel{
+  display:flex;gap:3px;overflow-x:auto;
+  padding:3px 4rem 1.5rem;margin-top:3px;
+  scrollbar-width:thin;scrollbar-color:var(--green) transparent;
+}
+.rf{flex:0 0 200px;height:175px;overflow:hidden;background:var(--parch);flex-shrink:0;border-radius:2px}
+.ri{width:100%;height:100%;background-size:cover;background-position:center;filter:brightness(.8) saturate(.7);transition:all .4s}
+.rf:hover .ri{filter:brightness(1) saturate(1);transform:scale(1.08)}
+
+/* ── WHY WEBSITE ── */
+#why{background:var(--green)}
+.why-content{max-width:1200px;margin:0 auto;text-align:center;margin-bottom:4rem}
+.why-content h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2rem,4vw,3rem);font-weight:400;color:#fff;margin-bottom:1rem;
+}
+.why-content h2 em{font-style:italic;color:rgba(255,255,255,.7)}
+.why-content p{font-size:.88rem;line-height:1.85;color:rgba(255,255,255,.65);max-width:600px;margin:0 auto}
+.why-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;
+  max-width:1200px;margin:0 auto;
+  background:rgba(255,255,255,.08);
+}
+.why-card{
+  background:var(--green);padding:2.5rem 2rem;
+  position:relative;overflow:hidden;transition:background .4s;
+}
+.why-card::after{
+  content:'';position:absolute;inset:0;
+  background:var(--green-l);opacity:0;transition:opacity .4s;
+}
+.why-card:hover::after{opacity:1}
+.why-card>*{position:relative;z-index:1}
+.why-icon{font-size:1.8rem;margin-bottom:1rem;display:block}
+.why-title{
+  font-family:'Fraunces',serif;font-size:1.05rem;font-weight:400;
+  color:#fff;margin-bottom:.5rem;
+}
+.why-desc{font-size:.73rem;line-height:1.75;color:rgba(255,255,255,.6);font-weight:300}
+
+/* ── EXPERIENCE ── */
+#experience{background:var(--warm-w)}
+.exp-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;
+  max-width:1200px;margin:3rem auto 0;
+}
+.exp-card{
+  padding:2.2rem 1.8rem;background:white;
+  border:1px solid var(--border);border-radius:4px;
+  position:relative;overflow:hidden;transition:all .4s;
+}
+.exp-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--green),var(--green-xl));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.exp-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(45,90,61,.1)}
+.exp-card:hover::before{transform:scaleX(1)}
+.exp-icon{font-size:1.8rem;margin-bottom:1rem;display:block}
+.exp-title{
+  font-family:'Fraunces',serif;font-size:.98rem;font-weight:400;
+  color:var(--ink);margin-bottom:.4rem;
+}
+.exp-desc{font-size:.72rem;line-height:1.7;color:var(--stone);font-weight:300}
+.exp-header{text-align:center;max-width:1200px;margin:0 auto}
+.exp-header h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2rem,3.5vw,3rem);font-weight:400;color:var(--ink);
+}
+.exp-header h2 em{font-style:italic;color:var(--green)}
+
+/* ── REVIEWS ── */
+#reviews{background:var(--cream)}
+.rev-hdr{text-align:center;margin-bottom:3.5rem}
+.rev-hdr h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2rem,3.5vw,3rem);font-weight:400;color:var(--ink);
+}
+.rev-hdr h2 em{font-style:italic;color:var(--green)}
+.rev-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  max-width:1200px;margin:0 auto;
+}
+.rev-card{
+  background:white;padding:2rem 1.8rem;
+  border:1px solid var(--border);border-radius:4px;
+  position:relative;transition:all .3s;
+}
+.rev-card:hover{box-shadow:0 10px 40px rgba(45,90,61,.1);transform:translateY(-3px)}
+.rev-stars{color:var(--gold);font-size:.8rem;letter-spacing:.08em;margin-bottom:.8rem}
+.rev-text{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:.92rem;line-height:1.8;color:var(--charcoal);margin-bottom:1rem;
+}
+.rev-author{
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:var(--green);
+}
+.rev-src{font-size:.52rem;color:var(--stone);margin-top:.2rem;letter-spacing:.1em}
+.rev-badge{
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--mint);color:var(--green);padding:.2rem .65rem;border-radius:20px;
+  font-weight:600;
+}
+
+/* ── VISIT ── */
+#visit{background:var(--warm-w)}
+.visit-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:start;
+}
+.visit-left h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2rem,3.5vw,3rem);font-weight:400;color:var(--ink);margin-bottom:2.5rem;line-height:1.1;
+}
+.visit-left h2 em{font-style:italic;color:var(--green)}
+.vrow{margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--border)}
+.vlbl{
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;
+  color:var(--green);margin-bottom:.4rem;
+}
+.vrow p,.vrow a{
+  font-size:.88rem;color:var(--charcoal);line-height:1.75;
+  text-decoration:none;display:block;transition:color .3s;font-weight:300;
+}
+.vrow a:hover{color:var(--green)}
+/* Map */
+.visit-map{
+  background:var(--mint);aspect-ratio:1;
+  border:1px solid var(--border);border-radius:4px;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.map-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(45,90,61,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(45,90,61,.07) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.map-ripples{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.mripple{
+  position:absolute;width:65px;height:65px;border-radius:50%;
+  border:1px solid rgba(45,90,61,.25);opacity:0;
+  animation:mripple-out 3s ease-out infinite;
+}
+.mripple:nth-child(2){animation-delay:1s}.mripple:nth-child(3){animation-delay:2s}
+@keyframes mripple-out{0%{transform:scale(.3);opacity:.9}100%{transform:scale(4.5);opacity:0}}
+.map-center{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+}
+.map-pin{
+  width:40px;height:40px;background:var(--green);
+  border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+  animation:pin-float 2.5s ease-in-out infinite;position:relative;
+  box-shadow:0 4px 20px rgba(45,90,61,.3);
+}
+.map-pin::after{content:'';position:absolute;inset:8px;background:#fff;border-radius:50%}
+@keyframes pin-float{
+  0%,100%{transform:rotate(-45deg) translateY(0)}
+  50%{transform:rotate(-45deg) translateY(-10px)}
+}
+.map-info{text-align:center}
+.map-info h4{
+  font-family:'Fraunces',serif;font-size:1rem;font-weight:400;color:var(--ink);margin-bottom:.2rem;
+}
+.map-info p{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.map-corners{position:absolute;font-family:'Plus Jakarta Sans',sans-serif;font-size:.46rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(45,90,61,.3);font-weight:500}
+.map-corners.tl{top:.8rem;left:.8rem}.map-corners.br{bottom:.8rem;right:.8rem;text-align:right}
+
+/* ── RESERVATION ── */
+#reservation{background:var(--green);text-align:center;position:relative;overflow:hidden}
+#reservation::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(255,255,255,.05),transparent)}
+#reservation h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);font-weight:400;color:#fff;position:relative;
+}
+#reservation h2 em{font-style:italic;color:rgba(255,255,255,.7)}
+#reservation>p{
+  font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.06em;margin-bottom:3rem;position:relative;
+}
+.res-row{
+  display:flex;gap:.8rem;max-width:860px;margin:0 auto;
+  flex-wrap:wrap;justify-content:center;position:relative;
+}
+.ri-input{
+  flex:1;min-width:170px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;padding:.9rem 1.1rem;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.72rem;outline:none;border-radius:3px;transition:border-color .3s;
+}
+.ri-input::placeholder{color:rgba(255,255,255,.35)}
+.ri-input:focus{border-color:rgba(255,255,255,.6)}
+.ri-input option{background:var(--green)}
+.res-go{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  background:#fff;color:var(--green);border:none;
+  padding:.9rem 2.5rem;cursor:pointer;border-radius:3px;transition:all .3s;
+}
+.res-go:hover{background:var(--mint);transform:translateY(-1px)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);padding:4rem;
+  display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.f-name{
+  font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:#fff;margin-bottom:.2rem;
+}
+.f-tag{
+  font-size:.46rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:.9rem;display:block;
+}
+.f-about{font-size:.72rem;color:rgba(255,255,255,.35);line-height:1.8;max-width:230px}
+.f-cta{
+  display:inline-block;margin-top:1rem;
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  border:1px solid rgba(138,184,154,.3);color:var(--sage);
+  padding:.5rem 1.2rem;text-decoration:none;border-radius:2px;transition:all .3s;
+}
+.f-cta:hover{background:var(--green);border-color:var(--green);color:#fff}
+.fcol h5{
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:600;
+  color:var(--sage);margin-bottom:1.2rem;
+}
+.fcol a,.fcol p{
+  display:block;font-size:.72rem;color:rgba(255,255,255,.3);
+  text-decoration:none;margin-bottom:.5rem;line-height:1.6;transition:color .3s;
+}
+.fcol a:hover{color:var(--sage)}
+.fbar{
+  background:rgba(0,0,0,.2);padding:1.1rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.fbar p{font-size:.55rem;letter-spacing:.1em;color:rgba(255,255,255,.18)}
+
+/* ── TICKER ── */
+.ticker{
+  background:var(--parch);padding:.8rem 0;overflow:hidden;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.ticker-track{display:flex;width:max-content;animation:ticker-run 28s linear infinite}
+@keyframes ticker-run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{
+  display:flex;align-items:center;gap:1.5rem;padding:0 2rem;
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:.78rem;color:var(--stone);white-space:nowrap;letter-spacing:.04em;
+}
+.tick-dot{width:4px;height:4px;background:var(--green);border-radius:50%}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}.d4{transition-delay:.45s}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .sec{padding:5rem 1.5rem}
+  #gallery{padding:5rem 0}
+  .gal-hdr,.gal-reel{padding:0 1.5rem}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;padding:0 1.5rem}
+  .gc.tall{grid-row:span 1}
+  .about-grid,.visit-grid{grid-template-columns:1fr;gap:3rem}
+  .dishes{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .exp-grid{grid-template-columns:1fr 1fr}
+  .rev-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .h-title{font-size:clamp(3rem,14vw,6rem)}
+  .hero-content{padding:0 1.5rem}
+  .stats-bar{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="brand">
+    <div class="brand-name">White Oak</div>
+    <div class="brand-loc">Restaurant · Paharganj · New Delhi</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-btn">Book a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img" id="heroImg"></div>
+  <div class="leaves" id="leaves"></div>
+
+  <div class="hero-content">
+    <div class="h-eyebrow">
+      <div class="h-eyebrow-dot"></div>
+      Paharganj · New Delhi · Open 12PM–12AM
+    </div>
+    <h1 class="h-title">White<em>Oak</em></h1>
+    <div class="h-sep">
+      <span class="h-sep-line"></span>
+      <span class="h-sep-txt">Restaurant · Desh Bandhu Gupta Road</span>
+    </div>
+    <p class="h-desc">A warm, welcoming restaurant in the heart of Paharganj — delicious food, generous portions, chilled vibes, and a full bar. The kind of place you come back to again and again.</p>
+    <div class="h-chips">
+      <span class="chip">North Indian</span>
+      <span class="chip">Chinese</span>
+      <span class="chip">Italian</span>
+      <span class="chip">Biryani</span>
+      <span class="chip">Full Bar</span>
+      <span class="chip">4.4★ Zomato</span>
+    </div>
+    <div class="h-btns">
+      <a href="#reservation" class="btn-primary"><span>Book a Table</span></a>
+      <a href="#menu" class="btn-secondary">Explore Menu</a>
+    </div>
+  </div>
+  <div class="h-scroll">
+    <div class="h-scroll-track"></div>
+    <span class="h-scroll-label">Scroll</span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="sbar-item"><div class="sbar-val">4.4</div><div class="sbar-key">★ Zomato Rating</div></div>
+  <div class="sbar-item"><div class="sbar-val">₹1,300</div><div class="sbar-key">For Two People</div></div>
+  <div class="sbar-item"><div class="sbar-val">4</div><div class="sbar-key">Cuisines Served</div></div>
+  <div class="sbar-item"><div class="sbar-val">12 AM</div><div class="sbar-key">Late Night Open</div></div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="tag reveal">About White Oak</div>
+      <h2 class="reveal d1">Good Food. Great<br><em>Vibes. Every Time.</em></h2>
+      <p class="reveal d2">Tucked into Desh Bandhu Gupta Road in Paharganj, White Oak Restaurant is the kind of place Delhi's food lovers keep returning to. Clean interiors, soft music, warm lighting — and food that simply delivers on every visit.</p>
+      <p class="reveal d2">From a full bowl of Kadhai Chicken with buttered naans to a satisfying thali, a cool sweet lassi or a Tootie Frootie Sundae — every meal here feels like a proper occasion. The portions are generous, the service is attentive without being overbearing, and the full bar makes evenings here very easy to extend.</p>
+      <div class="about-pull reveal d3">
+        <p>"The décor was nice, lighting was good — very chilled out place. The Kadhai Chicken was very tasty and the buttered naans were excellent."</p>
+      </div>
+      <div class="known-for reveal d3">
+        <span class="kf-tag">Kadhai Chicken</span>
+        <span class="kf-tag">Thali</span>
+        <span class="kf-tag">Sweet Lassi</span>
+        <span class="kf-tag">Biryani</span>
+        <span class="kf-tag">Full Bar</span>
+        <span class="kf-tag">Portion Size</span>
+        <span class="kf-tag">Value for Money</span>
+      </div>
+    </div>
+    <div class="about-visual reveal d2">
+      <div class="about-img-main">
+        <div class="about-photo"></div>
+      </div>
+      <div class="about-badge">
+        <div class="ab-val">4.4</div>
+        <div class="ab-key">Zomato Rating</div>
+      </div>
+      <div class="about-float">
+        <div class="af-stars">★★★★★</div>
+        <div class="af-text">"Very good place for Indian food. Service was excellent."</div>
+        <div class="af-src">TripAdvisor Guest</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="sec">
+  <div class="menu-top">
+    <div class="tag reveal" style="justify-content:center">Our Menu</div>
+    <h2 class="reveal d1">Made Fresh,<br><em>Every Single Day</em></h2>
+    <p class="reveal d2">North Indian · Chinese · Italian · Biryani · Beverages · Full Bar</p>
+  </div>
+  <div class="menu-tabs reveal d2">
+    <button class="mtab on" data-cat="north">North Indian</button>
+    <button class="mtab" data-cat="chinese">Chinese</button>
+    <button class="mtab" data-cat="italian">Italian</button>
+    <button class="mtab" data-cat="desserts">Desserts & Drinks</button>
+  </div>
+  <div class="dishes reveal d3" id="menuGrid"></div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-hdr">
+    <div class="tag reveal">Inside White Oak</div>
+    <h2 class="reveal d1">A Glimpse of Our<br><em>Warm Corner of Paharganj</em></h2>
+  </div>
+  <div class="gal-grid reveal d1">
+    <div class="gc tall">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/f29d3f9e81b9e49c7ead4b5c83f6d1a2.jpg'),linear-gradient(135deg,#2d5a3d,#1a2616)"></div>
+      <div class="gc-over"><span class="gc-lbl">The Restaurant</span></div>
+    </div>
+    <div class="gc wide">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/7b3e9d2f1a8c6e4d5b0f2e3a9c7d1b8e.jpg'),linear-gradient(135deg,#1a2616,#2d5a3d)"></div>
+      <div class="gc-over"><span class="gc-lbl">Kadhai Chicken — Our Bestseller</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f.jpg'),linear-gradient(135deg,#2d5a3d,#1a1a16)"></div>
+      <div class="gc-over"><span class="gc-lbl">Thali Special</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg'),linear-gradient(135deg,#1a1a16,#2d5a3d)"></div>
+      <div class="gc-over"><span class="gc-lbl">Butter Naan</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/8f9e0d1c2b3a4f5e6d7c8b9a0f1e2d3c.jpg'),linear-gradient(135deg,#2d5a3d,#1a2616)"></div>
+      <div class="gc-over"><span class="gc-lbl">Sweet Lassi</span></div>
+    </div>
+    <div class="gc wide">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6.jpg'),linear-gradient(135deg,#1a2616,#2d5a3d)"></div>
+      <div class="gc-over"><span class="gc-lbl">Dining Area — Clean & Cosy</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0.jpg'),linear-gradient(135deg,#2d5a3d,#1a1a16)"></div>
+      <div class="gc-over"><span class="gc-lbl">Biryani</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6.jpg'),linear-gradient(135deg,#1a1a16,#2d5a3d)"></div>
+      <div class="gc-over"><span class="gc-lbl">Full Bar</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8.jpg'),linear-gradient(135deg,#2d5a3d,#1a2616)"></div>
+      <div class="gc-over"><span class="gc-lbl">Dessert Corner</span></div>
+    </div>
+  </div>
+  <div class="gal-reel">
+    <div class="rf"><div class="ri" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/f29d3f9e81b9e49c7ead4b5c83f6d1a2.jpg'),linear-gradient(135deg,#2d5a3d,#1a2616)"></div></div>
+    <div class="rf"><div class="ri" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/7b3e9d2f1a8c6e4d5b0f2e3a9c7d1b8e.jpg'),linear-gradient(135deg,#1a2616,#2d5a3d)"></div></div>
+    <div class="rf"><div class="ri" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f.jpg'),linear-gradient(135deg,#2d5a3d,#1a1a16)"></div></div>
+    <div class="rf"><div class="ri" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg'),linear-gradient(135deg,#1a1a16,#2d5a3d)"></div></div>
+    <div class="rf"><div class="ri" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/8f9e0d1c2b3a4f5e6d7c8b9a0f1e2d3c.jpg'),linear-gradient(135deg,#2d5a3d,#1a2616)"></div></div>
+    <div class="rf"><div class="ri" style="background-image:url('https://b.zmtcdn.com/data/pictures/0/19613590/d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6.jpg'),linear-gradient(135deg,#1a2616,#2d5a3d)"></div></div>
+  </div>
+</section>
+
+<!-- WHY A WEBSITE -->
+<section id="why" class="sec">
+  <div class="why-content">
+    <div class="tag reveal" style="justify-content:center;color:rgba(255,255,255,.6)"><span style="color:#fff">Why White Oak Needs a Website</span></div>
+    <h2 class="reveal d1">Your Restaurant is Great.<br><em>Now Let the World Know.</em></h2>
+    <p class="reveal d2">You have a 4.4★ rating, a full bar, great food and loyal customers. A website takes all of that — and puts it in front of thousands of new people every single day, for free.</p>
+  </div>
+  <div class="why-grid reveal d2">
+    <div class="why-card">
+      <span class="why-icon">🔍</span>
+      <div class="why-title">Found on Google</div>
+      <p class="why-desc">When someone searches "best restaurant in Paharganj" or "North Indian near New Delhi Railway Station," your website puts White Oak at the top of results — bringing new customers every day without spending on ads.</p>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">📅</span>
+      <div class="why-title">Table Bookings 24/7</div>
+      <p class="why-desc">Guests can book a table directly on your website at any hour — even when your restaurant is closed. No missed calls, no lost bookings. You wake up to confirmed reservations every morning.</p>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">📸</span>
+      <div class="why-title">Show Your Best Side</div>
+      <p class="why-desc">Your food, your ambiance, your menu — displayed beautifully before a guest walks in. People who see a great website are more likely to visit, more likely to trust, and more likely to spend.</p>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">✈️</span>
+      <div class="why-title">Capture Tourists</div>
+      <p class="why-desc">Paharganj is full of international and outstation travellers. They research restaurants online before heading out. Without a website, they'll pick a competitor. With one, they find you first.</p>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">💼</span>
+      <div class="why-title">Group & Event Bookings</div>
+      <p class="why-desc">A website with a contact or booking form makes it easy for families, groups, and corporates to reach you for bulk bookings and events — your highest-value revenue opportunity.</p>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">⭐</span>
+      <div class="why-title">Build Your Brand</div>
+      <p class="why-desc">Right now White Oak lives only on Zomato. A website means you own your online presence — no commission fees, no algorithms, no competitor ads next to your listing. Just your brand, directly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="sec">
+  <div class="exp-header">
+    <div class="tag reveal" style="justify-content:center">The White Oak Experience</div>
+    <h2 class="reveal d1">What Makes Us<br><em>Worth Coming Back To</em></h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <span class="exp-icon">🍽️</span>
+      <div class="exp-title">Generous Portions</div>
+      <p class="exp-desc">Known for full bowls, not half servings. Every plate at White Oak is designed to satisfy — guests always leave full and happy.</p>
+    </div>
+    <div class="exp-card reveal d1">
+      <span class="exp-icon">🍺</span>
+      <div class="exp-title">Full Bar Available</div>
+      <p class="exp-desc">Cold beers, spirits and beverages — the perfect complement to a good North Indian meal. Evenings here go long for a reason.</p>
+    </div>
+    <div class="exp-card reveal d2">
+      <span class="exp-icon">🌙</span>
+      <div class="exp-title">Open Until Midnight</div>
+      <p class="exp-desc">Open from 12 noon to 12 midnight, seven days a week. Late-night cravings? White Oak always has the door open.</p>
+    </div>
+    <div class="exp-card reveal d3">
+      <span class="exp-icon">💰</span>
+      <div class="exp-title">Great Value</div>
+      <p class="exp-desc">₹1,300 for two with quality, quantity and service. One of Paharganj's best value dining experiences — consistently praised across reviews.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="sec">
+  <div class="rev-hdr">
+    <div class="tag reveal" style="justify-content:center">What Guests Say</div>
+    <h2 class="reveal d1">Real Words from<br><em>Real Visitors</em></h2>
+  </div>
+  <div class="rev-grid reveal d2">
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"The décor was nice, lighting was good — very chilled out place. The Kadhai Chicken was very tasty and the buttered naans were excellent. I washed my meal down with a sweet lassi then had a Tootie Frootie Sundae. Staff was attentive without being overbearing."</p>
+      <div class="rev-author">International Guest</div>
+      <div class="rev-src">TripAdvisor · Verified Review</div>
+      <span class="rev-badge">5 Stars</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"There is good Indian food, friendly staff and a nice atmosphere. Recommended for lunch, breakfast and dinner. We ordered thali, raita, lassi and naan — everything was fresh and the portion size was great. Very good place for Indian food."</p>
+      <div class="rev-author">TripAdvisor Guest</div>
+      <div class="rev-src">TripAdvisor · Verified Review</div>
+      <span class="rev-badge">Must Try</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★☆</div>
+      <p class="rev-text">"Delicious food, big portions, great value for money. The biryani was excellent and the service was fast. A reliable restaurant in Paharganj that consistently delivers. Clean interiors, soft music — the kind of place you come back to."</p>
+      <div class="rev-author">Zomato Regular</div>
+      <div class="rev-src">Zomato · 4.4★ Rated Restaurant</div>
+      <span class="rev-badge">Value Pick</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" class="sec">
+  <div class="visit-grid">
+    <div class="visit-left">
+      <div class="tag reveal">Find Us</div>
+      <h2 class="reveal d1">We're Right<br><em>Here in Paharganj</em></h2>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Address</div>
+        <p>3/5, Desh Bandhu Gupta Road<br>Paharganj, New Delhi — 110055</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Nearest Landmark</div>
+        <p>Near New Delhi Railway Station<br>Paharganj Main Bazar · 5 min walk</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Hours</div>
+        <p>Daily: 12:00 PM – 12:00 Midnight<br>All 7 days of the week</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Contact</div>
+        <a href="tel:+919911611916">+91 99116 11916</a>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Price</div>
+        <p>₹1,300 for two (approx.) · Taxes applicable</p>
+      </div>
+      <a href="https://maps.app.goo.gl/BVRQRSK4y9SCxUF96" target="_blank" class="btn-primary" style="display:inline-block;margin-top:1rem"><span>Get Directions</span></a>
+    </div>
+    <div class="visit-map reveal d2">
+      <div class="map-lines"></div>
+      <div class="map-ripples">
+        <div class="mripple"></div><div class="mripple"></div><div class="mripple"></div>
+      </div>
+      <div class="map-center">
+        <div class="map-pin"></div>
+        <div class="map-info">
+          <h4>White Oak Restaurant</h4>
+          <p>Paharganj · New Delhi</p>
+        </div>
+      </div>
+      <div class="map-corners tl">Desh Bandhu Gupta Road</div>
+      <div class="map-corners br">New Delhi Railway Station</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="sec">
+  <div class="tag reveal" style="justify-content:center;color:rgba(255,255,255,.6)"><span style="color:rgba(255,255,255,.8)">Reserve a Table</span></div>
+  <h2 class="reveal d1">Book Your Table at<br><em>White Oak</em></h2>
+  <p class="reveal d2">Walk-ins always welcome. Reserve in advance to be sure of your seat — especially on weekends.</p>
+  <div class="res-row reveal d3">
+    <input class="ri-input" type="text" placeholder="Your Name">
+    <input class="ri-input" type="tel" placeholder="Phone Number">
+    <input class="ri-input" type="date">
+    <select class="ri-input">
+      <option value="" disabled selected>Guests</option>
+      <option>1–2 Guests</option><option>3–4 Guests</option>
+      <option>5–6 Guests</option><option>7+ Guests</option>
+    </select>
+    <select class="ri-input">
+      <option value="" disabled selected>Meal</option>
+      <option>Lunch (12PM–4PM)</option>
+      <option>Dinner (7PM–12AM)</option>
+    </select>
+    <button class="res-go">Confirm Table</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-name">White Oak</div>
+    <span class="f-tag">Restaurant · Paharganj · New Delhi</span>
+    <p class="f-about">A warm, welcoming restaurant in the heart of Paharganj — great North Indian food, generous portions, a full bar, and the kind of vibe you always want to come back to.</p>
+    <a href="tel:+919911611916" class="f-cta">+91 99116 11916</a>
+  </div>
+  <div class="fcol">
+    <h5>Navigate</h5>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#experience">Experience</a>
+    <a href="#visit">Visit Us</a>
+    <a href="#reservation">Reserve</a>
+  </div>
+  <div class="fcol">
+    <h5>Location</h5>
+    <p>3/5, Desh Bandhu Gupta Road</p>
+    <p>Paharganj, New Delhi — 110055</p>
+    <p style="margin-top:.5rem">Open Daily · 12PM – 12AM</p>
+  </div>
+  <div class="fcol">
+    <h5>Find Us</h5>
+    <a href="#">Zomato · 4.4★</a>
+    <a href="#">TripAdvisor</a>
+    <a href="#">Google Maps</a>
+    <p style="margin-top:.8rem;color:var(--sage);font-size:.7rem">North Indian · Chinese · Italian<br>Biryani · Full Bar<br>₹1,300 for two</p>
+  </div>
+</footer>
+<div class="fbar">
+  <p>© 2026 White Oak Restaurant. All rights reserved. 3/5 Desh Bandhu Gupta Road, Paharganj, New Delhi.</p>
+  <p>Open Daily 12PM – 12 Midnight</p>
+</div>
+
+<script>
+// Leaves
+const lw=document.getElementById('leaves');
+const lc=['rgba(45,90,61,.3)','rgba(77,154,106,.25)','rgba(138,184,154,.2)','rgba(61,122,84,.2)'];
+for(let i=0;i<22;i++){
+  const l=document.createElement('div');l.className='leaf';
+  const sz=8+Math.random()*16;
+  l.style.cssText=`--ld:${6+Math.random()*8}s;--ldel:${Math.random()*7}s;--lx:${Math.random()*100}%;--ly:${Math.random()*100}%;--lw:${sz}px;--lh:${sz*.6}px;--lc:${lc[Math.floor(Math.random()*lc.length)]};--lr:${Math.random()*360}deg`;
+  lw.appendChild(l);
+}
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>60));
+
+// Ticker
+const ticks=['North Indian','Chinese','Italian','Biryani · Full Bar','4.4★ on Zomato','Paharganj · New Delhi','Open 12PM to 12AM','Kadhai Chicken','Sweet Lassi','Value for Money','Great Ambience','Daily Fresh Menu'];
+const tt=document.getElementById('tickerTrack');
+[...ticks,...ticks].forEach(w=>{
+  tt.innerHTML+=`<div class="tick-item"><span class="tick-dot"></span><span>${w}</span></div>`;
+});
+
+// Menu
+const menuData={
+  north:[
+    {veg:false,cat:'House Favourite',name:'Kadhai Chicken',desc:'Tender chicken pieces cooked in a robust kadhai masala with capsicum, onion, and freshly ground spices. Best paired with buttered naan. Our most-reviewed dish.',price:'₹ 280'},
+    {veg:true,cat:'Vegetarian',name:'Paneer Butter Masala',desc:'Cottage cheese in a rich, creamy tomato-butter gravy with aromatic spices. Smooth, indulgent and deeply satisfying.',price:'₹ 220'},
+    {veg:true,cat:'Thali Special',name:'Veg Thali',desc:'A full spread — dal, sabzi, rice, roti, salad, raita and pickle. Big portions, great value, and a complete meal in one plate.',price:'₹ 180'},
+    {veg:false,cat:'Mutton',name:'Mutton Rogan Josh',desc:'Slow-cooked mutton in Kashmiri red chilli gravy with whole spices and desi ghee. Rich, aromatic, and deeply comforting.',price:'₹ 340'},
+    {veg:true,cat:'Dal',name:'Dal Tadka',desc:'Yellow moong dal tempered with garlic, cumin, dried red chilli and ghee. Simple perfection. Goes with everything on the menu.',price:'₹ 140'},
+    {veg:true,cat:'Biryani',name:'Veg Biryani',desc:'Fragrant basmati rice cooked with seasonal vegetables, whole spices and fried onions — served with raita and pickle.',price:'₹ 200'},
+  ],
+  chinese:[
+    {veg:true,cat:'Starter',name:'Veg Manchurian',desc:'Crispy vegetable balls in a tangy, spicy Manchurian sauce with garlic and spring onion. The crowd-pleasing classic.',price:'₹ 180'},
+    {veg:false,cat:'Noodles',name:'Chicken Chow Mein',desc:'Wok-tossed noodles with chicken, vegetables, soy sauce and chilli — done the right way, not the lazy way.',price:'₹ 220'},
+    {veg:true,cat:'Fried Rice',name:'Veg Fried Rice',desc:'Seasoned basmati rice with mixed vegetables, egg-free, wok-tossed with soy and sesame. Light and flavourful.',price:'₹ 160'},
+    {veg:false,cat:'Starter',name:'Chilli Chicken',desc:'Crispy chicken with green chillies, capsicum, onion and a sweet-spicy Chinese-style sauce. A full-bar essential.',price:'₹ 240'},
+    {veg:true,cat:'Soup',name:'Sweet Corn Veg Soup',desc:'Creamy sweet corn and vegetable soup — the perfect starter on a cool Delhi evening.',price:'₹ 100'},
+    {veg:false,cat:'Noodles',name:'Chicken Hakka Noodles',desc:'Classic Hakka noodles with shredded chicken, spring onion, garlic and a hint of dark soy — quick and satisfying.',price:'₹ 220'},
+  ],
+  italian:[
+    {veg:true,cat:'Pasta',name:'Penne Arrabbiata',desc:'Penne pasta in a spicy tomato sauce with garlic, red chilli and fresh basil. Simple, bold, perfectly executed.',price:'₹ 200'},
+    {veg:false,cat:'Pizza',name:'Chicken Tikka Pizza',desc:'Thin crust pizza topped with chicken tikka, mozzarella, capsicum and a tandoori sauce — Delhi\'s own fusion.',price:'₹ 260'},
+    {veg:true,cat:'Pizza',name:'Margherita Pizza',desc:'Classic Margherita with fresh tomato sauce, mozzarella and basil. Crispy, cheesy, timeless.',price:'₹ 200'},
+    {veg:true,cat:'Pasta',name:'Pasta in White Sauce',desc:'Creamy bechamel pasta with mushrooms, garlic and fresh herbs. Comforting and rich — great for a quiet dinner.',price:'₹ 200'},
+    {veg:false,cat:'Burger',name:'Chicken Burger',desc:'Crispy chicken patty with mayo, lettuce, tomato and cheese in a soft sesame bun. Served with fries.',price:'₹ 200'},
+    {veg:true,cat:'Garlic Bread',name:'Garlic Bread with Cheese',desc:'Toasted baguette with garlic butter and melted cheese — the perfect starter or side for any pasta or pizza.',price:'₹ 120'},
+  ],
+  desserts:[
+    {veg:true,cat:'Dessert · Signature',name:'Tootie Frootie Sundae',desc:'House ice cream loaded with mixed fruit, tootie frootie and cream. The dessert that keeps guests coming back.',price:'₹ 120'},
+    {veg:true,cat:'Drinks',name:'Sweet Lassi',desc:'Chilled, thick yoghurt blended with sugar and cardamom. The most refreshing way to end a North Indian meal.',price:'₹ 80'},
+    {veg:true,cat:'Classic Indian',name:'Gulab Jamun',desc:'Soft milk-solid dumplings soaked in rose-cardamom sugar syrup. Warm, sweet, the perfect Indian close to a meal.',price:'₹ 80'},
+    {veg:true,cat:'Kulfi',name:'Kulfi',desc:'Traditional Indian ice cream in malai and kesar-pista — dense, creamy and fragrant with cardamom.',price:'₹ 100'},
+    {veg:true,cat:'Milkshake',name:'Chocolate Shake',desc:'Thick chocolate milkshake made with full-cream milk and chocolate syrup. Indulgent and generous.',price:'₹ 120'},
+    {veg:true,cat:'Mocktail',name:'Fresh Lime Soda',desc:'Fresh lime, soda, sugar or salt — your choice. The cleanest, most refreshing drink on a hot Delhi afternoon.',price:'₹ 60'},
+  ]
+};
+let activeCat='north';
+function renderMenu(cat){
+  document.getElementById('menuGrid').innerHTML=menuData[cat].map(d=>`
+    <div class="dish">
+      <div class="dish-shine"></div>
+      <div class="${d.veg?'veg':'nv'}"></div>
+      <div class="dish-cat">${d.cat}</div>
+      <h3>${d.name}</h3>
+      <p>${d.desc}</p>
+      <div class="dish-price">${d.price}</div>
+    </div>`).join('');
+}
+renderMenu(activeCat);
+document.querySelectorAll('.mtab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.mtab').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');renderMenu(b.dataset.cat);
+  });
+});
+
+// Reveal
+const revs=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+revs.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

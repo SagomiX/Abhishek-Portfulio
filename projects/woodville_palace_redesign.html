@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Woodville Palace Hotel Shimla | Heritage Hotel Since 1938 | Book Direct</title>
+<meta name="description" content="Woodville Palace — Shimla's most celebrated heritage hotel since 1938. Experience royal Himalayan hospitality, regal suites, destination weddings & fine dining. Book direct for best rates.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blood:#6b1212;
+  --crimson:#8b2020;
+  --gold:#c9a84c;
+  --gold-lt:#e8d08a;
+  --ivory:#faf6ee;
+  --cream:#f4ede0;
+  --dark:#160d08;
+  --charcoal:#2a1a12;
+  --text:#1e1208;
+  --muted:#7a6050;
+  --border:rgba(201,168,76,0.22);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--ivory);color:var(--text);overflow-x:hidden;}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 60px;display:flex;align-items:center;justify-content:space-between;transition:all .4s;}
+nav.solid{background:rgba(22,13,8,.97);backdrop-filter:blur(14px);padding:14px 60px;box-shadow:0 2px 40px rgba(0,0,0,.5);}
+.n-logo{display:flex;flex-direction:column;align-items:center;text-decoration:none;}
+.n-logo-main{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:white;letter-spacing:3px;line-height:1;}
+.n-logo-sub{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-top:3px;}
+.n-links{display:flex;gap:28px;list-style:none;}
+.n-links a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.75);text-decoration:none;font-weight:400;transition:color .2s;}
+.n-links a:hover{color:var(--gold);}
+.n-book{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px 24px;text-decoration:none;transition:all .3s;}
+.n-book:hover{background:var(--gold);color:var(--dark);}
+
+/* ─── HERO ─── */
+.hero{height:100vh;min-height:750px;position:relative;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=85') center/cover no-repeat;}
+.hero-vignette{position:absolute;inset:0;background:linear-gradient(to right,rgba(22,13,8,.9) 0%,rgba(22,13,8,.6) 45%,rgba(22,13,8,.2) 100%),linear-gradient(to top,rgba(22,13,8,.7) 0%,transparent 50%);}
+.hero-frame{position:absolute;top:32px;left:32px;right:32px;bottom:32px;border:1px solid rgba(201,168,76,.2);pointer-events:none;}
+.hero-content{position:relative;z-index:2;padding:0 80px 80px;}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+.hero-line{width:48px;height:1px;background:var(--gold);}
+.hero-eyebrow span{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(48px,7vw,96px);font-weight:600;color:white;line-height:1.0;margin-bottom:10px;letter-spacing:2px;}
+.hero h1 .regal{display:block;font-family:'EB Garamond',serif;font-size:clamp(22px,3.2vw,42px);font-style:italic;font-weight:400;color:var(--gold-lt);letter-spacing:1px;margin-bottom:6px;}
+.hero-desc{font-size:17px;color:rgba(255,255,255,.6);font-weight:300;line-height:1.8;max-width:480px;margin-bottom:40px;}
+.hero-btns{display:flex;gap:16px;}
+.btn-hero-primary{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;background:var(--gold);color:var(--dark);padding:16px 40px;text-decoration:none;font-weight:500;transition:all .3s;display:inline-block;}
+.btn-hero-primary:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,.3);}
+.btn-hero-ghost{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;background:transparent;color:white;border:1px solid rgba(255,255,255,.4);padding:16px 40px;text-decoration:none;transition:all .3s;display:inline-block;}
+.btn-hero-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.hero-badges{position:absolute;right:80px;bottom:80px;z-index:2;display:flex;flex-direction:column;gap:24px;align-items:flex-end;}
+.hero-badge{display:flex;flex-direction:column;align-items:center;background:rgba(22,13,8,.7);border:1px solid var(--border);padding:16px 22px;}
+.hero-badge .hb-num{font-family:'Cinzel',serif;font-size:30px;font-weight:600;color:var(--gold);line-height:1;}
+.hero-badge .hb-txt{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:4px;}
+
+/* ─── ORNAMENT ─── */
+.ornament{display:flex;align-items:center;gap:0;justify-content:center;padding:32px 0;}
+.orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);}
+.orn-center{font-family:'Cinzel',serif;font-size:18px;color:var(--gold);padding:0 20px;letter-spacing:4px;}
+
+/* ─── QUICK BOOKING ─── */
+.quick-book{background:var(--charcoal);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.qb-inner{display:flex;align-items:stretch;}
+.qb-field{flex:1;padding:20px 28px;border-right:1px solid var(--border);display:flex;flex-direction:column;gap:5px;cursor:pointer;transition:background .2s;}
+.qb-field:hover{background:rgba(201,168,76,.06);}
+.qb-field label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.qb-field input,.qb-field select{background:transparent;border:none;outline:none;font-family:'Lato',sans-serif;font-size:14px;color:rgba(255,255,255,.8);cursor:pointer;width:100%;}
+.qb-field select option{background:var(--charcoal);}
+.qb-submit{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;background:var(--gold);color:var(--dark);border:none;padding:20px 44px;cursor:pointer;font-weight:500;transition:all .3s;white-space:nowrap;}
+.qb-submit:hover{background:var(--gold-lt);}
+
+/* ─── AMENITY STRIP ─── */
+.amenity-strip{background:var(--dark);padding:26px 60px;display:flex;justify-content:center;gap:52px;flex-wrap:wrap;}
+.am-item{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.5);font-size:11px;letter-spacing:2px;text-transform:uppercase;}
+
+/* ─── ABOUT ─── */
+.about-section{padding:110px 80px;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;}
+.about-img-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:260px 200px;gap:10px;}
+.ab-img{overflow:hidden;}
+.ab-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
+.ab-img:hover img{transform:scale(1.04);}
+.ab-img:first-child{grid-column:1/3;grid-row:1/2;}
+.about-tag{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.about-tag::before{content:'';display:block;width:36px;height:1px;background:var(--gold);}
+.about-text h2{font-family:'Cinzel',serif;font-size:36px;font-weight:500;line-height:1.2;margin-bottom:24px;color:var(--text);}
+.about-text p{font-size:16px;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:18px;}
+.about-quote{margin-top:32px;padding:20px 24px;border-left:3px solid var(--gold);background:var(--cream);}
+.about-quote p{font-family:'EB Garamond',serif;font-style:italic;font-size:19px;color:var(--charcoal);line-height:1.6;margin:0;}
+.about-quote cite{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-top:10px;display:block;}
+
+/* ─── ROOMS ─── */
+.rooms-section{background:var(--cream);padding:110px 80px;}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:60px;}
+.sec-tag{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.sec-tag::before{content:'';display:block;width:36px;height:1px;background:var(--gold);}
+.sec-title{font-family:'Cinzel',serif;font-size:38px;font-weight:500;line-height:1.15;color:var(--text);}
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.room-card{background:white;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;}
+.room-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.12);}
+.room-card:first-child{grid-column:1/3;}
+.rc-img{position:relative;overflow:hidden;height:280px;}
+.room-card:first-child .rc-img{height:360px;}
+.rc-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
+.room-card:hover .rc-img img{transform:scale(1.05);}
+.rc-type{position:absolute;top:20px;left:20px;background:var(--blood);color:white;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:6px 14px;font-weight:700;}
+.rc-body{padding:26px 28px;}
+.rc-name{font-family:'Cinzel',serif;font-size:22px;font-weight:500;margin-bottom:10px;color:var(--text);}
+.rc-desc{font-size:13.5px;color:var(--muted);line-height:1.75;margin-bottom:18px;}
+.rc-price{display:flex;align-items:baseline;gap:6px;margin-bottom:18px;}
+.rc-price .from{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+.rc-price .amt{font-family:'Cinzel',serif;font-size:28px;color:var(--text);}
+.rc-price .per{font-size:12px;color:var(--muted);}
+.rc-ams{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+.rc-am{font-size:11px;color:var(--muted);border:1px solid #e0d8cc;padding:4px 12px;}
+.rc-cta{display:block;width:100%;text-align:center;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;background:var(--charcoal);color:var(--gold);padding:14px;text-decoration:none;transition:all .3s;}
+.rc-cta:hover{background:var(--blood);}
+
+/* ─── HERITAGE STRIP ─── */
+.heritage-strip{background:linear-gradient(135deg,var(--blood) 0%,var(--charcoal) 100%);padding:80px;display:grid;grid-template-columns:1fr 3px 1fr 3px 1fr 3px 1fr;align-items:center;gap:0;}
+.hs-item{text-align:center;padding:0 32px;}
+.hs-divider{width:1px;height:80px;background:rgba(201,168,76,.25);}
+.hs-num{font-family:'Cinzel',serif;font-size:52px;font-weight:400;color:var(--gold);line-height:1;}
+.hs-lbl{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:10px;}
+
+/* ─── EVENTS ─── */
+.events-section{padding:110px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;background:var(--ivory);}
+.events-text .sec-title{margin-bottom:24px;}
+.events-text p{font-size:16px;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:20px;}
+.event-types{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;}
+.ev-type{border:1px solid var(--border);padding:16px 20px;background:var(--cream);}
+.ev-type-name{font-family:'Cinzel',serif;font-size:14px;color:var(--text);margin-bottom:4px;}
+.ev-type-desc{font-size:12px;color:var(--muted);}
+.events-imgs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:240px 240px;gap:10px;}
+.ev-img{overflow:hidden;}
+.ev-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
+.ev-img:hover img{transform:scale(1.06);}
+.ev-img:first-child{grid-row:1/3;}
+
+/* ─── GALLERY ─── */
+.gallery-section{background:var(--dark);padding:110px 80px;}
+.gallery-section .sec-tag{color:var(--gold-lt);}
+.gallery-section .sec-title{color:white;}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:220px 220px;gap:8px;margin-top:56px;}
+.gal-item{overflow:hidden;position:relative;cursor:pointer;}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s,filter .4s;}
+.gal-item:hover img{transform:scale(1.08);filter:brightness(1.1);}
+.gal-item:nth-child(1){grid-column:1/3;}
+.gal-item:nth-child(4){grid-column:3/5;}
+.gal-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(22,13,8,.65),transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:18px;}
+.gal-item:hover .gal-overlay{opacity:1;}
+.gal-overlay span{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.9);}
+
+/* ─── TESTIMONIALS ─── */
+.testi-section{padding:110px 80px;background:var(--cream);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.testi-card{background:white;padding:36px 32px;border-top:3px solid var(--gold);position:relative;}
+.testi-stars{color:var(--gold);font-size:13px;letter-spacing:4px;margin-bottom:16px;}
+.testi-text{font-family:'EB Garamond',serif;font-style:italic;font-size:18px;line-height:1.75;color:var(--charcoal);margin-bottom:20px;}
+.testi-author{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.testi-loc{font-size:11px;color:var(--muted);margin-top:3px;}
+
+/* ─── DINING ─── */
+.dining-section{background:var(--charcoal);padding:110px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.dining-imgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.di-img{overflow:hidden;}
+.di-img img{width:100%;height:220px;object-fit:cover;transition:transform .6s;}
+.di-img:hover img{transform:scale(1.05);}
+.di-img:first-child{grid-column:1/3;height:300px;}
+.di-img:first-child img{height:100%;}
+.dining-text .sec-tag{color:var(--gold-lt);}
+.dining-text .sec-title{color:white;margin-bottom:24px;}
+.dining-text p{color:rgba(255,255,255,.55);font-size:16px;line-height:1.9;font-weight:300;margin-bottom:20px;}
+.cuisine-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+.cuisine-chip{border:1px solid rgba(201,168,76,.3);padding:8px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+
+/* ─── CONTACT ─── */
+.contact-section{background:var(--dark);padding:110px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+.contact-left .sec-tag{color:var(--gold-lt);}
+.contact-left .sec-title{color:white;margin-bottom:40px;}
+.c-detail{display:flex;gap:16px;margin-bottom:28px;}
+.c-icon{width:42px;height:42px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.c-detail-txt label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px;}
+.c-detail-txt a,.c-detail-txt span{font-size:14px;color:rgba(255,255,255,.65);display:block;text-decoration:none;line-height:1.6;}
+.c-detail-txt a:hover{color:var(--gold);}
+.wa-cta{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:white;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:1px;padding:14px 28px;margin-top:12px;transition:all .3s;}
+.wa-cta:hover{background:#1ebe5d;transform:translateY(-1px);}
+/* FORM */
+.fg{margin-bottom:20px;}
+.fg label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+.fg input,.fg select,.fg textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.2);padding:13px 18px;font-family:'Lato',sans-serif;font-size:14px;color:white;outline:none;transition:border-color .3s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
+.fg select option{background:var(--dark);}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.btn-form{width:100%;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;background:var(--gold);color:var(--dark);border:none;padding:16px;cursor:pointer;font-weight:500;transition:all .3s;margin-top:6px;}
+.btn-form:hover{background:var(--gold-lt);}
+
+/* ─── FOOTER ─── */
+footer{background:#0d0906;padding:40px 80px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);}
+.f-logo-main{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:white;letter-spacing:3px;}
+.f-logo-sub{font-size:9px;letter-spacing:4px;color:var(--gold);margin-top:3px;text-align:center;}
+.f-copy{font-size:11px;color:rgba(255,255,255,.25);}
+.f-socials{display:flex;gap:14px;}
+.f-soc{width:36px;height:36px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);text-decoration:none;font-size:13px;transition:all .3s;}
+.f-soc:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ─── FLOAT WA ─── */
+.float-wa{position:fixed;bottom:32px;right:32px;z-index:300;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;transition:transform .3s;}
+.float-wa:hover{transform:scale(1.12);}
+.float-wa svg{width:28px;height:28px;fill:white;}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  nav{padding:16px 24px;}nav.solid{padding:12px 24px;}
+  .n-links{display:none;}
+  .hero-content{padding:0 28px 60px;}
+  .hero-badges{right:28px;bottom:60px;}
+  .about-section,.events-section,.dining-section,.contact-section{grid-template-columns:1fr;padding:70px 28px;gap:40px;}
+  .about-img-grid{grid-template-rows:220px 180px;}
+  .rooms-section,.testi-section,.gallery-section{padding:70px 28px;}
+  .rooms-grid{grid-template-columns:1fr;}.room-card:first-child{grid-column:auto;}
+  .testi-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .gallery-grid .gal-item:nth-child(1),.gallery-grid .gal-item:nth-child(4){grid-column:auto;}
+  .heritage-strip{grid-template-columns:1fr 1fr;padding:50px 28px;}
+  .hs-divider{display:none;}
+  .qb-inner{flex-direction:column;}.qb-field{border-right:none;border-bottom:1px solid var(--border);}
+  .amenity-strip{padding:20px 24px;gap:24px;}
+  footer{flex-direction:column;gap:20px;text-align:center;padding:32px 24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="n-logo">
+    <div class="n-logo-main">WOODVILLE PALACE</div>
+    <div class="n-logo-sub">Shimla · Est. 1938</div>
+  </div>
+  <ul class="n-links">
+    <li><a href="#about">Heritage</a></li>
+    <li><a href="#rooms">Rooms</a></li>
+    <li><a href="#events">Weddings</a></li>
+    <li><a href="#dining">Dining</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="n-book">Reserve Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-frame"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-line"></div>
+      <span>Shimla's Crown Jewel · A Heritage Since 1938</span>
+    </div>
+    <h1>
+      <span class="regal">Royal Residence in the</span>
+      WOODVILLE<br>PALACE
+    </h1>
+    <p class="hero-desc">Where the grandeur of a bygone era meets the serenity of the Himalayas. Welcome to Shimla's most storied heritage retreat.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-hero-primary">Reserve Your Suite</a>
+      <a href="#about" class="btn-hero-ghost">Discover Our Heritage</a>
+    </div>
+  </div>
+  <div class="hero-badges">
+    <div class="hero-badge"><div class="hb-num">87</div><div class="hb-txt">Years of Legacy</div></div>
+    <div class="hero-badge"><div class="hb-num">4.8★</div><div class="hb-txt">Guest Rating</div></div>
+  </div>
+</section>
+
+<!-- QUICK BOOK -->
+<div class="quick-book">
+  <div class="qb-inner">
+    <div class="qb-field"><label>Check In</label><input type="date"/></div>
+    <div class="qb-field"><label>Check Out</label><input type="date"/></div>
+    <div class="qb-field"><label>Room</label>
+      <select>
+        <option>Any Room</option>
+        <option>Himalayan Suite</option>
+        <option>Bollywood Suite</option>
+        <option>Family Suite</option>
+        <option>Executive Heritage</option>
+        <option>Imperial Room</option>
+        <option>Deluxe Room</option>
+      </select>
+    </div>
+    <div class="qb-field"><label>Guests</label>
+      <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select>
+    </div>
+    <button class="qb-submit" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Check Availability</button>
+  </div>
+</div>
+
+<!-- AMENITY STRIP -->
+<div class="amenity-strip">
+  <div class="am-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+    Free Wi-Fi
+  </div>
+  <div class="am-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Heritage Hospitality
+  </div>
+  <div class="am-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+    Fine Dining
+  </div>
+  <div class="am-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+    Mountain Views
+  </div>
+  <div class="am-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+    Destination Weddings
+  </div>
+  <div class="am-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 6v2h-7V8z"/></svg>
+    Free Parking
+  </div>
+</div>
+
+<!-- ABOUT / HERITAGE -->
+<section class="about-section" id="about">
+  <div class="about-img-grid">
+    <div class="ab-img"><img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&q=85" alt="Woodville Palace Hotel Shimla heritage exterior"></div>
+    <div class="ab-img"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=450&q=85" alt="Royal suite interior at Woodville Palace"></div>
+    <div class="ab-img"><img src="https://images.unsplash.com/photo-1615880484746-a134be9a6ecf?w=450&q=85" alt="Heritage corridor Woodville Palace Shimla"></div>
+  </div>
+  <div class="about-text">
+    <div class="about-tag">Our Legacy</div>
+    <h2>A Royal Retreat<br>Since 1938</h2>
+    <p>Perched in the regal heights of Shimla, Woodville Palace has been a witness to history for over eight decades. Built in the colonial era and steeped in aristocratic tradition, the palace has welcomed royalty, dignitaries, and discerning travellers who seek more than just a hotel stay.</p>
+    <p>Today, as it has always been, Woodville Palace stands as a living monument to Shimla's golden age — where hand-carved woodwork, original heritage furnishings, and breathtaking Himalayan vistas create an experience that cannot be replicated.</p>
+    <div class="about-quote">
+      <p>"To stay at Woodville Palace is to step into a chapter of history that still breathes, still lives — and still welcomes."</p>
+      <cite>— Heritage Travel India</cite>
+    </div>
+    <br>
+    <a href="#contact" class="btn-hero-primary" style="font-size:11px;margin-top:8px;display:inline-block;">Explore The Palace</a>
+  </div>
+</section>
+
+<!-- HERITAGE NUMBERS -->
+<div class="heritage-strip">
+  <div class="hs-item"><div class="hs-num">1938</div><div class="hs-lbl">Founded</div></div>
+  <div class="hs-divider"></div>
+  <div class="hs-item"><div class="hs-num">87+</div><div class="hs-lbl">Years of Heritage</div></div>
+  <div class="hs-divider"></div>
+  <div class="hs-item"><div class="hs-num">6</div><div class="hs-lbl">Royal Room Types</div></div>
+  <div class="hs-divider"></div>
+  <div class="hs-item"><div class="hs-num">∞</div><div class="hs-lbl">Memories Created</div></div>
+</div>
+
+<!-- ROOMS -->
+<section class="rooms-section" id="rooms">
+  <div class="section-header">
+    <div>
+      <div class="sec-tag">Royal Accommodations</div>
+      <h2 class="sec-title">Sleep in Regal Splendour</h2>
+    </div>
+    <a href="#contact" class="btn-hero-primary" style="font-size:10px;padding:13px 28px;">View All Rooms</a>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card">
+      <div class="rc-img">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=85" alt="Himalayan Suite - Woodville Palace Shimla">
+        <span class="rc-type">Flagship Suite</span>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Himalayan Suite</div>
+        <p class="rc-desc">Our grandest offering — a vast heritage suite with panoramic Himalayan views, period furniture, a four-poster bed, and a private sitting lounge. The pinnacle of royal comfort in Shimla.</p>
+        <div class="rc-price"><span class="from">Starting from</span><span class="amt">₹6,500</span><span class="per">/ night</span></div>
+        <div class="rc-ams"><span class="rc-am">King Bed</span><span class="rc-am">Mountain View</span><span class="rc-am">Private Lounge</span><span class="rc-am">Heritage Decor</span><span class="rc-am">Free Wi-Fi</span></div>
+        <a href="#contact" class="rc-cta">Reserve This Suite</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="rc-img">
+        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=500&q=85" alt="Bollywood Suite Woodville Palace">
+        <span class="rc-type">Signature Suite</span>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Bollywood Suite</div>
+        <p class="rc-desc">A glamorous ode to Indian cinema. Vibrant, artistic interiors with vintage Bollywood touches — a stay that tells a story.</p>
+        <div class="rc-price"><span class="from">Starting from</span><span class="amt">₹5,200</span><span class="per">/ night</span></div>
+        <div class="rc-ams"><span class="rc-am">King Bed</span><span class="rc-am">Valley View</span><span class="rc-am">Unique Decor</span></div>
+        <a href="#contact" class="rc-cta">Reserve</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="rc-img">
+        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500&q=85" alt="Family Suite Woodville Palace Shimla">
+        <span class="rc-type">Family Room</span>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Family Suite</div>
+        <p class="rc-desc">Spacious, warm, and perfectly arranged for families — with two beds, heritage-inspired interiors, and stunning mountain views.</p>
+        <div class="rc-price"><span class="from">Starting from</span><span class="amt">₹4,800</span><span class="per">/ night</span></div>
+        <div class="rc-ams"><span class="rc-am">2 Beds</span><span class="rc-am">Mountain View</span><span class="rc-am">Spacious</span></div>
+        <a href="#contact" class="rc-cta">Reserve</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS / WEDDINGS -->
+<section class="events-section" id="events">
+  <div class="events-text">
+    <div class="sec-tag">Celebrations & Events</div>
+    <h2 class="sec-title">Where Royal<br>Dreams Begin</h2>
+    <p>Woodville Palace has been Shimla's most sought-after destination for heritage weddings, anniversaries, corporate retreats, and milestone celebrations since 1938. The palace's courtyards, dining halls, and manicured gardens provide backdrops that no modern hotel can replicate.</p>
+    <p>Our dedicated events team manages every detail — from floral arrangements to royal dining — ensuring your celebration becomes a chapter in the palace's storied history.</p>
+    <div class="event-types">
+      <div class="ev-type"><div class="ev-type-name">Heritage Weddings</div><div class="ev-type-desc">Royal ceremonies with palace settings</div></div>
+      <div class="ev-type"><div class="ev-type-name">Corporate Retreats</div><div class="ev-type-desc">Exclusive buyout packages available</div></div>
+      <div class="ev-type"><div class="ev-type-name">Anniversary Dinners</div><div class="ev-type-desc">Intimate candlelit royal settings</div></div>
+      <div class="ev-type"><div class="ev-type-name">Private Gatherings</div><div class="ev-type-desc">Celebrations for upto 250 guests</div></div>
+    </div>
+    <br>
+    <a href="#contact" class="btn-hero-primary" style="font-size:10px;padding:14px 32px;display:inline-block;margin-top:12px;">Plan Your Event</a>
+  </div>
+  <div class="events-imgs">
+    <div class="ev-img"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=85" alt="Heritage wedding at Woodville Palace Shimla"></div>
+    <div class="ev-img"><img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=400&q=85" alt="Wedding event at Woodville Palace"></div>
+    <div class="ev-img"><img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?w=400&q=85" alt="Corporate event setup at Woodville Palace"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="sec-tag">Visual Tour</div>
+  <h2 class="sec-title" style="color:white;">A Glimpse of<br>The Palace</h2>
+  <div class="gallery-grid">
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=85" alt="Heritage exterior of Woodville Palace Shimla"><div class="gal-overlay"><span>Grand Exterior</span></div></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1615460549969-36fa19521a4f?w=400&q=85" alt="Heritage lobby interior"><div class="gal-overlay"><span>Heritage Lobby</span></div></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=85" alt="Shimla mountain view from Woodville Palace"><div class="gal-overlay"><span>Mountain Views</span></div></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=85" alt="Fine dining at Woodville Palace restaurant"><div class="gal-overlay"><span>Fine Dining</span></div></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=85" alt="Wedding ceremonies at Woodville Palace Shimla"><div class="gal-overlay"><span>Royal Weddings</span></div></div>
+    <div class="gal-item"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=85" alt="Regal suite room at Woodville Palace"><div class="gal-overlay"><span>Regal Suites</span></div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="reviews">
+  <div class="sec-tag">Voices of our Guests</div>
+  <h2 class="sec-title">What Our Guests Say</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Staying at Woodville Palace feels like being transported to another era. The heritage, the service, the views — absolutely unmatched in Shimla."</p>
+      <div class="testi-author">Ananya & Rohan S.</div>
+      <div class="testi-loc">Honeymoon, via Google Reviews</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"We hosted our daughter's wedding here and it was the most magical experience of our lives. The palace grounds are simply breathtaking. The entire team was exceptional."</p>
+      <div class="testi-author">Vijay Kapoor</div>
+      <div class="testi-loc">Wedding, via TripAdvisor</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The Himalayan Suite is worth every rupee. I have stayed in 5-star hotels across India — nothing compares to waking up at Woodville Palace with those views."</p>
+      <div class="testi-author">Dr. Priya Mehta</div>
+      <div class="testi-loc">Leisure Stay, via Google</div>
+    </div>
+  </div>
+</section>
+
+<!-- DINING -->
+<section class="dining-section" id="dining">
+  <div class="dining-imgs">
+    <div class="di-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=85" alt="Royal dining at Woodville Palace heritage restaurant Shimla"></div>
+    <div class="di-img"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=85" alt="Indian cuisine at Woodville Palace restaurant"></div>
+    <div class="di-img"><img src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=400&q=85" alt="Heritage dining hall Woodville Palace"></div>
+  </div>
+  <div class="dining-text">
+    <div class="sec-tag">Our Restaurant</div>
+    <h2 class="sec-title">Dining Fit<br>for Royalty</h2>
+    <p>The palace dining room preserves its original grandeur — carved woodwork, period chandeliers, and silverware that have graced this table for decades. Our chefs bring together the finest flavours of India and the world for an experience as memorable as the palace itself.</p>
+    <p>From traditional Himachali specialties to Continental classics, every meal at Woodville Palace is an event in itself.</p>
+    <div class="cuisine-row">
+      <span class="cuisine-chip">North Indian</span>
+      <span class="cuisine-chip">Himachali</span>
+      <span class="cuisine-chip">Continental</span>
+      <span class="cuisine-chip">Chinese</span>
+      <span class="cuisine-chip">Breakfast Buffet</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="sec-tag" style="color:var(--gold-lt)">Get in Touch</div>
+    <h2 class="sec-title" style="color:white;">Plan Your<br>Royal Stay</h2>
+    <br>
+    <div class="c-detail">
+      <div class="c-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="c-detail-txt">
+        <label>Address</label>
+        <span>Woodville Palace Hotel, Shimla,<br>Himachal Pradesh, India</span>
+        <a href="https://maps.app.goo.gl/K2qX5FQKb5K2wxoM6" target="_blank" style="color:var(--gold);font-size:12px;margin-top:4px;">View on Google Maps →</a>
+      </div>
+    </div>
+    <div class="c-detail">
+      <div class="c-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.24l3-.02a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+      </div>
+      <div class="c-detail-txt">
+        <label>Phone</label>
+        <a href="tel:+918874923456">+91 88749 23456</a>
+      </div>
+    </div>
+    <div class="c-detail">
+      <div class="c-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="c-detail-txt">
+        <label>Email</label>
+        <a href="mailto:woodvillepalace1938@gmail.com">woodvillepalace1938@gmail.com</a>
+      </div>
+    </div>
+    <a href="https://wa.me/918874923456?text=Hello%2C+I+would+like+to+enquire+about+availability+at+Woodville+Palace+Shimla." class="wa-cta" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      Chat on WhatsApp
+    </a>
+  </div>
+  <div class="contact-right">
+    <p style="color:rgba(255,255,255,.4);font-size:13px;margin-bottom:28px;letter-spacing:1px;">RESERVATION ENQUIRY</p>
+    <div class="fg-row">
+      <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+      <div class="fg"><label>Phone / WhatsApp</label><input type="tel" placeholder="+91 ..."></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>Check-in</label><input type="date"></div>
+      <div class="fg"><label>Check-out</label><input type="date"></div>
+    </div>
+    <div class="fg-row">
+      <div class="fg"><label>Room Type</label>
+        <select>
+          <option>Himalayan Suite</option><option>Bollywood Suite</option>
+          <option>Family Suite</option><option>Executive Heritage</option>
+          <option>Imperial Room</option><option>Deluxe Room</option>
+        </select>
+      </div>
+      <div class="fg"><label>Guests</label>
+        <select><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select>
+      </div>
+    </div>
+    <div class="fg"><label>Occasion / Special Requests</label><textarea rows="3" placeholder="Wedding, anniversary, corporate retreat, special requirements..."></textarea></div>
+    <button class="btn-form" onclick="alert('Thank you for your enquiry. Our team will reach out on WhatsApp within the hour to confirm your reservation.')">Send Reservation Request</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo-main">WOODVILLE PALACE</div>
+    <div class="f-logo-sub">Heritage Hotel · Shimla · Est. 1938</div>
+  </div>
+  <div class="f-copy">© 2026 Woodville Palace Hotel. All Rights Reserved.</div>
+  <div class="f-socials">
+    <a href="#" class="f-soc" title="Instagram">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="#" class="f-soc" title="Facebook">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <a href="https://maps.app.goo.gl/K2qX5FQKb5K2wxoM6" target="_blank" class="f-soc" title="Google Maps">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+    </a>
+    <a href="https://wa.me/918874923456" target="_blank" class="f-soc" title="WhatsApp">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/918874923456?text=Hello%2C+I+would+like+to+know+about+room+availability+at+Woodville+Palace+Shimla." class="float-wa" target="_blank" title="Book via WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60));
+</script>
+</body>
+</html>

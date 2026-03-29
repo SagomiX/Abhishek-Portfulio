@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Works | WEB X HUB — Live Websites by Abhishek</title>
+<meta name="description" content="Live websites by Abhishek — Shopify stores, WordPress sites, BigCommerce. Custom HTML projects. WEB X HUB portfolio."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+canvas#leaf-canvas,canvas#firefly-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.6}
+#birds-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+#snake-canvas{position:fixed;right:0;top:0;height:100%;pointer-events:none;z-index:2;opacity:.4}
+.par-section{position:relative;overflow:hidden;isolation:isolate}
+.par-section::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;z-index:8;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--void))}
+.par-bg{position:absolute;inset:-40% 0;z-index:0;will-change:transform;pointer-events:none}
+.par-overlay{position:absolute;inset:0;z-index:1;pointer-events:none}
+.par-content{position:relative;z-index:5;width:100%;max-width:1200px;margin:0 auto;padding:0 5vw}
+.cat-hdr{display:flex;align-items:flex-start;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.cat-icon{width:60px;height:60px;border-radius:16px;flex-shrink:0;background:linear-gradient(135deg,rgba(120,255,82,.12),rgba(48,240,208,.08));border:1px solid rgba(120,255,82,.22);display:flex;align-items:center;justify-content:center;font-size:1.8rem;animation:float 5s ease-in-out infinite}
+.cat-cnt{font-margin-left:auto;align-self:center;background:rgba(120,255,82,.08);border:1px solid rgba(120,255,82,.18);color:var(--lime2);padding:5px 16px;border-radius:100px;font-size:.8rem;font-weight:700;font-family:var(--font-mono)}
+.works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.work-card{background:rgba(15,31,21,.88);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;text-decoration:none;color:inherit;display:block;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;cursor:none}
+.work-card:hover{transform:translateY(-8px) scale(1.01);border-color:rgba(120,255,82,.35);box-shadow:0 24px 80px rgba(0,0,0,.7)}
+.ext-prev{width:100%;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem;position:relative;overflow:hidden}
+.ext-emoji{font-size:3rem;animation:float 4s ease-in-out infinite}
+.ext-dom{font-family:var(--font-mono);font-size:.76rem;color:var(--teal);padding:4px 12px;background:rgba(48,240,208,.08);border-radius:100px;border:1px solid rgba(48,240,208,.2)}
+.plt-badge{position:absolute;top:12px;right:12px;padding:4px 11px;border-radius:100px;font-size:.7rem;font-weight:700}
+.pb-s{background:rgba(149,191,71,.15);color:#95BF47;border:1px solid rgba(149,191,71,.3)}
+.pb-w{background:rgba(33,117,155,.15);color:#4DA6C8;border:1px solid rgba(33,117,155,.3)}
+.pb-b{background:rgba(52,135,241,.15);color:#5B9FFF;border:1px solid rgba(52,135,241,.3)}
+.hover-ov{position:absolute;inset:0;background:rgba(2,5,8,.8);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.work-card:hover .hover-ov{opacity:1}
+.visit-btn{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:var(--void);padding:11px 24px;border-radius:100px;font-size:.88rem;font-weight:700;transform:translateY(8px);transition:transform .3s}
+.work-card:hover .visit-btn{transform:translateY(0)}
+.winfo{padding:1.2rem 1.5rem 1.5rem}
+.winfo h3{font-family:var(--font-head);font-weight:700;font-size:1rem;margin-bottom:.3rem}
+.winfo p{color:var(--muted);font-size:.82rem}
+.wurl{color:var(--teal);font-size:.75rem;font-family:var(--font-mono);margin-top:.5rem;display:block}
+.slider-track .slide{flex:0 0 calc(33.333% - 1rem);margin-right:1.5rem}
+@media(max-width:1024px){.works-grid{grid-template-columns:repeat(2,1fr)}.slider-track .slide{flex:0 0 calc(50% - .75rem)}}
+@media(max-width:600px){.works-grid{grid-template-columns:1fr}.slider-track .slide{flex:0 0 100%;margin-right:0}}
+
+  @media(max-width:768px){
+.slider-track{
+  gap:25px !important;}
+  }
+</style>
+</head>
+<body>
+<canvas id="leaf-canvas"></canvas><canvas id="firefly-canvas"></canvas>
+<canvas id="snake-canvas"></canvas><div id="birds-layer"></div>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<nav>
+  <a href="index.html" class="nav-logo"><span class="leaf">🌿</span>WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB</a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li><li><a href="works.html" class="active">Works</a></li>
+    <li><a href="contact.html">Contact</a></li><li><a href="contact.html" class="nav-cta">Hire Me 🌿</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="par-section" data-speed="0.35" style="min-height:55vh;display:flex;align-items:center;padding:calc(var(--nav-h)+80px) 0 60px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(10,30,15,.95),var(--void))">
+  <div class="par-bg"><svg width="100%" height="180%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><g fill="rgba(5,18,10,.75)"><ellipse cx="0" cy="900" rx="200" ry="500"/><ellipse cx="400" cy="900" rx="180" ry="460"/><ellipse cx="800" cy="900" rx="210" ry="520"/><ellipse cx="1200" cy="900" rx="190" ry="480"/><ellipse cx="1440" cy="900" rx="180" ry="450"/></g></svg></div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom,rgba(2,5,8,.65),rgba(2,5,8,.3) 50%,rgba(2,5,8,.75))"></div>
+  <div class="par-content" style="text-align:center;">
+    <div class="section-label reveal">All Works</div>
+    <h1 class="section-title reveal rd2">Real Sites,<br><em>Real Results.</em></h1>
+    <p style="color:var(--muted);max-width:520px;margin:.8rem auto 2rem;" class="reveal rd3">Live HTML projects, Shopify stores, WordPress sites and BigCommerce shops. Click to visit each.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;" class="reveal rd4">
+      <a href="#html" class="btn btn-outline" style="padding:8px 20px;font-size:.82rem;">🌿 HTML</a>
+      <a href="#shopify" class="btn btn-outline" style="padding:8px 20px;font-size:.82rem;">🛍️ Shopify</a>
+      <a href="#wordpress" class="btn btn-outline" style="padding:8px 20px;font-size:.82rem;">🔧 WordPress</a>
+      <a href="#bigcommerce" class="btn btn-outline" style="padding:8px 20px;font-size:.82rem;">🏪 BigCommerce</a>
+    </div>
+  </div>
+</section>
+
+<!-- HTML SECTION with slider -->
+<section class="par-section" id="html" data-speed="0.2" style="padding:6rem 0 8rem;min-height:auto;background:radial-gradient(ellipse 70% 60% at 30% 80%,rgba(5,20,10,.97),var(--void))">
+  <div class="par-overlay" style="background:rgba(2,5,8,.5)"></div>
+  <div class="par-content">
+    <div class="cat-hdr reveal"><div class="cat-icon">🌿</div><div><div class="section-label" style="margin-bottom:.2rem">Custom Built</div><h2 style="font-family:var(--font-head);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;letter-spacing:-.04em">HTML / CSS / JS Projects</h2></div><span class="cat-cnt" style="margin-left:auto">20 Projects</span></div>
+    <div class="slider-component reveal">
+      <div class="slider-wrap">
+        <div class="slider-track">
+          <div class="slide"><a href="projects/annamaya-foodhall.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/annamaya-foodhall.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-gold">Food Hall</span></div><h3>AnnaMaya FoodHall</h3><p>Andaz Delhi artisanal dining</p></div></a></div>
+          <div class="slide"><a href="projects/the-gt-road.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/the-gt-road.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-earth">Restaurant</span></div><h3>The GT Road</h3><p>Grand Trunk dining experience</p></div></a></div>
+          <div class="slide"><a href="projects/olive-bar-kitchen.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/olive-bar-kitchen.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-green">Restaurant</span></div><h3>Olive Bar &amp; Kitchen</h3><p>Mediterranean dining, Mehrauli</p></div></a></div>
+          <div class="slide"><a href="projects/hotel_skypie_real_photo_mockup.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/hotel_skypie_real_photo_mockup.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-green">Hotel</span></div><h3>Hotel Skypie</h3><p>Luxury hotel with booking UI</p></div></a></div>
+          <div class="slide"><a href="projects/snowdrift_manali_mockup.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/snowdrift_manali_mockup.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-green">Hotel</span></div><h3>Snowdrift Manali</h3><p>Mountain resort design</p></div></a></div>
+          <div class="slide"><a href="projects/woodville_palace_redesign.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/woodville_palace_redesign.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-earth">Heritage</span></div><h3>Woodville Palace</h3><p>Heritage palace redesign</p></div></a></div>
+          <div class="slide"><a href="projects/himalayan-architects.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/himalayan-architects.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-teal">Architecture</span></div><h3>Himalayan Architects</h3><p>Architecture firm portfolio</p></div></a></div>
+          <div class="slide"><a href="projects/GulliverAdventures_WebsiteMockup.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/GulliverAdventures_WebsiteMockup.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-green">Travel</span></div><h3>Gulliver Adventures</h3><p>Adventure travel company</p></div></a></div>
+          <div class="slide"><a href="projects/hangout_bike_rentals_white_purple.html" class="work-card" target="_blank"><div class="proj-thumb"><iframe src="projects/hangout_bike_rentals_white_purple.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open ↗</span></div></div><div class="winfo"><div style="display:flex;gap:6px;margin-bottom:.5rem"><span class="tag tag-teal">Rentals</span></div><h3>Hangout Bike Rentals</h3><p>Clean modern rental portal</p></div></a></div>
+        </div>
+      </div>
+      <div class="slider-nav"><button class="slider-btn slider-prev">←</button><div class="slider-dots"></div><button class="slider-btn slider-next">→</button></div>
+    </div>
+    <div style="text-align:center;margin-top:2rem;"><a href="projects.html" class="btn btn-outline">View All in Grid 🌿</a></div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🛍️</div><div class="vine-line"></div></div>
+
+<!-- SHOPIFY -->
+<section class="par-section" id="shopify" data-speed="0.25" style="padding:6rem 0 8rem;min-height:auto;background:radial-gradient(ellipse 70% 60% at 70% 20%,rgba(8,14,20,.98),var(--void))">
+  <div class="par-overlay" style="background:rgba(2,5,8,.5)"></div>
+  <div class="par-content">
+    <div class="cat-hdr reveal"><div class="cat-icon" style="animation-delay:.5s">🛍️</div><div><div class="section-label" style="margin-bottom:.2rem">eCommerce</div><h2 style="font-family:var(--font-head);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;letter-spacing:-.04em">Shopify Stores</h2></div><span class="cat-cnt" style="margin-left:auto">3 Live Sites</span></div>
+    <div class="works-grid">
+      <a href="https://vitinor.com/" target="_blank" class="work-card reveal rd1"><div class="ext-prev" style="background:linear-gradient(135deg,#0a180e,#162818)"><div class="ext-emoji">🧴</div><div class="ext-dom">vitinor.com</div><span class="plt-badge pb-s">Shopify</span><div class="hover-ov"><span class="visit-btn">Visit Site ↗</span></div></div><div class="winfo"><h3>Vitinor</h3><p>Premium health & wellness Shopify store</p><span class="wurl">vitinor.com</span></div></a>
+      <a href="https://www.lemonsalt.co.uk/" target="_blank" class="work-card reveal rd2"><div class="ext-prev" style="background:linear-gradient(135deg,#0a160c,#1a2010)"><div class="ext-emoji">🍋</div><div class="ext-dom">lemonsalt.co.uk</div><span class="plt-badge pb-s">Shopify</span><div class="hover-ov"><span class="visit-btn">Visit Site ↗</span></div></div><div class="winfo"><h3>LemonSalt UK</h3><p>UK-based Shopify store with vibrant branding</p><span class="wurl">lemonsalt.co.uk</span></div></a>
+      <a href="https://www.knitonaustralia.com" target="_blank" class="work-card reveal rd3"><div class="ext-prev" style="background:linear-gradient(135deg,#0a1810,#182812)"><div class="ext-emoji">🧶</div><div class="ext-dom">knitonaustralia.com</div><span class="plt-badge pb-s">Shopify</span><div class="hover-ov"><span class="visit-btn">Visit Site ↗</span></div></div><div class="winfo"><h3>Knit On Australia</h3><p>Australian craft &amp; knitting Shopify store</p><span class="wurl">knitonaustralia.com</span></div></a>
+    </div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🔧</div><div class="vine-line"></div></div>
+
+<!-- WORDPRESS -->
+<section class="par-section" id="wordpress" data-speed="0.25" style="padding:6rem 0 8rem;min-height:auto;background:radial-gradient(ellipse 70% 60% at 30% 80%,rgba(5,20,10,.97),var(--void))">
+  <div class="par-overlay" style="background:rgba(2,5,8,.5)"></div>
+  <div class="par-content">
+    <div class="cat-hdr reveal"><div class="cat-icon" style="animation-delay:1s">🔧</div><div><div class="section-label" style="margin-bottom:.2rem">CMS</div><h2 style="font-family:var(--font-head);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;letter-spacing:-.04em">WordPress Sites</h2></div><span class="cat-cnt" style="margin-left:auto">2 Live Sites</span></div>
+    <div class="works-grid" style="grid-template-columns:repeat(2,1fr)">
+      <a href="http://project575.jp/" target="_blank" class="work-card reveal rd1"><div class="ext-prev" style="background:linear-gradient(135deg,#060e08,#101a12)"><div class="ext-emoji">🏯</div><div class="ext-dom">project575.jp</div><span class="plt-badge pb-w">WordPress</span><div class="hover-ov"><span class="visit-btn">Visit Site ↗</span></div></div><div class="winfo"><h3>Project 575 Japan</h3><p>Japanese website with multilingual support</p><span class="wurl">project575.jp</span></div></a>
+      <a href="https://kaaria.ai/" target="_blank" class="work-card reveal rd2"><div class="ext-prev" style="background:linear-gradient(135deg,#060e08,#101a12)"><div class="ext-emoji">🤖</div><div class="ext-dom">kaaria.ai</div><span class="plt-badge pb-w">WordPress</span><div class="hover-ov"><span class="visit-btn">Visit Site ↗</span></div></div><div class="winfo"><h3>Kaaria AI</h3><p>AI company with modern dark design</p><span class="wurl">kaaria.ai</span></div></a>
+    </div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🏪</div><div class="vine-line"></div></div>
+
+<!-- BIGCOMMERCE -->
+<section class="par-section" id="bigcommerce" data-speed="0.25" style="padding:6rem 0 8rem;min-height:auto;background:radial-gradient(ellipse 70% 60% at 70% 20%,rgba(8,14,20,.98),var(--void))">
+  <div class="par-overlay" style="background:rgba(2,5,8,.5)"></div>
+  <div class="par-content">
+    <div class="cat-hdr reveal"><div class="cat-icon" style="animation-delay:1.5s">🏪</div><div><div class="section-label" style="margin-bottom:.2rem">eCommerce</div><h2 style="font-family:var(--font-head);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;letter-spacing:-.04em">BigCommerce Store</h2></div><span class="cat-cnt" style="margin-left:auto">1 Live Site</span></div>
+    <div class="works-grid" style="grid-template-columns:repeat(2,1fr)">
+      <a href="https://christopherbean.com/" target="_blank" class="work-card reveal rd1"><div class="ext-prev" style="background:linear-gradient(135deg,#0a0a06,#1a1208)"><div class="ext-emoji">☕</div><div class="ext-dom">christopherbean.com</div><span class="plt-badge pb-b">BigCommerce</span><div class="hover-ov"><span class="visit-btn">Visit Site ↗</span></div></div><div class="winfo"><h3>Christopher Bean Coffee</h3><p>Premium coffee brand BigCommerce store</p><span class="wurl">christopherbean.com</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="par-section" data-speed="0.2" style="padding:8rem 0;min-height:auto;background:rgba(2,5,8,.9)">
+  <div class="par-content"><div class="cta-banner reveal"><h2>Want a Site Like <em>These?</em></h2><p>I build high-performing websites on every major platform.</p><a href="contact.html" class="btn btn-primary">Start Your Project 🌿</a></div></div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="nav-logo" style="text-decoration:none;"><span class="leaf">🌿</span>WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB</a><p>Custom HTML, WordPress, Shopify, Webflow, BigCommerce. India — worldwide.</p><div class="social-links" style="margin-top:1.2rem;"><a href="mailto:kumarabhishek180502@gmail.com">✉</a><a href="tel:+918580999516">📞</a><a href="https://www.linkedin.com/in/abhishek-undefined-1982913b8/" target="_blank">in</a><a href="https://www.instagram.com/web_x_hub/" target="_blank">◎</a><a href="https://wa.me/918580999516" target="_blank">💬</a></div></div>
+    <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="projects.html">Projects</a></li><li><a href="works.html">Works</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Platforms</h4><ul><li><a href="#">Custom HTML</a></li><li><a href="#">WordPress</a></li><li><a href="#">Shopify</a></li><li><a href="#">Webflow</a></li><li><a href="#">BigCommerce</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+918580999516">+91 85809 99516</a></li><li><a href="https://wa.me/918580999516" target="_blank">WhatsApp 💬</a></li><li><a href="https://www.instagram.com/web_x_hub/" target="_blank">@web_x_hub</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2024 WEB X HUB · Abhishek. All rights reserved.</p><p style="color:var(--lime);opacity:.6">// grown with ❤️ in the digital jungle</p></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

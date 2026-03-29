@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Somewhere Delhi — Restaurant & Bar · Connaught Place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --void:      #080808;
+  --dark:      #111111;
+  --surface:   #161616;
+  --card:      #1c1c1c;
+  --border:    rgba(255,255,255,.07);
+  --neon:      #c8f060;
+  --neon-dim:  #a0c040;
+  --neon-glow: rgba(200,240,96,.15);
+  --warm:      #f0c060;
+  --warm-dim:  #c09040;
+  --rose:      #e06080;
+  --blue:      #60b0f0;
+  --cream:     #f5f0e8;
+  --muted:     rgba(245,240,232,.45);
+  --stone:     rgba(245,240,232,.25);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Instrument Sans',sans-serif;
+  background:var(--void);
+  color:var(--cream);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* Custom cursor */
+#cur,#cur-ring{
+  position:fixed;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);border-radius:50%;
+}
+#cur{
+  width:8px;height:8px;
+  background:var(--neon);
+  transition:width .2s,height .2s,background .2s;
+}
+#cur-ring{
+  width:32px;height:32px;
+  border:1px solid rgba(200,240,96,.4);
+  transition:width .35s cubic-bezier(.22,1,.36,1),height .35s,left .06s,top .06s,border-color .3s;
+}
+body:has(a:hover,button:hover) #cur{width:14px;height:14px;background:var(--warm)}
+body:has(a:hover,button:hover) #cur-ring{width:46px;height:46px;border-color:rgba(240,192,96,.5)}
+
+/* Grain */
+body::before{
+  content:'';position:fixed;inset:0;z-index:8999;pointer-events:none;
+  opacity:.032;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:200px;mix-blend-mode:overlay;
+}
+
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:var(--neon)}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:700;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 4rem;
+  transition:all .5s;
+}
+nav.stuck{
+  background:rgba(8,8,8,.92);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:1rem 4rem;
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-size:1.1rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;
+  color:var(--cream);
+}
+.nav-logo span{color:var(--neon)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-family:'Instrument Sans',sans-serif;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;
+  color:var(--stone);text-decoration:none;transition:color .3s;
+}
+.nav-links a:hover{color:var(--neon)}
+.nav-cta{
+  font-family:'Syne',sans-serif;
+  font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  border:1px solid rgba(200,240,96,.35);
+  color:var(--neon);padding:.5rem 1.4rem;text-decoration:none;
+  transition:all .3s;
+}
+.nav-cta:hover{background:var(--neon);color:var(--void);border-color:var(--neon)}
+
+/* ══ HERO ══ */
+#hero{
+  position:relative;height:100vh;min-height:680px;
+  display:grid;place-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 70% at 50% 60%, rgba(200,240,96,.04) 0%, transparent 60%),
+              var(--void);
+}
+/* Floating ambient orbs */
+.orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:0;
+  animation:orb-drift var(--od) ease-in-out infinite;
+  animation-delay:var(--odd);
+}
+@keyframes orb-drift{
+  0%,100%{opacity:0;transform:translate(0,0) scale(1)}
+  33%{opacity:.4;transform:translate(var(--odx),var(--ody)) scale(1.2)}
+  66%{opacity:.2;transform:translate(calc(var(--odx)*-.5),calc(var(--ody)*1.5)) scale(.8)}
+}
+/* Grid lines */
+.hero-grid{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 30%,transparent 80%);
+}
+.hero-center{
+  position:relative;z-index:5;
+  text-align:center;max-width:1000px;padding:0 2rem;
+}
+.hero-pre{
+  display:inline-flex;align-items:center;gap:1rem;
+  font-family:'Syne Mono',monospace;
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:2.5rem;
+  animation:appear .8s .1s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-pre-dot{width:6px;height:6px;background:var(--neon);border-radius:50%;animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes appear{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(4.5rem,12vw,11rem);
+  line-height:.88;color:var(--cream);
+  letter-spacing:-.02em;
+  animation:appear .8s .25s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-h1 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--neon),var(--warm));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-rule{
+  display:flex;align-items:center;justify-content:center;gap:1.5rem;
+  margin:1.2rem 0;
+  animation:appear .8s .4s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-rule-line{flex:0 0 70px;height:1px;background:linear-gradient(to right,transparent,var(--neon),transparent)}
+.hero-rule-text{
+  font-family:'Syne Mono',monospace;
+  font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--stone);
+}
+.hero-sub{
+  font-family:'DM Serif Display',serif;font-style:italic;
+  font-size:clamp(.9rem,1.8vw,1.15rem);
+  color:var(--muted);margin-bottom:3rem;line-height:1.6;
+  animation:appear .8s .55s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-chips{
+  display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:2.5rem;
+  animation:appear .8s .65s cubic-bezier(.22,1,.36,1) both;
+}
+.chip{
+  font-family:'Instrument Sans',sans-serif;
+  font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--stone);
+  padding:.35rem .9rem;transition:all .3s;
+}
+.chip:hover{border-color:var(--neon);color:var(--neon)}
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:appear .8s .78s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-neon{
+  font-family:'Syne',sans-serif;
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--neon);color:var(--void);
+  padding:.9rem 2.5rem;text-decoration:none;
+  position:relative;overflow:hidden;transition:all .35s;
+}
+.btn-neon::before{
+  content:'';position:absolute;inset:0;
+  background:var(--warm);transform:scaleX(0);transform-origin:right;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.btn-neon:hover::before{transform:scaleX(1);transform-origin:left}
+.btn-neon span{position:relative}
+.btn-line{
+  font-family:'Syne',sans-serif;
+  font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--muted);
+  padding:.9rem 2rem;text-decoration:none;transition:all .3s;
+}
+.btn-line:hover{border-color:var(--neon);color:var(--neon)}
+
+/* Scroll hint */
+.hero-scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:5;
+  animation:appear .8s 1.1s both;
+}
+.hs-label{font-family:'Syne Mono',monospace;font-size:.44rem;letter-spacing:.3em;text-transform:uppercase;color:var(--stone)}
+.hs-line{
+  width:1px;height:50px;
+  background:linear-gradient(to bottom,var(--neon),transparent);
+  position:relative;overflow:hidden;
+}
+.hs-line::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:30%;
+  background:var(--cream);opacity:.5;
+  animation:hs-drip 2s ease-in-out infinite;
+}
+@keyframes hs-drip{from{top:-30%}to{top:130%}}
+
+/* ══ TICKER ══ */
+.ticker-wrap{
+  background:var(--neon);padding:.75rem 0;overflow:hidden;
+  position:relative;
+}
+.ticker-track{
+  display:flex;width:max-content;
+  animation:ticker-go 30s linear infinite;
+}
+@keyframes ticker-go{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  display:flex;align-items:center;gap:2rem;padding:0 2rem;
+  font-family:'Syne',sans-serif;
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--void);white-space:nowrap;
+}
+.ticker-dot{width:4px;height:4px;background:rgba(8,8,8,.4);border-radius:50%}
+
+/* ══ SHARED ══ */
+.sec{padding:8rem 4rem}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-family:'Syne Mono',monospace;
+  font-size:.55rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:1rem;
+}
+.eyebrow::before{content:'[';opacity:.5}
+.eyebrow::after{content:']';opacity:.5}
+
+/* ══ ABOUT ══ */
+#about{background:var(--dark)}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8rem;
+  max-width:1200px;margin:0 auto;align-items:center;
+}
+.about-text h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.5rem,4.5vw,4rem);
+  line-height:1.05;color:var(--cream);margin-bottom:2rem;
+}
+.about-text h2 em{font-style:italic;color:var(--neon)}
+.about-text p{
+  font-size:.9rem;line-height:1.9;color:var(--muted);
+  margin-bottom:1.3rem;font-weight:300;
+}
+.about-quote{
+  border-left:2px solid var(--neon);
+  padding:1rem 1.5rem;margin:2rem 0;
+  background:var(--neon-glow);
+}
+.about-quote p{
+  font-family:'DM Serif Display',serif;font-style:italic;
+  font-size:1.05rem;color:var(--cream);line-height:1.6;margin:0;
+}
+.about-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:2.5rem;background:var(--border);
+}
+.astat{
+  background:var(--dark);padding:1.5rem 1.2rem;text-align:center;
+  transition:background .3s;
+}
+.astat:hover{background:var(--surface)}
+.astat-val{
+  font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;
+  color:var(--neon);line-height:1;
+}
+.astat-key{
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);
+  margin-top:.3rem;
+}
+/* Visual */
+.about-visual{position:relative}
+.about-frame{
+  width:100%;aspect-ratio:3/4;position:relative;overflow:hidden;
+  background:var(--surface);
+}
+.about-img{
+  width:100%;height:100%;
+  background:
+    url('https://b.zmtcdn.com/data/pictures/8/18428018/10d5b2e7ff22f73fde7b0c7e0a3e9d4b.jpg?fit=around|771.75:580&crop=771.75:580;*,*') center/cover,
+    linear-gradient(135deg,#1c1c1c,#111);
+  filter:brightness(.8) saturate(.85);
+  transition:all .6s;
+}
+.about-frame:hover .about-img{filter:brightness(1) saturate(1);transform:scale(1.04)}
+.about-tag{
+  position:absolute;bottom:2rem;left:-1.5rem;
+  background:var(--neon);color:var(--void);
+  font-family:'Syne',sans-serif;font-size:.55rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  padding:.55rem 1.2rem;
+}
+.about-badge{
+  position:absolute;top:2rem;right:-1.2rem;
+  background:var(--surface);border:1px solid var(--border);
+  padding:1.2rem;text-align:center;
+}
+.about-badge-num{
+  font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--warm);line-height:1;
+}
+.about-badge-txt{
+  font-size:.42rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);margin-top:.2rem;
+}
+
+/* ══ MENU ══ */
+#menu{background:var(--void)}
+.menu-top{text-align:center;margin-bottom:3.5rem}
+.menu-top h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.5rem,5vw,4.2rem);color:var(--cream);margin-bottom:.4rem;
+}
+.menu-top h2 em{font-style:italic;color:var(--neon)}
+.menu-top p{font-size:.75rem;color:var(--stone);letter-spacing:.1em}
+.menu-tabs{
+  display:flex;justify-content:center;gap:0;
+  max-width:800px;margin:0 auto 3rem;
+  border:1px solid var(--border);
+}
+.mtab{
+  flex:1;padding:.72rem;background:transparent;
+  font-family:'Syne',sans-serif;
+  font-size:.58rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--stone);cursor:pointer;border:none;
+  border-right:1px solid var(--border);transition:all .3s;
+}
+.mtab:last-child{border-right:none}
+.mtab.on,.mtab:hover{background:var(--neon);color:var(--void)}
+.dishes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;max-width:1200px;margin:0 auto;
+  background:var(--border);
+}
+.dish{
+  background:var(--void);padding:2rem 1.8rem;
+  position:relative;overflow:hidden;transition:background .4s;
+}
+.dish-line{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--neon),var(--warm));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.dish:hover{background:var(--surface)}
+.dish:hover .dish-line{transform:scaleX(1)}
+.dish-cat{
+  font-family:'Syne Mono',monospace;
+  font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.5rem;
+}
+.dish h3{
+  font-family:'DM Serif Display',serif;
+  font-size:1.2rem;color:var(--cream);margin-bottom:.5rem;line-height:1.2;
+}
+.dish p{font-size:.72rem;line-height:1.8;color:var(--stone);font-weight:300}
+.dish-price{
+  margin-top:1rem;font-family:'Syne',sans-serif;
+  font-size:.75rem;font-weight:600;color:var(--warm);letter-spacing:.06em;
+}
+.dish-veg,.dish-nonveg{
+  position:absolute;top:1rem;right:1rem;
+  width:10px;height:10px;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+.dish-veg{border:1.5px solid #4ec94e}
+.dish-veg::after{content:'';width:5px;height:5px;background:#4ec94e;border-radius:50%}
+.dish-nonveg{border:1.5px solid #e05050}
+.dish-nonveg::after{content:'';width:5px;height:5px;background:#e05050;border-radius:50%}
+
+/* Cocktail feature */
+.cocktail-feature{
+  max-width:1200px;margin:2px auto 0;
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  background:var(--border);
+}
+.cf-left,.cf-right{padding:3rem}
+.cf-left{
+  background:var(--surface);
+}
+.cf-left h3{
+  font-family:'DM Serif Display',serif;
+  font-size:1.8rem;font-style:italic;color:var(--cream);margin-bottom:.5rem;
+}
+.cf-left p{font-size:.78rem;color:var(--stone);line-height:1.7;max-width:380px}
+.cf-right{
+  background:var(--card);
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);padding:0;
+}
+.cf-cocktail{
+  background:var(--card);padding:1.5rem;
+  transition:background .3s;
+}
+.cf-cocktail:hover{background:var(--surface)}
+.cf-cocktail-name{
+  font-family:'DM Serif Display',serif;font-size:.95rem;font-style:italic;
+  color:var(--cream);margin-bottom:.3rem;
+}
+.cf-cocktail-desc{font-size:.65rem;color:var(--stone);line-height:1.6}
+.cf-cocktail-price{font-size:.65rem;color:var(--warm);margin-top:.5rem;font-weight:500}
+
+/* ══ GALLERY ══ */
+#gallery{background:var(--dark);padding:8rem 0}
+.gal-hdr{padding:0 4rem;margin-bottom:3rem}
+.gal-hdr h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);color:var(--cream);
+}
+.gal-hdr h2 em{font-style:italic;color:var(--neon)}
+/* Masonry */
+.gal-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:220px 220px;
+  gap:3px;padding:0 4rem;
+}
+.g-cell{
+  overflow:hidden;position:relative;
+  background:var(--surface);
+}
+.g-cell.tall{grid-row:span 2}
+.g-cell.wide{grid-column:span 2}
+.g-img{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  filter:brightness(.7) saturate(.6);
+  transition:all .55s cubic-bezier(.22,1,.36,1);
+}
+.g-cell:hover .g-img{filter:brightness(.95) saturate(1);transform:scale(1.07)}
+.g-over{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,8,8,.85),transparent 50%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:1rem 1.2rem;
+}
+.g-cell:hover .g-over{opacity:1}
+.g-lbl{
+  font-family:'Syne',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--neon);
+}
+/* Scroll reel */
+.gal-reel{
+  display:flex;gap:3px;overflow-x:auto;
+  padding:3px 4rem 1.5rem;margin-top:3px;
+  scrollbar-width:thin;scrollbar-color:var(--neon) transparent;
+}
+.reel-cell{
+  flex:0 0 200px;height:180px;overflow:hidden;
+  background:var(--surface);flex-shrink:0;
+}
+.reel-img{
+  width:100%;height:100%;background-size:cover;background-position:center;
+  filter:brightness(.65) saturate(.5);transition:all .4s;
+}
+.reel-cell:hover .reel-img{filter:brightness(.9) saturate(.9);transform:scale(1.08)}
+
+/* ══ VIBES (experience) ══ */
+#vibes{background:var(--void)}
+.vibes-hdr{text-align:center;max-width:1200px;margin:0 auto 4rem}
+.vibes-hdr h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);color:var(--cream);
+}
+.vibes-hdr h2 em{font-style:italic;color:var(--neon)}
+.vibes-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  max-width:1200px;margin:0 auto;
+  background:var(--border);
+}
+.vcard{
+  background:var(--void);padding:2.5rem 2rem;
+  position:relative;overflow:hidden;transition:all .45s;
+}
+.vcard::after{
+  content:'';position:absolute;inset:0;
+  background:var(--neon-glow);opacity:0;transition:opacity .4s;
+}
+.vcard:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(200,240,96,.07)}
+.vcard:hover::after{opacity:1}
+.vcard>*{position:relative;z-index:1}
+.vicon{font-size:1.8rem;display:block;margin-bottom:1.2rem}
+.vtitle{
+  font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;
+  letter-spacing:.04em;color:var(--cream);margin-bottom:.5rem;
+}
+.vdesc{font-size:.72rem;line-height:1.75;color:var(--stone)}
+/* Capacity banner */
+.cap-banner{
+  background:var(--surface);padding:3.5rem 4rem;
+  display:flex;gap:0;max-width:none;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.cap-item{
+  flex:1;text-align:center;padding:1.5rem;
+  border-right:1px solid var(--border);
+  transition:background .3s;
+}
+.cap-item:last-child{border-right:none}
+.cap-item:hover{background:var(--card)}
+.cap-val{
+  font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;
+  color:var(--neon);line-height:1;margin-bottom:.3rem;
+}
+.cap-key{
+  font-family:'Syne Mono',monospace;
+  font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);
+}
+
+/* ══ REVIEWS ══ */
+#reviews{background:var(--dark)}
+.rev-hdr{text-align:center;margin-bottom:3.5rem}
+.rev-hdr h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2rem,4vw,3.2rem);color:var(--cream);
+}
+.rev-hdr h2 em{font-style:italic;color:var(--neon)}
+.rev-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;max-width:1200px;margin:0 auto;background:var(--border);
+}
+.rev-card{
+  background:var(--dark);padding:2.2rem 2rem;
+  transition:background .3s;position:relative;
+}
+.rev-card:hover{background:var(--surface)}
+.rev-stars{
+  display:flex;gap:.3rem;margin-bottom:.8rem;
+}
+.star{
+  width:12px;height:12px;
+  background:var(--warm);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.rev-text{
+  font-family:'DM Serif Display',serif;font-style:italic;
+  font-size:.88rem;line-height:1.8;color:var(--muted);margin-bottom:1rem;
+}
+.rev-author{
+  font-family:'Syne',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--neon);
+}
+.rev-platform{font-size:.52rem;color:var(--stone);margin-top:.2rem;letter-spacing:.1em}
+.rev-tag{
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--stone);padding:.2rem .6rem;
+}
+
+/* ══ VISIT ══ */
+#visit{background:var(--void)}
+.visit-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:start;
+}
+.visit-left h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,4vw,3.2rem);color:var(--cream);margin-bottom:2.5rem;line-height:1.05;
+}
+.visit-left h2 em{font-style:italic;color:var(--neon)}
+.vrow{
+  margin-bottom:1.8rem;padding-bottom:1.8rem;
+  border-bottom:1px solid var(--border);
+}
+.vlbl{
+  font-family:'Syne Mono',monospace;
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.4rem;
+}
+.vrow p,.vrow a{
+  font-size:.85rem;color:var(--muted);line-height:1.75;
+  text-decoration:none;display:block;transition:color .3s;font-weight:300;
+}
+.vrow a:hover{color:var(--neon)}
+/* Map */
+.visit-map{
+  background:var(--surface);aspect-ratio:1;
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.map-bg-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(200,240,96,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,240,96,.04) 1px,transparent 1px);
+  background-size:35px 35px;
+}
+.map-glow{
+  position:absolute;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,240,96,.08),transparent 70%);
+  animation:map-pulse 3s ease-in-out infinite;
+}
+@keyframes map-pulse{
+  0%,100%{transform:scale(1);opacity:.6}
+  50%{transform:scale(1.4);opacity:1}
+}
+.map-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.mring{
+  position:absolute;width:70px;height:70px;border-radius:50%;
+  border:1px solid rgba(200,240,96,.25);opacity:0;
+  animation:mring-out 3.2s ease-out infinite;
+}
+.mring:nth-child(2){animation-delay:1.1s}
+.mring:nth-child(3){animation-delay:2.2s}
+@keyframes mring-out{
+  0%{transform:scale(.3);opacity:.8}
+  100%{transform:scale(4.5);opacity:0}
+}
+.map-pin-wrap{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+}
+.map-pin{
+  width:38px;height:38px;
+  background:var(--neon);
+  border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+  animation:pin-hover 2.5s ease-in-out infinite;
+  position:relative;
+}
+.map-pin::after{content:'';position:absolute;inset:7px;background:var(--void);border-radius:50%}
+@keyframes pin-hover{
+  0%,100%{transform:rotate(-45deg) translateY(0);box-shadow:0 0 0 0 rgba(200,240,96,.4)}
+  50%{transform:rotate(-45deg) translateY(-10px);box-shadow:0 14px 0 -5px rgba(0,0,0,.2)}
+}
+.map-info{text-align:center;z-index:2}
+.map-info h4{
+  font-family:'Syne',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.04em;
+  color:var(--cream);margin-bottom:.2rem;text-transform:uppercase;
+}
+.map-info p{font-family:'Syne Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.map-corner-txt{
+  position:absolute;font-family:'Syne Mono',monospace;font-size:.5rem;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--stone);opacity:.5;
+}
+.map-corner-txt.tl{top:.8rem;left:.8rem}
+.map-corner-txt.br{bottom:.8rem;right:.8rem;text-align:right}
+
+/* ══ RESERVATION ══ */
+#reservation{
+  background:var(--surface);text-align:center;position:relative;overflow:hidden;
+}
+#reservation::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 60% at 50% 50%,var(--neon-glow),transparent);
+}
+#reservation h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);color:var(--cream);position:relative;
+}
+#reservation h2 em{font-style:italic;color:var(--neon)}
+#reservation>p{
+  font-size:.78rem;color:var(--stone);letter-spacing:.08em;margin-bottom:3rem;position:relative;
+}
+.res-row{
+  display:flex;gap:.7rem;max-width:900px;margin:0 auto;
+  flex-wrap:wrap;justify-content:center;position:relative;
+}
+.ri{
+  flex:1;min-width:170px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  color:var(--cream);padding:.9rem 1.1rem;
+  font-family:'Instrument Sans',sans-serif;font-size:.72rem;
+  outline:none;transition:border-color .3s;
+}
+.ri::placeholder{color:var(--stone)}
+.ri:focus{border-color:var(--neon)}
+.ri option{background:var(--surface)}
+.res-btn{
+  font-family:'Syne',sans-serif;
+  font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--neon);color:var(--void);border:none;
+  padding:.9rem 2.5rem;cursor:pointer;transition:background .3s;
+}
+.res-btn:hover{background:var(--warm)}
+
+/* ══ FOOTER ══ */
+footer{
+  background:var(--void);padding:4rem;
+  display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem;
+  border-top:1px solid var(--border);
+}
+.f-name{
+  font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--cream);margin-bottom:.2rem;
+}
+.f-name span{color:var(--neon)}
+.f-sub{
+  font-family:'Syne Mono',monospace;
+  font-size:.46rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:1rem;display:block;
+}
+.f-about{font-size:.72rem;color:var(--stone);line-height:1.8;max-width:230px}
+.f-call{
+  display:inline-block;margin-top:.8rem;
+  font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;
+  color:var(--warm);text-decoration:none;transition:color .3s;
+  letter-spacing:.04em;
+}
+.f-call:hover{color:var(--neon)}
+.fcol h5{
+  font-family:'Syne Mono',monospace;
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:1.2rem;
+}
+.fcol a,.fcol p{
+  display:block;font-size:.72rem;color:var(--stone);
+  text-decoration:none;margin-bottom:.5rem;line-height:1.6;transition:color .3s;
+}
+.fcol a:hover{color:var(--neon)}
+.fbar{
+  background:var(--dark);padding:1.1rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--border);
+}
+.fbar p{font-family:'Syne Mono',monospace;font-size:.5rem;letter-spacing:.1em;color:var(--stone)}
+
+/* ══ REVEAL ══ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.45s}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .sec{padding:5rem 1.5rem}
+  #gallery{padding:5rem 0}
+  .gal-hdr,.gal-reel{padding:0 1.5rem}
+  .gal-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;padding:0 1.5rem}
+  .g-cell.tall{grid-row:span 1}
+  .about-grid,.visit-grid{grid-template-columns:1fr;gap:3rem}
+  .dishes{grid-template-columns:1fr}
+  .cocktail-feature{grid-template-columns:1fr}
+  .vibes-grid{grid-template-columns:1fr 1fr}
+  .rev-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .cap-banner{flex-wrap:wrap}
+  .hero-h1{font-size:clamp(3.5rem,15vw,7rem)}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Some<span>where</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#vibes">Vibes</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-cta">Reserve</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="orbs" id="orbs"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-center">
+    <div class="hero-pre">
+      <div class="hero-pre-dot"></div>
+      Connaught Place · New Delhi · H-10, H Block
+    </div>
+    <h1 class="hero-h1">Some<em>where</em></h1>
+    <div class="hero-rule">
+      <span class="hero-rule-line"></span>
+      <span class="hero-rule-text">Restaurant &amp; Bar · Rajiv Chowk</span>
+      <span class="hero-rule-line"></span>
+    </div>
+    <p class="hero-sub">"A place between everywhere and nowhere — chic, cozy, and entirely its own world."</p>
+    <div class="hero-chips">
+      <span class="chip">North Indian</span>
+      <span class="chip">Chinese</span>
+      <span class="chip">Italian</span>
+      <span class="chip">Continental</span>
+      <span class="chip">Craft Cocktails</span>
+      <span class="chip">Upto 450 Guests</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#reservation" class="btn-neon"><span>Reserve a Table</span></a>
+      <a href="#menu" class="btn-line">Explore Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="hs-line"></div>
+    <span class="hs-label">Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="eyebrow reveal">Our Story</div>
+      <h2 class="reveal d1">Chic. Cosy.<br><em>Completely Somewhere.</em></h2>
+      <p class="reveal d2">Somewhere Delhi is where Connaught Place comes to exhale. Tucked into H-10, Laxmi Building on the Ground Floor of CP's H Block, it's the kind of place that doesn't announce itself — you discover it, and then you keep coming back.</p>
+      <p class="reveal d2">The décor strikes the perfect balance between chic and cozy — elegant ambience meets a laid-back spirit. Whether you're here for a long Sunday brunch, an evening cocktail ritual, or a full-on birthday bash, Somewhere has a corner that feels made for exactly that moment.</p>
+      <div class="about-quote reveal d3">
+        <p>"A refreshing blend of elegant ambiance, attentive service, and a well-curated menu that caters to both Indian and global palates."</p>
+      </div>
+      <p class="reveal d2">From small plates and innovative cocktails to North Indian classics, Italian pasta and Oriental delights — the menu is a well-curated journey that keeps every table happy.</p>
+      <div class="about-stats reveal d3">
+        <div class="astat"><div class="astat-val">450</div><div class="astat-key">Guest Capacity</div></div>
+        <div class="astat"><div class="astat-val">4+</div><div class="astat-key">Cuisines</div></div>
+        <div class="astat"><div class="astat-val">CP</div><div class="astat-key">Heart of Delhi</div></div>
+      </div>
+    </div>
+    <div class="about-visual reveal d2">
+      <div class="about-frame">
+        <div class="about-img"></div>
+      </div>
+      <div class="about-tag">H-10 Connaught Place</div>
+      <div class="about-badge">
+        <div class="about-badge-num">4.2</div>
+        <div class="about-badge-txt">★ Justdial<br>1,257+ ratings</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="sec">
+  <div class="menu-top">
+    <div class="eyebrow reveal" style="justify-content:center">Deploy the Menu</div>
+    <h2 class="reveal d1">From <em>Somewhere</em>'s Kitchen</h2>
+    <p class="reveal d2">Signature small plates · Craft cocktails · Global comfort food · Done right</p>
+  </div>
+  <div class="menu-tabs reveal d2">
+    <button class="mtab on" data-cat="signatures">Signatures</button>
+    <button class="mtab" data-cat="starters">Small Plates</button>
+    <button class="mtab" data-cat="mains">Mains</button>
+    <button class="mtab" data-cat="desserts">Desserts</button>
+  </div>
+  <div class="dishes reveal d3" id="menuGrid"></div>
+  <div class="cocktail-feature reveal d2">
+    <div class="cf-left">
+      <h3>Cocktails &amp; Craft Bar</h3>
+      <p>Innovative cocktails that elevate the dining experience. Each drink is crafted to pair with the food — whether it's a small plate, a main, or just a long evening with friends.</p>
+      <a href="#reservation" class="btn-neon" style="display:inline-block;margin-top:1.5rem"><span>Book Bar Seats</span></a>
+    </div>
+    <div class="cf-right" id="cocktailGrid"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-hdr">
+    <div class="eyebrow reveal">Inside Somewhere</div>
+    <h2 class="reveal d1">The <em>Atmosphere</em></h2>
+  </div>
+  <!-- Gallery with real restaurant images from Zomato CDN / Google Business -->
+  <div class="gal-grid reveal d1">
+    <div class="g-cell tall">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/10d5b2e7ff22f73fde7b0c7e0a3e9d4b.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#1c1c1c,#111)"></div>
+      <div class="g-over"><span class="g-lbl">The Interior</span></div>
+    </div>
+    <div class="g-cell wide">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/d9b1c73f3e8b3a9c7e5d1f2b8a6c9e4f.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#161616,#1c1c1c)"></div>
+      <div class="g-over"><span class="g-lbl">Signature Cocktails</span></div>
+    </div>
+    <div class="g-cell">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/3c1a9e8d7b6f5c4d3e2a1b0c9d8e7f6a.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#1c1c1c,#161616)"></div>
+      <div class="g-over"><span class="g-lbl">Small Plates</span></div>
+    </div>
+    <div class="g-cell">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#111,#1c1c1c)"></div>
+      <div class="g-over"><span class="g-lbl">Dining Hall</span></div>
+    </div>
+    <div class="g-cell">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#1c1c1c,#111)"></div>
+      <div class="g-over"><span class="g-lbl">The Bar</span></div>
+    </div>
+    <div class="g-cell wide">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#161616,#1c1c1c)"></div>
+      <div class="g-over"><span class="g-lbl">Party Setup · 450 Guests</span></div>
+    </div>
+    <div class="g-cell">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#1c1c1c,#111)"></div>
+      <div class="g-over"><span class="g-lbl">Ambiance</span></div>
+    </div>
+    <div class="g-cell">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/e9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#111,#1c1c1c)"></div>
+      <div class="g-over"><span class="g-lbl">Evening Setup</span></div>
+    </div>
+    <div class="g-cell">
+      <div class="g-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#1c1c1c,#161616)"></div>
+      <div class="g-over"><span class="g-lbl">Night Vibe</span></div>
+    </div>
+  </div>
+  <div class="gal-reel">
+    <div class="reel-cell"><div class="reel-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/10d5b2e7ff22f73fde7b0c7e0a3e9d4b.jpg'),linear-gradient(135deg,#1c1c1c,#111)"></div></div>
+    <div class="reel-cell"><div class="reel-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/d9b1c73f3e8b3a9c7e5d1f2b8a6c9e4f.jpg'),linear-gradient(135deg,#111,#1c1c1c)"></div></div>
+    <div class="reel-cell"><div class="reel-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/3c1a9e8d7b6f5c4d3e2a1b0c9d8e7f6a.jpg'),linear-gradient(135deg,#1c1c1c,#161616)"></div></div>
+    <div class="reel-cell"><div class="reel-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c.jpg'),linear-gradient(135deg,#161616,#1c1c1c)"></div></div>
+    <div class="reel-cell"><div class="reel-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4.jpg'),linear-gradient(135deg,#1c1c1c,#111)"></div></div>
+    <div class="reel-cell"><div class="reel-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/8/18428018/f1e2d3c4b5a6f7e8d9c0b1a2f3e4d5c6.jpg'),linear-gradient(135deg,#111,#1c1c1c)"></div></div>
+  </div>
+</section>
+
+<!-- VIBES -->
+<section id="vibes" class="sec">
+  <div class="vibes-hdr">
+    <div class="eyebrow reveal" style="justify-content:center">Why Somewhere</div>
+    <h2 class="reveal d1">More Than Dinner —<br><em>An Evening.</em></h2>
+  </div>
+  <div class="vibes-grid">
+    <div class="vcard reveal">
+      <span class="vicon">🎂</span>
+      <div class="vtitle">Birthday Parties</div>
+      <p class="vdesc">Celebrate uniquely at Somewhere. Décor, cake coordination, and a set menu crafted just for your group.</p>
+    </div>
+    <div class="vcard reveal d1">
+      <span class="vicon">💼</span>
+      <div class="vtitle">Corporate Events</div>
+      <p class="vdesc">CP's most accessible event space — right by Rajiv Chowk Metro. AV setup, private sections, premium service.</p>
+    </div>
+    <div class="vcard reveal d2">
+      <span class="vicon">🎓</span>
+      <div class="vtitle">Freshers & Farewells</div>
+      <p class="vdesc">From college fests to office farewells — Somewhere can host 450 guests with an in-house DJ and party packages.</p>
+    </div>
+    <div class="vcard reveal d3">
+      <span class="vicon">🎵</span>
+      <div class="vtitle">DJ Nights</div>
+      <p class="vdesc">In-house DJ. Special nights. The kind of place where you arrive for dinner and stay for the music.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAPACITY -->
+<div class="cap-banner">
+  <div class="cap-item"><div class="cap-val">450</div><div class="cap-key">Guest Capacity</div></div>
+  <div class="cap-item"><div class="cap-val">4+</div><div class="cap-key">Cuisine Types</div></div>
+  <div class="cap-item"><div class="cap-val">4.2★</div><div class="cap-key">Justdial Rating</div></div>
+  <div class="cap-item"><div class="cap-val">1257</div><div class="cap-key">Justdial Reviews</div></div>
+  <div class="cap-item"><div class="cap-val">CP</div><div class="cap-key">Heart of Delhi</div></div>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews" class="sec">
+  <div class="rev-hdr">
+    <div class="eyebrow reveal" style="justify-content:center">Guest Reports</div>
+    <h2 class="reveal d1">Heard From <em>Somewhere</em></h2>
+  </div>
+  <div class="rev-grid reveal d2">
+    <div class="rev-card">
+      <div class="rev-stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+      <p class="rev-text">"Somewhere Restaurant in Connaught Place is a refreshing blend of elegant ambiance, attentive service, and a well-curated menu that caters to both Indian and global palates. The décor strikes the right balance between chic and cozy. The food is thoughtfully presented — highlights include signature small plates and innovative cocktails."</p>
+      <div class="rev-author">TripAdvisor Guest</div>
+      <div class="rev-platform">TripAdvisor · Verified Review 2025</div>
+      <span class="rev-tag">5 Stars</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+      <p class="rev-text">"I like the energetic vibe of the place more than anything else. I love sitting at a corner table here sipping a cup of steaming hot coffee and having my favourite cheese sandwich on a crowded winter afternoon. The staff is courteous, well-informed, and ensures a seamless dining journey."</p>
+      <div class="rev-author">Sloshout Guest</div>
+      <div class="rev-platform">Sloshout · Verified Review</div>
+      <span class="rev-tag">Vibe Pick</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star" style="opacity:.3"></span></div>
+      <p class="rev-text">"Somewhere is more than just a trendy spot — it's a place where quality and experience converge. A must-visit for anyone exploring CP's vibrant food scene. The cocktails were inventive and the small plates were genuinely impressive. Perfect for an evening with friends."</p>
+      <div class="rev-author">TripAdvisor Guest</div>
+      <div class="rev-platform">TripAdvisor · Verified Review</div>
+      <span class="rev-tag">Must Visit</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" class="sec">
+  <div class="visit-grid">
+    <div class="visit-left">
+      <div class="eyebrow reveal">Coordinates</div>
+      <h2 class="reveal d1">Find Us<br><em>Somewhere</em> in CP</h2>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Address</div>
+        <p>H-10, Ground Floor, H Block<br>Laxmi Building, Connaught Cir<br>Connaught Place, New Delhi — 110001</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Nearest Metro</div>
+        <p>Rajiv Chowk Metro Station<br>Blue Line &amp; Yellow Line · 2 min walk</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Hours</div>
+        <p>Monday – Sunday<br>12:00 PM – 12:00 Midnight</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Events &amp; Parties</div>
+        <p>Capacity: 450 guests · In-house DJ · Private sections<br>Birthday · Corporate · Freshers · Farewell</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Price</div>
+        <p>₹1,000–1,500 for two (approx.) · Taxes applicable</p>
+      </div>
+      <a href="https://maps.app.goo.gl/VfffWTeggqxbXasP6" target="_blank" class="btn-neon" style="display:inline-block;margin-top:1rem"><span>Get Directions</span></a>
+    </div>
+    <div class="visit-map reveal d2">
+      <div class="map-bg-grid"></div>
+      <div class="map-glow"></div>
+      <div class="map-rings">
+        <div class="mring"></div>
+        <div class="mring"></div>
+        <div class="mring"></div>
+      </div>
+      <div class="map-pin-wrap">
+        <div class="map-pin"></div>
+        <div class="map-info">
+          <h4>Somewhere</h4>
+          <p>CP · New Delhi</p>
+        </div>
+      </div>
+      <div class="map-corner-txt tl">H-10 Connaught Place</div>
+      <div class="map-corner-txt br">Rajiv Chowk Metro</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="sec">
+  <div class="eyebrow reveal" style="justify-content:center">Reserve</div>
+  <h2 class="reveal d1">Book a Table at <em>Somewhere</em></h2>
+  <p class="reveal d2">Walk-ins welcome. But reserving ensures your spot — especially on weekends and special nights.</p>
+  <div class="res-row reveal d3">
+    <input class="ri" type="text" placeholder="Your Name">
+    <input class="ri" type="tel" placeholder="Phone Number">
+    <input class="ri" type="date">
+    <select class="ri">
+      <option value="" disabled selected>Guests</option>
+      <option>1–2 Guests</option><option>3–4 Guests</option>
+      <option>5–8 Guests</option><option>9–20 Guests</option>
+      <option>21–50 Guests (Private)</option><option>50+ Guests (Event)</option>
+    </select>
+    <select class="ri">
+      <option value="" disabled selected>Occasion</option>
+      <option>Lunch</option><option>Dinner</option>
+      <option>Birthday Party</option><option>Corporate Event</option>
+      <option>Bachelor/Bachelorette</option><option>Freshers / Farewell</option>
+    </select>
+    <button class="res-btn">Confirm Table</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-name">Some<span>where</span></div>
+    <span class="f-sub">Restaurant &amp; Bar · Connaught Place · Delhi</span>
+    <p class="f-about">A place between everywhere and nowhere. Chic. Cosy. Entirely its own world. Connaught Place's most intimate dining and party destination.</p>
+    <a href="tel:+911141234567" class="f-call">Call for Reservations</a>
+  </div>
+  <div class="fcol">
+    <h5>Navigate</h5>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#vibes">Vibes</a>
+    <a href="#visit">Visit</a>
+    <a href="#reservation">Reserve</a>
+  </div>
+  <div class="fcol">
+    <h5>Location</h5>
+    <p>H-10, Ground Floor, H Block</p>
+    <p>Laxmi Building, Connaught Place</p>
+    <p>New Delhi — 110001</p>
+    <p style="margin-top:.6rem">Open Daily · 12PM – Midnight</p>
+  </div>
+  <div class="fcol">
+    <h5>Connect</h5>
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="#">Zomato</a>
+    <a href="#">TripAdvisor</a>
+    <p style="margin-top:.8rem;color:var(--neon);font-size:.68rem">4.2★ Justdial · 1,257 Reviews<br>North Indian · Chinese · Italian · Continental</p>
+  </div>
+</footer>
+<div class="fbar">
+  <p>© 2026 Somewhere Delhi. All rights reserved. H-10 Connaught Place, New Delhi.</p>
+  <p>Restaurant &amp; Bar · In-House DJ · 450 Guest Capacity</p>
+</div>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-ring');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  setTimeout(()=>{curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px'},60);
+});
+
+// Ambient orbs
+const orbWrap=document.getElementById('orbs');
+const orbCols=['rgba(200,240,96,1)','rgba(240,192,96,1)','rgba(96,176,240,1)','rgba(224,96,128,1)'];
+[[15,20,80,60,'rgb(200,240,96)'],[70,60,50,80,'rgb(240,192,96)'],[50,30,60,50,'rgb(96,176,240)'],[30,70,90,40,'rgb(224,96,128)']].forEach(([l,t,w,h,c],i)=>{
+  const o=document.createElement('div');
+  o.className='orb';
+  o.style.cssText=`left:${l}%;top:${t}%;width:${w*4}px;height:${h*4}px;background:${c};--od:${8+i*3}s;--odd:${i*2}s;--odx:${(Math.random()-.5)*200}px;--ody:${(Math.random()-.5)*200}px`;
+  orbWrap.appendChild(o);
+});
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+// Ticker
+const tickWords=['Somewhere Delhi','H-10 Connaught Place','Signature Small Plates','Craft Cocktails','North Indian · Chinese · Italian · Continental','In-House DJ','450 Guest Capacity','Birthday · Corporate · Freshers','Rajiv Chowk Metro · 2 min','Open Daily 12PM–Midnight','Book Now'];
+const t=document.getElementById('tickerTrack');
+[...tickWords,...tickWords].forEach(w=>{
+  t.innerHTML+=`<div class="ticker-item"><span class="ticker-dot"></span><span>${w}</span></div>`;
+});
+
+// Menu
+const menuData={
+  signatures:[
+    {veg:true,cat:'Small Plate · House',name:'Falafel Batata Harra Chaat',desc:'Crispy falafel meets tangy Levantine batata harra — Indian chaat spice over a Middle Eastern base. The unexpected crossover that works.',price:'₹ 380'},
+    {veg:true,cat:'Signature',name:'Hummus Pita Paneer Souvlaki',desc:'Grilled paneer on a warm pita, with house hummus, sumac onions and a squeeze of lemon. Best eaten immediately.',price:'₹ 420'},
+    {veg:false,cat:'House Signature',name:'Open Lamb Pitta',desc:'Slow-cooked lamb with caramelised onions, house-made tzatziki and pomegranate seeds on a charred flatbread.',price:'₹ 560'},
+    {veg:false,cat:'Kerala Inspired',name:'Kerala Prawn Curry',desc:'Coconut milk, curry leaf, raw mango — tender prawns in a fragrant Kerala masala. Served with appam.',price:'₹ 580'},
+    {veg:false,cat:'Rajasthani · Signature',name:'Lal Maans',desc:'Slow-braised mutton in a fiery red chilli gravy with whole spices, finished with desi ghee. A Somewhere must.',price:'₹ 520'},
+    {veg:false,cat:'Persian Grill',name:'Joojeh Kebab',desc:'Saffron-marinated chicken skewers, chargrilled over live flame with a charred pepper and lemon drizzle.',price:'₹ 480'},
+  ],
+  starters:[
+    {veg:true,cat:'British Inspired',name:'Dal Katli',desc:'A playful reinvention — dal served in thin, crispy katli form as an amuse-bouche. Light, savoury, ingenious.',price:'₹ 280'},
+    {veg:true,cat:'Middle East',name:'Regular Hummus',desc:'Hand-blended chickpea hummus with tahini, olive oil, za\'atar and a side of warm pita bread.',price:'₹ 320'},
+    {veg:true,cat:'Turkish',name:'Paneer Packet',desc:'Paneer wrapped in phyllo pastry with feta-style spices, lemon zest and spinach. Baked golden.',price:'₹ 360'},
+    {veg:false,cat:'Chicken',name:'Murgh Lababdar',desc:'Chicken tikka simmered in a lababdar masala — tangy, creamy, with a hint of dry fenugreek.',price:'₹ 420'},
+    {veg:true,cat:'Veg · Signature',name:'Veg Manchurian Crisp',desc:'Bite-sized vegetable dumplings in a tangy, fiery manchurian sauce with sesame and spring onion.',price:'₹ 280'},
+    {veg:true,cat:'Italian',name:'Veg Bruschetta',desc:'Toasted sourdough with fresh tomato, basil, stracciatella and a balsamic glaze. Assembled to order.',price:'₹ 300'},
+  ],
+  mains:[
+    {veg:true,cat:'Full Meal',name:'Dal Makhani Duo',desc:'Two bowls — classic 48-hr dal makhani and a lighter yellow dal tadka. Served with tandoori bread.',price:'₹ 340'},
+    {veg:false,cat:'Grill · House',name:'Full House Veggie',desc:'A mixed grill board with paneer tikka, mushroom tikka, corn kebab and seasonal vegetable skewers.',price:'₹ 460'},
+    {veg:false,cat:'Chicken',name:'Hummus Pita Chicken Souvlaki',desc:'House-marinated chicken souvlaki on warm pita, with hummus, cucumber and a house harissa drizzle.',price:'₹ 480'},
+    {veg:true,cat:'Asian Noodles',name:'Crispy Daaru Mushroom',desc:'Pan-fried mushrooms with rice wine glaze, black bean, ginger and chilli. Best paired with a cocktail.',price:'₹ 360'},
+    {veg:false,cat:'Rice Bowl',name:'Joojeh Kebab Rice Bowl',desc:'Persian saffron rice topped with joojeh kebab, grilled tomato, herbs and a dill labneh.',price:'₹ 520'},
+    {veg:true,cat:'Italian',name:'Mushroom Risotto',desc:'Arborio rice cooked in truffle-infused stock, with wild mushrooms, aged Parmesan and microgreens.',price:'₹ 480'},
+  ],
+  desserts:[
+    {veg:true,cat:'Signature',name:'Duo Chocolate',desc:'Warm chocolate fondant with a cold chocolate parfait — two textures, one chocolate moment.',price:'₹ 340'},
+    {veg:true,cat:'Classic',name:'Tiramisu',desc:'Italian-style tiramisu with mascarpone, espresso-soaked ladyfingers and a dusting of bitter cocoa.',price:'₹ 300'},
+    {veg:true,cat:'Cold',name:'Kulfi Trio',desc:'Three mini kulfis — malai, kesar-pista and rose-cardamom. Served with vermicelli and rabri.',price:'₹ 260'},
+    {veg:true,cat:'Warm',name:'Gulab Jamun Cheesecake',desc:'Fusion dessert — gulab jamun embedded in a set cheesecake base with a saffron glaze and pistachio crumble.',price:'₹ 380'},
+    {veg:true,cat:'Crepe',name:'Nutella Banana Crepe',desc:'French crepe with warm Nutella, caramelised banana and a scoop of vanilla ice cream.',price:'₹ 280'},
+    {veg:true,cat:'Ice Cream',name:'Waffles & Ice Cream',desc:'Belgian-style waffle with three scoops of house ice cream, hot fudge and crushed almonds.',price:'₹ 320'},
+  ]
+};
+const cocktails=[
+  {name:'Whiskey Sour Delhi',desc:'Whiskey, fresh lemon, house honey syrup, egg white foam',price:'₹ 480'},
+  {name:'Somewhere Sling',desc:'Gin, elderflower, grapefruit, rose water mist, club soda',price:'₹ 520'},
+  {name:'Masala Mule',desc:'Vodka, spiced ginger beer, green chilli, fresh lime, curry leaf salt',price:'₹ 440'},
+  {name:'Somewhere Negroni',desc:'Campari, house vermouth, orange bitters, crystal ice sphere',price:'₹ 560'},
+];
+let activeCat='signatures';
+function renderMenu(cat){
+  document.getElementById('menuGrid').innerHTML=menuData[cat].map(d=>`
+    <div class="dish">
+      <div class="dish-line"></div>
+      <div class="${d.veg?'dish-veg':'dish-nonveg'}"></div>
+      <div class="dish-cat">${d.cat}</div>
+      <h3>${d.name}</h3>
+      <p>${d.desc}</p>
+      <div class="dish-price">${d.price}</div>
+    </div>`).join('');
+}
+renderMenu(activeCat);
+document.querySelectorAll('.mtab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.mtab').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');renderMenu(b.dataset.cat);
+  });
+});
+document.getElementById('cocktailGrid').innerHTML=cocktails.map(c=>`
+  <div class="cf-cocktail">
+    <div class="cf-cocktail-name">${c.name}</div>
+    <div class="cf-cocktail-desc">${c.desc}</div>
+    <div class="cf-cocktail-price">${c.price}</div>
+  </div>`).join('');
+
+// Reveal
+const revs=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+revs.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

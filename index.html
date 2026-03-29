@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WEB X HUB | Abhishek — Web Designer, Developer & Digital Creator</title>
+<meta name="description" content="WEB X HUB by Abhishek — Web designer, developer, graphic designer and digital creator. WordPress, Shopify, Figma, Custom HTML. 100% Success Rate."/>
+<meta name="keywords" content="web designer India, web developer, custom website, WordPress, Shopify, Webflow, Figma, graphic design, social media, Abhishek, WEB X HUB"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ═══ PARALLAX OVERLAY SECTIONS ═══ */
+/*  Each section stacks using sticky + clip — overlap fade effect */
+
+.par-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Gradient fade at bottom of each section — blends into next */
+.par-section::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 200px; z-index: 8; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--void));
+}
+.par-section:last-of-type::after { display: none; }
+
+.par-bg {
+  position: absolute; inset: -40% 0;
+  z-index: 0; will-change: transform;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.par-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+}
+.par-content {
+  position: relative; z-index: 5;
+  width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 5vw;
+}
+
+/* ═══ HERO ═══ */
+.hero-section {
+  padding-top: var(--nav-h);
+  min-height: 100vh;
+}
+.hero-bg-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+
+/* Moon */
+.moon {
+  position: absolute; top: 8%; right: 10%;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 38%, #fffef0, #f5c518 40%, #a07800 85%, transparent);
+  filter: blur(3px);
+  box-shadow: 0 0 80px rgba(245,197,24,.45), 0 0 160px rgba(245,197,24,.15);
+  animation: moonGlow 6s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes moonGlow {
+  0%,100%{ box-shadow: 0 0 80px rgba(245,197,24,.45),0 0 160px rgba(245,197,24,.15) }
+  50%    { box-shadow: 0 0 120px rgba(245,197,24,.65),0 0 240px rgba(245,197,24,.25) }
+}
+
+/* SVG vines */
+.vine-l, .vine-r {
+  position: absolute; top: 0; bottom: 0; width: 130px;
+  pointer-events: none; z-index: 2;
+}
+.vine-r { right: 0; transform: scaleX(-1); }
+
+/* Hero grid */
+.hero-grid {
+  display: grid; grid-template-columns: 1.15fr .85fr;
+  gap: 4rem; align-items: center; padding: 5rem 0 3rem;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: .73rem;
+  color: var(--lime); letter-spacing: .14em; text-transform: uppercase;
+  margin-bottom: 1.4rem; animation: fadeInUp .6s ease both;
+}
+.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); animation: glow .2s ease-in-out infinite; box-shadow: 0 0 8px var(--lime); }
+.hero h1 {
+  font-family: var(--font-head); font-weight: 900;
+  font-size: clamp(3rem,6.5vw,5.5rem);
+  line-height: 1.0; letter-spacing: -.03em;
+  animation: fadeInUp .7s .1s ease both;
+}
+.hero h1 .name { color: var(--lime); font-style: italic; display: block; }
+.hero-role {
+  font-family: var(--font-mono); font-size: clamp(1rem,2.2vw,1.5rem);
+  color: var(--gold); margin: .8rem 0 1.8rem; min-height: 2rem;
+  animation: fadeInUp .7s .15s ease both;
+}
+.hero-role .tw::after { content: '▋'; animation: blink .7s step-end infinite; }
+.hero-desc { color: var(--muted); font-size: 1rem; line-height: 1.9; max-width: 500px; margin-bottom: 2.5rem; animation: fadeInUp .7s .2s ease both; }
+.hero-btns { display: flex; flex-wrap: wrap; gap: 1rem; animation: fadeInUp .7s .3s ease both; }
+.hero-stats { display: flex; gap: 3rem; margin-top: 3.5rem; animation: fadeInUp .7s .4s ease both; }
+.hero-stat .num { font-family: var(--font-head); font-size: 2.5rem; font-weight: 900; color: var(--lime); line-height: 1; text-shadow: 0 0 20px rgba(120,255,82,.4); }
+.hero-stat .lbl { color: var(--muted); font-size: .75rem; font-family: var(--font-mono); margin-top: 2px; }
+
+/* ── ROLE SWITCHER ── */
+.role-frame { position: relative; width: 340px; height: 380px; }
+.role-scenes { position: relative; width: 100%; height: 100%; }
+.role-scene {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: rgba(15,31,21,.9); backdrop-filter: blur(12px);
+  border: 1px solid var(--border2); border-radius: 24px; padding: 2rem;
+  opacity: 0; transform: scale(.92) translateY(10px);
+  transition: opacity .6s, transform .6s; pointer-events: none;
+}
+.role-scene.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: all; }
+.scene-bar { display: flex; gap: 6px; margin-bottom: 1.5rem; align-self: flex-start; }
+.sdot { width: 10px; height: 10px; border-radius: 50%; }
+.sdot:nth-child(1){background:#ff5f57} .sdot:nth-child(2){background:#febc2e} .sdot:nth-child(3){background:#28c840}
+.scene-icon { font-size: 3.8rem; margin-bottom: 1rem; animation: floatRot 3s ease-in-out infinite; }
+.scene-title { font-family: var(--font-head); font-size: 1.3rem; font-weight: 800; text-align: center; margin-bottom: .3rem; }
+.scene-sub { color: var(--muted); font-size: .82rem; font-family: var(--font-mono); text-align: center; }
+.code-mock { width: 100%; margin-top: 1.2rem; }
+.cml { height: 7px; border-radius: 4px; margin-bottom: 6px; opacity: .7; }
+.role-dots { position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+.role-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: all .3s; }
+.role-dot.active { background: var(--lime); width: 20px; border-radius: 3px; box-shadow: 0 0 8px var(--lime); }
+.rb { position: absolute; background: rgba(19,37,25,.95); border: 1px solid var(--border2); border-radius: 12px; padding: 8px 14px; white-space: nowrap; font-size: .78rem; font-weight: 600; color: var(--lime2); font-family: var(--font-mono); }
+.rb1 { top: -12px; right: -22px; animation: float 4s ease-in-out infinite; }
+.rb2 { bottom: 20px; left: -28px; animation: float 4s 1.2s ease-in-out infinite; }
+.rb3 { top: 42%; right: -32px; animation: floatX 4s .6s ease-in-out infinite; }
+
+/* ═══ SECTION BG TEXTURES (SVG patterns) ═══ */
+.bg-forest { background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(10,30,15,.95), var(--void) 100%); }
+.bg-jungle { background: radial-gradient(ellipse 70% 70% at 30% 80%, rgba(5,20,10,.97), var(--void) 100%); }
+.bg-night  { background: radial-gradient(ellipse 90% 50% at 70% 20%, rgba(8,14,20,.98), var(--void) 100%); }
+.bg-dusk   { background: radial-gradient(ellipse 80% 60% at 50% 10%, rgba(30,15,5,.97), var(--void) 100%); }
+.bg-earth  { background: radial-gradient(ellipse 70% 60% at 20% 90%, rgba(25,15,5,.97), var(--void) 100%); }
+
+/* ═══ SERVICES SECTION ═══ */
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
+.service-card {
+  background: rgba(15,31,21,.85); backdrop-filter: blur(10px);
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem;
+  position: relative; overflow: hidden; cursor: none;
+  transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .3s;
+}
+.service-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg,var(--lime),var(--teal)); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+.service-card:hover { transform: translateY(-8px); border-color: rgba(120,255,82,.3); box-shadow: 0 24px 70px rgba(0,0,0,.65), 0 0 40px rgba(120,255,82,.07); }
+.service-card:hover::before { transform: scaleX(1); }
+.s-icon { font-size: 2.5rem; margin-bottom: 1.2rem; display: block; transition: transform .3s; }
+.service-card:hover .s-icon { transform: scale(1.18) rotate(-6deg); }
+.s-title { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; margin-bottom: .6rem; }
+.s-desc { color: var(--muted); font-size: .87rem; line-height: 1.8; }
+
+/* ═══ ANIMAL CHARACTERS PER SECTION ═══ */
+.animal-scene {
+  position: absolute; z-index: 4; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center;
+}
+/* Frog on services */
+.frog { right: 3%; bottom: 8%; width: 90px; }
+.frog-body { font-size: 5rem; animation: float 2.5s ease-in-out infinite; filter: drop-shadow(0 8px 20px rgba(120,255,82,.3)); }
+.frog-bubble { background: rgba(15,31,21,.9); border: 1px solid rgba(120,255,82,.3); border-radius: 12px; padding: 6px 12px; font-size: .7rem; color: var(--lime2); font-family: var(--font-mono); margin-bottom: 8px; white-space: nowrap; animation: fadeInUp .5s ease both; }
+.frog-bubble::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: rgba(120,255,82,.3); }
+/* Butterfly on about */
+.butterfly { left: 4%; top: 20%; }
+.butterfly-body { font-size: 4rem; animation: bfly 3s ease-in-out infinite; }
+@keyframes bfly { 0%,100%{transform: rotate(-8deg) translateY(0)} 25%{transform: rotate(5deg) translateY(-12px)} 50%{transform: rotate(-3deg) translateY(-8px)} 75%{transform: rotate(8deg) translateY(-15px)} }
+/* Deer on terminal */
+.deer { right: 4%; top: 15%; }
+.deer-body { font-size: 4.5rem; animation: float 4s ease-in-out infinite; }
+/* Owl on preview */
+.owl { left: 3%; bottom: 10%; }
+.owl-body { font-size: 4rem; animation: owlBob 2s ease-in-out infinite; }
+@keyframes owlBob { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+/* Fox on stats */
+.fox { right: 5%; top: 20%; }
+.fox-body { font-size: 4.5rem; animation: float 3.5s ease-in-out infinite; }
+
+/* ═══ TERMINAL ═══ */
+.t-box { background: #030a05; border: 1px solid rgba(120,255,82,.2); border-radius: 16px; padding: 1.8rem; font-family: var(--font-mono); font-size: .82rem; position: relative; overflow: hidden; }
+.t-box::before { content:''; position:absolute;top:0;left:0;right:0;height:3px; background:linear-gradient(90deg,var(--lime),var(--teal)); }
+.t-bar { display:flex;gap:6px;margin-bottom:1.5rem;align-items:center; }
+.t-dot { width:11px;height:11px;border-radius:50%; }
+.t-dot:nth-child(1){background:#ff5f57} .t-dot:nth-child(2){background:#febc2e} .t-dot:nth-child(3){background:#28c840}
+.t-title { color:var(--muted);font-size:.78rem;margin-left:auto; }
+.t-line { padding:2px 0; line-height:1.9; animation: fadeInUp .4s both; }
+.t-line .pr { color:var(--lime); } .t-line .cm { color:var(--white); } .t-line .out { color:var(--muted);display:block;padding-left:1em; } .t-line .go { color:var(--gold); } .t-line .ok { color:var(--teal); }
+.t-cursor { display:inline-block;width:8px;height:1em;background:var(--lime);vertical-align:text-bottom;animation:blink .9s step-end infinite; }
+
+.p-step { display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:rgba(15,31,21,.8);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:12px;transition:border-color .25s;margin-bottom:.8rem; }
+.p-step:hover { border-color:rgba(120,255,82,.25); }
+.p-num { font-family:var(--font-head);font-size:1.5rem;font-weight:900;color:var(--lime);opacity:.4;min-width:2rem; }
+.p-text h4 { font-weight:700;font-size:.95rem;margin-bottom:.15rem; }
+.p-text p { color:var(--muted);font-size:.82rem;margin:0; }
+
+/* ═══ ABOUT BLOB ═══ */
+.blob-wrap { position:relative;width:100%;max-width:380px;margin:0 auto; }
+.blob { width:100%;aspect-ratio:1;border-radius:40% 60% 70% 30%/40% 50% 60% 50%; background:linear-gradient(135deg,var(--canopy),var(--moss));border:2px solid rgba(120,255,82,.2);animation:morph 9s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:6rem;box-shadow:0 0 60px rgba(120,255,82,.1),inset 0 0 40px rgba(120,255,82,.04); }
+.blob-ring { position:absolute;border-radius:50%;border:1px dashed rgba(120,255,82,.12);animation:spin 22s linear infinite; }
+.stat-pill { position:absolute;background:rgba(19,37,25,.95);border:1px solid var(--border2);border-radius:14px;padding:10px 16px; }
+.stat-pill .pn { font-family:var(--font-head);font-size:1.5rem;font-weight:900;color:var(--lime); }
+.stat-pill .pl { color:var(--muted);font-size:.72rem;font-family:var(--font-mono); }
+.tech-chip { display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:100px;background:rgba(15,31,21,.8);border:1px solid var(--border2);font-size:.79rem;font-weight:600;font-family:var(--font-mono);color:var(--lime2);transition:all .25s; }
+.tech-chip:hover { border-color:var(--lime);background:rgba(120,255,82,.08);transform:translateY(-2px); }
+.tech-chips { display:flex;flex-wrap:wrap;gap:8px;margin-top:1.8rem; }
+
+/* ═══ CTA SPACING ═══ */
+.cta-wrap { padding: 8rem 0; position:relative;z-index:10; }
+
+@media(max-width:1024px){ .services-grid{grid-template-columns:repeat(2,1fr)} .hero-grid{grid-template-columns:1fr} .role-frame{display:none} }
+@media(max-width:768px){ .hero-stats{gap:1.5rem; justify-content:center;}
+                        section.par-section.bg-night .par-content .ltp , section.par-section.bg-dusk .par-content .ltp{display: flex !important;flex-direction: column;}
+                        .slider-track{ gap:25px !important;}
+                        .resp-block{display:grid !important; grid-template-columns:1fr 1fr !important;}
+                        
+                        
+                        .services-grid{grid-template-columns:1fr} .animal-scene{display:none} }
+</style>
+</head>
+<body>
+
+<!-- NATURE LAYERS (fixed, behind everything) -->
+<canvas id="leaf-canvas"></canvas>
+<canvas id="firefly-canvas"></canvas>
+<canvas id="snake-canvas"></canvas>
+<div id="birds-layer"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="leaf">🌿</span>
+    WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB
+  </a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="works.html">Works</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Hire Me 🌿</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════
+  SECTION 1 — HERO (parallax)
+═══════════════════════ -->
+<section class="par-section hero-section bg-forest" data-speed="0.4">
+  <div class="par-bg" id="hero-bg">
+    <!-- Forest gradient is CSS -->
+    <svg class="hero-bg-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- distant trees silhouette -->
+      <g fill="rgba(5,18,10,0.8)">
+        <ellipse cx="100" cy="900" rx="80" ry="300"/>
+        <ellipse cx="280" cy="900" rx="70" ry="260"/>
+        <ellipse cx="450" cy="900" rx="90" ry="340"/>
+        <ellipse cx="620" cy="900" rx="65" ry="280"/>
+        <ellipse cx="800" cy="900" rx="85" ry="320"/>
+        <ellipse cx="980" cy="900" rx="70" ry="290"/>
+        <ellipse cx="1160" cy="900" rx="95" ry="350"/>
+        <ellipse cx="1340" cy="900" rx="75" ry="270"/>
+        <ellipse cx="1440" cy="900" rx="60" ry="240"/>
+      </g>
+      <!-- ground glow -->
+      <ellipse cx="720" cy="900" rx="700" ry="60" fill="rgba(120,255,82,0.04)"/>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom, rgba(2,5,8,.55) 0%, rgba(2,5,8,.2) 40%, rgba(2,5,8,.7) 100%)"></div>
+
+  <!-- Moon -->
+  <div class="moon mp" data-speed="0.4"></div>
+
+  <!-- Vines -->
+  <svg class="vine-l" viewBox="0 0 130 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M65,0 C90,120 20,240 65,360 C110,480 20,600 65,720 C110,840 30,920 65,1000" stroke="rgba(120,255,82,.12)" stroke-width="2.5" fill="none"/>
+    <ellipse cx="80" cy="110" rx="18" ry="10" fill="rgba(120,255,82,.14)" transform="rotate(-35 80 110)"/>
+    <ellipse cx="42" cy="260" rx="22" ry="12" fill="rgba(120,255,82,.1)"  transform="rotate(40 42 260)"/>
+    <ellipse cx="85" cy="420" rx="15" ry="9"  fill="rgba(48,240,208,.1)" transform="rotate(-20 85 420)"/>
+    <ellipse cx="38" cy="580" rx="20" ry="11" fill="rgba(120,255,82,.09)" transform="rotate(50 38 580)"/>
+    <ellipse cx="82" cy="740" rx="16" ry="9"  fill="rgba(120,255,82,.11)" transform="rotate(-30 82 740)"/>
+  </svg>
+  <svg class="vine-r" viewBox="0 0 130 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M65,0 C90,120 20,240 65,360 C110,480 20,600 65,720 C110,840 30,920 65,1000" stroke="rgba(120,255,82,.09)" stroke-width="2.5" fill="none"/>
+    <ellipse cx="80" cy="150" rx="20" ry="11" fill="rgba(120,255,82,.1)" transform="rotate(-30 80 150)"/>
+    <ellipse cx="42" cy="340" rx="17" ry="10" fill="rgba(245,197,24,.08)" transform="rotate(40 42 340)"/>
+    <ellipse cx="85" cy="510" rx="15" ry="8"  fill="rgba(120,255,82,.09)" transform="rotate(-20 85 510)"/>
+  </svg>
+
+  <div class="par-content">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge"><span class="dot"></span> Available — India &amp; Worldwide</div>
+        <h1>I Am<span class="name">Abhishek.</span></h1>
+        <div class="hero-role">
+          <span class="tw" data-words='["Web Designer.","Web Developer.","Graphic Artist.","UI/UX Expert.","Content Creator.","Social Marketer.","Figma Wizard."]'>Web Designer.</span>
+        </div>
+        <p class="hero-desc">Founder of <strong style="color:var(--lime)">WEB X HUB</strong>. I craft stunning digital experiences — custom HTML, WordPress, Shopify, Figma, graphic design &amp; social media. 4 years. 50+ projects. 100% success.</p>
+        <div class="hero-btns">
+          <a href="projects.html" class="btn btn-primary">See My Work 🌿</a>
+          <a href="contact.html" class="btn btn-outline">Let's Talk</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num" data-count="4" data-suffix="+">4+</div><div class="lbl">years_exp</div></div>
+          <div class="hero-stat"><div class="num" data-count="50" data-suffix="+">50+</div><div class="lbl">projects</div></div>
+          <div class="hero-stat"><div class="num" data-count="100" data-suffix="%">100%</div><div class="lbl">success</div></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;">
+        <div class="role-frame">
+          <div class="role-scenes">
+            <div class="role-scene"><div class="scene-bar"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div><div class="scene-icon">👨‍💻</div><div class="scene-title">Writing Code</div><div class="scene-sub">// HTML · CSS · JS · WordPress</div><div class="code-mock"><div class="cml" style="background:rgba(120,255,82,.18);width:88%"></div><div class="cml" style="background:rgba(48,240,208,.14);width:65%;margin-left:1.5rem"></div><div class="cml" style="background:rgba(120,255,82,.12);width:78%;margin-left:1.5rem"></div><div class="cml" style="background:rgba(245,197,24,.12);width:52%;margin-left:1.5rem"></div><div class="cml" style="background:rgba(120,255,82,.1);width:82%"></div></div></div>
+            <div class="role-scene"><div class="scene-bar"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div><div class="scene-icon">🎨</div><div class="scene-title">Designing Visuals</div><div class="scene-sub">// Figma · UI/UX · Mockups</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:1rem;width:100%"><div style="aspect-ratio:1;border-radius:10px;background:linear-gradient(135deg,rgba(120,255,82,.2),rgba(48,240,208,.15))"></div><div style="aspect-ratio:1;border-radius:10px;background:linear-gradient(135deg,rgba(245,197,24,.2),rgba(120,255,82,.15))"></div><div style="aspect-ratio:1;border-radius:10px;background:linear-gradient(135deg,rgba(48,240,208,.15),rgba(200,160,96,.15))"></div><div style="aspect-ratio:1;border-radius:10px;background:linear-gradient(135deg,rgba(120,255,82,.1),rgba(245,197,24,.2))"></div></div></div>
+            <div class="role-scene"><div class="scene-bar"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div><div class="scene-icon">📱</div><div class="scene-title">Social Marketing</div><div class="scene-sub">// Instagram · Facebook · Google</div><div style="margin-top:1rem;width:100%"><div style="display:flex;gap:8px;align-items:center;padding:8px;background:rgba(120,255,82,.06);border-radius:10px;margin-bottom:8px"><span style="font-size:1.2rem">📊</span><div style="flex:1"><div style="height:6px;border-radius:3px;background:linear-gradient(90deg,var(--lime),var(--teal));width:78%"></div><div style="font-size:.7rem;color:var(--muted);font-family:var(--font-mono);margin-top:4px">reach +320%</div></div></div><div style="display:flex;gap:8px;align-items:center;padding:8px;background:rgba(245,197,24,.06);border-radius:10px"><span style="font-size:1.2rem">❤️</span><div style="flex:1"><div style="height:6px;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--lime));width:65%"></div><div style="font-size:.7rem;color:var(--muted);font-family:var(--font-mono);margin-top:4px">engagement +145%</div></div></div></div></div>
+            <div class="role-scene"><div class="scene-bar"><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div><div class="scene-icon">✍️</div><div class="scene-title">Content Creation</div><div class="scene-sub">// Posts · Banners · Brand Stories</div><div style="margin-top:1rem;width:100%;font-family:var(--font-mono);font-size:.75rem"><div style="color:var(--lime);margin-bottom:6px">▎ Instagram Post → Published ✓</div><div style="color:var(--muted);margin-bottom:6px">▎ Facebook Banner → Draft</div><div style="color:var(--gold);margin-bottom:6px">▎ Brand Kit → In Progress</div><div style="color:var(--teal)">▎ Logo Design → Delivered ✓</div></div></div>
+          </div>
+          <div class="role-dots">
+            <div class="role-dot" data-scene="0"></div><div class="role-dot" data-scene="1"></div>
+            <div class="role-dot" data-scene="2"></div><div class="role-dot" data-scene="3"></div>
+          </div>
+          <div class="rb rb1">⚡ 50+ Projects</div>
+          <div class="rb rb2">🎯 100% Success</div>
+          <div class="rb rb3">🌍 Global</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section" style="position:relative;z-index:10;">
+  <div class="marquee-track"><div class="marquee-inner">
+    <div class="marquee-item"><span>🌿</span>Custom HTML/CSS/JS</div>
+    <div class="marquee-item"><span>🎨</span>Figma UI Design</div>
+    <div class="marquee-item"><span>🔧</span>WordPress</div>
+    <div class="marquee-item"><span>🛍️</span>Shopify</div>
+    <div class="marquee-item"><span>💫</span>Webflow</div>
+    <div class="marquee-item"><span>🏪</span>BigCommerce</div>
+    <div class="marquee-item"><span>📱</span>Social Media</div>
+    <div class="marquee-item"><span>🦋</span>Graphic Design</div>
+    <div class="marquee-item"><span>🔍</span>SEO</div>
+    <div class="marquee-item"><span>📊</span>Google Ads</div>
+    <div class="marquee-item"><span>🌟</span>Brand Identity</div>
+    <div class="marquee-item"><span>🚀</span>Fast Delivery</div>
+  </div></div>
+</div>
+
+<!-- ═══════════════════════
+  SECTION 2 — SERVICES (parallax, 🐸 frog)
+═══════════════════════ -->
+<section class="par-section bg-jungle" data-speed="0.3" style="padding:8rem 0;">
+  <div class="par-bg">
+    <svg width="100%" height="180%" viewBox="0 0 1440 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <g fill="rgba(5,18,10,0.7)">
+        <ellipse cx="0"    cy="1200" rx="200" ry="500"/><ellipse cx="350"  cy="1200" rx="160" ry="450"/>
+        <ellipse cx="700"  cy="1200" rx="200" ry="520"/><ellipse cx="1050" cy="1200" rx="170" ry="470"/>
+        <ellipse cx="1440" cy="1200" rx="190" ry="490"/>
+      </g>
+      <ellipse cx="720" cy="1200" rx="600" ry="50" fill="rgba(120,255,82,.03)"/>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom,rgba(2,5,8,.7) 0%,rgba(5,13,8,.3) 40%,rgba(2,5,8,.8) 100%)"></div>
+
+  <!-- FROG CHARACTER -->
+  <div class="animal-scene frog">
+    <div class="frog-bubble" style="position:relative">🐸 I design + code!</div>
+    <div class="frog-body">🐸</div>
+  </div>
+
+  <div class="par-content">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label">What I Do</div>
+      <h2 class="section-title">From <em>Idea</em> to <span class="gold">Impact</span></h2>
+      <p style="color:var(--muted);max-width:500px;margin:.8rem auto 0;font-size:.95rem;">I wear many hats — and I wear all of them well.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal rd1"><span class="s-icon">🖥️</span><div class="s-title">Custom Website Design</div><p class="s-desc">Pixel-perfect sites built from scratch in clean HTML/CSS/JS with smooth animations and SEO from day one.</p></div>
+      <div class="service-card reveal rd2"><span class="s-icon">⚙️</span><div class="s-title">WordPress Development</div><p class="s-desc">Elementor, custom themes, WooCommerce, plugins and full maintenance. Fast, flexible WordPress builds.</p></div>
+      <div class="service-card reveal rd3"><span class="s-icon">🛍️</span><div class="s-title">Shopify & eCommerce</div><p class="s-desc">High-converting Shopify stores, BigCommerce and WooCommerce setups designed to sell and scale.</p></div>
+      <div class="service-card reveal rd1"><span class="s-icon">🎨</span><div class="s-title">Figma UI/UX Design</div><p class="s-desc">Wireframes, interactive prototypes and high-fidelity mockups — before a single line of code.</p></div>
+      <div class="service-card reveal rd2"><span class="s-icon">🖼️</span><div class="s-title">Graphic & Brand Design</div><p class="s-desc">Logos, brand kits, Instagram posts, Facebook banners and complete graphic design assets.</p></div>
+      <div class="service-card reveal rd3"><span class="s-icon">📣</span><div class="s-title">Social & Digital Marketing</div><p class="s-desc">Content creation, Google Business, social media strategy and campaigns that grow your audience.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🌿</div><div class="vine-line"></div></div>
+
+<!-- ═══════════════════════
+  SECTION 3 — ABOUT (parallax, 🦋 butterfly)
+═══════════════════════ -->
+<section class="par-section bg-night" data-speed="0.25" style="padding:8rem 0;">
+  <div class="par-bg">
+    <svg width="100%" height="180%" viewBox="0 0 1440 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <circle cx="1100" cy="200" r="280" fill="rgba(8,14,20,.8)"/>
+      <circle cx="200"  cy="900" r="220" fill="rgba(5,18,10,.7)"/>
+      <g fill="rgba(5,15,8,.75)">
+        <ellipse cx="0" cy="1200" rx="250" ry="600"/><ellipse cx="500" cy="1200" rx="200" ry="550"/>
+        <ellipse cx="900" cy="1200" rx="220" ry="580"/><ellipse cx="1440" cy="1200" rx="240" ry="600"/>
+      </g>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:linear-gradient(135deg,rgba(2,5,8,.75) 0%,rgba(8,14,20,.3) 50%,rgba(2,5,8,.8) 100%)"></div>
+
+  <!-- BUTTERFLY -->
+  <div class="animal-scene butterfly">
+    <div class="butterfly-body">🦋</div>
+  </div>
+
+  <div class="par-content">
+    <div class="ltp" style="display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:center;">
+      <div class="reveal reveal-left">
+        <div class="blob-wrap">
+          <div class="blob-ring" style="width:110%;height:110%;top:-5%;left:-5%;"></div>
+          <div class="blob-ring" style="width:125%;height:125%;top:-12.5%;left:-12.5%;animation-direction:reverse;animation-duration:28s;"></div>
+          <div class="blob">🧑‍💻</div>
+          <div class="stat-pill" style="top:0;right:-14%;animation:float 5s ease-in-out infinite;">
+            <div class="pn">4+</div><div class="pl">years exp</div>
+          </div>
+          <div class="stat-pill" style="bottom:8%;left:-14%;animation:float 5s 1.5s ease-in-out infinite;">
+            <div class="pn">50+</div><div class="pl">projects</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-right">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">The person behind <em>WEB X HUB</em></h2>
+        <p style="color:var(--muted);margin:1rem 0;line-height:1.85;">Hey! I'm <strong style="color:var(--lime)">Abhishek</strong> — a web designer, developer, graphic artist and digital creator. Some days I'm deep in code, other days in Figma designing UI. Some mornings I'm creating Instagram posts, some evenings running Google campaigns.</p>
+        <p style="color:var(--muted);line-height:1.85;">Whatever your brand needs — I've got it. Delivered to <strong style="color:var(--white)">50+ clients</strong> worldwide with a <strong style="color:var(--lime)">100% success rate</strong>.</p>
+        <div class="tech-chips">
+          <span class="tech-chip">⚡ HTML/CSS/JS</span><span class="tech-chip">🔧 WordPress</span>
+          <span class="tech-chip">🛍️ Shopify</span><span class="tech-chip">💫 Webflow</span>
+          <span class="tech-chip">🎨 Figma</span><span class="tech-chip">🖼️ Graphic Design</span>
+          <span class="tech-chip">📱 Social Media</span><span class="tech-chip">🔍 SEO</span>
+        </div>
+        <div style="margin-top:2rem;"><a href="about.html" class="btn btn-outline">More About Me →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🦋</div><div class="vine-line"></div></div>
+
+<!-- ═══════════════════════
+  SECTION 4 — TERMINAL / PROCESS (parallax, 🦌 deer)
+═══════════════════════ -->
+<section class="par-section bg-dusk" data-speed="0.35" style="padding:8rem 0;">
+  <div class="par-bg">
+    <svg width="100%" height="180%" viewBox="0 0 1440 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <g fill="rgba(20,10,3,.8)">
+        <ellipse cx="0" cy="1200" rx="300" ry="700"/><ellipse cx="600" cy="1200" rx="250" ry="650"/>
+        <ellipse cx="1100" cy="1200" rx="280" ry="680"/><ellipse cx="1440" cy="1200" rx="260" ry="660"/>
+      </g>
+      <ellipse cx="720" cy="300" r="400" fill="rgba(30,15,5,.5)"/>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom,rgba(2,5,8,.72) 0%,rgba(15,8,2,.25) 50%,rgba(2,5,8,.8) 100%)"></div>
+
+  <!-- DEER -->
+  <div class="animal-scene deer">
+    <div class="deer-body">🦌</div>
+  </div>
+
+  <div class="par-content">
+    <div class="ltp" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+      <div class="t-box reveal reveal-left">
+        <div class="t-bar"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div><span class="t-title">abhishek@webxhub</span></div>
+        <div class="t-line" style="animation-delay:.1s"><span class="pr">❯ </span><span class="cm">whoami</span><span class="out go">Abhishek — Web Designer &amp; Developer</span></div>
+        <div class="t-line" style="animation-delay:.3s"><span class="pr">❯ </span><span class="cm">ls services/</span><span class="out">web/ wordpress/ shopify/ figma/ social/</span></div>
+        <div class="t-line" style="animation-delay:.5s"><span class="pr">❯ </span><span class="cm">cat success_rate</span><span class="out ok">100% — zero unhappy clients 🌿</span></div>
+        <div class="t-line" style="animation-delay:.7s"><span class="pr">❯ </span><span class="cm">npm run build-site</span><span class="out">✓ Designing in Figma...</span><span class="out">✓ Writing clean code...</span><span class="out">✓ Adding animations...</span><span class="out ok">✓ Launched! 🚀</span></div>
+        <div class="t-line" style="animation-delay:1.2s"><span class="pr">❯ </span><span class="t-cursor"></span></div>
+      </div>
+      <div class="reveal reveal-right">
+        <div class="section-label">My Process</div>
+        <h2 class="section-title">Built right,<br><em>delivered fast.</em></h2>
+        <p style="color:var(--muted);margin:1rem 0 1.5rem;line-height:1.85;">4 steps. 50+ successful projects. Zero failures.</p>
+        <div class="p-step reveal rd1"><div class="p-num">01</div><div class="p-text"><h4>Discover</h4><p>Research your brand, goals &amp; competitors</p></div></div>
+        <div class="p-step reveal rd2"><div class="p-num">02</div><div class="p-text"><h4>Design</h4><p>Figma wireframes &amp; high-fidelity mockups</p></div></div>
+        <div class="p-step reveal rd3"><div class="p-num">03</div><div class="p-text"><h4>Develop</h4><p>Clean, optimized code tested everywhere</p></div></div>
+        <div class="p-step reveal rd4"><div class="p-num">04</div><div class="p-text"><h4>Launch</h4><p>SEO, speed optimization &amp; post-launch support</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🦌</div><div class="vine-line"></div></div>
+
+<!-- ═══════════════════════
+  SECTION 5 — PROJECT SLIDER (parallax, 🦉 owl)
+═══════════════════════ -->
+<section class="par-section bg-earth" data-speed="0.28" style="padding:8rem 0;">
+  <div class="par-bg">
+    <svg width="100%" height="180%" viewBox="0 0 1440 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <g fill="rgba(18,10,3,.8)">
+        <ellipse cx="0" cy="1200" rx="280" ry="680"/><ellipse cx="480" cy="1200" rx="240" ry="640"/>
+        <ellipse cx="960" cy="1200" rx="260" ry="660"/><ellipse cx="1440" cy="1200" rx="270" ry="650"/>
+      </g>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom,rgba(2,5,8,.72) 0%,rgba(10,6,2,.28) 50%,rgba(2,5,8,.82) 100%)"></div>
+
+  <!-- OWL -->
+  <div class="animal-scene owl">
+    <div class="owl-body">🦉</div>
+    <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--lime2);margin-top:.3rem;">// watching...</div>
+  </div>
+
+  <div class="par-content">
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-title">Projects That <em>Speak</em></h2>
+    </div>
+    <div class="slider-component reveal">
+      <div class="slider-wrap">
+        <div class="slider-track">
+          <div class="slide"><div class="card tilt-card"><div class="proj-thumb"><iframe src="projects/hotel_skypie_real_photo_mockup.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open Project ↗</span></div></div><div style="padding:1.2rem 1.5rem 1.5rem"><div style="display:flex;gap:6px;margin-bottom:.6rem"><span class="tag tag-green">Hotel</span><span class="tag tag-teal">HTML</span></div><h3 style="font-family:var(--font-head);font-weight:800;font-size:1rem;margin-bottom:.3rem">Hotel Skypie</h3><p style="color:var(--muted);font-size:.82rem">Luxury hotel booking site</p></div></div></div>
+          <div class="slide"><div class="card tilt-card"><div class="proj-thumb"><iframe src="projects/himalayan-architects.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open Project ↗</span></div></div><div style="padding:1.2rem 1.5rem 1.5rem"><div style="display:flex;gap:6px;margin-bottom:.6rem"><span class="tag tag-teal">Architecture</span></div><h3 style="font-family:var(--font-head);font-weight:800;font-size:1rem;margin-bottom:.3rem">Himalayan Architects</h3><p style="color:var(--muted);font-size:.82rem">Architecture firm portfolio</p></div></div></div>
+          <div class="slide"><div class="card tilt-card"><div class="proj-thumb"><iframe src="projects/annamaya-foodhall.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open Project ↗</span></div></div><div style="padding:1.2rem 1.5rem 1.5rem"><div style="display:flex;gap:6px;margin-bottom:.6rem"><span class="tag tag-gold">Food & Dining</span></div><h3 style="font-family:var(--font-head);font-weight:800;font-size:1rem;margin-bottom:.3rem">AnnaMaya FoodHall</h3><p style="color:var(--muted);font-size:.82rem">Andaz Delhi dining experience</p></div></div></div>
+          <div class="slide"><div class="card tilt-card"><div class="proj-thumb"><iframe src="projects/the-gt-road.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open Project ↗</span></div></div><div style="padding:1.2rem 1.5rem 1.5rem"><div style="display:flex;gap:6px;margin-bottom:.6rem"><span class="tag tag-earth">Restaurant</span></div><h3 style="font-family:var(--font-head);font-weight:800;font-size:1rem;margin-bottom:.3rem">The GT Road</h3><p style="color:var(--muted);font-size:.82rem">Grand Trunk dining, Delhi</p></div></div></div>
+          <div class="slide"><div class="card tilt-card"><div class="proj-thumb"><iframe src="projects/GulliverAdventures_WebsiteMockup.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open Project ↗</span></div></div><div style="padding:1.2rem 1.5rem 1.5rem"><div style="display:flex;gap:6px;margin-bottom:.6rem"><span class="tag tag-green">Travel</span></div><h3 style="font-family:var(--font-head);font-weight:800;font-size:1rem;margin-bottom:.3rem">Gulliver Adventures</h3><p style="color:var(--muted);font-size:.82rem">Adventure travel company</p></div></div></div>
+          <div class="slide"><div class="card tilt-card"><div class="proj-thumb"><iframe src="projects/snowdrift_manali_mockup.html" loading="lazy" scrolling="no"></iframe><div class="proj-thumb-overlay"><span>Open Project ↗</span></div></div><div style="padding:1.2rem 1.5rem 1.5rem"><div style="display:flex;gap:6px;margin-bottom:.6rem"><span class="tag tag-green">Hotel</span></div><h3 style="font-family:var(--font-head);font-weight:800;font-size:1rem;margin-bottom:.3rem">Snowdrift Manali</h3><p style="color:var(--muted);font-size:.82rem">Mountain resort website</p></div></div></div>
+        </div>
+      </div>
+      <div class="slider-nav">
+        <button class="slider-btn slider-prev">←</button>
+        <div class="slider-dots"></div>
+        <button class="slider-btn slider-next">→</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;"><a href="projects.html" class="btn btn-outline">View All Projects 🌿</a></div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🦉</div><div class="vine-line"></div></div>
+
+<!-- ═══════════════════════
+  SECTION 6 — STATS (parallax, 🦊 fox)
+═══════════════════════ -->
+<section class="par-section bg-forest" data-speed="0.3" style="padding:6rem 0;min-height:auto;">
+  <div class="par-bg">
+    <svg width="100%" height="200%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <ellipse cx="720" cy="450" rx="600" ry="200" fill="rgba(5,18,10,.6)"/>
+      <ellipse cx="720" cy="900" rx="700" ry="80" fill="rgba(120,255,82,.03)"/>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:rgba(2,5,8,.6)"></div>
+  <div class="animal-scene fox"><div class="fox-body">🦊</div></div>
+  <div class="par-content">
+    <div class="resp-block" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:900px;margin:0 auto;">
+      <div class="stat-box reveal"><div class="num" data-count="4" data-suffix="+">4+</div><div class="label">years_experience</div></div>
+      <div class="stat-box reveal rd1"><div class="num" data-count="50" data-suffix="+">50+</div><div class="label">projects_done</div></div>
+      <div class="stat-box reveal rd2"><div class="num" data-count="100" data-suffix="%">100%</div><div class="label">success_rate</div></div>
+      <div class="stat-box reveal rd3"><div class="num" data-count="20" data-suffix="+">20+</div><div class="label">happy_clients</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="vine-div" style="position:relative;z-index:10;"><div class="vine-line"></div><div class="vine-icon">🦊</div><div class="vine-line"></div></div>
+
+<!-- ═══════════════════════
+  SECTION 7 — TESTIMONIALS (parallax, 🦚 peacock)
+═══════════════════════ -->
+<section class="par-section bg-jungle" data-speed="0.28" style="padding:8rem 0;">
+  <div class="par-bg">
+    <svg width="100%" height="180%" viewBox="0 0 1440 1200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%">
+      <g fill="rgba(5,18,10,.75)">
+        <ellipse cx="0"    cy="1200" rx="200" ry="500"/><ellipse cx="500"  cy="1200" rx="180" ry="480"/>
+        <ellipse cx="1000" cy="1200" rx="210" ry="510"/><ellipse cx="1440" cy="1200" rx="190" ry="490"/>
+      </g>
+    </svg>
+  </div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom,rgba(2,5,8,.7) 0%,rgba(5,13,8,.25) 50%,rgba(2,5,8,.82) 100%)"></div>
+  <!-- PEACOCK -->
+  <div class="animal-scene" style="left:3%;top:15%;">
+    <div style="font-size:4rem;animation:float 3.5s ease-in-out infinite;">🦚</div>
+  </div>
+  <div class="par-content">
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <div class="section-label">Client Reviews</div>
+      <h2 class="section-title">What the <em>Forest</em> Says 🌿</h2>
+    </div>
+    <div class="grid-3">
+      <div class="testimonial-card reveal rd1"><div class="stars">★★★★★</div><p>"Abhishek built our hotel website from scratch — beautiful design and bookings increased 40% since launch."</p><div class="t-author"><div class="t-avatar">RK</div><div><div class="t-name">Rajesh Kumar</div><div class="t-role">Owner, Hotel Skypie</div></div></div></div>
+      <div class="testimonial-card reveal rd2"><div class="stars">★★★★★</div><p>"Our Shopify store went from zero to amazing in record time. Outstanding attention to detail."</p><div class="t-author"><div class="t-avatar">SL</div><div><div class="t-name">Sarah Lawson</div><div class="t-role">Founder, LemonSalt UK</div></div></div></div>
+      <div class="testimonial-card reveal rd3"><div class="stars">★★★★★</div><p>"Figma prototypes before dev meant zero surprises. WordPress site is flawless. Highly recommend!"</p><div class="t-author"><div class="t-avatar">MA</div><div><div class="t-name">Meera Anand</div><div class="t-role">CEO, Kaaria AI</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════
+  CTA (parallax)
+═══════════════════════ -->
+<section class="par-section bg-forest" data-speed="0.2" style="padding:8rem 0;min-height:auto;">
+  <div class="par-overlay" style="background:rgba(2,5,8,.5)"></div>
+  <div class="par-content">
+    <div class="cta-banner reveal">
+      <h2>Ready to <em>Grow</em> in the Digital Jungle?</h2>
+      <p>Web design, development, graphic design, social media — one person, everything handled. Free consultation.</p>
+      <a href="contact.html" class="btn btn-primary">Start Your Project 🌿</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="text-decoration:none;"><span class="leaf">🌿</span> WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB</a>
+      <p>Web design, development, graphic design &amp; digital marketing. India, serving clients worldwide.</p>
+      <div class="social-links" style="margin-top:1.2rem;">
+        <a href="mailto:kumarabhishek180502@gmail.com" title="Email">✉</a>
+        <a href="tel:+918580999516" title="Call">📞</a>
+        <a href="https://www.linkedin.com/in/abhishek-undefined-1982913b8/" target="_blank" title="LinkedIn">in</a>
+        <a href="https://www.instagram.com/web_x_hub/" target="_blank" title="Instagram">◎</a>
+        <a href="https://wa.me/918580999516" target="_blank" title="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="projects.html">Projects</a></li><li><a href="works.html">Works</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Custom Websites</a></li><li><a href="#">WordPress</a></li><li><a href="#">Shopify</a></li><li><a href="#">Graphic Design</a></li><li><a href="#">Social Marketing</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul>
+      <li><a href="tel:+918580999516">+91 85809 99516</a></li>
+      <li><a href="mailto:kumarabhishek180502@gmail.com">kumarabhishek180502@gmail.com</a></li>
+      <li><a href="https://wa.me/918580999516" target="_blank">WhatsApp Me 💬</a></li>
+      <li><a href="https://www.instagram.com/web_x_hub/" target="_blank">@web_x_hub</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 WEB X HUB · Abhishek. All rights reserved.</p>
+    <p style="color:var(--lime);opacity:.6">// grown with ❤️ in the digital jungle</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

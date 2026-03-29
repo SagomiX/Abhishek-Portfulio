@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21 Stories | Modern Essentials</title>
+    <!-- Google Fonts: Shopify uses Assistant for a clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --black: #121212;
+            --white: #ffffff;
+            --light-gray: #f3f3f3;
+            --border: #e8e8e8;
+            --accent: #334fb4;
+            --text-gray: #707070;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Announcement Bar */
+        .announcement-bar {
+            background-color: var(--black);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 13px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 5%;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+            text-underline-offset: 5px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .header-icons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            font-size: 18px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: var(--white);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border: 1px solid var(--white);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: white;
+        }
+
+        .btn-black {
+            background: var(--black);
+            color: white;
+        }
+
+        .btn-black:hover {
+            background: #333;
+            border-color: #333;
+        }
+
+        /* Section Global */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* Featured Product (Shopify Style) */
+        .featured-product-section {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            background: #fff;
+        }
+
+        .fp-image {
+            flex: 1;
+        }
+
+        .fp-image img {
+            width: 100%;
+            max-height: 600px;
+            object-fit: cover;
+        }
+
+        .fp-details {
+            flex: 1;
+        }
+
+        .fp-details .vendor {
+            color: var(--text-gray);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        .fp-details h2 {
+            font-size: 40px;
+            margin: 10px 0;
+        }
+
+        .fp-details .price {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .quantity-selector {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quantity-selector input {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-card .img-container {
+            overflow: hidden;
+            background: var(--light-gray);
+            margin-bottom: 15px;
+            aspect-ratio: 4/5;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h3 {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .product-card p {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            background-color: var(--light-gray);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .stars {
+            color: #000;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* Instagram Feed */
+        .insta-feed {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .insta-feed img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-gray);
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 36px; }
+            .featured-product-section { flex-direction: column; }
+            .insta-feed { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="announcement-bar">
+        FREE SHIPPING ON ALL PREPAID ORDERS
+    </div>
+
+    <header>
+        <a href="#" class="logo">21 STORIES</a>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Shop All</a>
+            <a href="#">Jewelry</a>
+            <a href="#">Lifestyle</a>
+        </nav>
+        <div class="header-icons">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-user"></i>
+            <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Elegance in Every Story</h1>
+            <p style="margin-bottom: 30px; letter-spacing: 1px;">Handcrafted essentials for your daily aesthetic.</p>
+            <a href="#" class="btn">Shop New Arrivals</a>
+        </div>
+    </section>
+
+    <!-- Featured Product Section -->
+    <section class="featured-product-section">
+        <div class="fp-image">
+            <!-- Replace with an image from IG: "21stories.co.in" -->
+            <img src="https://images.unsplash.com/photo-1535633302703-042c1d33f70b?auto=format&fit=crop&w=800&q=80" alt="Featured Product">
+        </div>
+        <div class="fp-details">
+            <p class="vendor">21 Stories Official</p>
+            <h2>The Signature Gold Locket</h2>
+            <p class="price">Rs. 1,499.00</p>
+            
+            <div class="quantity-selector">
+                <label>Quantity</label>
+                <input type="number" value="1" min="1">
+            </div>
+
+            <button class="btn btn-black" style="width: 100%; margin-bottom: 10px;">ADD TO CART</button>
+            <button class="btn" style="width: 100%; border: 1px solid #121212;">BUY IT NOW</button>
+            
+            <p style="margin-top: 30px; color: var(--text-gray); font-size: 14px;">
+                A timeless piece crafted from 18k gold plated stainless steel. Waterproof, sweatproof, and designed to last through every chapter of your story.
+            </p>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section>
+        <h2 class="section-title">Our Best Sellers</h2>
+        <div class="product-grid">
+            <!-- Product 1 -->
+            <a href="#" class="product-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=500&q=80" alt="Jewelry">
+                </div>
+                <h3>Minimalist Chain Bracelet</h3>
+                <p>Rs. 899.00</p>
+            </a>
+            <!-- Product 2 -->
+            <a href="#" class="product-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1598560912005-59a0d5c1a396?auto=format&fit=crop&w=500&q=80" alt="Jewelry">
+                </div>
+                <h3>Classic Hoop Earrings</h3>
+                <p>Rs. 650.00</p>
+            </a>
+            <!-- Product 3 -->
+            <a href="#" class="product-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=500&q=80" alt="Jewelry">
+                </div>
+                <h3>Aesthetic Pearl Necklace</h3>
+                <p>Rs. 1,200.00</p>
+            </a>
+            <!-- Product 4 -->
+            <a href="#" class="product-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?auto=format&fit=crop&w=500&q=80" alt="Jewelry">
+                </div>
+                <h3>Stacked Ring Set</h3>
+                <p>Rs. 799.00</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <h2 class="section-title">Customer Stories</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"The quality is absolutely amazing. I wear my necklace every single day and it hasn't tarnished at all. 21 Stories is my new favorite!"</p>
+                <p class="reviewer-name">— ISHANI V.</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Fast shipping and the packaging was so aesthetic. It felt like I was receiving a luxury gift. Highly recommend the hoop earrings."</p>
+                <p class="reviewer-name">— MEHAK P.</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Beautiful designs that go with every outfit. Simple, elegant, and very affordable for the quality you get."</p>
+                <p class="reviewer-name">— ADITI M.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Grid -->
+    <section>
+        <h2 class="section-title" style="margin-bottom: 10px;">Shop the Look</h2>
+        <p style="text-align: center; margin-bottom: 40px; color: var(--text-gray);">Follow us on Instagram @21stories.co.in</p>
+        <div class="insta-feed">
+            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=500&q=80" alt="IG">
+            <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=500&q=80" alt="IG">
+            <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=500&q=80" alt="IG">
+            <img src="https://images.unsplash.com/photo-1529139513055-07f90feda3f0?auto=format&fit=crop&w=500&q=80" alt="IG">
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About Us</h4>
+                <p style="font-size: 14px; color: var(--text-gray);">21 Stories is a curated collection of modern essentials designed for those who appreciate the beauty in small details.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Search</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p style="font-size: 14px; color: var(--text-gray); margin-bottom: 15px;">Subscribe for exclusive updates and offers.</p>
+                <input type="email" placeholder="Email" style="width: 100%; padding: 10px; border: 1px solid var(--border); margin-bottom: 10px;">
+                <button class="btn btn-black" style="width: 100%; padding: 10px;">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024, 21 Stories. Built with Love.
+        </div>
+    </footer>
+
+</body>
+</html>

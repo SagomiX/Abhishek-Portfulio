@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The GT Road — Grand Trunk Dining Experience · Delhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=DM+Serif+Display:ital@0;1&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --saffron: #e8621a;
+  --saffron-light: #f0853a;
+  --ember: #c94a0a;
+  --turmeric: #d4a022;
+  --turmeric-light: #e8c060;
+  --night: #0f0b08;
+  --dark: #1a120a;
+  --mud: #2e1f10;
+  --bark: #4a3020;
+  --wheat: #d8c4a0;
+  --cream: #f5edd8;
+  --stone: #8a7060;
+  --smoke: rgba(255,255,255,0.55);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--night);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ─── CUSTOM SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--saffron); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3.5rem;
+  transition: all 0.5s;
+}
+nav.scrolled {
+  background: rgba(15,11,8,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(232,98,26,0.25);
+}
+.nav-logo {
+  display: flex; flex-direction: column; gap: 0;
+}
+.nav-logo-main {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1;
+}
+.nav-logo-sub {
+  font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--saffron); line-height: 1.4;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--smoke); text-decoration: none; transition: color 0.3s;
+  font-weight: 400;
+}
+.nav-links a:hover { color: var(--saffron-light); }
+.nav-book {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  background: var(--saffron); color: white;
+  padding: 0.55rem 1.5rem;
+  text-decoration: none; transition: all 0.3s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.nav-book:hover { background: var(--ember); }
+
+/* ─── HERO ─── */
+#hero {
+  position: relative; height: 100vh; min-height: 600px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 80%, rgba(232,98,26,0.18) 0%, transparent 70%),
+    linear-gradient(180deg, #0a0705 0%, #1a0f06 40%, #0f0b08 100%);
+}
+/* Animated road lines */
+.road-lines {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 60px,
+    rgba(212,160,34,0.07) 60px,
+    rgba(212,160,34,0.07) 62px
+  );
+  animation: road-scroll 4s linear infinite;
+}
+@keyframes road-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 0 124px; }
+}
+/* Fire embers */
+.embers { position: absolute; inset: 0; pointer-events: none; }
+.ember {
+  position: absolute; width: 3px; height: 3px;
+  background: var(--saffron); border-radius: 50%;
+  opacity: 0;
+  left: var(--x); bottom: var(--y);
+  animation: ember-rise var(--dur) ease-out infinite;
+  animation-delay: var(--delay);
+}
+@keyframes ember-rise {
+  0% { transform: translate(0,0) scale(1); opacity: 0; }
+  15% { opacity: 1; }
+  70% { opacity: 0.5; }
+  100% { transform: translate(var(--dx), -120px) scale(0.2); opacity: 0; }
+}
+/* Dotted lane divider */
+.hero-road {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+  background: linear-gradient(to top, rgba(15,11,8,1) 0%, transparent 100%);
+}
+
+.hero-content {
+  position: relative; z-index: 5;
+  padding: 0 4rem 7rem;
+  max-width: 900px;
+  animation: fade-up 1.2s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--turmeric); margin-bottom: 1.6rem;
+  animation: fade-up 1.2s 0.15s both;
+}
+.hero-badge::before, .hero-badge::after {
+  content: ''; flex: 1; height: 1px; width: 30px;
+  background: var(--turmeric); opacity: 0.6;
+}
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  line-height: 0.9; color: var(--cream);
+  margin-bottom: 1.2rem;
+  animation: fade-up 1.2s 0.3s both;
+}
+.hero-title span {
+  display: block; color: var(--saffron);
+  font-style: italic;
+}
+.hero-km {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--stone); margin-bottom: 2.5rem;
+  animation: fade-up 1.2s 0.45s both;
+}
+.hero-cta {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fade-up 1.2s 0.6s both;
+}
+.btn-fire {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  background: var(--saffron); color: white;
+  padding: 0.9rem 2.4rem; text-decoration: none;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.btn-fire::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: translateX(-100%); transition: transform 0.5s;
+}
+.btn-fire:hover::after { transform: translateX(100%); }
+.btn-fire:hover { background: var(--ember); }
+.btn-outline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  border: 1px solid rgba(232,98,26,0.5); color: var(--saffron-light);
+  padding: 0.9rem 2.4rem; text-decoration: none;
+  transition: all 0.3s;
+}
+.btn-outline:hover { border-color: var(--saffron); background: rgba(232,98,26,0.1); }
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute; right: 3rem; bottom: 3rem; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: var(--stone); font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase;
+  animation: fade-up 1.2s 0.8s both;
+}
+.scroll-track {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, var(--saffron), transparent);
+  position: relative; overflow: hidden;
+}
+.scroll-track::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 20px;
+  background: white; animation: scroll-travel 1.8s ease-in-out infinite;
+}
+@keyframes scroll-travel {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(400%); }
+}
+
+/* ─── TICKER ─── */
+.ticker {
+  background: var(--saffron);
+  padding: 0.7rem 0; overflow: hidden;
+  position: relative; z-index: 10;
+}
+.ticker-track {
+  display: flex; width: max-content;
+  animation: ticker-run 30s linear infinite;
+}
+.ticker-item {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 0 2rem; white-space: nowrap;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: white;
+}
+.ticker-sep {
+  width: 5px; height: 5px; background: rgba(255,255,255,0.5);
+  transform: rotate(45deg);
+}
+@keyframes ticker-run {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ─── SECTIONS ─── */
+section { padding: 7rem 4rem; }
+.label-tag {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: 1rem;
+}
+.label-tag::before { content: '—'; opacity: 0.6; }
+
+/* ─── JOURNEY SECTION ─── */
+#journey { background: var(--dark); }
+.journey-wrap {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 7rem;
+  max-width: 1200px; margin: 0 auto; align-items: center;
+}
+.journey-text h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  line-height: 1.1; color: var(--cream); margin-bottom: 2rem;
+}
+.journey-text h2 em { font-style: italic; color: var(--saffron-light); }
+.journey-text p {
+  font-size: 0.88rem; line-height: 1.9; color: var(--stone);
+  margin-bottom: 1.3rem; font-weight: 300;
+}
+.km-counter {
+  display: flex; gap: 3rem; margin-top: 3rem;
+}
+.km-stat h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.8rem; font-weight: 700;
+  color: var(--saffron); line-height: 1;
+}
+.km-stat p {
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--stone); margin-top: 0.3rem; margin-bottom: 0 !important;
+}
+/* Road visual */
+.road-visual {
+  position: relative; aspect-ratio: 3/4;
+  background: linear-gradient(180deg, #1a0f06, #0a0704);
+  overflow: hidden;
+}
+.road-visual::before {
+  content: '';
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    180deg,
+    var(--turmeric) 0px, var(--turmeric) 20px,
+    transparent 20px, transparent 40px
+  );
+  opacity: 0.3;
+  animation: road-scroll 1.5s linear infinite;
+}
+.road-cities {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 2rem 1.5rem;
+}
+.city-stop {
+  display: flex; align-items: center; gap: 1rem;
+}
+.city-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--saffron); flex-shrink: 0;
+  box-shadow: 0 0 12px var(--saffron);
+  animation: city-pulse 2s ease-in-out infinite;
+}
+.city-dot.alt { background: var(--turmeric); box-shadow: 0 0 12px var(--turmeric); animation-delay: 0.5s; }
+@keyframes city-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+.city-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 600; letter-spacing: 0.1em;
+  color: var(--cream);
+}
+.city-cuisine {
+  font-size: 0.62rem; letter-spacing: 0.15em; color: var(--stone); text-transform: uppercase;
+}
+.road-glow {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(232,98,26,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%,-50%) scale(1.4); opacity: 1; }
+}
+
+/* ─── MENU ─── */
+#menu { background: var(--night); }
+.menu-header { text-align: center; margin-bottom: 3.5rem; }
+.menu-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  color: var(--cream); margin-bottom: 0.5rem;
+}
+.menu-header h2 em { font-style: italic; color: var(--saffron-light); }
+.menu-header p { font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em; }
+
+.menu-cats {
+  display: flex; justify-content: center; gap: 0; margin-bottom: 3.5rem;
+  max-width: 700px; margin-left: auto; margin-right: auto;
+  border: 1px solid rgba(232,98,26,0.25);
+}
+.cat-btn {
+  flex: 1; padding: 0.75rem 0.5rem; background: transparent;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--stone); cursor: pointer; border: none;
+  transition: all 0.3s;
+  border-right: 1px solid rgba(232,98,26,0.25);
+}
+.cat-btn:last-child { border-right: none; }
+.cat-btn.active, .cat-btn:hover {
+  background: var(--saffron); color: white;
+}
+.menu-items {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  max-width: 1200px; margin: 0 auto;
+  background: rgba(232,98,26,0.1);
+}
+.menu-item {
+  background: var(--night); padding: 2rem;
+  transition: all 0.35s; position: relative; overflow: hidden;
+}
+.menu-item::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--saffron); transform: scaleX(0);
+  transform-origin: left; transition: transform 0.4s;
+}
+.menu-item:hover { background: rgba(232,98,26,0.06); }
+.menu-item:hover::after { transform: scaleX(1); }
+.item-flag {
+  font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: 0.6rem;
+}
+.menu-item h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem; color: var(--cream); margin-bottom: 0.6rem;
+}
+.menu-item p { font-size: 0.72rem; color: var(--stone); line-height: 1.75; font-weight: 300; }
+.item-price {
+  margin-top: 1.2rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem; font-weight: 600; color: var(--turmeric);
+}
+.item-veg {
+  display: inline-block; width: 10px; height: 10px;
+  border: 1.5px solid #2ecc71; border-radius: 2px;
+  position: relative; margin-right: 0.4rem;
+}
+.item-veg::after {
+  content: ''; position: absolute;
+  width: 5px; height: 5px; background: #2ecc71;
+  border-radius: 50%; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.item-nonveg {
+  display: inline-block; width: 10px; height: 10px;
+  border: 1.5px solid #e74c3c; border-radius: 2px;
+  position: relative; margin-right: 0.4rem;
+}
+.item-nonveg::after {
+  content: ''; position: absolute;
+  width: 5px; height: 5px; background: #e74c3c;
+  border-radius: 50%; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Buffet banner */
+.buffet-banner {
+  background: linear-gradient(135deg, var(--mud), var(--bark));
+  border: 1px solid rgba(232,98,26,0.35);
+  padding: 3rem; text-align: center; max-width: 1200px;
+  margin: 3rem auto 0;
+  position: relative; overflow: hidden;
+}
+.buffet-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(232,98,26,0.12), transparent);
+}
+.buffet-banner h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem; color: var(--cream); margin-bottom: 0.5rem;
+  position: relative;
+}
+.buffet-banner p {
+  font-size: 0.78rem; color: var(--stone); letter-spacing: 0.08em;
+  position: relative;
+}
+.buffet-price {
+  display: inline-block; margin-top: 1.2rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2rem; font-weight: 700; color: var(--saffron);
+  position: relative;
+}
+.buffet-note {
+  font-size: 0.6rem; color: var(--stone); display: block;
+  letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem;
+}
+
+/* ─── BBQ EXPERIENCE ─── */
+#bbq {
+  background: linear-gradient(135deg, #1a0f06 0%, #0f0b08 100%);
+  position: relative; overflow: hidden;
+}
+#bbq::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 300px;
+  background: radial-gradient(ellipse 80% 100% at 50% 100%, rgba(232,98,26,0.15), transparent);
+}
+.bbq-wrap {
+  display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 6rem;
+  max-width: 1200px; margin: 0 auto; align-items: center;
+  position: relative; z-index: 1;
+}
+.bbq-visual {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.bbq-card {
+  background: var(--mud); padding: 2rem 1.5rem; text-align: center;
+  border: 1px solid rgba(232,98,26,0.15);
+  transition: all 0.4s; position: relative; overflow: hidden;
+}
+.bbq-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--saffron); transform: scaleX(0); transition: transform 0.4s;
+}
+.bbq-card:hover { transform: translateY(-4px); border-color: rgba(232,98,26,0.4); }
+.bbq-card:hover::before { transform: scaleX(1); }
+.bbq-icon { font-size: 2.2rem; margin-bottom: 0.8rem; display: block; }
+.bbq-card h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cream); margin-bottom: 0.4rem;
+}
+.bbq-card p { font-size: 0.68rem; color: var(--stone); line-height: 1.6; }
+.bbq-card.featured { grid-column: span 2; }
+
+.bbq-text h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+  line-height: 1.1; color: var(--cream); margin-bottom: 1.8rem;
+}
+.bbq-text h2 em { font-style: italic; color: var(--saffron-light); }
+.bbq-text p { font-size: 0.86rem; line-height: 1.9; color: var(--stone); margin-bottom: 1.2rem; font-weight: 300; }
+.feature-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 0.9rem; }
+.feature-list li {
+  display: flex; align-items: flex-start; gap: 1rem;
+  font-size: 0.8rem; color: var(--cream); line-height: 1.5;
+}
+.feature-list li::before {
+  content: '▸'; color: var(--saffron); flex-shrink: 0; margin-top: 0.1rem;
+}
+
+/* ─── CHAAT COUNTER ─── */
+.chaat-strip {
+  background: var(--saffron); padding: 4rem;
+  display: flex; gap: 1px; overflow: hidden;
+}
+.chaat-item {
+  flex: 1; background: rgba(0,0,0,0.15); padding: 2rem;
+  text-align: center; transition: background 0.3s;
+}
+.chaat-item:hover { background: rgba(0,0,0,0.3); }
+.chaat-item h4 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem; color: white; margin-bottom: 0.3rem; font-style: italic;
+}
+.chaat-item p { font-size: 0.62rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.7); text-transform: uppercase; }
+
+/* ─── GALLERY ─── */
+#gallery { background: var(--dark); padding: 7rem 0; }
+#gallery .label-tag, #gallery h2 { padding: 0 4rem; }
+#gallery h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  color: var(--cream); margin-bottom: 3rem;
+}
+#gallery h2 em { font-style: italic; color: var(--saffron-light); }
+.gallery-reel {
+  display: flex; gap: 1rem;
+  overflow-x: auto; padding: 0 4rem 1.5rem;
+  scrollbar-width: thin; scrollbar-color: var(--saffron) transparent;
+  scroll-snap-type: x mandatory;
+}
+.gallery-frame {
+  flex: 0 0 280px; scroll-snap-align: start;
+  aspect-ratio: 3/4;
+  background: linear-gradient(var(--ga, 140deg), var(--gc1), var(--gc2));
+  position: relative; overflow: hidden;
+  transition: transform 0.4s, filter 0.4s;
+  filter: brightness(0.85);
+}
+.gallery-frame:hover { transform: scale(1.04); filter: brightness(1); }
+.gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 3rem 1.2rem 1.2rem;
+  background: linear-gradient(to top, rgba(15,11,8,0.9), transparent);
+}
+.gallery-caption h4 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem; color: white; margin-bottom: 0.2rem;
+}
+.gallery-caption p { font-size: 0.58rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.55); text-transform: uppercase; }
+
+/* ─── VISIT ─── */
+#visit { background: var(--night); }
+.visit-wrap {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.visit-left h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  color: var(--cream); margin-bottom: 2.5rem; line-height: 1.1;
+}
+.visit-left h2 em { font-style: italic; color: var(--saffron-light); }
+.info-block {
+  margin-bottom: 2rem; padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.info-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: 0.5rem;
+}
+.info-block p, .info-block a {
+  font-size: 0.85rem; color: var(--wheat); line-height: 1.7; font-weight: 300;
+  text-decoration: none; display: block;
+}
+.info-block a:hover { color: var(--saffron-light); }
+/* Map placeholder */
+.visit-map {
+  background: var(--dark);
+  border: 1px solid rgba(232,98,26,0.2);
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.map-roads {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(232,98,26,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,98,26,0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.map-pin-wrap {
+  display: flex; flex-direction: column; align-items: center; z-index: 2;
+}
+.map-pin-shape {
+  width: 40px; height: 40px;
+  background: var(--saffron);
+  border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  animation: pin-bob 2.2s ease-in-out infinite;
+  position: relative;
+}
+.map-pin-shape::after {
+  content: ''; position: absolute; inset: 7px;
+  background: var(--night); border-radius: 50%;
+}
+@keyframes pin-bob {
+  0%, 100% { transform: rotate(-45deg) translateY(0); }
+  50% { transform: rotate(-45deg) translateY(-10px); }
+}
+.map-ripple {
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 1px solid var(--saffron); opacity: 0;
+  position: absolute;
+  animation: map-ripple 2.5s ease-out infinite;
+}
+.map-ripple:nth-child(2) { animation-delay: 0.8s; }
+.map-ripple:nth-child(3) { animation-delay: 1.6s; }
+@keyframes map-ripple {
+  0% { transform: scale(0.3); opacity: 0.8; }
+  100% { transform: scale(3); opacity: 0; }
+}
+.map-label-pin {
+  margin-top: 1.5rem; text-align: center; z-index: 2;
+}
+.map-label-pin h4 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem; font-style: italic; color: var(--cream);
+}
+.map-label-pin p {
+  font-size: 0.58rem; letter-spacing: 0.2em; color: var(--stone); text-transform: uppercase;
+}
+
+/* ─── RESERVATION ─── */
+#reservation {
+  background: linear-gradient(135deg, #1a0f06 0%, #0f0b08 100%);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+#reservation::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(232,98,26,0.1), transparent);
+}
+#reservation h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  color: var(--cream); margin-bottom: 0.6rem;
+  position: relative;
+}
+#reservation h2 em { font-style: italic; color: var(--saffron-light); }
+#reservation > p {
+  font-size: 0.78rem; color: var(--stone); letter-spacing: 0.08em;
+  margin-bottom: 3rem; position: relative;
+}
+.res-form {
+  display: flex; gap: 0.8rem; max-width: 750px; margin: 0 auto;
+  flex-wrap: wrap; justify-content: center; position: relative;
+}
+.res-input {
+  flex: 1; min-width: 170px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(232,98,26,0.25);
+  color: var(--cream); padding: 0.85rem 1.1rem;
+  font-family: 'Barlow', sans-serif; font-size: 0.75rem;
+  outline: none; transition: border-color 0.3s;
+}
+.res-input::placeholder { color: var(--stone); }
+.res-input:focus { border-color: var(--saffron); }
+.res-input option { background: #1a0f06; }
+.res-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  background: var(--saffron); color: white;
+  border: none; padding: 0.85rem 2.5rem; cursor: pointer;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: background 0.3s;
+}
+.res-btn:hover { background: var(--ember); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #07050302;
+  border-top: 1px solid rgba(232,98,26,0.2);
+  padding: 4rem;
+  display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 3rem;
+}
+.footer-brand .logo-main {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cream); margin-bottom: 0.3rem;
+}
+.footer-brand .logo-sub {
+  font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: 1rem;
+}
+.footer-brand p { font-size: 0.72rem; color: var(--stone); line-height: 1.7; max-width: 220px; }
+.footer-col h5 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--saffron); margin-bottom: 1.2rem;
+}
+.footer-col a, .footer-col p {
+  display: block; font-size: 0.72rem; color: var(--stone);
+  text-decoration: none; margin-bottom: 0.55rem; line-height: 1.6;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--saffron-light); }
+.footer-bottom {
+  background: rgba(0,0,0,0.4); padding: 1.2rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-bottom p { font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.2); }
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 5rem 1.5rem; }
+  .journey-wrap, .bbq-wrap, .visit-wrap { grid-template-columns: 1fr; gap: 3rem; }
+  footer { grid-template-columns: 1fr 1fr; }
+  .menu-items { grid-template-columns: 1fr; }
+  .chaat-strip { flex-wrap: wrap; gap: 1rem; }
+  .hero-content { padding: 0 1.5rem 5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-main">The GT Road</div>
+    <div class="nav-logo-sub">Kabul → Chittagong · 2600 km</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#journey">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#bbq">BBQ Experience</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-book">Book a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="road-lines"></div>
+  <div class="embers" id="embers"></div>
+  <div class="hero-road"></div>
+  <div class="hero-content">
+    <div class="hero-badge">A 2600 km Gastronomic Journey</div>
+    <h1 class="hero-title">
+      The GT
+      <span>Road</span>
+    </h1>
+    <p class="hero-km">Connaught Place · New Delhi &nbsp;·&nbsp; Buffet · Barbecue · Bar</p>
+    <div class="hero-cta">
+      <a href="#reservation" class="btn-fire">Book Your Table</a>
+      <a href="#menu" class="btn-outline">Explore Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-track"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="journey-wrap">
+    <div class="journey-text">
+      <div class="label-tag reveal">The Grand Trunk Road</div>
+      <h2 class="reveal d1">2600 km of <em>Flavour</em>,<br>Under One Roof</h2>
+      <p class="reveal d2">Inspired by one of Asia's longest and most ancient roads — the Grand Trunk Road stretching from Kabul to Chittagong — The GT Road is a culinary pilgrimage through history. Every dish carries the soul of a city along this legendary route.</p>
+      <p class="reveal d2">Step inside and you step into another era. Jharokha windows, weapons as showpieces, a vintage car at the entrance, dimly lit earthy tones, and the aroma of coal-fired kebabs. Rustic Indian heritage meets modern-day dining theatre.</p>
+      <div class="km-counter reveal d3">
+        <div class="km-stat"><h3>2600</h3><p>km of Heritage Route</p></div>
+        <div class="km-stat"><h3>100+</h3><p>Dishes on Menu</p></div>
+        <div class="km-stat"><h3>4.3★</h3><p>Google Rating</p></div>
+      </div>
+    </div>
+    <div class="road-visual reveal d2">
+      <div class="road-glow"></div>
+      <div class="road-cities">
+        <div class="city-stop">
+          <div class="city-dot"></div>
+          <div><div class="city-name">Kabul</div><div class="city-cuisine">Afghani Grills · Peshawari Murg</div></div>
+        </div>
+        <div class="city-stop">
+          <div class="city-dot alt"></div>
+          <div><div class="city-name">Lahore</div><div class="city-cuisine">Lahori Fish · Nihari Gosht</div></div>
+        </div>
+        <div class="city-stop">
+          <div class="city-dot"></div>
+          <div><div class="city-name">Delhi</div><div class="city-cuisine">Chaat · Dal Makhani · Kebabs</div></div>
+        </div>
+        <div class="city-stop">
+          <div class="city-dot alt"></div>
+          <div><div class="city-name">Agra</div><div class="city-cuisine">Mughlai · Petha · Biryani</div></div>
+        </div>
+        <div class="city-stop">
+          <div class="city-dot"></div>
+          <div><div class="city-name">Varanasi</div><div class="city-cuisine">Thandai · Tamatar Chaat</div></div>
+        </div>
+        <div class="city-stop">
+          <div class="city-dot alt"></div>
+          <div><div class="city-name">Chittagong</div><div class="city-cuisine">Kacchi · Mezbani Beef</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header">
+    <div class="label-tag reveal" style="justify-content:center">Culinary Passport</div>
+    <h2 class="reveal d1">A Menu from <em>Every Land</em></h2>
+    <p class="reveal d2">Authentic recipes from across the Grand Trunk Road — served fresh, every single day</p>
+  </div>
+  <div class="menu-cats reveal d2">
+    <button class="cat-btn active" data-cat="Starters">Starters & Chaat</button>
+    <button class="cat-btn" data-cat="BBQ">BBQ Grill</button>
+    <button class="cat-btn" data-cat="Mains">Main Course</button>
+    <button class="cat-btn" data-cat="Desserts">Desserts</button>
+  </div>
+  <div class="menu-items reveal d3" id="menuGrid"></div>
+  <div class="buffet-banner reveal d2">
+    <h3>Unlimited Buffet — Everyday</h3>
+    <p>Lunch & Dinner · 100+ dishes · Live counters · BBQ on the table · Dessert spread</p>
+    <div class="buffet-price">₹ 799 <span style="font-size:1rem;color:var(--stone)">onwards</span></div>
+    <span class="buffet-note">Per person · Plus taxes · Prices may vary</span>
+  </div>
+</section>
+
+<!-- BBQ EXPERIENCE -->
+<section id="bbq">
+  <div class="bbq-wrap">
+    <div class="bbq-visual reveal">
+      <div class="bbq-card">
+        <span class="bbq-icon">🔥</span>
+        <h4>Live Coal Grill</h4>
+        <p>Personal BBQ grill on every table — char your own kebabs to perfection</p>
+      </div>
+      <div class="bbq-card">
+        <span class="bbq-icon">🍢</span>
+        <h4>Table-side Skewers</h4>
+        <p>Fresh skewers of veg & non-veg starters delivered straight to your grill</p>
+      </div>
+      <div class="bbq-card">
+        <span class="bbq-icon">🥗</span>
+        <h4>Live Chaat Counter</h4>
+        <p>Palak Patta Chaat, Raj Kachori, Paapdi Bhalla — made live before your eyes</p>
+      </div>
+      <div class="bbq-card">
+        <span class="bbq-icon">🎠</span>
+        <h4>Heritage Interiors</h4>
+        <p>Vintage car, Mughal-era décor, Jharokha walls, warm lantern lighting</p>
+      </div>
+    </div>
+    <div class="bbq-text">
+      <div class="label-tag reveal">The GT Road Experience</div>
+      <h2 class="reveal d1">Grill. Feast.<br><em>Celebrate.</em></h2>
+      <p class="reveal d2">The GT Road reinvented the art of dining with its signature concept — a live BBQ grill set on every table. You don't just eat here; you cook, you interact, you celebrate the food as it sizzles in front of you.</p>
+      <p class="reveal d2">From the live chaat counters to the rotating main course buffet where a new dish is added every single day — no two visits to The GT Road are ever the same.</p>
+      <ul class="feature-list reveal d3">
+        <li>BBQ grill on every table — a truly interactive dining experience</li>
+        <li>Mughal-era royal décor transporting you back in time</li>
+        <li>Afghani, Punjabi, Mughlai — all three cuisines in one sitting</li>
+        <li>Family-friendly with special luncheon buffets on weekdays</li>
+        <li>Private room available for celebrations & corporate events</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHAAT STRIP -->
+<div class="chaat-strip">
+  <div class="chaat-item"><h4>Palak Patta Chaat</h4><p>Live Counter</p></div>
+  <div class="chaat-item"><h4>Raj Kachori</h4><p>Delhi Classic</p></div>
+  <div class="chaat-item"><h4>Paapdi Bhalla</h4><p>Street Style</p></div>
+  <div class="chaat-item"><h4>Bhelpuri</h4><p>Mumbai Special</p></div>
+  <div class="chaat-item"><h4>Laccha Tokri</h4><p>Crispy &amp; Fresh</p></div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="label-tag reveal">Inside The GT Road</div>
+  <h2 class="reveal d1">The <em>Atmosphere</em></h2>
+  <div class="gallery-reel">
+    <div class="gallery-frame" style="--gc1:#2a1508;--gc2:#5a3015;--ga:140deg"><div class="gallery-caption"><h4>The Grand Hall</h4><p>Heritage Royal Interiors</p></div></div>
+    <div class="gallery-frame" style="--gc1:#1a0f06;--gc2:#3a2010;--ga:120deg"><div class="gallery-caption"><h4>BBQ at Your Table</h4><p>Live Grill Experience</p></div></div>
+    <div class="gallery-frame" style="--gc1:#0f1a05;--gc2:#2a4010;--ga:150deg"><div class="gallery-caption"><h4>Vintage Entrance Car</h4><p>Iconic GT Road Décor</p></div></div>
+    <div class="gallery-frame" style="--gc1:#1e1008;--gc2:#4a2518;--ga:130deg"><div class="gallery-caption"><h4>Live Chaat Counter</h4><p>Delhi Street Flavours</p></div></div>
+    <div class="gallery-frame" style="--gc1:#1a1a08;--gc2:#3a3510;--ga:155deg"><div class="gallery-caption"><h4>Mughal-era Wall Art</h4><p>Jharokha Designs</p></div></div>
+    <div class="gallery-frame" style="--gc1:#200a08;--gc2:#401510;--ga:125deg"><div class="gallery-caption"><h4>Dessert Spread</h4><p>Kulfi · Gulab Jamun · More</p></div></div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="visit-wrap">
+    <div class="visit-left">
+      <div class="label-tag reveal">Find Us</div>
+      <h2 class="reveal d1">Come, <em>Feast</em><br>With Us</h2>
+      <div class="info-block reveal d2">
+        <div class="info-label">Address — Connaught Place</div>
+        <p>M-39, Outer Circle, Shankar Market<br>Connaught Place, New Delhi — 110001</p>
+      </div>
+      <div class="info-block reveal d2">
+        <div class="info-label">Nearest Metro</div>
+        <p>Rajiv Chowk Metro Station<br>Blue Line & Yellow Line — 3 min walk</p>
+      </div>
+      <div class="info-block reveal d2">
+        <div class="info-label">Hours</div>
+        <p>Lunch: 12:00 PM – 4:00 PM<br>Dinner: 6:30 PM – 11:30 PM (Daily)</p>
+      </div>
+      <div class="info-block reveal d3">
+        <div class="info-label">Price</div>
+        <p>₹1,500 for two (approx.) · Taxes extra</p>
+      </div>
+      <a href="https://maps.app.goo.gl/gxdBPA4671eaYz8bA" target="_blank" class="btn-fire" style="display:inline-block;margin-top:1rem">Get Directions</a>
+    </div>
+    <div class="visit-map reveal d2">
+      <div class="map-roads"></div>
+      <div class="map-ripple"></div>
+      <div class="map-ripple"></div>
+      <div class="map-ripple"></div>
+      <div class="map-pin-wrap">
+        <div class="map-pin-shape"></div>
+        <div class="map-label-pin">
+          <h4>The GT Road</h4>
+          <p>Connaught Place · New Delhi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation">
+  <div class="label-tag reveal" style="justify-content:center">Reserve Your Seat</div>
+  <h2 class="reveal d1">Book a <em>Table</em></h2>
+  <p class="reveal d2">Tables fill fast — especially on weekends. Reserve in advance to avoid waiting.</p>
+  <div class="res-form reveal d3">
+    <input class="res-input" type="text" placeholder="Your Name">
+    <input class="res-input" type="tel" placeholder="Phone Number">
+    <input class="res-input" type="date">
+    <select class="res-input">
+      <option value="" disabled selected>No. of Guests</option>
+      <option>1 Guest</option>
+      <option>2 Guests</option>
+      <option>3-4 Guests</option>
+      <option>5-6 Guests</option>
+      <option>7+ Guests</option>
+    </select>
+    <select class="res-input">
+      <option value="" disabled selected>Meal</option>
+      <option>Lunch Buffet</option>
+      <option>Dinner Buffet</option>
+    </select>
+    <button class="res-btn">Confirm Booking</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo-main">The GT Road</div>
+    <div class="logo-sub">Kabul → Chittagong</div>
+    <p>A royal dining experience inspired by the ancient Grand Trunk Road — 2600 km of heritage flavours on one unforgettable table.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Navigate</h5>
+    <a href="#journey">Our Story</a>
+    <a href="#menu">Menu</a>
+    <a href="#bbq">BBQ Experience</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reservation">Reservations</a>
+  </div>
+  <div class="footer-col">
+    <h5>Visit Us</h5>
+    <p>M-39, Shankar Market<br>Connaught Place, New Delhi</p>
+    <p style="margin-top:0.6rem;">Lunch 12–4pm · Dinner 6:30–11:30pm</p>
+  </div>
+  <div class="footer-col">
+    <h5>Follow Us</h5>
+    <a href="#">@thegtroad</a>
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <p style="margin-top:0.8rem;color:var(--saffron);font-size:0.7rem;">4.3 ★ Google · 4.4 ★ Restaurant Guru<br>17,000+ Reviews</p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 The GT Road. All rights reserved.</p>
+  <p>Connaught Place · New Delhi · India</p>
+</div>
+
+<script>
+// Embers
+const eb = document.getElementById('embers');
+for(let i=0;i<40;i++){
+  const e = document.createElement('div');
+  e.className='ember';
+  e.style.cssText=`--x:${Math.random()*100}%;--y:${Math.random()*30}%;--dur:${3+Math.random()*5}s;--delay:${Math.random()*6}s;--dx:${(Math.random()-0.5)*60}px`;
+  eb.appendChild(e);
+}
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+// Ticker
+const tickerItems = ['Grand Trunk Buffet','BBQ on the Table','Afghani Chicken Tikka','Lahori Fish','Palak Patta Chaat','Nihari Gosht','Dal Makhani','Raj Kachori','100+ Dishes Daily','Mughal-era Décor','Live Chaat Counter','Private Dining'];
+const t = document.getElementById('ticker');
+[...tickerItems,...tickerItems].forEach(i=>{
+  t.innerHTML+=`<div class="ticker-item"><span class="ticker-sep"></span><span>${i}</span></div>`;
+});
+
+// Menu Data
+const menuData = {
+  Starters:[
+    {veg:true, flag:'Afghani', name:'Peshawari Murg Tikka', desc:'Marinated chicken thighs in yoghurt, green chilli and traditional Peshawari spices, char-grilled over live coals.', price:'Buffet Included'},
+    {veg:false, flag:'Lahore', name:'Lahori Fish Fry', desc:'Fresh river fish coated in a tangy Lahori masala batter, fried golden and served with green chutney.', price:'Buffet Included'},
+    {veg:true, flag:'Delhi', name:'Paneer Tikka (Two Styles)', desc:'Classic malai paneer and achari paneer tikka — both marinated overnight and grilled tableside.', price:'Buffet Included'},
+  ],
+  BBQ:[
+    {veg:false, flag:'Live Coal Grill', name:'Afghani Seekh Kebab', desc:'Minced lamb and chicken seekh with Afghani herbs, grilled live on your personal table BBQ grill.', price:'Buffet Included'},
+    {veg:false, flag:'Live Grill', name:'Kasundi Jheenga', desc:'Juicy prawns marinated in mustard (kasundi) and garlic, skewered and placed on your live grill.', price:'Buffet Included'},
+    {veg:true, flag:'BBQ', name:'Grilled Pineapple & Veg Skewers', desc:'Seasonal vegetables and caramelised pineapple glazed with honey chilli, grilled to smoky perfection.', price:'Buffet Included'},
+  ],
+  Mains:[
+    {veg:true, flag:'Punjabi', name:'Smokey Dal Makhani', desc:'Slow-simmered black lentils in a butter and cream gravy with smokiness from the tandoor — a crowd favourite.', price:'Buffet Included'},
+    {veg:false, flag:'Mughlai', name:'Nihari Gosht', desc:'Slow-cooked mutton shank in a rich, aromatic Mughal-era nihari broth. Voted the must-try dish by repeat visitors.', price:'Buffet Included'},
+    {veg:true, flag:'North Indian', name:'Paneer Lababdar', desc:'Soft paneer cubes in a tangy onion-tomato makhani gravy, finished with fresh cream and dried fenugreek.', price:'Buffet Included'},
+  ],
+  Desserts:[
+    {veg:true, flag:'Classic', name:'Kulfi on Stick', desc:'Traditional Indian ice cream in malai, kesar-pista and rose flavours — the perfect end to the GT Road feast.', price:'Buffet Included'},
+    {veg:true, flag:'Punjabi', name:'Gur Ice Cream', desc:'House-made ice cream sweetened with jaggery (gur) — a rustic, earthy, uniquely northern Indian dessert.', price:'Buffet Included'},
+    {veg:true, flag:'Sweet', name:'Kheer & Pinni', desc:'Creamy rice kheer simmered with cardamom and saffron, alongside traditional Punjabi pinni laddoos.', price:'Buffet Included'},
+  ]
+};
+let activeC = 'Starters';
+function renderMenu(cat){
+  const g = document.getElementById('menuGrid');
+  g.innerHTML = menuData[cat].map(i=>`
+    <div class="menu-item">
+      <div class="item-flag">${i.flag}</div>
+      <h3><span class="${i.veg?'item-veg':'item-nonveg'}"></span>${i.name}</h3>
+      <p>${i.desc}</p>
+      <div class="item-price">${i.price}</div>
+    </div>
+  `).join('');
+}
+renderMenu(activeC);
+document.querySelectorAll('.cat-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderMenu(b.dataset.cat);
+  });
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:0.1});
+reveals.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

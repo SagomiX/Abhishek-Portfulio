@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hudson Grind | NYC Modern Cafe</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --accent: #c5a358;
+            --text: #f4f4f4;
+            --gray: #252525;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        .logo { font-weight: 800; letter-spacing: -1px; font-size: 1.5rem; }
+        .nav-links a { color: var(--text); text-decoration: none; margin-left: 30px; font-size: 0.9rem; opacity: 0.7; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        /* Hero Section */
+        section { min-height: 100vh; padding: 100px 5%; display: flex; align-items: center; }
+        
+        .hero {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 12vw;
+            line-height: 0.9;
+            text-transform: uppercase;
+            font-weight: 800;
+            overflow: hidden;
+        }
+
+        .hero h1 span { display: block; }
+
+        .hero p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2rem;
+            margin-top: 20px;
+            color: var(--accent);
+        }
+
+        /* Bento Grid Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1/3);
+            grid-auto-rows: 300px;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .grid-item {
+            background: var(--gray);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .grid-item:hover { transform: scale(0.98); }
+        .grid-item h3 { font-size: 1.5rem; margin-bottom: 10px; z-index: 2; }
+        .grid-item p { font-size: 0.9rem; opacity: 0.6; z-index: 2; }
+
+        .item-1 { grid-column: span 2; background: linear-gradient(45deg, #1a1a1a, #2a2a2a); }
+        .item-2 { grid-row: span 2; background: var(--accent); color: #000; }
+        
+        /* Floating Elements */
+        .floating-img {
+            position: absolute;
+            width: 300px;
+            height: 400px;
+            background: #333; /* Placeholder for NYC Street Image */
+            right: 10%;
+            top: 20%;
+            z-index: -1;
+            opacity: 0.3;
+            background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=600');
+            background-size: cover;
+        }
+
+        /* Scroll reveal text */
+        .reveal-text {
+            font-size: 4rem;
+            width: 80%;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .accent-text { color: var(--accent); font-weight: 800; }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <nav>
+        <div class="logo">HUDSON GRIND.</div>
+        <div class="nav-links">
+            <a href="#about">STORY</a>
+            <a href="#menu">MENU</a>
+            <a href="#visit">VISIT</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="floating-img"></div>
+        <h1 id="hero-title">
+            <span>Manhattan</span>
+            <span>Refined</span>
+        </h1>
+        <p id="hero-sub">The pulse of New York, poured in a cup.</p>
+    </section>
+
+    <section id="about">
+        <h2 class="reveal-text">
+            Born in <span class="accent-text">Tribeca</span>, crafted for the city that never sleeps. We blend <span class="accent-text">industrial precision</span> with roasting soul.
+        </h2>
+    </section>
+
+    <section id="menu">
+        <div class="menu-grid">
+            <div class="grid-item item-1">
+                <h3>Signature Espresso</h3>
+                <p>Double-shot of our dark-roast Brooklyn bean.</p>
+            </div>
+            <div class="grid-item item-2">
+                <h3>Cold Brew</h3>
+                <p>18-hour steep, served over crystal clear ice.</p>
+            </div>
+            <div class="grid-item">
+                <h3>The Bagel</h3>
+                <p>Classic NYC sourdough, chive cream cheese.</p>
+            </div>
+            <div class="grid-item">
+                <h3>Matcha</h3>
+                <p>Ceremonial grade, stone ground.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 1. Custom Cursor
+        const cursor = document.getElementById('cursor');
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+        });
+
+        // 2. Hero Entrance Animation
+        const tl = gsap.timeline();
+        tl.from("#hero-title span", {
+            y: 200,
+            skewY: 10,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: "power4.out"
+        })
+        .from("#hero-sub", {
+            opacity: 0,
+            y: 20,
+            duration: 1
+        }, "-=0.5")
+        .from(".floating-img", {
+            scale: 1.5,
+            opacity: 0,
+            duration: 2,
+            ease: "expo.out"
+        }, "-=1");
+
+        // 3. Scroll Triggered Reveals
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".reveal-text", {
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1
+            },
+            opacity: 0.1,
+            y: 50,
+            duration: 1
+        });
+
+        // 4. Menu Grid Items Parallax
+        gsap.from(".grid-item", {
+            scrollTrigger: {
+                trigger: ".menu-grid",
+                start: "top 90%"
+            },
+            y: 100,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 1,
+            ease: "power3.out"
+        });
+
+        // 5. Parallax Image
+        gsap.to(".floating-img", {
+            scrollTrigger: {
+                trigger: ".hero",
+                scrub: true
+            },
+            y: -200
+        });
+
+    </script>
+</body>
+</html>

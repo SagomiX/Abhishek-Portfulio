@@ -1,0 +1,338 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{font-family:var(--font-sans);padding:1rem 0}
+.sec-label{font-size:11px;font-weight:500;letter-spacing:0.08em;color:var(--color-text-secondary);text-transform:uppercase;margin-bottom:12px;margin-top:20px}
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:500;padding:2px 8px;border-radius:10px;margin:2px 3px 2px 0}
+.tag-bad{background:#FCEBEB;color:#A32D2D}
+.tag-good{background:#EAF3DE;color:#3B6D11}
+.tag-info{background:#E6F1FB;color:#185FA5}
+
+/* ─── BEFORE / AFTER COMPARE ─── */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.panel{border-radius:12px;overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
+.ph{padding:8px 14px;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:500}
+.ph.old{background:#FCEBEB;color:#A32D2D}
+.ph.new{background:#EAF3DE;color:#3B6D11}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+/* OLD SITE (orangetigerhotels.com style) */
+.old-site{background:#f2f0ec}
+.old-topbar{background:#8B2020;padding:6px 14px;display:flex;justify-content:space-between;align-items:center}
+.old-topbar-logo{color:#fff;font-size:10px;font-weight:500;letter-spacing:0.05em}
+.old-topbar-links{display:flex;gap:10px}
+.old-topbar-link{color:rgba(255,255,255,0.7);font-size:8px}
+.old-nav{background:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ddd}
+.old-nav-logo{font-size:11px;font-weight:500;color:#333}
+.old-nav-links{display:flex;gap:10px}
+.old-nav-link{font-size:8px;color:#555}
+.old-hero{background:#ccc;height:90px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.old-hero-img{position:absolute;inset:0;background:url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/photo1.jpg') center/cover;background-color:#4a6a4a}
+.old-hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45)}
+.old-hero-text{position:relative;z-index:2;text-align:center}
+.old-hero-title{color:#fff;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em}
+.old-hero-sub{color:rgba(255,255,255,0.7);font-size:8px;margin-top:2px}
+.old-note{background:#FDF3F2;padding:4px 10px;font-size:8px;color:#A32D2D;text-align:center}
+.old-hotels-strip{background:#fff;padding:8px 14px;border-bottom:1px solid #eee}
+.old-strip-title{font-size:8px;color:#888;margin-bottom:5px;text-align:center;text-transform:uppercase;letter-spacing:0.05em}
+.old-hotels-row{display:flex;gap:6px}
+.old-hotel-thumb{flex:1;background:#ddd;border-radius:3px;padding:4px 6px;text-align:center;border:1px solid #ccc;cursor:pointer}
+.old-hotel-thumb.active{border-color:#8B2020;background:#fdf5f5}
+.old-hotel-name{font-size:7px;font-weight:500;color:#333}
+.old-hotel-loc{font-size:6px;color:#888}
+.old-content{padding:10px 14px;background:#fff}
+.old-content-title{font-size:10px;font-weight:500;color:#333;margin-bottom:4px}
+.old-content-body{font-size:8px;color:#666;line-height:1.5;margin-bottom:8px}
+.old-rooms{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px}
+.old-room{border:1px solid #ddd;border-radius:2px;padding:5px}
+.old-room-img{height:28px;background:#bbb;border-radius:2px;margin-bottom:3px;position:relative;overflow:hidden}
+.old-room-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.old-room-name{font-size:7px;font-weight:500;color:#333}
+.old-room-price{font-size:7px;color:#888;font-style:italic}
+.old-no-book{background:#FDF3F2;padding:5px 10px;text-align:center;font-size:8px;color:#A32D2D;font-weight:500;border-radius:4px;margin-bottom:5px}
+.old-footer{background:#2a2a2a;padding:8px 14px;display:flex;justify-content:space-between;align-items:center}
+.old-footer-text{color:#888;font-size:7px}
+
+/* NEW SITE (mastiffxanadu.com — dark forest green aesthetic) */
+.new-site{background:#0A1A0F}
+.new-nav{background:#0A1A0F;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.new-logo-wrap{display:flex;flex-direction:column}
+.new-logo-main{color:#fff;font-size:13px;font-weight:500;letter-spacing:0.03em}
+.new-logo-sub{color:#7EC67E;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;margin-top:1px}
+.new-nav-links{display:flex;gap:14px;align-items:center}
+.nnl{color:rgba(255,255,255,0.65);font-size:9px}
+.nnb{background:#7EC67E;color:#0A1A0F;font-size:9px;font-weight:500;padding:6px 13px;border-radius:5px;border:none}
+.new-hero{min-height:130px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.new-hero-img{position:absolute;inset:0;background:url('https://images.trvl-media.com/lodging/123000000/122330000/122329300/122329209/ffa24b48.jpg') center/cover;background-color:#1a3a1a;width:100%;height:100%;object-fit:cover}
+.new-hero-dim{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,26,15,0.95) 0%,rgba(10,26,15,0.3) 60%,rgba(10,26,15,0.1) 100%)}
+.new-hero-inner{position:relative;z-index:2;padding:14px 16px;width:100%}
+.new-hero-pill{background:rgba(126,198,126,0.2);color:#7EC67E;font-size:8px;font-weight:500;padding:2px 9px;border-radius:20px;display:inline-block;margin-bottom:6px;letter-spacing:0.05em}
+.new-hero-h{color:#fff;font-size:18px;font-weight:500;line-height:1.2;margin-bottom:4px}
+.new-hero-h em{color:#7EC67E;font-style:normal}
+.new-hero-desc{color:rgba(255,255,255,0.6);font-size:9px;margin-bottom:10px}
+.new-hero-btns{display:flex;gap:8px}
+.new-btn-g{background:#7EC67E;color:#0A1A0F;font-size:9px;font-weight:500;padding:7px 14px;border-radius:5px;border:none}
+.new-btn-o{background:transparent;color:#fff;font-size:9px;font-weight:500;padding:7px 14px;border-radius:5px;border:1px solid rgba(255,255,255,0.3)}
+.new-badge{position:absolute;top:12px;right:14px;z-index:3;background:rgba(10,26,15,0.9);border:1px solid #7EC67E;border-radius:7px;padding:7px 10px;text-align:center}
+.nb-num{color:#7EC67E;font-size:17px;font-weight:500;line-height:1}
+.nb-lbl{color:rgba(255,255,255,0.6);font-size:7px;margin-top:1px}
+
+.new-bbar{background:#0F2318;padding:10px 16px;display:flex;gap:0;align-items:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.nb-f{flex:1;padding:0 10px;border-right:1px solid rgba(255,255,255,0.1)}
+.nb-f:first-child{padding-left:0}
+.nb-label{color:rgba(255,255,255,0.4);font-size:7px;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:2px}
+.nb-val{color:#fff;font-size:10px;font-weight:500}
+.nb-search{background:#7EC67E;color:#0A1A0F;font-size:9px;font-weight:500;padding:7px 13px;border-radius:5px;border:none;margin-left:10px;white-space:nowrap}
+
+.new-rooms{padding:14px 16px;background:#0A1A0F}
+.nr-title{color:#fff;font-size:12px;font-weight:500;margin-bottom:4px}
+.nr-eye{color:#7EC67E;font-size:8px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px}
+.rooms-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.nrc{background:#0F2318;border:1px solid rgba(126,198,126,0.15);border-radius:8px;overflow:hidden}
+.nrc-img{height:55px;position:relative;overflow:hidden;background:#1a3a1a}
+.nrc-img img{width:100%;height:100%;object-fit:cover;display:block}
+.nrc-tag{position:absolute;top:5px;left:5px;background:#0A1A0F;color:#7EC67E;font-size:7px;font-weight:500;padding:2px 6px;border-radius:10px}
+.nrc-body{padding:8px 9px}
+.nrc-name{color:#fff;font-size:9px;font-weight:500;margin-bottom:3px}
+.nrc-feats{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.nrf{font-size:7px;color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.07);padding:2px 5px;border-radius:10px}
+.nrc-foot{display:flex;justify-content:space-between;align-items:center}
+.nrc-price{color:#7EC67E;font-size:11px;font-weight:500}
+.nrc-price span{color:rgba(255,255,255,0.35);font-size:7px;font-weight:400}
+.nrc-btn{background:#7EC67E;color:#0A1A0F;font-size:7px;font-weight:500;padding:4px 9px;border-radius:4px;border:none}
+
+.new-sky{background:#0F2318;padding:12px 16px;margin-top:1px}
+.sky-inner{background:#0A1A0F;border:1px solid rgba(126,198,126,0.2);border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.sky-img{height:100px;position:relative;overflow:hidden;background:#1a3a1a}
+.sky-img img{width:100%;height:100%;object-fit:cover;display:block}
+.sky-body{padding:12px 14px}
+.sky-eye{color:#7EC67E;font-size:8px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px}
+.sky-h{color:#fff;font-size:12px;font-weight:500;margin-bottom:5px}
+.sky-p{color:rgba(255,255,255,0.5);font-size:9px;line-height:1.55}
+
+.new-reviews{padding:12px 16px;background:#0A1A0F}
+.rev-score{background:#0F2318;border:1px solid rgba(126,198,126,0.15);border-radius:8px;padding:12px;display:flex;gap:14px;align-items:center;margin-bottom:10px}
+.rs-n{color:#7EC67E;font-size:32px;font-weight:500;line-height:1;flex-shrink:0}
+.rs-t{color:rgba(255,255,255,0.65);font-size:9px;line-height:1.65}
+.rs-t strong{color:#7EC67E}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rvc{background:#0F2318;border:1px solid rgba(126,198,126,0.1);border-radius:8px;padding:10px}
+.rvs{color:#7EC67E;font-size:11px;margin-bottom:5px}
+.rvt{font-size:9px;color:rgba(255,255,255,0.6);line-height:1.55;margin-bottom:7px;font-style:italic}
+.rva{display:flex;align-items:center;gap:6px}
+.rvav{width:22px;height:22px;border-radius:50%;background:#7EC67E;display:flex;align-items:center;justify-content:center;color:#0A1A0F;font-size:8px;font-weight:500;flex-shrink:0}
+.rvn{font-size:9px;font-weight:500;color:#fff}
+.rvp{font-size:7px;color:rgba(255,255,255,0.4)}
+
+.new-cta{background:#7EC67E;padding:16px;text-align:center}
+.cta-h{color:#0A1A0F;font-size:14px;font-weight:500;margin-bottom:4px}
+.cta-s{color:rgba(10,26,15,0.65);font-size:9px;margin-bottom:10px}
+.cta-btns{display:flex;justify-content:center;gap:8px}
+.cta-dark{background:#0A1A0F;color:#fff;font-size:9px;font-weight:500;padding:8px 16px;border-radius:5px;border:none}
+.cta-wa{background:#25D366;color:#fff;font-size:9px;font-weight:500;padding:8px 14px;border-radius:5px;border:none;display:flex;align-items:center;gap:5px}
+
+.new-footer{background:#060D08;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.nf-logo{color:#fff;font-size:11px;font-weight:500}
+.nf-addr{color:rgba(255,255,255,0.3);font-size:8px}
+.nf-links{display:flex;gap:12px}
+.nf-link{color:rgba(255,255,255,0.3);font-size:8px}
+</style>
+
+<div class="wrap">
+
+<!-- ─── BEFORE / AFTER ─── -->
+<div class="sec-label">Before vs after — old group site vs your own website</div>
+<div class="compare">
+
+  <!-- OLD SITE -->
+  <div class="panel">
+    <div class="ph old">
+      <span class="dot" style="background:#E24B4A"></span>
+      <span class="dot" style="background:#EF9F27"></span>
+      <span class="dot" style="background:#888"></span>
+      orangetigerhotels.com/mastiff-xanadu (current)
+    </div>
+    <div class="old-site">
+      <div class="old-topbar">
+        <div class="old-topbar-logo">🐯 Orange Tiger Hotels</div>
+        <div class="old-topbar-links">
+          <span class="old-topbar-link">Properties</span>
+          <span class="old-topbar-link">Contact</span>
+          <span class="old-topbar-link">About</span>
+        </div>
+      </div>
+      <div class="old-nav">
+        <div class="old-nav-logo">Mastiff Xanadu — Manali</div>
+        <div class="old-nav-links">
+          <span class="old-nav-link">Rooms</span>
+          <span class="old-nav-link">Gallery</span>
+          <span class="old-nav-link">Location</span>
+        </div>
+      </div>
+      <div class="old-hero">
+        <div class="old-hero-img"></div>
+        <div class="old-hero-overlay"></div>
+        <div class="old-hero-text">
+          <div class="old-hero-title">Mastiff Xanadu</div>
+          <div class="old-hero-sub">Manali, Himachal Pradesh</div>
+        </div>
+      </div>
+      <div class="old-note">⚠ Shared group website · No pricing · No direct booking</div>
+      <div class="old-hotels-strip">
+        <div class="old-strip-title">Other properties by Orange Tiger</div>
+        <div class="old-hotels-row">
+          <div class="old-hotel-thumb active"><div class="old-hotel-name">Mastiff Xanadu</div><div class="old-hotel-loc">Manali</div></div>
+          <div class="old-hotel-thumb"><div class="old-hotel-name">Mastiff Grand</div><div class="old-hotel-loc">Manali</div></div>
+          <div class="old-hotel-thumb"><div class="old-hotel-name">Mastiff Dalhousie</div><div class="old-hotel-loc">Dalhousie</div></div>
+          <div class="old-hotel-thumb"><div class="old-hotel-name">Other Hotels</div><div class="old-hotel-loc">Various</div></div>
+        </div>
+      </div>
+      <div class="old-content">
+        <div class="old-content-title">About Mastiff Xanadu</div>
+        <div class="old-content-body">Cozy resort offering spacious rooms, 360 degree view of the mountains. Warm décor, soothing ambiance equipped with Parking, Wi-Fi, television and greenery...</div>
+        <div class="old-rooms">
+          <div class="old-room"><div class="old-room-img"></div><div class="old-room-name">Deluxe Room</div><div class="old-room-price">Price on request</div></div>
+          <div class="old-room"><div class="old-room-img"></div><div class="old-room-name">Premier Valley Room</div><div class="old-room-price">Price on request</div></div>
+        </div>
+        <div class="old-no-book">No direct booking · Call or use OTA platforms</div>
+        <div style="margin-top:6px">
+          <span class="tag tag-bad">Shared with other hotels</span>
+          <span class="tag tag-bad">No pricing</span>
+          <span class="tag tag-bad">No booking engine</span>
+          <span class="tag tag-bad">No WhatsApp</span>
+          <span class="tag tag-bad">No reviews shown</span>
+          <span class="tag tag-bad">Not YOUR domain</span>
+        </div>
+      </div>
+      <div class="old-footer">
+        <div class="old-footer-text">© Orange Tiger Hotels · Mumbai & Pune offices</div>
+        <div class="old-footer-text">All properties listed here</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW SITE -->
+  <div class="panel">
+    <div class="ph new">
+      <span class="dot" style="background:#E24B4A"></span>
+      <span class="dot" style="background:#EF9F27"></span>
+      <span class="dot" style="background:#639922"></span>
+      mastiffxanadu.com (your own domain)
+    </div>
+    <div class="new-site">
+      <div class="new-nav">
+        <div class="new-logo-wrap">
+          <div class="new-logo-main">Mastiff Xanadu</div>
+          <div class="new-logo-sub">Manali · Himachal Pradesh</div>
+        </div>
+        <div class="new-nav-links">
+          <span class="nnl">Rooms</span>
+          <span class="nnl">Sky Verandah</span>
+          <span class="nnl">Reviews</span>
+          <button class="nnb">Book Now</button>
+        </div>
+      </div>
+      <div class="new-hero">
+        <div class="new-hero-img"></div>
+        <div class="new-hero-dim"></div>
+        <div class="new-badge">
+          <div class="nb-num">4.8</div>
+          <div class="nb-lbl">Excellent</div>
+        </div>
+        <div class="new-hero-inner">
+          <div class="new-hero-pill">Near Hidimba Temple · Siyal, Manali</div>
+          <div class="new-hero-h">An <em>Undiscovered Paradise</em><br>Above Manali</div>
+          <div class="new-hero-desc">360° mountain views · Sky Verandah rooftop · World-class hospitality</div>
+          <div class="new-hero-btns">
+            <button class="new-btn-g">Check Availability</button>
+            <button class="new-btn-o">View Gallery</button>
+          </div>
+        </div>
+      </div>
+      <div class="new-bbar">
+        <div class="nb-f"><div class="nb-label">Check-in</div><div class="nb-val">15 Apr</div></div>
+        <div class="nb-f"><div class="nb-label">Check-out</div><div class="nb-val">18 Apr</div></div>
+        <div class="nb-f" style="border-right:none"><div class="nb-label">Guests</div><div class="nb-val">2 Adults</div></div>
+        <button class="nb-search">Search</button>
+      </div>
+      <div class="new-rooms">
+        <div class="nr-eye">Accommodation</div>
+        <div class="nr-title">Rooms & Suites</div>
+        <div class="rooms-grid">
+          <div class="nrc"><div class="nrc-img"><div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a3a1a,#2a5a2a)"></div><div class="nrc-tag">Popular</div></div><div class="nrc-body"><div class="nrc-name">Deluxe Room</div><div class="nrc-feats"><span class="nrf">Valley view</span><span class="nrf">King bed</span></div><div class="nrc-foot"><div class="nrc-price">₹3,500<span>/night</span></div><button class="nrc-btn">Book</button></div></div></div>
+          <div class="nrc"><div class="nrc-img"><div style="position:absolute;inset:0;background:linear-gradient(135deg,#2a3a1a,#3a5a2a)"></div></div><div class="nrc-body"><div class="nrc-name">Premier Valley</div><div class="nrc-feats"><span class="nrf">360° view</span><span class="nrf">Balcony</span></div><div class="nrc-foot"><div class="nrc-price">₹4,500<span>/night</span></div><button class="nrc-btn">Book</button></div></div></div>
+          <div class="nrc"><div class="nrc-img"><div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a2a3a,#2a4a5a)"></div></div><div class="nrc-body"><div class="nrc-name">Family Suite</div><div class="nrc-feats"><span class="nrf">Sleeps 4</span><span class="nrf">View</span></div><div class="nrc-foot"><div class="nrc-price">₹6,200<span>/night</span></div><button class="nrc-btn">Book</button></div></div></div>
+        </div>
+      </div>
+      <div class="new-sky">
+        <div class="sky-inner">
+          <div class="sky-img"><div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a1a0f,#1a3a1a)"></div><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(126,198,126,0.4);font-size:22px">☁</div></div>
+          <div class="sky-body">
+            <div class="sky-eye">Signature experience</div>
+            <div class="sky-h">Sky Verandah Rooftop</div>
+            <div class="sky-p">360° views of entire Manali, the mountains, and the ultra blue sky. Rooftop dining, candle-lit dinners, and Himalayan sunsets — all from the top of your hotel.</div>
+          </div>
+        </div>
+      </div>
+      <div class="new-reviews">
+        <div class="rev-score">
+          <div class="rs-n">★ 4.8</div>
+          <div class="rs-t">Guests call it <strong>"world-class 5-star hospitality"</strong> and <strong>"straight into paradise."</strong> TripAdvisor, Goibibo & MakeMyTrip reviews all on one page.</div>
+        </div>
+        <div class="rev-grid">
+          <div class="rvc"><div class="rvs">★★★★★</div><div class="rvt">"We never imagined we'd get 5-star hospitality. The Sky Verandah blew us away!"</div><div class="rva"><div class="rvav">RK</div><div><div class="rvn">Rakesh K.</div><div class="rvp">TripAdvisor</div></div></div></div>
+          <div class="rvc"><div class="rvs">★★★★★</div><div class="rvt">"I'd come back to Manali just to stay here! Stunning views, lovely people, great food."</div><div class="rva"><div class="rvav">SM</div><div><div class="rvn">Sneha M.</div><div class="rvp">Goibibo</div></div></div></div>
+        </div>
+      </div>
+      <div class="new-cta">
+        <div class="cta-h">Your own hotel. Your own website. Your own bookings.</div>
+        <div class="cta-s">Zero OTA commission · Direct guests · Your domain · Your brand</div>
+        <div class="cta-btns">
+          <button class="cta-dark">Book Your Room</button>
+          <button class="cta-wa">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a9.87 9.87 0 00-5.031-1.378c-5.452 0-9.888 4.434-9.888 9.884 0 1.846.479 3.594 1.388 5.138L.057 24l4.204-1.102a9.877 9.877 0 004.741 1.207h.004c5.452 0 9.887-4.434 9.887-9.884a9.825 9.825 0 00-2.893-6.994"/></svg>
+            WhatsApp
+          </button>
+        </div>
+      </div>
+      <div class="new-footer">
+        <div>
+          <div class="nf-logo">Mastiff Xanadu</div>
+          <div class="nf-addr">Hadimba Temple Rd, Siyal, Manali HP 175131</div>
+        </div>
+        <div class="nf-links">
+          <span class="nf-link">mastiffxanadu.com</span>
+          <span class="nf-link" style="color:rgba(126,198,126,0.5)">YOUR domain ✓</span>
+        </div>
+      </div>
+      <div style="padding:4px 10px 8px;background:#060D08">
+        <span class="tag tag-good">Own domain</span>
+        <span class="tag tag-good">Direct booking</span>
+        <span class="tag tag-good">Pricing shown</span>
+        <span class="tag tag-good">Sky Verandah featured</span>
+        <span class="tag tag-good">Reviews on homepage</span>
+        <span class="tag tag-good">WhatsApp button</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KEY DIFFERENCE SUMMARY -->
+<div class="sec-label">Why your own domain changes everything</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:8px">
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:500;color:#A32D2D;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.07em">Currently (group site)</div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.7">Guest searches "Mastiff Xanadu" → lands on orangetigerhotels.com → sees ALL properties → confused → books on MakeMyTrip instead</div>
+  </div>
+  <div style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:500;color:#3B6D11;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.07em">With own website</div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.7">Guest searches "Mastiff Xanadu" → lands on mastiffxanadu.com → sees ONLY your hotel → books directly → you save 15–25% commission</div>
+  </div>
+  <div style="background:var(--color-background-secondary);border-radius:10px;padding:14px">
+    <div style="font-size:10px;font-weight:500;color:#185FA5;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.07em">Money saved / year</div>
+    <div style="font-size:22px;font-weight:500;color:#185FA5;margin-bottom:3px">₹2–3 Lakh</div>
+    <div style="font-size:10px;color:var(--color-text-secondary)">From OTA commission savings alone on 22 rooms at ₹4,000/night avg</div>
+  </div>
+</div>
+
+</div>

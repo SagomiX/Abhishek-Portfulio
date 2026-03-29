@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Brew Cafe | NYC Artisanal Coffee</title>
+    
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.js"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cafe-bg: #0a0a0a;
+            --cafe-accent: #d4af37;
+        }
+        
+        body {
+            background-color: var(--cafe-bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .text-cafe-accent { color: var(--cafe-accent); }
+        .bg-cafe-accent { background-color: var(--cafe-accent); }
+        .border-cafe-accent { border-color: var(--cafe-accent); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; }
+
+        .hover-reveal {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-reveal:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#d4af37] selection:text-black">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass py-5 px-6 md:px-12 flex justify-between items-center">
+        <div class="text-2xl font-serif font-bold tracking-tighter">
+            EMPIRE <span class="text-cafe-accent">BREW</span>
+        </div>
+        <div class="hidden md:flex gap-10 text-[10px] uppercase tracking-[0.3em] font-bold">
+            <a href="#menu" class="hover:text-cafe-accent transition-colors">Menu</a>
+            <a href="#about" class="hover:text-cafe-accent transition-colors">Our Story</a>
+            <a href="#locations" class="hover:text-cafe-accent transition-colors">Locations</a>
+        </div>
+        <button class="bg-cafe-accent text-black px-7 py-2.5 text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all duration-300">
+            Order Now
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=2078&auto=format&fit=crop" 
+                 class="w-full h-full object-cover opacity-30 scale-110" alt="NYC Cafe Interior">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-5xl">
+            <p class="text-cafe-accent font-mono text-[10px] uppercase tracking-[0.6em] mb-8 opacity-80">EST. 2024 • MANHATTAN, NY</p>
+            <h1 class="text-6xl md:text-[10rem] font-serif italic leading-[0.9] mb-12 tracking-tighter">
+                Urban Soul,<br>
+                <span class="not-italic font-bold text-white">Artisanal Roast.</span>
+            </h1>
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <a href="#menu" class="group flex items-center gap-3 border border-white/20 px-10 py-5 hover:bg-white hover:text-black transition-all duration-700 uppercase tracking-[0.2em] text-xs font-bold">
+                    Explore Menu <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
+            <span class="text-[9px] uppercase tracking-[0.4em]">Scroll Down</span>
+            <div class="w-px h-16 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-32 px-6 md:px-12 bg-white text-black">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div class="group">
+                <i data-lucide="coffee" class="w-10 h-10 mb-8 text-cafe-accent"></i>
+                <h3 class="text-2xl font-serif font-bold mb-4 uppercase tracking-tighter">Small Batch Roast</h3>
+                <p class="text-black/60 text-sm leading-relaxed font-medium">Every bean is roasted daily in our Brooklyn facility to ensure peak flavor profile and freshness.</p>
+            </div>
+            <div class="group">
+                <i data-lucide="map-pin" class="w-10 h-10 mb-8 text-cafe-accent"></i>
+                <h3 class="text-2xl font-serif font-bold mb-4 uppercase tracking-tighter">Manhattan Roots</h3>
+                <p class="text-black/60 text-sm leading-relaxed font-medium">From Chelsea to the Upper East Side, we provide a sanctuary for the city's relentless energy.</p>
+            </div>
+            <div class="group">
+                <i data-lucide="clock" class="w-10 h-10 mb-8 text-cafe-accent"></i>
+                <h3 class="text-2xl font-serif font-bold mb-4 uppercase tracking-tighter">24/7 Energy</h3>
+                <p class="text-black/60 text-sm leading-relaxed font-medium">Because New York never sleeps, our flagship locations stay open to fuel your late-night breakthroughs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-32 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-10">
+                <div>
+                    <h2 class="text-cafe-accent font-mono text-[10px] uppercase tracking-[0.5em] mb-6">The Selection</h2>
+                    <h3 class="text-5xl md:text-7xl font-serif italic">Signature Brews</h3>
+                </div>
+                <p class="max-w-sm text-white/40 text-sm leading-relaxed uppercase tracking-widest font-medium">
+                    A curated collection of urban classics and experimental roasts.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-16">
+                <!-- Menu Item -->
+                <div class="group border-b border-white/10 pb-8 cursor-pointer">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h4 class="text-2xl font-serif group-hover:text-cafe-accent transition-colors">Manhattan Black</h4>
+                        <span class="font-mono text-cafe-accent text-lg">$6.50</span>
+                    </div>
+                    <p class="text-white/30 text-[10px] uppercase tracking-[0.2em] font-bold">Double shot espresso, dark cocoa, velvet finish.</p>
+                </div>
+                <div class="group border-b border-white/10 pb-8 cursor-pointer">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h4 class="text-2xl font-serif group-hover:text-cafe-accent transition-colors">Brooklyn Oat Latte</h4>
+                        <span class="font-mono text-cafe-accent text-lg">$7.25</span>
+                    </div>
+                    <p class="text-white/30 text-[10px] uppercase tracking-[0.2em] font-bold">Locally sourced oat milk, cinnamon dust, house blend.</p>
+                </div>
+                <div class="group border-b border-white/10 pb-8 cursor-pointer">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h4 class="text-2xl font-serif group-hover:text-cafe-accent transition-colors">The High Line Cold Brew</h4>
+                        <span class="font-mono text-cafe-accent text-lg">$6.00</span>
+                    </div>
+                    <p class="text-white/30 text-[10px] uppercase tracking-[0.2em] font-bold">18-hour steep, citrus undertones, crystal ice.</p>
+                </div>
+                <div class="group border-b border-white/10 pb-8 cursor-pointer">
+                    <div class="flex justify-between items-baseline mb-3">
+                        <h4 class="text-2xl font-serif group-hover:text-cafe-accent transition-colors">Empire State Macchiato</h4>
+                        <span class="font-mono text-cafe-accent text-lg">$5.50</span>
+                    </div>
+                    <p class="text-white/30 text-[10px] uppercase tracking-[0.2em] font-bold">Traditional style, micro-foam, caramel mark.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Break -->
+    <section class="h-[70vh] relative overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2070&auto=format&fit=crop" 
+             class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Coffee Mood">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <h2 class="text-white text-4xl md:text-8xl font-serif italic font-bold tracking-tighter mix-blend-difference">The City That Never Sleeps.</h2>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-black pt-32 pb-16 px-6 md:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-20 mb-32">
+                <div class="col-span-1 md:col-span-2">
+                    <h4 class="text-4xl font-serif font-bold mb-10 tracking-tighter">EMPIRE BREW</h4>
+                    <p class="text-white/30 max-w-sm text-sm leading-relaxed mb-10">
+                        Stay connected with the NYC coffee scene. Join our inner circle for secret menu drops and urban events.
+                    </p>
+                    <div class="flex gap-3">
+                        <input type="text" placeholder="Email" class="bg-white/5 border border-white/10 px-5 py-3 text-sm focus:outline-none focus:border-cafe-accent w-full max-w-xs transition-colors">
+                        <button class="bg-cafe-accent text-black px-8 py-3 text-[10px] font-black uppercase tracking-widest">Join</button>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-[10px] uppercase tracking-[0.4em] text-cafe-accent mb-8 font-bold">Locations</h5>
+                    <ul class="space-y-5 text-xs text-white/40 font-bold tracking-widest">
+                        <li>Chelsea Market, NY</li>
+                        <li>Rockefeller Center, NY</li>
+                        <li>Upper East Side, NY</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-[10px] uppercase tracking-[0.4em] text-cafe-accent mb-8 font-bold">Social</h5>
+                    <ul class="space-y-5 text-xs text-white/40 font-bold tracking-widest">
+                        <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Spotify</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center pt-16 border-t border-white/5 gap-8">
+                <p class="text-[9px] uppercase tracking-[0.5em] text-white/10 font-bold">
+                    © 2024 Empire Brew Coffee Roasters. Manhattan, New York.
+                </p>
+                <div class="flex gap-10 text-[9px] uppercase tracking-[0.3em] font-black text-white/20">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        // Apply to sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = "0";
+            section.style.transform = "translateY(20px)";
+            section.style.transition = "all 1s cubic-bezier(0.16, 1, 0.3, 1)";
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

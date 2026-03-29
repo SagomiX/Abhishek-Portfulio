@@ -1,0 +1,492 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.page{font-family:var(--font-sans);max-width:860px;margin:0 auto}
+.browser{background:var(--color-background-secondary);border-radius:14px;padding:12px 14px 0}
+.bbar-top{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:8px 14px;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.bd{width:9px;height:9px;border-radius:50%;display:inline-block}
+.burl{flex:1;background:var(--color-background-secondary);border-radius:4px;padding:4px 12px;font-size:11px;color:var(--color-text-secondary);text-align:center}
+
+/* ── SITE — Charcoal + Electric Red motorsport aesthetic ── */
+.site{border-radius:10px 10px 0 0;overflow:hidden;background:#0A0A0A}
+
+/* TOPBAR */
+.tb{background:#E31E24;padding:7px 30px;display:flex;justify-content:space-between;align-items:center}
+.tbl{font-size:10px;color:#fff;font-weight:500}
+.tbr{display:flex;gap:18px}
+.tbi{font-size:10px;color:rgba(255,255,255,0.88);font-weight:500}
+
+/* NAV */
+.nav{background:#111;padding:13px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #E31E24}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-icon{width:34px;height:34px;background:#E31E24;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-text-wrap{display:flex;flex-direction:column}
+.nav-main{color:#fff;font-size:15px;font-weight:500;letter-spacing:0.02em;line-height:1.2}
+.nav-sub{color:#E31E24;font-size:8px;letter-spacing:0.14em;text-transform:uppercase}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nnl{color:rgba(255,255,255,0.6);font-size:11px}
+.nnb{background:#E31E24;color:#fff;font-size:11px;font-weight:500;padding:8px 18px;border-radius:5px;border:none}
+
+/* HERO */
+.hero{min-height:420px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:url('https://images.trvl-media.com/lodging/123000000/122330000/122329300/122329209/ffa24b48.jpg') center/cover;background-color:#1a0505}
+.hero-road{position:absolute;inset:0;background:#0A0A0A;opacity:0}
+.hero-dim{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.97) 0%,rgba(10,10,10,0.55) 52%,rgba(10,10,10,0.18) 100%)}
+.hero-accent{position:absolute;left:0;top:0;bottom:0;width:4px;background:#E31E24}
+.hero-inner{position:relative;z-index:2;padding:42px 30px;width:100%}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.hero-line{width:28px;height:3px;background:#E31E24;border-radius:2px}
+.hero-place{color:#E31E24;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase}
+.hero-h{color:#fff;font-size:42px;font-weight:500;line-height:1.1;margin-bottom:8px}
+.hero-h em{color:#E31E24;font-style:normal}
+.hero-desc{color:rgba(255,255,255,0.55);font-size:13px;margin-bottom:22px;line-height:1.65;max-width:540px}
+.hero-ctas{display:flex;gap:12px;margin-bottom:28px}
+.btn-r{background:#E31E24;color:#fff;font-size:12px;font-weight:500;padding:12px 26px;border-radius:5px;border:none}
+.btn-w{background:transparent;color:#fff;font-size:12px;font-weight:500;padding:12px 26px;border-radius:5px;border:1px solid rgba(255,255,255,0.25)}
+.hero-stats{display:flex;gap:30px}
+.hs-n{color:#E31E24;font-size:22px;font-weight:500;line-height:1}
+.hs-l{color:rgba(255,255,255,0.38);font-size:9px;margin-top:2px}
+.hero-badges{position:absolute;top:24px;right:30px;z-index:3;display:flex;flex-direction:column;gap:8px}
+.hbg{background:rgba(0,0,0,0.9);border:1px solid #E31E24;border-radius:9px;padding:10px 14px;text-align:center}
+.hbn{color:#E31E24;font-size:21px;font-weight:500;line-height:1}
+.hbl{color:rgba(255,255,255,0.55);font-size:8px;margin-top:2px}
+.hbs{color:rgba(255,255,255,0.28);font-size:7px}
+
+/* BOOKING BAR */
+.bbar{background:#111;padding:16px 30px;display:flex;gap:0;border-bottom:1px solid rgba(227,30,36,0.2)}
+.bbf{flex:1;padding:0 14px;border-right:1px solid rgba(227,30,36,0.18)}
+.bbf:first-child{padding-left:0}
+.bbl{color:rgba(255,255,255,0.35);font-size:9px;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:4px}
+.bbv{color:#fff;font-size:13px;font-weight:500}
+.bbbtn{background:#E31E24;color:#fff;font-size:12px;font-weight:500;padding:0 22px;border:none;border-radius:5px;margin-left:14px;white-space:nowrap}
+
+/* TRUST STRIP */
+.trust{background:#0A0A0A;padding:13px 30px;display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.ti{flex:1;display:flex;align-items:center;gap:8px;padding:0 12px;border-right:1px solid rgba(255,255,255,0.05)}
+.ti:first-child{padding-left:0}
+.ti:last-child{border-right:none}
+.tic{width:28px;height:28px;background:#1a1a1a;border:1px solid rgba(227,30,36,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tin{font-size:11px;font-weight:500;color:#fff}
+.tis{font-size:9px;color:rgba(255,255,255,0.35);margin-top:1px}
+
+/* BIKES */
+.bikes-sec{padding:38px 30px;background:#0A0A0A}
+.sec-eye{font-size:10px;font-weight:500;color:#E31E24;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.sec-h{font-size:24px;font-weight:500;color:#fff;margin-bottom:6px}
+.sec-sub{font-size:13px;color:rgba(255,255,255,0.42);margin-bottom:22px;line-height:1.6}
+.filter-row{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap}
+.flt{font-size:10px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid rgba(227,30,36,0.3);color:rgba(255,255,255,0.55);background:transparent}
+.flt.act{background:#E31E24;color:#fff;border-color:#E31E24}
+.bikes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.bk{background:#111;border:1px solid rgba(227,30,36,0.14);border-radius:12px;padding:16px;position:relative}
+.bk-img{height:85px;display:flex;align-items:center;justify-content:center;margin-bottom:13px;position:relative;overflow:hidden;border-radius:8px;background:#1a1a1a}
+.bk-img img{max-height:80px;max-width:100%;object-fit:contain}
+.bk-tag{position:absolute;top:6px;right:6px;background:#E31E24;color:#fff;font-size:8px;font-weight:500;padding:2px 8px;border-radius:10px}
+.bk-n{color:#fff;font-size:13px;font-weight:500;margin-bottom:2px}
+.bk-c{color:rgba(255,255,255,0.35);font-size:10px;margin-bottom:10px}
+.bk-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:9px}
+.bk-p{color:#E31E24;font-size:15px;font-weight:500}
+.bk-p span{color:rgba(255,255,255,0.25);font-size:9px;font-weight:400}
+.bk-btn{background:transparent;color:#E31E24;font-size:9px;font-weight:500;padding:5px 12px;border-radius:5px;border:1px solid rgba(227,30,36,0.4)}
+.bk-pill{display:inline-block;font-size:8px;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:10px;margin-right:4px;margin-bottom:4px}
+
+/* DESTINATIONS GRID */
+.dest-sec{background:#111;padding:38px 30px}
+.dest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.dc{border-radius:10px;overflow:hidden;position:relative;height:110px;background:#1a1a1a}
+.dc img{width:100%;height:100%;object-fit:cover;display:block}
+.dc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0.25) 100%)}
+.dc-badge{position:absolute;top:8px;left:8px;background:#E31E24;color:#fff;font-size:8px;font-weight:500;padding:2px 8px;border-radius:10px}
+.dc-name{position:absolute;bottom:10px;left:10px;color:#fff;font-size:12px;font-weight:500}
+.dc-sub{position:absolute;bottom:26px;left:10px;color:rgba(255,255,255,0.5);font-size:9px}
+.dc-arr{position:absolute;bottom:11px;right:10px;color:#E31E24;font-size:14px;font-weight:500}
+
+/* REVIEWS */
+.rev-sec{background:#0A0A0A;padding:38px 30px}
+.rev-hero{background:#111;border:1px solid rgba(227,30,36,0.22);border-radius:12px;padding:22px;display:flex;gap:20px;align-items:center;margin-bottom:20px}
+.rs-big{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.rs-n{color:#E31E24;font-size:46px;font-weight:500;line-height:1}
+.rs-st{color:#E31E24;font-size:13px;letter-spacing:2px}
+.rs-cnt{color:rgba(255,255,255,0.3);font-size:9px;margin-top:3px}
+.rs-div{width:1px;height:55px;background:rgba(227,30,36,0.2);flex-shrink:0}
+.rs-txt{color:rgba(255,255,255,0.6);font-size:12px;line-height:1.75}
+.rs-txt strong{color:#E31E24}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rvc{background:#111;border:1px solid rgba(227,30,36,0.1);border-radius:10px;padding:14px}
+.rvs{color:#E31E24;font-size:12px;margin-bottom:7px}
+.rvt{font-size:11px;color:rgba(255,255,255,0.55);line-height:1.65;margin-bottom:10px;font-style:italic}
+.rva{display:flex;align-items:center;gap:7px}
+.rvav{width:26px;height:26px;border-radius:50%;background:#E31E24;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:500;flex-shrink:0}
+.rvn{font-size:11px;font-weight:500;color:#fff}
+.rvp{font-size:9px;color:rgba(255,255,255,0.28)}
+
+/* HOW IT WORKS */
+.hiw-sec{background:#111;padding:38px 30px}
+.hiw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.hw{text-align:center;padding:18px 12px;background:#0A0A0A;border-radius:10px;border:1px solid rgba(227,30,36,0.12)}
+.hw-num{width:38px;height:38px;border-radius:50%;background:#E31E24;color:#fff;font-size:16px;font-weight:500;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.hw-t{color:#fff;font-size:12px;font-weight:500;margin-bottom:5px}
+.hw-d{color:rgba(255,255,255,0.4);font-size:10px;line-height:1.55}
+
+/* CTA */
+.cta-sec{background:#E31E24;padding:40px 30px;text-align:center}
+.cta-h{color:#fff;font-size:26px;font-weight:500;margin-bottom:7px}
+.cta-s{color:rgba(255,255,255,0.7);font-size:12px;margin-bottom:22px}
+.cta-row{display:flex;justify-content:center;gap:12px}
+.cta-dk{background:#0A0A0A;color:#fff;font-size:12px;font-weight:500;padding:12px 26px;border-radius:5px;border:none}
+.cta-wa{background:#25D366;color:#fff;font-size:12px;font-weight:500;padding:12px 20px;border-radius:5px;border:none;display:flex;align-items:center;gap:7px}
+
+/* FOOTER */
+.footer{background:#050505;padding:24px 30px 16px}
+.ft{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:22px;margin-bottom:18px}
+.ft-logo{color:#fff;font-size:14px;font-weight:500;margin-bottom:3px}
+.ft-red{color:#E31E24;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:9px}
+.ft-addr{color:rgba(255,255,255,0.26);font-size:10px;line-height:1.85}
+.ft-ct{color:rgba(255,255,255,0.4);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:9px}
+.ft-lnk{color:rgba(255,255,255,0.26);font-size:10px;display:block;margin-bottom:6px}
+.ft-btm{border-top:1px solid rgba(255,255,255,0.05);padding-top:12px;display:flex;justify-content:space-between}
+.ft-copy{color:rgba(255,255,255,0.18);font-size:9px}
+.ft-by{color:#E31E24;font-size:9px}
+
+/* WA FLOAT */
+.wa-hint{display:flex;justify-content:flex-end;padding:0 30px;margin-top:-14px;position:relative;z-index:10}
+.waf{background:#25D366;color:#fff;font-size:11px;font-weight:500;padding:9px 16px;border-radius:22px;display:flex;align-items:center;gap:7px}
+</style>
+
+<div class="page">
+<div class="browser">
+  <div class="bbar-top">
+    <span class="bd" style="background:#E24B4A"></span>
+    <span class="bd" style="background:#EF9F27"></span>
+    <span class="bd" style="background:#639922"></span>
+    <div class="burl">manalibikersrentals.com</div>
+    <span style="font-size:10px;color:#3B6D11;font-weight:500">🔒 Secure</span>
+  </div>
+
+<div class="site">
+
+<!-- TOPBAR -->
+<div class="tb">
+  <div class="tbl">📍 Near Volvo Bus Stand, Mall Road, Manali — 175131</div>
+  <div class="tbr">
+    <div class="tbi">📞 +91 98XXXXXXXX</div>
+    <div class="tbi">⏰ Open 24 hrs · Every Day</div>
+    <div class="tbi">✉ manalibikersrentals@gmail.com</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M5 19H3V6h5l5 5 5-2 2 5-3 1-2 4H5"/><path d="M8 6l4 4"/></svg>
+    </div>
+    <div class="nav-text-wrap">
+      <div class="nav-main">Manali Bikers & Rentals</div>
+      <div class="nav-sub">Bike rental in Manali</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <span class="nnl">Bikes</span>
+    <span class="nnl">Scooties</span>
+    <span class="nnl">Destinations</span>
+    <span class="nnl">Reviews</span>
+    <button class="nnb">Book Now</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dim"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-badges">
+    <div class="hbg"><div class="hbn">4.7</div><div class="hbl">Google Rating</div><div class="hbs">Verified reviews</div></div>
+    <div class="hbg"><div class="hbn">24/7</div><div class="hbl">Always Open</div><div class="hbs">Every day</div></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><div class="hero-line"></div><div class="hero-place">Manali · Leh · Spiti · Rohtang · Solang</div></div>
+    <div class="hero-h">Ride <em>Manali</em><br>on Your Terms</div>
+    <div class="hero-desc">Royal Enfield bikes & scooties from ₹600/day. Well-maintained, fully-serviced fleet. Helmets included. Zero hidden charges. Pickup near Volvo Bus Stand.</div>
+    <div class="hero-ctas">
+      <button class="btn-r">Book a Bike Now</button>
+      <button class="btn-w">View All Bikes & Rates</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">₹600</div><div class="hs-l">Starting / day</div></div>
+      <div class="hs"><div class="hs-n">10+</div><div class="hs-l">Bikes in fleet</div></div>
+      <div class="hs"><div class="hs-n">24/7</div><div class="hs-l">Open always</div></div>
+      <div class="hs"><div class="hs-n">0</div><div class="hs-l">Hidden charges</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING BAR -->
+<div class="bbar">
+  <div class="bbf"><div class="bbl">Select bike</div><div class="bbv">RE Himalayan 411cc</div></div>
+  <div class="bbf"><div class="bbl">Pick-up date</div><div class="bbv">15 Apr 2026</div></div>
+  <div class="bbf"><div class="bbl">Return date</div><div class="bbv">22 Apr 2026</div></div>
+  <div class="bbf" style="border-right:none"><div class="bbl">Duration</div><div class="bbv">7 Days</div></div>
+  <button class="bbbtn">Check Availability</button>
+</div>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="ti"><div class="tic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E31E24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="tin">Fully serviced bikes</div><div class="tis">Checked before every ride</div></div></div>
+  <div class="ti"><div class="tic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E31E24" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="tin">Zero hidden charges</div><div class="tis">Transparent pricing always</div></div></div>
+  <div class="ti"><div class="tic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E31E24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="tin">Deposit refunded instantly</div><div class="tis">On bike return same day</div></div></div>
+  <div class="ti"><div class="tic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E31E24" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><div><div class="tin">All permits handled</div><div class="tis">Rohtang, Leh & Spiti</div></div></div>
+  <div class="ti"><div class="tic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E31E24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3 1.22h3a2 2 0 0 1 2 1.72"/></svg></div><div><div class="tin">24/7 breakdown support</div><div class="tis">Always reachable</div></div></div>
+</div>
+
+<!-- BIKES with real images from site -->
+<div class="bikes-sec">
+  <div class="sec-eye">Our Fleet</div>
+  <div class="sec-h">Bikes & scooties on rent</div>
+  <div class="sec-sub">Every bike is road-tested and serviced before your rental. Helmets, bungee ropes and petrol cans included for long routes.</div>
+  <div class="filter-row">
+    <div class="flt act">All Bikes</div>
+    <div class="flt">Royal Enfield</div>
+    <div class="flt">Scooties</div>
+    <div class="flt">Adventure</div>
+  </div>
+  <div class="bikes-grid">
+
+    <div class="bk">
+      <div class="bk-img">
+        <img src="https://www.hillsbikeadventures.com/assets/images/bike-images/sport/himalaya-410.jpg" alt="RE Himalayan" onerror="this.style.display='none'"/>
+        <div class="bk-tag">Best for Leh</div>
+      </div>
+      <div class="bk-n">RE Himalayan 411cc</div>
+      <div class="bk-c">Adventure · High altitude passes</div>
+      <div style="margin-bottom:9px">
+        <span class="bk-pill">Manual</span><span class="bk-pill">Petrol</span><span class="bk-pill">All terrain</span>
+      </div>
+      <div class="bk-foot"><div class="bk-p">₹1,200<span>–1,500/day</span></div><button class="bk-btn">Book Now</button></div>
+    </div>
+
+    <div class="bk">
+      <div class="bk-img">
+        <img src="https://www.hillsbikeadventures.com/assets/images/bike-images/sport/bullet-500-new.jpg" alt="RE Classic 500" onerror="this.style.display='none'"/>
+        <div class="bk-tag">Classic</div>
+      </div>
+      <div class="bk-n">RE Classic 500cc</div>
+      <div class="bk-c">Touring · Iconic thumper</div>
+      <div style="margin-bottom:9px">
+        <span class="bk-pill">Manual</span><span class="bk-pill">Petrol</span><span class="bk-pill">Highway</span>
+      </div>
+      <div class="bk-foot"><div class="bk-p">₹1,200<span>–1,500/day</span></div><button class="bk-btn">Book Now</button></div>
+    </div>
+
+    <div class="bk">
+      <div class="bk-img">
+        <img src="https://www.hillsbikeadventures.com/assets/images/bike-images/sport/bullet-350-new.jpg" alt="RE Classic 350" onerror="this.style.display='none'"/>
+      </div>
+      <div class="bk-n">RE Classic 350cc</div>
+      <div class="bk-c">Touring · Most popular</div>
+      <div style="margin-bottom:9px">
+        <span class="bk-pill">Manual</span><span class="bk-pill">Petrol</span><span class="bk-pill">Versatile</span>
+      </div>
+      <div class="bk-foot"><div class="bk-p">₹1,000<span>–1,200/day</span></div><button class="bk-btn">Book Now</button></div>
+    </div>
+
+    <div class="bk">
+      <div class="bk-img">
+        <img src="https://www.hillsbikeadventures.com/assets/images/bike-images/sport/scream-411.jpg" alt="RE Scram 411" onerror="this.style.display='none'"/>
+        <div class="bk-tag">New</div>
+      </div>
+      <div class="bk-n">RE Scram 411cc</div>
+      <div class="bk-c">Adventure · Off-road</div>
+      <div style="margin-bottom:9px">
+        <span class="bk-pill">Manual</span><span class="bk-pill">Petrol</span><span class="bk-pill">Off-road</span>
+      </div>
+      <div class="bk-foot"><div class="bk-p">₹1,200<span>–1,500/day</span></div><button class="bk-btn">Book Now</button></div>
+    </div>
+
+    <div class="bk">
+      <div class="bk-img">
+        <img src="https://www.hillsbikeadventures.com/assets/images/bike-images/moped/avenis-125-new.jpg" alt="Suzuki Avenis" onerror="this.style.display='none'"/>
+      </div>
+      <div class="bk-n">Suzuki Avenis 125cc</div>
+      <div class="bk-c">Scooty · Light & easy</div>
+      <div style="margin-bottom:9px">
+        <span class="bk-pill">Automatic</span><span class="bk-pill">Petrol</span><span class="bk-pill">City</span>
+      </div>
+      <div class="bk-foot"><div class="bk-p">₹600<span>–800/day</span></div><button class="bk-btn">Book Now</button></div>
+    </div>
+
+    <div class="bk">
+      <div class="bk-img">
+        <img src="https://www.hillsbikeadventures.com/assets/images/bike-images/moped/ntorq-125cc.jpg" alt="TVS Ntorq" onerror="this.style.display='none'"/>
+      </div>
+      <div class="bk-n">TVS Ntorq 125cc</div>
+      <div class="bk-c">Scooty · Budget pick</div>
+      <div style="margin-bottom:9px">
+        <span class="bk-pill">Automatic</span><span class="bk-pill">Petrol</span><span class="bk-pill">Sightseeing</span>
+      </div>
+      <div class="bk-foot"><div class="bk-p">₹600<span>–800/day</span></div><button class="bk-btn">Book Now</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DESTINATIONS -->
+<div class="dest-sec">
+  <div class="sec-eye">Destinations</div>
+  <div class="sec-h">Where riders go from Manali</div>
+  <div class="dest-grid">
+    <div class="dc">
+      <img src="https://manalibikesrental.com/wp-content/uploads/2024/10/Leh-Ladakh-Service.jpg" alt="Leh Ladakh" onerror="this.style.background='linear-gradient(135deg,#1a0505,#300a0a)'"/>
+      <div class="dc-ov"></div>
+      <div class="dc-badge">Most Popular</div>
+      <div class="dc-sub">470 km epic ride</div>
+      <div class="dc-name">Leh Ladakh</div>
+      <div class="dc-arr">→</div>
+    </div>
+    <div class="dc">
+      <img src="https://manalibikesrental.com/wp-content/uploads/2024/12/Spiti-Valley-Service.jpg" alt="Spiti Valley" onerror="this.style.background='linear-gradient(135deg,#050f1a,#0a2030)'"/>
+      <div class="dc-ov"></div>
+      <div class="dc-badge">Adventure</div>
+      <div class="dc-sub">Moon landscapes</div>
+      <div class="dc-name">Spiti Valley</div>
+      <div class="dc-arr">→</div>
+    </div>
+    <div class="dc">
+      <img src="https://manalibikesrental.com/wp-content/uploads/2024/10/Srinagar-Kashmir-Service.jpg" alt="Srinagar" onerror="this.style.background='linear-gradient(135deg,#0a1505,#152b0a)'"/>
+      <div class="dc-ov"></div>
+      <div class="dc-badge">Scenic</div>
+      <div class="dc-sub">Garden of India</div>
+      <div class="dc-name">Srinagar Kashmir</div>
+      <div class="dc-arr">→</div>
+    </div>
+    <div class="dc">
+      <img src="https://manalibikesrental.com/wp-content/uploads/2024/12/Manali-Service.jpg" alt="Manali Local" onerror="this.style.background='linear-gradient(135deg,#0f0f05,#252510)'"/>
+      <div class="dc-ov"></div>
+      <div class="dc-sub">Rohtang · Solang · Old Manali</div>
+      <div class="dc-name">Manali Local</div>
+      <div class="dc-arr">→</div>
+    </div>
+    <div class="dc">
+      <img src="https://manalibikesrental.com/wp-content/uploads/2024/10/Shimla-Service.jpg" alt="Shimla" onerror="this.style.background='linear-gradient(135deg,#0a050f,#1a0a25)'"/>
+      <div class="dc-ov"></div>
+      <div class="dc-sub">Queen of Hills</div>
+      <div class="dc-name">Shimla</div>
+      <div class="dc-arr">→</div>
+    </div>
+    <div class="dc">
+      <img src="https://manalibikesrental.com/wp-content/uploads/2024/10/Chandigarh-Service.jpg" alt="Chandigarh" onerror="this.style.background='linear-gradient(135deg,#050a0f,#0a1525)'"/>
+      <div class="dc-ov"></div>
+      <div class="dc-sub">City Beautiful</div>
+      <div class="dc-name">Chandigarh</div>
+      <div class="dc-arr">→</div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="rev-sec">
+  <div class="sec-eye">Guest reviews</div>
+  <div class="sec-h">What riders say</div>
+  <div class="rev-hero">
+    <div class="rs-big"><div class="rs-n">4.7</div><div class="rs-st">★★★★★</div><div class="rs-cnt">Google reviews</div></div>
+    <div class="rs-div"></div>
+    <div class="rs-txt">Riders praise the <strong>well-maintained bikes</strong>, <strong>helpful and humble owner</strong>, zero hidden charges, and <strong>instant deposit refunds</strong> on return. Customers specifically mention the team providing bungee ropes, petrol cans, and permits for Leh routes — going far beyond just handing over the keys.</div>
+  </div>
+  <div class="rev-grid">
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"Searched around 20 rental shops in Manali — this gave us the best bike at the most reasonable price. Owner was very humble and kind. Even helped with Rohtang permit!"</div>
+      <div class="rva"><div class="rvav">RK</div><div><div class="rvn">Rahul K.</div><div class="rvp">Google · Leh Ladakh Trip</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"Bike was in mint condition. Got bungee ropes, petrol cans and petrol can — all without extra cost. Deposit returned immediately on return. Will always rent from here only!"</div>
+      <div class="rva"><div class="rvav">PM</div><div><div class="rvn">Priya M.</div><div class="rvp">Google · Manali–Leh Route</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"Best bike rental in Manali for Leh trip. Himalayan was in perfect condition with all documents in order. Transparent pricing, no surprises. Will come back every season."</div>
+      <div class="rva"><div class="rvav">AS</div><div><div class="rvn">Amit S.</div><div class="rvp">TripAdvisor · 5.0</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"Very professional and easy booking. Bike clean, well serviced, no issues on the entire Spiti trip. Staff were polite and actually guided us on the route. Highly recommended!"</div>
+      <div class="rva"><div class="rvav">NS</div><div><div class="rvn">Neha S.</div><div class="rvp">Google · Spiti Valley</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="hiw-sec">
+  <div class="sec-eye">Process</div>
+  <div class="sec-h">How to rent from us</div>
+  <div class="hiw-grid">
+    <div class="hw"><div class="hw-num">1</div><div class="hw-t">Choose your bike</div><div class="hw-d">Browse our fleet online or visit us near Volvo Bus Stand. Pick your bike and dates.</div></div>
+    <div class="hw"><div class="hw-num">2</div><div class="hw-t">Book via WhatsApp</div><div class="hw-d">Message us your dates and preferred bike. We confirm availability instantly.</div></div>
+    <div class="hw"><div class="hw-num">3</div><div class="hw-t">Pick up & ride</div><div class="hw-d">Bring your driving licence and ID. We inspect the bike together and you're off.</div></div>
+    <div class="hw"><div class="hw-num">4</div><div class="hw-t">Return & refund</div><div class="hw-d">Return the bike, we inspect it, and your deposit is refunded on the spot. Simple.</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-sec">
+  <div class="cta-h">Ready to ride Manali?</div>
+  <div class="cta-s">Well-maintained bikes from ₹600/day. Zero hidden charges. Instant confirmation.</div>
+  <div class="cta-row">
+    <button class="cta-dk">Book a Bike Now</button>
+    <button class="cta-wa">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+      WhatsApp Us
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="ft">
+    <div>
+      <div class="ft-logo">Manali Bikers & Rentals</div>
+      <div class="ft-red">Bike rental in Manali</div>
+      <div class="ft-addr">Near Volvo Bus Stand<br>Mall Road, Manali<br>Himachal Pradesh — 175131<br><br>+91 98XXXXXXXX<br>manalibikersrentals@gmail.com<br>Open 24 hrs · Every Day</div>
+    </div>
+    <div>
+      <div class="ft-ct">Bikes on rent</div>
+      <span class="ft-lnk">RE Himalayan 411cc</span>
+      <span class="ft-lnk">RE Classic 500 / 350cc</span>
+      <span class="ft-lnk">RE Scram 411cc</span>
+      <span class="ft-lnk">Suzuki Avenis 125cc</span>
+      <span class="ft-lnk">TVS Ntorq 125cc</span>
+    </div>
+    <div>
+      <div class="ft-ct">Destinations</div>
+      <span class="ft-lnk">Leh Ladakh</span>
+      <span class="ft-lnk">Spiti Valley</span>
+      <span class="ft-lnk">Srinagar Kashmir</span>
+      <span class="ft-lnk">Manali Local</span>
+      <span class="ft-lnk">Shimla · Chandigarh</span>
+    </div>
+    <div>
+      <div class="ft-ct">Quick links</div>
+      <span class="ft-lnk">About us</span>
+      <span class="ft-lnk">Gallery</span>
+      <span class="ft-lnk">FAQs</span>
+      <span class="ft-lnk">Contact us</span>
+    </div>
+  </div>
+  <div class="ft-btm">
+    <div class="ft-copy">© 2026 Manali Bikers & Rentals. All rights reserved.</div>
+    <div class="ft-by">Designed by [Your Name]</div>
+  </div>
+</div>
+
+<!-- WA FLOAT -->
+<div class="wa-hint">
+  <div class="waf">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+    Chat on WhatsApp · Available 24/7
+  </div>
+</div>
+
+</div>
+</div>
+</div>

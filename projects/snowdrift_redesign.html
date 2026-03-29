@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snowdrift Adventures — Bike Rentals, Shimla</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --offwhite: #f4f1eb;
+    --snow: #ffffff;
+    --pine: #1a3a2a;
+    --pine-mid: #2d5a40;
+    --pine-light: #4a8c60;
+    --rust: #c9521a;
+    --rust-light: #e8764a;
+    --slate: #3d4a5a;
+    --muted: #7a8694;
+    --gold: #d4a24e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--offwhite);
+    color: var(--black);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4vw; height: 64px;
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px;
+    color: var(--offwhite); letter-spacing: 0.02em; text-decoration: none;
+  }
+  .logo span { color: var(--rust-light); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 13px; color: rgba(244,241,235,0.7); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--offwhite); }
+  .nav-cta {
+    background: var(--rust); color: #fff; border: none;
+    padding: 9px 20px; border-radius: 6px; font-size: 13px; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.02em; transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--rust-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--black);
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 5vw 80px 6vw;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--rust-light); font-weight: 500; margin-bottom: 22px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--rust-light); }
+  .hero-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(38px, 5.5vw, 72px); line-height: 1.0; letter-spacing: -0.02em;
+    color: var(--offwhite); margin-bottom: 24px;
+  }
+  .hero-title em { font-style: normal; color: var(--rust-light); }
+  .hero-sub {
+    font-size: 16px; color: rgba(244,241,235,0.6); max-width: 380px;
+    line-height: 1.75; margin-bottom: 40px; font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--rust); color: #fff; padding: 14px 30px;
+    border-radius: 8px; font-size: 15px; font-weight: 500; text-decoration: none;
+    letter-spacing: 0.01em; transition: background 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--rust-light); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--offwhite); padding: 14px 28px;
+    border-radius: 8px; border: 1px solid rgba(244,241,235,0.25); font-size: 15px;
+    text-decoration: none; letter-spacing: 0.01em; transition: border-color 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: rgba(244,241,235,0.55); }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 52px;
+    padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-val { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; color: var(--offwhite); }
+  .stat-lbl { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+  }
+  .hero-img-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, var(--black) 0%, rgba(13,13,13,0.3) 35%, transparent 60%),
+      url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80') center/cover no-repeat;
+  }
+  .hero-badge {
+    position: absolute; bottom: 60px; left: -20px;
+    background: var(--pine); color: var(--offwhite);
+    padding: 18px 24px; border-radius: 12px;
+    font-size: 12px; font-weight: 500; z-index: 3;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .hero-badge strong { display: block; font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 2px; color: #fff; }
+
+  /* MARQUEE STRIP */
+  .strip {
+    background: var(--rust); padding: 12px 0; overflow: hidden;
+    display: flex; gap: 0;
+  }
+  .strip-inner {
+    display: flex; gap: 0; white-space: nowrap;
+    animation: marquee 22s linear infinite;
+    flex-shrink: 0;
+  }
+  .strip-item {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.9); padding: 0 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .strip-item::after { content: '✦'; font-size: 8px; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* FLEET */
+  .section { padding: 90px 6vw; }
+  .section-header { margin-bottom: 52px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--rust); font-weight: 500; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--rust); }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.1; letter-spacing: -0.02em; color: var(--black);
+  }
+  .section-sub { font-size: 15px; color: var(--muted); margin-top: 12px; max-width: 480px; }
+
+  .fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .bike-card {
+    background: var(--snow); border-radius: 14px; overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .bike-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .bike-img {
+    height: 180px;
+    background: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; overflow: hidden;
+  }
+  .bike-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 60%);
+  }
+  .bike-category {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(0,0,0,0.6); color: #fff;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 20px;
+  }
+  .bike-info { padding: 18px; }
+  .bike-name { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .bike-cc { font-size: 12px; color: var(--muted); }
+  .bike-pricing { display: flex; align-items: baseline; gap: 6px; margin-top: 14px; }
+  .bike-price { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--pine-mid); }
+  .bike-per { font-size: 13px; color: var(--muted); }
+  .bike-book {
+    display: block; text-align: center; margin-top: 14px;
+    background: var(--pine); color: #fff; padding: 10px;
+    border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .bike-book:hover { background: var(--pine-mid); }
+  .bike-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .tag {
+    font-size: 11px; padding: 3px 8px; border-radius: 4px;
+    background: var(--offwhite); color: var(--slate);
+  }
+
+  /* BOOKING STRIP */
+  .booking-strip {
+    background: var(--pine);
+    padding: 52px 6vw;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 40px; align-items: center;
+  }
+  .booking-strip h2 {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(22px, 3vw, 36px);
+    color: var(--offwhite); letter-spacing: -0.01em;
+  }
+  .booking-strip p { font-size: 14px; color: rgba(244,241,235,0.65); margin-top: 8px; }
+  .booking-form {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px;
+  }
+  .booking-input {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: #fff; padding: 11px 16px; border-radius: 8px; font-size: 14px;
+    min-width: 160px; font-family: 'DM Sans', sans-serif;
+    outline: none;
+  }
+  .booking-input::placeholder { color: rgba(255,255,255,0.4); }
+  .booking-input option { background: var(--pine); color: #fff; }
+  .booking-submit {
+    background: var(--rust); color: #fff; border: none; padding: 11px 24px;
+    border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: background 0.2s;
+  }
+  .booking-submit:hover { background: var(--rust-light); }
+  .wa-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25d366; color: #fff; padding: 14px 24px;
+    border-radius: 10px; font-size: 15px; font-weight: 500; text-decoration: none;
+    white-space: nowrap; transition: background 0.2s;
+  }
+  .wa-btn:hover { background: #1db954; }
+  .wa-icon { width: 22px; height: 22px; }
+
+  /* WHY US */
+  .why-section { background: var(--black); padding: 90px 6vw; }
+  .why-section .section-title { color: var(--offwhite); }
+  .why-section .section-sub { color: rgba(244,241,235,0.5); }
+  .why-section .eyebrow { color: var(--rust-light); }
+  .why-section .eyebrow::before { background: var(--rust-light); }
+
+  .why-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1px; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; overflow: hidden;
+    margin-top: 52px;
+  }
+  .why-item {
+    background: var(--black); padding: 36px 28px;
+    transition: background 0.2s;
+  }
+  .why-item:hover { background: #161616; }
+  .why-icon { font-size: 28px; margin-bottom: 16px; }
+  .why-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--offwhite); margin-bottom: 8px; }
+  .why-text { font-size: 13px; color: rgba(244,241,235,0.5); line-height: 1.7; }
+
+  /* ROUTES */
+  .routes-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .route-card {
+    background: var(--snow); border-radius: 12px; padding: 24px;
+    border: 1px solid rgba(0,0,0,0.06); position: relative; overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .route-card:hover { transform: translateY(-3px); }
+  .route-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--pine-mid);
+  }
+  .route-dest { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .route-from { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .route-meta { display: flex; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06); }
+  .route-meta-item { font-size: 12px; color: var(--muted); }
+  .route-meta-item strong { display: block; font-size: 14px; color: var(--black); font-weight: 500; }
+
+  /* REVIEWS */
+  .reviews-section { background: var(--offwhite); padding: 90px 6vw; }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .review-card {
+    background: var(--snow); border-radius: 14px; padding: 24px;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+  .review-text { font-size: 14px; line-height: 1.75; color: var(--slate); }
+  .review-author { margin-top: 18px; font-size: 13px; font-weight: 500; color: var(--black); }
+  .review-trip { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* FOOTER */
+  footer {
+    background: #0a0a0a; padding: 60px 6vw 30px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+  }
+  .footer-brand { }
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--offwhite); }
+  .footer-logo span { color: var(--rust-light); }
+  .footer-tagline { font-size: 13px; color: var(--muted); margin-top: 10px; max-width: 260px; line-height: 1.65; }
+  .footer-col h4 { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .footer-col a { display: block; font-size: 13px; color: rgba(244,241,235,0.6); text-decoration: none; margin-bottom: 9px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--offwhite); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06); margin-top: 50px; padding-top: 24px;
+    font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; align-items: center;
+    grid-column: 1 / -1;
+  }
+
+  /* FLOATING WA */
+  .float-wa {
+    position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    background: #25d366; color: #fff; width: 54px; height: 54px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .float-wa:hover { transform: scale(1.08); }
+  .float-wa svg { width: 26px; height: 26px; fill: #fff; }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 100px 6vw 60px; }
+    .booking-strip { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">Snow<span>drift</span> Adventures</a>
+  <ul class="nav-links">
+    <li><a href="#fleet">Our Fleet</a></li>
+    <li><a href="#routes">Routes</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#book" class="nav-cta">Book Now →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Shimla — Spiti — Manali</div>
+    <h1 class="hero-title">Ride the<br><em>Himalayas</em><br>Your Way</h1>
+    <p class="hero-sub">Premium bike rentals in Shimla. Royal Enfields, adventure tourers, and scooties — serviced, insured, and ready for any road Himachal throws at you.</p>
+    <div class="hero-actions">
+      <a href="#fleet" class="btn-primary">Browse Fleet →</a>
+      <a href="https://wa.me/91XXXXXXXXXX" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.523 5.819L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.516-5.186-1.416l-.371-.22-3.862 1.013 1.032-3.773-.239-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">500+</div><div class="stat-lbl">Happy Riders</div></div>
+      <div><div class="stat-val">15+</div><div class="stat-lbl">Bike Models</div></div>
+      <div><div class="stat-val">24/7</div><div class="stat-lbl">Support</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-bg"></div>
+    <div class="hero-badge">
+      <strong>₹799 / day</strong>
+      Starting price · Royal Enfield
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">Royal Enfield Himalayan</span>
+    <span class="strip-item">Classic 350</span>
+    <span class="strip-item">Meteor 350</span>
+    <span class="strip-item">KTM Duke 390</span>
+    <span class="strip-item">Honda Activa</span>
+    <span class="strip-item">Shimla → Spiti</span>
+    <span class="strip-item">Shimla → Manali</span>
+    <span class="strip-item">Helmets Included</span>
+    <span class="strip-item">Doorstep Delivery</span>
+    <!-- duplicate for seamless loop -->
+    <span class="strip-item">Royal Enfield Himalayan</span>
+    <span class="strip-item">Classic 350</span>
+    <span class="strip-item">Meteor 350</span>
+    <span class="strip-item">KTM Duke 390</span>
+    <span class="strip-item">Honda Activa</span>
+    <span class="strip-item">Shimla → Spiti</span>
+    <span class="strip-item">Shimla → Manali</span>
+    <span class="strip-item">Helmets Included</span>
+    <span class="strip-item">Doorstep Delivery</span>
+  </div>
+</div>
+
+<!-- FLEET -->
+<section class="section" id="fleet">
+  <div class="section-header">
+    <div class="eyebrow">Our Fleet</div>
+    <h2 class="section-title">Pick Your Ride</h2>
+    <p class="section-sub">Well-serviced bikes for every kind of road — from Mall Road to mountain passes.</p>
+  </div>
+  <div class="fleet-grid">
+
+    <div class="bike-card">
+      <div class="bike-img" style="background: linear-gradient(135deg, #1a1a1a, #2d1f0a);">
+        <span>🏍️</span>
+        <div class="bike-img-overlay"></div>
+        <span class="bike-category">Adventure</span>
+      </div>
+      <div class="bike-info">
+        <div class="bike-name">Royal Enfield Himalayan</div>
+        <div class="bike-cc">411cc · Long Range</div>
+        <div class="bike-tags"><span class="tag">Spiti Ready</span><span class="tag">Luggage Rack</span></div>
+        <div class="bike-pricing"><span class="bike-price">₹1,499</span><span class="bike-per">/ day</span></div>
+        <a href="#book" class="bike-book">Book This Bike</a>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-img" style="background: linear-gradient(135deg, #1a0d0d, #3a1515);">
+        <span>🏍️</span>
+        <div class="bike-img-overlay"></div>
+        <span class="bike-category">Classic</span>
+      </div>
+      <div class="bike-info">
+        <div class="bike-name">RE Classic 350</div>
+        <div class="bike-cc">349cc · Cruiser</div>
+        <div class="bike-tags"><span class="tag">Most Popular</span><span class="tag">Comfortable</span></div>
+        <div class="bike-pricing"><span class="bike-price">₹1,199</span><span class="bike-per">/ day</span></div>
+        <a href="#book" class="bike-book">Book This Bike</a>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-img" style="background: linear-gradient(135deg, #0d1a10, #142a18);">
+        <span>🏍️</span>
+        <div class="bike-img-overlay"></div>
+        <span class="bike-category">Sports</span>
+      </div>
+      <div class="bike-info">
+        <div class="bike-name">KTM Duke 390</div>
+        <div class="bike-cc">373cc · Sporty</div>
+        <div class="bike-tags"><span class="tag">High Performance</span></div>
+        <div class="bike-pricing"><span class="bike-price">₹1,899</span><span class="bike-per">/ day</span></div>
+        <a href="#book" class="bike-book">Book This Bike</a>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-img" style="background: linear-gradient(135deg, #1a1400, #2e2400);">
+        <span>🛵</span>
+        <div class="bike-img-overlay"></div>
+        <span class="bike-category">Scooter</span>
+      </div>
+      <div class="bike-info">
+        <div class="bike-name">Honda Activa 6G</div>
+        <div class="bike-cc">109cc · Easy Ride</div>
+        <div class="bike-tags"><span class="tag">City & Mall Road</span><span class="tag">Budget</span></div>
+        <div class="bike-pricing"><span class="bike-price">₹599</span><span class="bike-per">/ day</span></div>
+        <a href="#book" class="bike-book">Book This Bike</a>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-img" style="background: linear-gradient(135deg, #0d0d1a, #161630);">
+        <span>🏍️</span>
+        <div class="bike-img-overlay"></div>
+        <span class="bike-category">Tourer</span>
+      </div>
+      <div class="bike-info">
+        <div class="bike-name">RE Meteor 350</div>
+        <div class="bike-cc">349cc · Relaxed Tourer</div>
+        <div class="bike-tags"><span class="tag">Smooth Highway</span></div>
+        <div class="bike-pricing"><span class="bike-price">₹1,299</span><span class="bike-per">/ day</span></div>
+        <a href="#book" class="bike-book">Book This Bike</a>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-img" style="background: linear-gradient(135deg, #1a0a0d, #2e101a);">
+        <span>🏍️</span>
+        <div class="bike-img-overlay"></div>
+        <span class="bike-category">Mid-Range</span>
+      </div>
+      <div class="bike-info">
+        <div class="bike-name">Bajaj Pulsar NS200</div>
+        <div class="bike-cc">199cc · Punchy</div>
+        <div class="bike-tags"><span class="tag">Great Mileage</span><span class="tag">Lightweight</span></div>
+        <div class="bike-pricing"><span class="bike-price">₹849</span><span class="bike-per">/ day</span></div>
+        <a href="#book" class="bike-book">Book This Bike</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BOOKING STRIP -->
+<div class="booking-strip" id="book">
+  <div>
+    <h2>Ready to hit the mountains?</h2>
+    <p>Instant enquiry — we'll confirm availability within 30 minutes.</p>
+    <div class="booking-form">
+      <select class="booking-input">
+        <option>Select a Bike</option>
+        <option>RE Himalayan — ₹1,499/day</option>
+        <option>RE Classic 350 — ₹1,199/day</option>
+        <option>KTM Duke 390 — ₹1,899/day</option>
+        <option>Honda Activa — ₹599/day</option>
+        <option>RE Meteor 350 — ₹1,299/day</option>
+      </select>
+      <input class="booking-input" type="date" placeholder="Pickup date">
+      <input class="booking-input" type="number" placeholder="Days" style="max-width: 90px;">
+      <button class="booking-submit">Get Quote →</button>
+    </div>
+  </div>
+  <a href="https://wa.me/91XXXXXXXXXX" class="wa-btn">
+    <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.523 5.819L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.516-5.186-1.416l-.371-.22-3.862 1.013 1.032-3.773-.239-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp Us
+  </a>
+</div>
+
+<!-- ROUTES -->
+<section class="section" id="routes">
+  <div class="section-header">
+    <div class="eyebrow">Popular Routes</div>
+    <h2 class="section-title">Where Will You Ride?</h2>
+    <p class="section-sub">Iconic Himalayan road trips — all starting from our Shimla depot.</p>
+  </div>
+  <div class="routes-grid">
+    <div class="route-card">
+      <div class="route-from">From Shimla</div>
+      <div class="route-dest">Spiti Valley</div>
+      <div class="route-meta">
+        <div class="route-meta-item"><strong>450 km</strong>One way</div>
+        <div class="route-meta-item"><strong>5–7 Days</strong>Recommended</div>
+        <div class="route-meta-item"><strong>4,550m</strong>Max altitude</div>
+      </div>
+    </div>
+    <div class="route-card">
+      <div class="route-from">From Shimla</div>
+      <div class="route-dest">Manali</div>
+      <div class="route-meta">
+        <div class="route-meta-item"><strong>280 km</strong>One way</div>
+        <div class="route-meta-item"><strong>2–3 Days</strong>Recommended</div>
+        <div class="route-meta-item"><strong>2,050m</strong>Max altitude</div>
+      </div>
+    </div>
+    <div class="route-card">
+      <div class="route-from">From Shimla</div>
+      <div class="route-dest">Sangla & Chitkul</div>
+      <div class="route-meta">
+        <div class="route-meta-item"><strong>235 km</strong>One way</div>
+        <div class="route-meta-item"><strong>2–4 Days</strong>Recommended</div>
+        <div class="route-meta-item"><strong>3,450m</strong>Max altitude</div>
+      </div>
+    </div>
+    <div class="route-card">
+      <div class="route-from">Local Shimla</div>
+      <div class="route-dest">Mall Road & Kufri</div>
+      <div class="route-meta">
+        <div class="route-meta-item"><strong>30 km</strong>Loop</div>
+        <div class="route-meta-item"><strong>Half Day</strong>Comfortable</div>
+        <div class="route-meta-item"><strong>2,600m</strong>Max altitude</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section" id="why">
+  <div class="section-header">
+    <div class="eyebrow">Why Snowdrift</div>
+    <h2 class="section-title">Ride Without Worry</h2>
+    <p class="section-sub">Every bike is prepared so you can focus on the road, not the machine.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-icon">🔧</div>
+      <div class="why-title">Fully Serviced</div>
+      <div class="why-text">Each bike undergoes a 22-point check before handover. Tyres, brakes, oil, lights — all done.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">⛑️</div>
+      <div class="why-title">Helmets Included</div>
+      <div class="why-text">ISI-certified helmets for rider and pillion, at no extra cost. Riding gear available on request.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🛡️</div>
+      <div class="why-title">Insurance Covered</div>
+      <div class="why-text">All bikes carry valid insurance and documentation for Himachal Pradesh roads and passes.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🚗</div>
+      <div class="why-title">Doorstep Delivery</div>
+      <div class="why-text">We drop the bike to your hotel or railway station — no need to find our depot first.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📞</div>
+      <div class="why-title">24/7 Road Support</div>
+      <div class="why-text">Breakdown on a remote pass? Call or WhatsApp us any time — we'll sort it out.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📄</div>
+      <div class="why-title">Minimal Docs</div>
+      <div class="why-text">Just your driving licence and Aadhar card. No lengthy paperwork or unnecessary deposits.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-header">
+    <div class="eyebrow">Rider Reviews</div>
+    <h2 class="section-title">Don't Take Our Word</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">"Rented the Himalayan for our Spiti trip. Bike was immaculate — no issues over 9 days and 1,100 km. These guys know mountain roads and gave us the best route advice."</div>
+      <div class="review-author">Arjun T.</div>
+      <div class="review-trip">Spiti Valley trip · 9 days</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">"Doorstep delivery to our hotel in Shimla was a game-changer. Picked up two Classic 350s at 7am and rode to Chitkul. Will book again for Manali next year."</div>
+      <div class="review-author">Priya & Kunal</div>
+      <div class="review-trip">Chitkul ride · 3 days</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">"The Activa was perfect for exploring Mall Road and Kufri. Super affordable and well maintained. Staff was helpful in recommending stops. Highly recommended!"</div>
+      <div class="review-author">Meera S.</div>
+      <div class="review-trip">Local Shimla · 2 days</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-brand">
+    <div class="footer-logo">Snow<span>drift</span> Adventures</div>
+    <div class="footer-tagline">Shimla's most trusted bike rental for Himalayan road trips. Est. 2018.</div>
+    <div style="margin-top: 20px; font-size: 13px; color: var(--muted);">📍 Near Lakkar Bazaar, Shimla — 171001</div>
+    <div style="margin-top: 6px; font-size: 13px; color: #25d366;">📱 +91 98XXX XXXXX</div>
+  </div>
+  <div class="footer-col">
+    <h4>Fleet</h4>
+    <a href="#">RE Himalayan</a>
+    <a href="#">RE Classic 350</a>
+    <a href="#">RE Meteor 350</a>
+    <a href="#">KTM Duke 390</a>
+    <a href="#">Honda Activa</a>
+  </div>
+  <div class="footer-col">
+    <h4>Routes</h4>
+    <a href="#">Spiti Valley</a>
+    <a href="#">Manali</a>
+    <a href="#">Sangla & Chitkul</a>
+    <a href="#">Kufri & Narkanda</a>
+    <a href="#">Shimla Local</a>
+  </div>
+  <div class="footer-col">
+    <h4>Info</h4>
+    <a href="#">Pricing & Packages</a>
+    <a href="#">Documents Required</a>
+    <a href="#">Cancellation Policy</a>
+    <a href="#">FAQs</a>
+    <a href="#">Contact Us</a>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Snowdrift Adventures. All rights reserved.</span>
+    <span>Made with ❤️ in Shimla, Himachal Pradesh</span>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/91XXXXXXXXXX" class="float-wa" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.523 5.819L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.516-5.186-1.416l-.371-.22-3.862 1.013 1.032-3.773-.239-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+</body>
+</html>

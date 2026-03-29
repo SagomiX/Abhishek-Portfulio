@@ -1,0 +1,474 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--color-background-tertiary)}
+.page{max-width:780px;margin:0 auto;overflow:hidden}
+
+.browser{background:var(--color-background-secondary);border-radius:12px;padding:10px 14px 0;margin-bottom:0}
+.brow-bar{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:7px;padding:7px 12px;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.bdot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.burl{flex:1;background:var(--color-background-secondary);border-radius:4px;padding:4px 10px;font-size:11px;color:var(--color-text-secondary)}
+.bssl{font-size:10px;color:#3B6D11;font-weight:500}
+
+.site{background:#fff;border-radius:10px 10px 0 0;overflow:hidden}
+
+/* NAV */
+.nav{background:#0B1F3A;padding:13px 28px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{display:flex;flex-direction:column}
+.nav-logo-main{color:#fff;font-size:15px;font-weight:500;letter-spacing:0.02em}
+.nav-logo-sub{color:rgba(255,255,255,0.5);font-size:9px;letter-spacing:0.12em;text-transform:uppercase}
+.nav-links{display:flex;gap:22px;align-items:center}
+.nav-link{color:rgba(255,255,255,0.75);font-size:11px;text-decoration:none}
+.nav-cta{background:#C8973A;color:#fff;font-size:11px;font-weight:500;padding:7px 16px;border-radius:5px;border:none;cursor:pointer}
+
+/* HERO */
+.hero{position:relative;height:400px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/456567890.jpg') center/cover no-repeat;background-color:#1a3a5c}
+.hero-overlay{position:absolute;inset:0;background:#0B1F3A;opacity:0.55}
+.hero-content{position:relative;z-index:2;padding:40px 28px;width:100%}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.hero-pin{width:6px;height:6px;background:#C8973A;border-radius:50%;flex-shrink:0}
+.hero-loc{color:rgba(255,255,255,0.7);font-size:11px;letter-spacing:0.05em}
+.hero-h1{color:#fff;font-size:38px;font-weight:500;line-height:1.15;margin-bottom:6px}
+.hero-h1 span{color:#C8973A}
+.hero-sub{color:rgba(255,255,255,0.65);font-size:13px;margin-bottom:22px;line-height:1.6}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-gold{background:#C8973A;color:#fff;font-size:12px;font-weight:500;padding:11px 22px;border-radius:6px;border:none;cursor:pointer}
+.btn-outline{background:transparent;color:#fff;font-size:12px;font-weight:500;padding:11px 22px;border-radius:6px;border:1px solid rgba(255,255,255,0.4);cursor:pointer}
+.hero-badge{position:absolute;top:24px;right:28px;z-index:3;background:rgba(11,31,58,0.85);border:1px solid #C8973A;border-radius:8px;padding:10px 14px;text-align:center}
+.hb-score{color:#C8973A;font-size:22px;font-weight:500;line-height:1}
+.hb-label{color:rgba(255,255,255,0.7);font-size:9px;margin-top:2px}
+.hb-source{color:rgba(255,255,255,0.5);font-size:8px;margin-top:1px}
+
+/* BOOKING BAR */
+.booking-bar{background:#0B1F3A;padding:16px 28px;display:flex;gap:0;align-items:stretch}
+.bb-field{flex:1;padding:0 16px;border-right:1px solid rgba(255,255,255,0.15)}
+.bb-field:first-child{padding-left:0}
+.bb-label{color:rgba(255,255,255,0.5);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px}
+.bb-val{color:#fff;font-size:13px;font-weight:500}
+.bb-btn{background:#C8973A;color:#fff;font-size:12px;font-weight:500;padding:0 24px;border-radius:6px;border:none;cursor:pointer;margin-left:16px;white-space:nowrap}
+
+/* TRUST STRIP */
+.trust-strip{background:#F7F4EF;padding:14px 28px;display:flex;gap:0;border-bottom:1px solid #ede8e0}
+.trust-item{flex:1;display:flex;align-items:center;gap:8px;padding:0 14px;border-right:1px solid #ded8ce}
+.trust-item:first-child{padding-left:0}
+.trust-item:last-child{border-right:none}
+.trust-icon{width:28px;height:28px;background:#0B1F3A;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.trust-text{font-size:11px;font-weight:500;color:#2a2a2a}
+.trust-sub{font-size:9px;color:#888;margin-top:1px}
+
+/* SECTION */
+.section{padding:36px 28px}
+.sec-eyebrow{font-size:10px;font-weight:500;color:#C8973A;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.sec-title{font-size:22px;font-weight:500;color:#0B1F3A;margin-bottom:4px;line-height:1.3}
+.sec-sub{font-size:13px;color:#666;line-height:1.6;margin-bottom:24px}
+
+/* ROOMS */
+.rooms-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.room-card{border:1px solid #ede8e0;border-radius:10px;overflow:hidden;background:#fff}
+.room-img{height:140px;background:#C8B89A;position:relative;overflow:hidden}
+.room-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.room-img-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.room-tag{position:absolute;top:10px;left:10px;background:#0B1F3A;color:#fff;font-size:9px;font-weight:500;padding:3px 9px;border-radius:20px}
+.room-body{padding:14px 16px}
+.room-name{font-size:14px;font-weight:500;color:#0B1F3A;margin-bottom:4px}
+.room-feats{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.room-feat{font-size:9px;color:#666;background:#F7F4EF;padding:3px 8px;border-radius:20px}
+.room-footer{display:flex;justify-content:space-between;align-items:center}
+.room-price{font-size:16px;font-weight:500;color:#C8973A}
+.room-price span{font-size:10px;color:#999;font-weight:400}
+.room-book{background:#0B1F3A;color:#fff;font-size:10px;font-weight:500;padding:6px 14px;border-radius:5px;border:none;cursor:pointer}
+
+/* AMENITIES */
+.amenities-bg{background:#F7F4EF;padding:36px 28px}
+.amenities-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.amen-card{background:#fff;border:1px solid #ede8e0;border-radius:9px;padding:16px;text-align:center}
+.amen-icon{width:36px;height:36px;background:#0B1F3A;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center}
+.amen-name{font-size:11px;font-weight:500;color:#0B1F3A}
+.amen-sub{font-size:9px;color:#999;margin-top:2px}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:120px 120px;gap:8px;margin-top:20px}
+.gal-img{border-radius:8px;overflow:hidden;background:#C8B89A;position:relative}
+.gal-img.span2{grid-row:span 2}
+.gal-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.gal-label{position:absolute;bottom:6px;left:8px;background:rgba(11,31,58,0.75);color:#fff;font-size:8px;padding:2px 7px;border-radius:10px}
+
+/* REVIEWS */
+.reviews-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:20px}
+.rev-card{background:#fff;border:1px solid #ede8e0;border-radius:10px;padding:16px}
+.rev-stars{color:#C8973A;font-size:13px;margin-bottom:8px}
+.rev-text{font-size:11px;color:#444;line-height:1.6;margin-bottom:10px;font-style:italic}
+.rev-author{display:flex;align-items:center;gap:8px}
+.rev-avatar{width:28px;height:28px;border-radius:50%;background:#0B1F3A;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:500;flex-shrink:0}
+.rev-name{font-size:11px;font-weight:500;color:#0B1F3A}
+.rev-source{font-size:9px;color:#999}
+.review-score-block{background:#0B1F3A;border-radius:10px;padding:20px;display:flex;align-items:center;gap:20px;margin-bottom:20px}
+.rsb-score{color:#C8973A;font-size:42px;font-weight:500;line-height:1;flex-shrink:0}
+.rsb-text{color:#fff;font-size:12px;line-height:1.6}
+.rsb-text strong{color:#C8973A}
+
+/* LOCATION */
+.location-sec{background:#F7F4EF;padding:36px 28px}
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.map-placeholder{background:#D4E5D0;border-radius:10px;height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid #c2d6be}
+.map-pin{width:24px;height:24px;background:#0B1F3A;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center}
+.map-pin-dot{width:8px;height:8px;background:#fff;border-radius:50%;transform:rotate(45deg)}
+.loc-list{display:flex;flex-direction:column;gap:10px}
+.loc-item{display:flex;align-items:center;gap:10px;background:#fff;border-radius:8px;padding:10px 12px;border:1px solid #ede8e0}
+.loc-dist{background:#0B1F3A;color:#fff;font-size:9px;font-weight:500;padding:3px 8px;border-radius:10px;white-space:nowrap}
+.loc-name{font-size:11px;font-weight:500;color:#0B1F3A}
+.loc-type{font-size:9px;color:#999}
+
+/* CTA SECTION */
+.cta-sec{background:#0B1F3A;padding:40px 28px;text-align:center}
+.cta-label{color:#C8973A;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+.cta-h{color:#fff;font-size:24px;font-weight:500;margin-bottom:8px}
+.cta-sub{color:rgba(255,255,255,0.6);font-size:12px;margin-bottom:24px}
+.cta-btns{display:flex;justify-content:center;gap:12px}
+.cta-gold{background:#C8973A;color:#fff;font-size:12px;font-weight:500;padding:12px 28px;border-radius:6px;border:none;cursor:pointer}
+.cta-wa{background:#25D366;color:#fff;font-size:12px;font-weight:500;padding:12px 24px;border-radius:6px;border:none;cursor:pointer;display:flex;align-items:center;gap:8px}
+
+/* FOOTER */
+.footer{background:#071424;padding:24px 28px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:24px;margin-bottom:20px}
+.ft-logo{color:#fff;font-size:14px;font-weight:500;margin-bottom:6px}
+.ft-sub{color:rgba(255,255,255,0.4);font-size:10px;line-height:1.7}
+.ft-col-title{color:rgba(255,255,255,0.6);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
+.ft-link{color:rgba(255,255,255,0.45);font-size:10px;display:block;margin-bottom:6px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:14px;display:flex;justify-content:space-between;align-items:center}
+.fb-copy{color:rgba(255,255,255,0.3);font-size:9px}
+.fb-built{color:#C8973A;font-size:9px}
+
+/* WA FLOAT */
+.wa-float{display:flex;justify-content:flex-end;padding:0 28px;margin-top:-18px;position:relative;z-index:10}
+.wa-pill{background:#25D366;color:#fff;font-size:11px;font-weight:500;padding:10px 18px;border-radius:24px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 12px rgba(37,211,102,0.35)}
+</style>
+
+<div class="page">
+<div class="browser">
+  <div class="brow-bar">
+    <span class="bdot" style="background:#E24B4A"></span>
+    <span class="bdot" style="background:#EF9F27"></span>
+    <span class="bdot" style="background:#639922"></span>
+    <div class="burl">hoteloldmanali.com</div>
+    <span class="bssl">Secure</span>
+  </div>
+
+<div class="site">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-logo-main">Hotel Old Manali</div>
+    <div class="nav-logo-sub">by Himalayan Hotels</div>
+  </div>
+  <div class="nav-links">
+    <a class="nav-link" href="#">Rooms</a>
+    <a class="nav-link" href="#">Amenities</a>
+    <a class="nav-link" href="#">Gallery</a>
+    <a class="nav-link" href="#">Location</a>
+    <button class="nav-cta">Book Now</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-badge">
+    <div class="hb-score">9.0</div>
+    <div class="hb-label">Wonderful</div>
+    <div class="hb-source">Booking.com</div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-pin"></div>
+      <div class="hero-loc">Old Manali Village · Ghoshal Nehru Kund Road · HP 175131</div>
+    </div>
+    <div class="hero-h1">Sleep with <span>Himalayas</span><br>at your window</div>
+    <div class="hero-sub">Mountain view rooms · Free breakfast · Balcony & Terrace · Pet friendly</div>
+    <div class="hero-btns">
+      <button class="btn-gold">Check Availability</button>
+      <button class="btn-outline">View Rooms & Rates</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING BAR -->
+<div class="booking-bar">
+  <div class="bb-field">
+    <div class="bb-label">Check-in</div>
+    <div class="bb-val">15 Apr 2026</div>
+  </div>
+  <div class="bb-field">
+    <div class="bb-label">Check-out</div>
+    <div class="bb-val">18 Apr 2026</div>
+  </div>
+  <div class="bb-field">
+    <div class="bb-label">Guests</div>
+    <div class="bb-val">2 Adults</div>
+  </div>
+  <div class="bb-field" style="border-right:none">
+    <div class="bb-label">Room type</div>
+    <div class="bb-val">Any</div>
+  </div>
+  <button class="bb-btn">Search Rooms</button>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div><div class="trust-text">Free Cancellation</div><div class="trust-sub">On select rooms</div></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </div>
+    <div><div class="trust-text">Free Breakfast</div><div class="trust-sub">Included daily</div></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    </div>
+    <div><div class="trust-text">Free Parking</div><div class="trust-sub">Indoor parking</div></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>
+    </div>
+    <div><div class="trust-text">Mountain Views</div><div class="trust-sub">From every room</div></div>
+  </div>
+  <div class="trust-item" style="border-right:none">
+    <div class="trust-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <div><div class="trust-text">Pet Friendly</div><div class="trust-sub">No extra charge</div></div>
+  </div>
+</div>
+
+<!-- ROOMS -->
+<div class="section">
+  <div class="sec-eyebrow">Accommodation</div>
+  <div class="sec-title">Our rooms & suites</div>
+  <div class="sec-sub">Each room is designed to frame the best of Old Manali — mountain peaks, apple orchards, and fresh Himalayan air.</div>
+  <div class="rooms-grid">
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/456567891.jpg" loading="lazy" alt="Deluxe Mountain View" onerror="this.style.display='none'"/>
+        <div class="room-img-placeholder" style="background:linear-gradient(135deg,#1a3a5c,#2d6a8a)"></div>
+        <div class="room-tag">Most Popular</div>
+      </div>
+      <div class="room-body">
+        <div class="room-name">Deluxe Mountain View Room</div>
+        <div class="room-feats">
+          <span class="room-feat">Mountain view</span>
+          <span class="room-feat">Balcony</span>
+          <span class="room-feat">King bed</span>
+          <span class="room-feat">Free WiFi</span>
+        </div>
+        <div class="room-footer">
+          <div class="room-price">₹4,409 <span>/ night</span></div>
+          <button class="room-book">Book Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/456567892.jpg" loading="lazy" alt="Family Room" onerror="this.style.display='none'"/>
+        <div class="room-img-placeholder" style="background:linear-gradient(135deg,#3a2a1a,#6a4a2a)"></div>
+      </div>
+      <div class="room-body">
+        <div class="room-name">Family Quadruple Room</div>
+        <div class="room-feats">
+          <span class="room-feat">Sleeps 4</span>
+          <span class="room-feat">Terrace</span>
+          <span class="room-feat">Work desk</span>
+          <span class="room-feat">TV</span>
+        </div>
+        <div class="room-footer">
+          <div class="room-price">₹5,800 <span>/ night</span></div>
+          <button class="room-book">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AMENITIES -->
+<div class="amenities-bg">
+  <div style="padding:0">
+    <div class="sec-eyebrow">What's included</div>
+    <div class="sec-title">Hotel amenities</div>
+  </div>
+  <div class="amenities-grid">
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#C8973A"/></svg></div>
+      <div class="amen-name">Free WiFi</div>
+      <div class="amen-sub">Throughout hotel</div>
+    </div>
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+      <div class="amen-name">Free Breakfast</div>
+      <div class="amen-sub">Every morning</div>
+    </div>
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+      <div class="amen-name">Free Parking</div>
+      <div class="amen-sub">Indoor secure</div>
+    </div>
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="amen-name">24hr Front Desk</div>
+      <div class="amen-sub">Always here</div>
+    </div>
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="amen-name">24hr Security</div>
+      <div class="amen-sub">CCTV monitored</div>
+    </div>
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="amen-name">Pet Friendly</div>
+      <div class="amen-sub">No extra charge</div>
+    </div>
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="amen-name">Airport Transfer</div>
+      <div class="amen-sub">On request</div>
+    </div>
+    <div class="amen-card">
+      <div class="amen-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8973A" stroke-width="2"><path d="M3 22V8a1 1 0 0 1 1-1h1V3h14v4h1a1 1 0 0 1 1 1v14"/><path d="M2 22h20"/><path d="M15 22V11H9v11"/></svg></div>
+      <div class="amen-name">Terrace & Garden</div>
+      <div class="amen-sub">With Himalayan view</div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="section">
+  <div class="sec-eyebrow">Photo gallery</div>
+  <div class="sec-title">See the property</div>
+  <div class="gallery-grid">
+    <div class="gal-img span2" style="background:linear-gradient(135deg,#1a3a5c 0%,#2d6a8a 100%)">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/photo_exterior.jpg" loading="lazy" alt="Exterior" onerror="this.style.display='none'"/>
+      <div class="gal-label">Exterior view</div>
+    </div>
+    <div class="gal-img" style="background:linear-gradient(135deg,#3a2a1a,#6a4a2a)">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/photo_room.jpg" loading="lazy" alt="Room" onerror="this.style.display='none'"/>
+      <div class="gal-label">Mountain view room</div>
+    </div>
+    <div class="gal-img" style="background:linear-gradient(135deg,#1a3a2a,#2a6a4a)">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/photo_balcony.jpg" loading="lazy" alt="Balcony" onerror="this.style.display='none'"/>
+      <div class="gal-label">Balcony view</div>
+    </div>
+    <div class="gal-img" style="background:linear-gradient(135deg,#2a1a3a,#4a2a6a)">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/photo_terrace.jpg" loading="lazy" alt="Terrace" onerror="this.style.display='none'"/>
+      <div class="gal-label">Terrace</div>
+    </div>
+    <div class="gal-img" style="background:linear-gradient(135deg,#3a3a1a,#6a6a2a)">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/photo_view.jpg" loading="lazy" alt="View" onerror="this.style.display='none'"/>
+      <div class="gal-label">Himalayan view</div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section" style="background:#F7F4EF">
+  <div class="sec-eyebrow">Guest reviews</div>
+  <div class="sec-title">What guests say</div>
+  <div class="review-score-block">
+    <div class="rsb-score">9.0</div>
+    <div class="rsb-text">Rated <strong>Wonderful</strong> on Booking.com · Guests love the peaceful location, clean rooms, delicious food, and the ice-capped Himalayan views visible right from the bed. Staff praised for being cooperative and welcoming.</div>
+  </div>
+  <div class="reviews-grid">
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-text">"Very good service, very cooperative staff. Food is also good in taste and washroom is clean and hygienic."</div>
+      <div class="rev-author"><div class="rev-avatar">RK</div><div><div class="rev-name">Rajesh K.</div><div class="rev-source">Booking.com</div></div></div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-text">"Beautiful view of river and mountains. We can see ice mountains from our bed. Room space and bathroom is good."</div>
+      <div class="rev-author"><div class="rev-avatar">PM</div><div><div class="rev-name">Priya M.</div><div class="rev-source">MakeMyTrip</div></div></div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <div class="rev-text">"Rooms were clean and tidy. Food was exceptionally delicious. Indoor parking available. Would definitely recommend."</div>
+      <div class="rev-author"><div class="rev-avatar">AS</div><div><div class="rev-name">Amit S.</div><div class="rev-source">Booking.com</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCATION -->
+<div class="location-sec">
+  <div class="sec-eyebrow">How to find us</div>
+  <div class="sec-title">Location & nearby</div>
+  <div class="location-grid">
+    <div class="map-placeholder">
+      <div style="text-align:center">
+        <div class="map-pin" style="margin:0 auto 8px"><div class="map-pin-dot"></div></div>
+        <div style="font-size:11px;font-weight:500;color:#0B1F3A">Old Manali Village</div>
+        <div style="font-size:10px;color:#666;margin-top:3px">Ghoshal Nehru Kund Road</div>
+      </div>
+    </div>
+    <div class="loc-list">
+      <div class="loc-item"><div><div class="loc-name">Hidimba Devi Temple</div><div class="loc-type">Religious site</div></div><div class="loc-dist">19 min walk</div></div>
+      <div class="loc-item"><div><div class="loc-name">Manu Temple</div><div class="loc-type">Religious site</div></div><div class="loc-dist">0.6 mi</div></div>
+      <div class="loc-item"><div><div class="loc-name">Mall Road</div><div class="loc-type">Shopping & food</div></div><div class="loc-dist">15 min drive</div></div>
+      <div class="loc-item"><div><div class="loc-name">Solang Valley</div><div class="loc-type">Adventure sports</div></div><div class="loc-dist">9.3 mi</div></div>
+      <div class="loc-item"><div><div class="loc-name">Kullu–Manali Airport</div><div class="loc-type">Airport</div></div><div class="loc-dist">32 mi</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-sec">
+  <div class="cta-label">Direct booking — zero commission</div>
+  <div class="cta-h">Ready to wake up to the Himalayas?</div>
+  <div class="cta-sub">Book directly with us for the best rates. No OTA fees. No hidden charges.</div>
+  <div class="cta-btns">
+    <button class="cta-gold">Book Your Room Now</button>
+    <button class="cta-wa">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+      Chat on WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="ft-logo">Hotel Old Manali</div>
+      <div class="ft-sub">by Himalayan Hotels<br><br>SJ Ghoshal Nehru Kund Road,<br>Old Manali Village, Manali<br>HP 175131, India<br><br>+91 7428822220</div>
+    </div>
+    <div>
+      <div class="ft-col-title">Quick links</div>
+      <a class="ft-link" href="#">Rooms & rates</a>
+      <a class="ft-link" href="#">Amenities</a>
+      <a class="ft-link" href="#">Gallery</a>
+      <a class="ft-link" href="#">Location</a>
+      <a class="ft-link" href="#">Contact us</a>
+    </div>
+    <div>
+      <div class="ft-col-title">Policies</div>
+      <a class="ft-link" href="#">Check-in: 11:30 AM</a>
+      <a class="ft-link" href="#">Check-out: 10:00 AM</a>
+      <a class="ft-link" href="#">Cancellation policy</a>
+      <a class="ft-link" href="#">Pet policy</a>
+      <a class="ft-link" href="#">Privacy policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="fb-copy">© 2026 Hotel Old Manali by Himalayan Hotels. All rights reserved.</div>
+    <div class="fb-built">Designed by [Your Name]</div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>

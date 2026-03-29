@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Roast | NYC Industrial Café</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;900&family=Playfair+Display:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --accent: #d4af37;
+            --text: #ffffff;
+            --gray: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: var(--accent); }
+        .nav-links a { color: white; text-decoration: none; margin-left: 30px; font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s; opacity: 0.7; }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
+
+        /* Sections Styling */
+        section { min-height: 100vh; padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; }
+
+        /* Hero Section */
+        .hero { text-align: center; position: relative; }
+        .hero h1 { font-size: 10vw; line-height: 0.8; text-transform: uppercase; font-weight: 900; }
+        .hero p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: var(--accent); margin-top: 20px; }
+        .hero-img { 
+            position: absolute; width: 400px; height: 500px; 
+            background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800') center/cover;
+            z-index: -1; left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: 0.2;
+        }
+
+        /* About Section */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-text h2 { font-size: 3rem; margin-bottom: 20px; color: var(--accent); }
+        .about-text p { font-size: 1.1rem; opacity: 0.8; }
+        .about-image { height: 600px; background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800') center/cover; border-radius: 10px; }
+
+        /* Menu Bento Box */
+        .section-title { font-size: 4rem; text-align: center; margin-bottom: 50px; text-transform: uppercase; }
+        .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 300px); gap: 20px; }
+        .menu-item { background: var(--gray); padding: 30px; border-radius: 15px; display: flex; flex-direction: column; justify-content: flex-end; transition: 0.4s; border: 1px solid #333; }
+        .menu-item:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .menu-item h3 { color: var(--accent); margin-bottom: 10px; }
+        .span-2 { grid-column: span 2; }
+        .tall { grid-row: span 2; background: url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=800') center/cover; }
+
+        /* Gallery */
+        .gallery-container { display: flex; gap: 20px; overflow: hidden; padding: 50px 0; }
+        .gallery-card { min-width: 400px; height: 500px; background-size: cover; background-position: center; border-radius: 10px; filter: grayscale(100%); transition: 0.5s; }
+        .gallery-card:hover { filter: grayscale(0%); transform: scale(1.05); }
+
+        /* Testimonials */
+        .testi-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .testi-card { background: #111; padding: 40px; border-left: 4px solid var(--accent); }
+        .testi-card p { font-style: italic; font-size: 1.1rem; margin-bottom: 20px; }
+        .testi-card span { font-weight: 900; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: var(--accent); }
+
+        /* Footer */
+        footer { padding: 100px 10%; background: #000; text-align: center; }
+        .footer-logo { font-size: 5vw; font-weight: 900; color: #1a1a1a; margin-bottom: 40px; }
+        .contact-info { display: flex; justify-content: center; gap: 50px; }
+        .contact-info div h4 { color: var(--accent); margin-bottom: 10px; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-grid, .menu-grid, .testi-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 18vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <nav>
+        <div class="logo">EMPIRE ROAST</div>
+        <div class="nav-links">
+            <a href="#about">STORY</a>
+            <a href="#menu">MENU</a>
+            <a href="#gallery">GALLERY</a>
+            <a href="#testimonials">REVIEWS</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-img"></div>
+        <h1 class="reveal">New York</h1>
+        <h1 class="reveal" style="color: var(--accent);">State of Mind</h1>
+        <p>Est. 2024 — Manhattan's Finest Industrial Coffee Experience.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-image"></div>
+            <div class="about-text">
+                <h2>The Art of the <br> Brooklyn Roast</h2>
+                <p>Located in the heart of the concrete jungle, Empire Roast isn't just a café. It's a sanctuary for creators, thinkers, and New Yorkers who demand a better cup. We source our beans directly from sustainable farms and roast them in small batches right here in the city.</p>
+                <br>
+                <p>Every pour tells a story of craftsmanship, from our 18-hour cold brew to our signature gold-flecked lattes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section (Bento Grid) -->
+    <section id="menu">
+        <h2 class="section-title">The Daily Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-item span-2">
+                <h3>01. Signature Espresso</h3>
+                <p>Triple-distilled water and our private blend of Ethiopian beans.</p>
+            </div>
+            <div class="menu-item tall">
+                <!-- Image Background -->
+            </div>
+            <div class="menu-item">
+                <h3>02. Manhattan Cold</h3>
+                <p>Nitro-infused, 24-hour steep.</p>
+            </div>
+            <div class="menu-item">
+                <h3>03. Gold Latte</h3>
+                <p>Turmeric, oat milk, and honey.</p>
+            </div>
+            <div class="menu-item span-2">
+                <h3>04. The Tribeca Bagel</h3>
+                <p>Hand-rolled sourdough, scallion cream cheese, and smoked salmon.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Horizontal Scroll/Parallax) -->
+    <section id="gallery">
+        <h2 class="section-title">The Space</h2>
+        <div class="gallery-container">
+            <div class="gallery-card" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600');"></div>
+            <div class="gallery-card" style="background-image: url('https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=600');"></div>
+            <div class="gallery-card" style="background-image: url('https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=600');"></div>
+            <div class="gallery-card" style="background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=600');"></div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <h2 class="section-title">Word on the Street</h2>
+        <div class="testi-container">
+            <div class="testi-card">
+                <p>"Best espresso north of Wall Street. The industrial vibe is unmatched."</p>
+                <span>— James W., Architect</span>
+            </div>
+            <div class="testi-card">
+                <p>"The Cold Brew changed my morning routine. Truly a New York gem."</p>
+                <span>— Sarah L., Designer</span>
+            </div>
+            <div class="testi-card">
+                <p>"A perfect spot to work. The atmosphere is quiet yet energetic."</p>
+                <span>— Michael K., Writer</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">EMPIRE ROAST.</div>
+        <div class="contact-info">
+            <div>
+                <h4>Visit Us</h4>
+                <p>124 Hudson St, New York, NY</p>
+            </div>
+            <div>
+                <h4>Hours</h4>
+                <p>Mon - Fri: 6am - 8pm</p>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <p>@EmpireRoastNYC</p>
+            </div>
+        </div>
+        <p style="margin-top: 50px; opacity: 0.3; font-size: 0.7rem;">&copy; 2024 EMPIRE ROAST CAFE. DESIGNED FOR THE CITY.</p>
+    </footer>
+
+    <script>
+        // 1. Initialize Smooth Scroll (Lenis)
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 2. Custom Cursor
+        const cursor = document.querySelector('#cursor');
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+        });
+
+        // 3. GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Entrance
+        const tl = gsap.timeline();
+        tl.from(".reveal", { 
+            y: 100, 
+            opacity: 0, 
+            stagger: 0.2, 
+            duration: 1.2, 
+            ease: "power4.out" 
+        })
+        .from(".hero-img", { scale: 1.5, opacity: 0, duration: 2 }, "-=1");
+
+        // About Image Parallax
+        gsap.from(".about-image", {
+            scrollTrigger: {
+                trigger: ".about-grid",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            },
+            y: 100
+        });
+
+        // Menu Items Stagger
+        gsap.from(".menu-item", {
+            scrollTrigger: {
+                trigger: ".menu-grid",
+                start: "top 80%"
+            },
+            y: 50,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 0.8
+        });
+
+        // Gallery Horizontal Animation
+        gsap.from(".gallery-card", {
+            scrollTrigger: {
+                trigger: ".gallery-container",
+                start: "top 90%",
+                scrub: 1
+            },
+            x: 500,
+            stagger: 0.1
+        });
+
+        // Testimonial Fade
+        gsap.from(".testi-card", {
+            scrollTrigger: {
+                trigger: ".testi-container",
+                start: "top 85%"
+            },
+            opacity: 0,
+            scale: 0.9,
+            stagger: 0.2,
+            duration: 1
+        });
+
+        // Navigation Background Change on Scroll
+        ScrollTrigger.create({
+            start: 'top -80',
+            end: 99999,
+            toggleClass: { className: 'nav--scrolled', targets: 'nav' }
+        });
+    </script>
+</body>
+</html>

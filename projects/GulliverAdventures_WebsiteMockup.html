@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gulliver Adventures & Expeditions — Website Mockup 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0D0D0D;color:#fff}
+a{text-decoration:none;color:inherit}
+
+/* TOP BAR */
+.topbar{background:#F5A623;padding:8px 40px;display:flex;justify-content:space-between;align-items:center}
+.tb-left{font-size:11px;color:#0D0D0D;font-weight:500}
+.tb-right{display:flex;gap:20px}
+.tb-item{font-size:11px;color:#0D0D0D;font-weight:500}
+
+/* NAV */
+.nav{background:#111;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(245,166,35,0.2);position:sticky;top:0;z-index:100}
+.nav-brand{display:flex;flex-direction:column}
+.nav-main{color:#fff;font-size:18px;font-weight:600;letter-spacing:0.02em}
+.nav-sub{color:#F5A623;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-top:2px}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:rgba(255,255,255,0.7);font-size:13px;transition:color 0.2s}
+.nav-links a:hover{color:#F5A623}
+.nav-book{background:#F5A623;color:#0D0D0D;font-size:13px;font-weight:600;padding:10px 22px;border-radius:6px;border:none;cursor:pointer}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:url('https://gulliveradventures.com/wp-content/uploads/2020/01/DSC_0564-min.jpg') center/cover no-repeat;background-color:#1a1a1a}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,0.97) 0%,rgba(13,13,13,0.55) 50%,rgba(13,13,13,0.2) 100%)}
+.hero-badges{position:absolute;top:40px;right:40px;z-index:3;display:flex;flex-direction:column;gap:10px}
+.hbg{background:rgba(0,0,0,0.88);border:1px solid #F5A623;border-radius:10px;padding:14px 18px;text-align:center;min-width:90px}
+.hbg-num{color:#F5A623;font-size:28px;font-weight:700;line-height:1}
+.hbg-lbl{color:rgba(255,255,255,0.65);font-size:10px;margin-top:3px}
+.hbg-src{color:rgba(255,255,255,0.35);font-size:9px;margin-top:1px}
+.hero-inner{position:relative;z-index:2;padding:60px 40px;width:100%;max-width:900px}
+.hero-eye{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.hero-pip{width:36px;height:3px;background:#F5A623;border-radius:2px}
+.hero-place{color:#F5A623;font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase}
+.hero-h{color:#fff;font-size:64px;font-weight:700;line-height:1.1;margin-bottom:10px}
+.hero-h em{color:#F5A623;font-style:normal;display:block}
+.hero-desc{color:rgba(255,255,255,0.6);font-size:16px;margin-bottom:30px;line-height:1.65;max-width:600px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px}
+.btn-a{background:#F5A623;color:#0D0D0D;font-size:14px;font-weight:700;padding:15px 32px;border-radius:6px;border:none;cursor:pointer}
+.btn-b{background:transparent;color:#fff;font-size:14px;font-weight:600;padding:15px 32px;border-radius:6px;border:1px solid rgba(255,255,255,0.3);cursor:pointer}
+.hero-stats{display:flex;gap:40px}
+.hs-num{color:#F5A623;font-size:28px;font-weight:700;line-height:1}
+.hs-lbl{color:rgba(255,255,255,0.45);font-size:11px;margin-top:3px}
+
+/* QUICK BOOK */
+.quick-book{background:#111;padding:24px 40px;border-bottom:1px solid rgba(245,166,35,0.15)}
+.qb-label{color:#F5A623;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px}
+.qb-row{display:flex;gap:0;background:#1a1a1a;border-radius:10px;overflow:hidden;border:1px solid rgba(245,166,35,0.25)}
+.qb-field{flex:1;padding:16px 20px;border-right:1px solid rgba(245,166,35,0.15)}
+.qb-fl{color:rgba(255,255,255,0.4);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px}
+.qb-fv{color:#fff;font-size:15px;font-weight:600}
+.qb-btn{background:#F5A623;color:#0D0D0D;font-size:14px;font-weight:700;padding:0 32px;border:none;cursor:pointer;white-space:nowrap}
+
+/* TRUST STRIP */
+.trust{background:#0D0D0D;padding:18px 40px;display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.ti{flex:1;display:flex;align-items:center;gap:10px;padding:0 20px;border-right:1px solid rgba(255,255,255,0.06)}
+.ti:first-child{padding-left:0}
+.ti:last-child{border-right:none}
+.tic{width:36px;height:36px;background:#1a1a1a;border:1px solid rgba(245,166,35,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.tin{font-size:13px;font-weight:600;color:#fff}
+.tis{font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px}
+
+/* SECTIONS */
+.section{padding:60px 40px}
+.section.alt{background:#111}
+.sec-eye{font-size:11px;font-weight:600;color:#F5A623;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px}
+.sec-h{font-size:36px;font-weight:700;color:#fff;margin-bottom:10px}
+.sec-sub{font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:32px;line-height:1.65;max-width:700px}
+
+/* BIKES FILTER */
+.filter-row{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap}
+.filt{font-size:12px;font-weight:600;padding:8px 20px;border-radius:20px;border:1px solid rgba(245,166,35,0.3);cursor:pointer;color:rgba(255,255,255,0.65);background:transparent}
+.filt.active{background:#F5A623;color:#0D0D0D;border-color:#F5A623}
+
+/* BIKES GRID */
+.bikes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.bk{background:#111;border:1px solid rgba(245,166,35,0.15);border-radius:14px;overflow:hidden;padding:22px 18px;transition:border-color 0.2s}
+.bk:hover{border-color:rgba(245,166,35,0.5)}
+.bk-img-wrap{height:110px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;position:relative}
+.bk-img-wrap img{max-height:105px;max-width:100%;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(245,166,35,0.15))}
+.bk-tag{position:absolute;top:0;right:0;background:#F5A623;color:#0D0D0D;font-size:9px;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.05em}
+.bk-name{color:#fff;font-size:15px;font-weight:600;margin-bottom:4px}
+.bk-cc{color:rgba(255,255,255,0.4);font-size:11px;margin-bottom:14px}
+.bk-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.07);padding-top:12px}
+.bk-price{color:#F5A623;font-size:18px;font-weight:700}
+.bk-price span{color:rgba(255,255,255,0.3);font-size:11px;font-weight:400}
+.bk-btn{background:transparent;color:#F5A623;font-size:11px;font-weight:600;padding:6px 16px;border-radius:6px;border:1px solid rgba(245,166,35,0.4);cursor:pointer}
+.bk-btn:hover{background:#F5A623;color:#0D0D0D}
+
+/* TOURS */
+.tours-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.tc{border-radius:14px;overflow:hidden;background:#0D0D0D;border:1px solid rgba(245,166,35,0.1);transition:border-color 0.2s}
+.tc:hover{border-color:rgba(245,166,35,0.4)}
+.tc-img{height:180px;position:relative;overflow:hidden}
+.tc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
+.tc:hover .tc-img img{transform:scale(1.05)}
+.tc-overlay{position:absolute;inset:0;background:rgba(13,13,13,0.45)}
+.tc-badge{position:absolute;top:12px;left:12px;background:#F5A623;color:#0D0D0D;font-size:10px;font-weight:700;padding:4px 12px;border-radius:10px}
+.tc-diff{position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.85);color:rgba(255,255,255,0.85);font-size:10px;font-weight:600;padding:4px 10px;border-radius:10px}
+.tc-body{padding:18px 20px}
+.tc-name{color:#fff;font-size:16px;font-weight:600;margin-bottom:6px}
+.tc-desc{color:rgba(255,255,255,0.45);font-size:12px;line-height:1.6;margin-bottom:16px}
+.tc-foot{display:flex;justify-content:space-between;align-items:center}
+.tc-price{color:#F5A623;font-size:20px;font-weight:700}
+.tc-price span{color:rgba(255,255,255,0.3);font-size:11px;font-weight:400}
+.tc-btn{background:#F5A623;color:#0D0D0D;font-size:11px;font-weight:700;padding:8px 18px;border-radius:6px;border:none;cursor:pointer}
+
+/* REVIEWS */
+.rev-score-block{background:#111;border:1px solid rgba(245,166,35,0.2);border-radius:14px;padding:30px;display:flex;gap:30px;align-items:center;margin-bottom:28px}
+.rsb-score{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.rsb-num{color:#F5A623;font-size:64px;font-weight:700;line-height:1}
+.rsb-stars{color:#F5A623;font-size:20px;letter-spacing:3px}
+.rsb-count{color:rgba(255,255,255,0.4);font-size:12px;margin-top:5px}
+.rsb-divider{width:1px;height:70px;background:rgba(245,166,35,0.2);flex-shrink:0}
+.rsb-text{color:rgba(255,255,255,0.65);font-size:14px;line-height:1.8}
+.rsb-text strong{color:#F5A623}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rvc{background:#111;border:1px solid rgba(245,166,35,0.1);border-radius:12px;padding:20px}
+.rvs{color:#F5A623;font-size:15px;margin-bottom:10px}
+.rvt{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:16px;font-style:italic}
+.rva{display:flex;align-items:center;gap:10px}
+.rvav{width:36px;height:36px;border-radius:50%;background:#F5A623;display:flex;align-items:center;justify-content:center;color:#0D0D0D;font-size:12px;font-weight:700;flex-shrink:0}
+.rvn{font-size:13px;font-weight:600;color:#fff}
+.rvp{font-size:10px;color:rgba(255,255,255,0.35)}
+
+/* ACTIVITIES */
+.act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:28px}
+.ac{border-radius:12px;overflow:hidden;position:relative;height:130px;background:#1a1a1a;cursor:pointer}
+.ac-dim{position:absolute;inset:0;background:rgba(13,13,13,0.5)}
+.ac-name{position:absolute;bottom:14px;left:16px;color:#fff;font-size:14px;font-weight:600}
+.ac-grad1{background:linear-gradient(135deg,#1a1a2a,#2a2a4a)}
+.ac-grad2{background:linear-gradient(135deg,#1a2a2a,#2a4a4a)}
+.ac-grad3{background:linear-gradient(135deg,#2a1a1a,#4a2a2a)}
+.ac-grad4{background:linear-gradient(135deg,#1a2a1a,#2a4a2a)}
+
+/* CTA */
+.cta-sec{background:#F5A623;padding:60px 40px;text-align:center}
+.cta-h{color:#0D0D0D;font-size:42px;font-weight:700;margin-bottom:10px;line-height:1.2}
+.cta-s{color:rgba(0,0,0,0.6);font-size:16px;margin-bottom:32px}
+.cta-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.cta-dark{background:#0D0D0D;color:#fff;font-size:14px;font-weight:700;padding:16px 36px;border-radius:7px;border:none;cursor:pointer}
+.cta-wa{background:#25D366;color:#fff;font-size:14px;font-weight:700;padding:16px 30px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;gap:10px}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:30px;right:30px;z-index:999;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:14px 22px;border-radius:50px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(37,211,102,0.4);cursor:pointer}
+
+/* FOOTER */
+footer{background:#060606;padding:50px 40px 28px}
+.ft{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:32px;margin-bottom:30px}
+.ft-logo{color:#fff;font-size:18px;font-weight:700;margin-bottom:4px}
+.ft-amber{color:#F5A623;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px}
+.ft-addr{color:rgba(255,255,255,0.3);font-size:12px;line-height:1.9}
+.ft-ct{color:rgba(255,255,255,0.45);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px}
+.ft-lnk{color:rgba(255,255,255,0.3);font-size:12px;display:block;margin-bottom:8px;transition:color 0.2s}
+.ft-lnk:hover{color:#F5A623}
+.ft-btm{border-top:1px solid rgba(255,255,255,0.06);padding-top:18px;display:flex;justify-content:space-between}
+.ft-copy{color:rgba(255,255,255,0.2);font-size:11px}
+.ft-by{color:#F5A623;font-size:11px}
+
+/* MOCKUP BADGE */
+.mockup-badge{position:fixed;top:80px;left:0;background:#F5A623;color:#0D0D0D;font-size:11px;font-weight:700;padding:6px 14px 6px 10px;border-radius:0 20px 20px 0;z-index:999;letter-spacing:0.05em}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">📐 WEBSITE MOCKUP — Gulliver Adventures 2026</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="tb-left">📍 Ward No.7, Gompa Road, Near Tibetan Monastery, Manali HP 175131</div>
+  <div class="tb-right">
+    <div class="tb-item">📞 +91 89882 92213</div>
+    <div class="tb-item">⏰ Open 24hrs · Mon–Sun</div>
+    <div class="tb-item">✉ info@gulliveradventures.com</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-main">Gulliver Adventures</div>
+    <div class="nav-sub">& Expeditions · Est. 2003</div>
+  </div>
+  <div class="nav-links">
+    <a href="#">Bikes</a>
+    <a href="#">Tour Packages</a>
+    <a href="#">Activities</a>
+    <a href="#">Gallery</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact</a>
+    <button class="nav-book">Book a Bike</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-badges">
+    <div class="hbg"><div class="hbg-num">4.6</div><div class="hbg-lbl">603+ Reviews</div><div class="hbg-src">Google</div></div>
+    <div class="hbg"><div class="hbg-num">20+</div><div class="hbg-lbl">Years Experience</div><div class="hbg-src">Since 2003</div></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eye"><div class="hero-pip"></div><div class="hero-place">Manali · Leh · Spiti · Sach Pass · Ladakh</div></div>
+    <div class="hero-h">Ride the Himalayas<em>on Your Terms</em></div>
+    <div class="hero-desc">Rent from 11 premium bikes from ₹500/day · Expert guides · Fully supported Leh–Ladakh & Spiti tours · 20+ years of Himalayan adventures</div>
+    <div class="hero-ctas">
+      <button class="btn-a">Book a Bike Now</button>
+      <button class="btn-b">View Tour Packages</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hs-num">11+</div><div class="hs-lbl">Bikes available</div></div>
+      <div><div class="hs-num">₹500</div><div class="hs-lbl">Starting / day</div></div>
+      <div><div class="hs-num">500+</div><div class="hs-lbl">Rides completed</div></div>
+      <div><div class="hs-num">24/7</div><div class="hs-lbl">Support always</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK BOOK -->
+<div class="quick-book">
+  <div class="qb-label">Quick Bike Booking</div>
+  <div class="qb-row">
+    <div class="qb-field"><div class="qb-fl">Select Bike</div><div class="qb-fv">RE Himalayan 411cc</div></div>
+    <div class="qb-field"><div class="qb-fl">Pick-up Date</div><div class="qb-fv">15 Apr 2026</div></div>
+    <div class="qb-field"><div class="qb-fl">Return Date</div><div class="qb-fv">22 Apr 2026</div></div>
+    <div class="qb-field" style="border-right:none"><div class="qb-fl">Duration</div><div class="qb-fv">7 Days</div></div>
+    <button class="qb-btn">Check Availability →</button>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="ti"><div class="tic">🔧</div><div><div class="tin">Well-maintained fleet</div><div class="tis">Pro mechanics on team</div></div></div>
+  <div class="ti"><div class="tic">🧰</div><div><div class="tin">Spare parts kit included</div><div class="tis">Every rental, every ride</div></div></div>
+  <div class="ti"><div class="tic">🗺️</div><div><div class="tin">Free route planning</div><div class="tis">Itinerary advice included</div></div></div>
+  <div class="ti"><div class="tic">🛣️</div><div><div class="tin">24hr breakdown support</div><div class="tis">Roadside assistance</div></div></div>
+  <div class="ti"><div class="tic">🏔️</div><div><div class="tin">Expert Himalayan guides</div><div class="tis">Naveen, Rohit & team</div></div></div>
+</div>
+
+<!-- BIKES -->
+<div class="section">
+  <div class="sec-eye">Fleet</div>
+  <div class="sec-h">Bikes available on rent</div>
+  <div class="sec-sub">11 well-maintained bikes from ₹500/day. Every bike comes with spare parts kit, tool kit, and free route advice for your Himalayan journey.</div>
+  <div class="filter-row">
+    <div class="filt active">All Bikes</div>
+    <div class="filt">Royal Enfield</div>
+    <div class="filt">Premium 400cc+</div>
+    <div class="filt">Scooters</div>
+    <div class="filt">Adventure</div>
+  </div>
+  <div class="bikes-grid">
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/himalayan_411_cc-removebg-preview-240x145.png" alt="RE Himalayan 411"/><div class="bk-tag">Best Seller</div></div><div class="bk-name">RE Himalayan 411cc</div><div class="bk-cc">Adventure · High-altitude passes</div><div class="bk-foot"><div class="bk-price">₹1,200<span>–1,500/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/himalayan_450-removebg-preview-240x145.png" alt="RE Himalayan 450"/><div class="bk-tag">Premium</div></div><div class="bk-name">RE Himalayan 450cc</div><div class="bk-cc">Adventure · Latest model 2024</div><div class="bk-foot"><div class="bk-price">₹2,000<span>–2,500/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/Triumph-removebg-preview-240x145.png" alt="Triumph Scrambler"/><div class="bk-tag">Premium</div></div><div class="bk-name">Triumph Scrambler 400X</div><div class="bk-cc">Adventure · International brand</div><div class="bk-foot"><div class="bk-price">₹2,000<span>–2,500/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/RE_Classic_350-removebg-preview-240x145.png" alt="RE Classic 350"/></div><div class="bk-name">RE Classic 350cc</div><div class="bk-cc">Touring · Most popular</div><div class="bk-foot"><div class="bk-price">₹1,000<span>–1,200/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/7665ed0cc4ba926b2dbc9c349ef46c9e-removebg-preview-240x145.png" alt="RE Hunter 350"/></div><div class="bk-name">RE Hunter 350cc</div><div class="bk-cc">Touring · City & highway</div><div class="bk-foot"><div class="bk-price">₹1,000<span>–1,200/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/167323a9d816ca87308298c897f725d6-removebg-preview-240x145.png" alt="RE Meteor 350"/></div><div class="bk-name">RE Meteor 350cc</div><div class="bk-cc">Touring · Comfortable long rides</div><div class="bk-foot"><div class="bk-price">₹1,000<span>–1,200/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/hero_200-removebg-preview-240x145.png" alt="Hero X-Pulse"/></div><div class="bk-name">Hero X-Pulse 200 4V</div><div class="bk-cc">Adventure · Off-road capable</div><div class="bk-foot"><div class="bk-price">₹1,200<span>–1,500/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/access-removebg-preview-240x145.png" alt="Suzuki Access"/></div><div class="bk-name">Suzuki Access 125cc</div><div class="bk-cc">Scooter · City & local sightseeing</div><div class="bk-foot"><div class="bk-price">₹500<span>–800/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/Burgman-removebg-preview-240x145.png" alt="Suzuki Burgman"/></div><div class="bk-name">Suzuki Burgman 125cc</div><div class="bk-cc">Scooter · Premium automatic</div><div class="bk-foot"><div class="bk-price">₹500<span>–800/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/TVs-removebg-preview-240x145.png" alt="TVS N-Torque"/></div><div class="bk-name">TVS N-Torque 125cc</div><div class="bk-cc">Scooter · Budget option</div><div class="bk-foot"><div class="bk-price">₹500<span>–800/day</span></div><button class="bk-btn">Book Now</button></div></div>
+    <div class="bk"><div class="bk-img-wrap"><img src="https://gulliveradventures.com/wp-content/uploads/2025/04/3e5270082c1bf50ad8c9d1d4bef0f244-removebg-preview-240x145.png" alt="RE Classic 500"/></div><div class="bk-name">RE Classic 500cc</div><div class="bk-cc">Touring · Classic thumper</div><div class="bk-foot"><div class="bk-price">₹1,200<span>–1,500/day</span></div><button class="bk-btn">Book Now</button></div></div>
+  </div>
+</div>
+
+<!-- TOURS -->
+<div class="section alt">
+  <div class="sec-eye">Bike Tour Packages</div>
+  <div class="sec-h">Guided Himalayan Expeditions</div>
+  <div class="sec-sub">Fully supported group & solo tours with experienced guides, mechanics on route, stays, and meals included. All levels welcome.</div>
+  <div class="tours-grid">
+    <div class="tc"><div class="tc-img"><img src="https://gulliveradventures.com/wp-content/uploads/2022/06/motorcycle-trip-to-ladakh.jpg" alt="Leh Ladakh"/><div class="tc-overlay"></div><div class="tc-badge">Most Popular</div><div class="tc-diff">Moderate–Hard</div></div><div class="tc-body"><div class="tc-name">Leh–Nubra–Pangong–Umlingla</div><div class="tc-desc">Conquer the world's highest motorable pass. Nubra Valley camel safari, Pangong crystal lake, 14 iconic mountain passes in one epic ride.</div><div class="tc-foot"><div class="tc-price">₹28,000<span>/person</span></div><button class="tc-btn">View Package</button></div></div></div>
+    <div class="tc"><div class="tc-img"><img src="https://gulliveradventures.com/wp-content/uploads/2022/09/Leh-Ladakh-Bike-Trip.jpg" alt="Spiti Valley"/><div class="tc-overlay"></div><div class="tc-badge">Adventure</div><div class="tc-diff">Hard</div></div><div class="tc-body"><div class="tc-name">Kinnaur–Spiti Valley Expedition</div><div class="tc-desc">Ancient monasteries, moon landscapes, the world's highest inhabited village. 9 nights of pure Spiti magic on two wheels.</div><div class="tc-foot"><div class="tc-price">₹22,000<span>/person</span></div><button class="tc-btn">View Package</button></div></div></div>
+    <div class="tc"><div class="tc-img" style="background:linear-gradient(135deg,#1a2a3a,#0a1a2a)"><div class="tc-overlay"></div><div class="tc-badge">Winter Special</div><div class="tc-diff">Extreme</div></div><div class="tc-body"><div class="tc-name">Winter Spiti 4x4 Expedition</div><div class="tc-desc">7N/8D snow-covered Spiti in winter. Frozen rivers, snowbound monasteries, sub-zero nights. For the true Himalayan adventurer.</div><div class="tc-foot"><div class="tc-price">₹32,000<span>/person</span></div><button class="tc-btn">View Package</button></div></div></div>
+    <div class="tc"><div class="tc-img" style="background:linear-gradient(135deg,#2a1a1a,#3a2a1a)"><div class="tc-overlay"></div><div class="tc-badge">New 2026</div><div class="tc-diff">Hard</div></div><div class="tc-body"><div class="tc-name">Delhi–Manali–Leh–Delhi</div><div class="tc-desc">The full Himalayan circuit. Delhi to Leh via Manali, return via Leh. The definitive Indian motorcycle journey. 12 days of pure freedom.</div><div class="tc-foot"><div class="tc-price">₹35,000<span>/person</span></div><button class="tc-btn">View Package</button></div></div></div>
+    <div class="tc"><div class="tc-img" style="background:linear-gradient(135deg,#1a1a2a,#2a2a3a)"><div class="tc-overlay"></div><div class="tc-badge">Short Break</div><div class="tc-diff">Moderate</div></div><div class="tc-body"><div class="tc-name">Sach Pass Extreme Ride</div><div class="tc-desc">One of India's most challenging mountain passes. Sharp bends, rocky trails, views that will change you forever.</div><div class="tc-foot"><div class="tc-price">₹18,000<span>/person</span></div><button class="tc-btn">View Package</button></div></div></div>
+    <div class="tc"><div class="tc-img" style="background:linear-gradient(135deg,#1a2a1a,#2a3a2a)"><div class="tc-overlay"></div><div class="tc-badge">Customise</div><div class="tc-diff">Any level</div></div><div class="tc-body"><div class="tc-name">Custom Himalayan Route</div><div class="tc-desc">Have your own route in mind? We'll plan, support, and guide any custom Himalayan motorcycle expedition you dream of.</div><div class="tc-foot"><div class="tc-price">Custom<span> pricing</span></div><button class="tc-btn">Contact Us</button></div></div></div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section">
+  <div class="sec-eye">Guest Reviews</div>
+  <div class="sec-h">What riders say</div>
+  <div class="rev-score-block">
+    <div class="rsb-score">
+      <div class="rsb-num">4.6</div>
+      <div class="rsb-stars">★★★★★</div>
+      <div class="rsb-count">603+ Google reviews</div>
+    </div>
+    <div class="rsb-divider"></div>
+    <div class="rsb-text">Riders describe Gulliver Adventures as <strong>"home far from home"</strong> and praise guides <strong>Naveen, Rohit, Aman & Dinesh</strong> personally in dozens of reviews. Every bike comes with <strong>spare parts kit included</strong> — a detail that matters enormously on remote Himalayan routes. Operating since <strong>2003</strong>, trusted by thousands of riders across Leh, Spiti, Sach Pass, and Ladakh expeditions. <strong>24/7 open, 365 days a year.</strong></div>
+  </div>
+  <div class="rev-grid">
+    <div class="rvc"><div class="rvs">★★★★★</div><div class="rvt">"The Gullivers made our group of 20 feel completely at home. Specialist riders, drone photography, mechanic on call throughout — we just focused on enjoying the Himalayas. Absolutely world-class experience."</div><div class="rva"><div class="rvav">AK</div><div><div class="rvn">Arvind Kumar</div><div class="rvp">TripAdvisor · Manali–Leh Group Tour · 5.0</div></div></div></div>
+    <div class="rvc"><div class="rvs">★★★★★</div><div class="rvt">"Amazing experience, awesome service and the sweetest and kindest staff. They gave me a full spare parts kit for my solo Leh ride. When something broke on day 4, I could fix it myself. Thank you Gulliver team!"</div><div class="rva"><div class="rvav">SS</div><div><div class="rvn">Sukh Ram Singh</div><div class="rvp">Google · 5.0</div></div></div></div>
+    <div class="rvc"><div class="rvs">★★★★★</div><div class="rvt">"Best motorbike trip I ever had! We danced all night in Jispa. Rohit and Naveen are really crazy persons in the best way possible. Best service, best enjoyment. I'll come back every year."</div><div class="rva"><div class="rvav">RJ</div><div><div class="rvn">Rohan Jain</div><div class="rvp">TripAdvisor · Manali–Leh Bike Tour</div></div></div></div>
+    <div class="rvc"><div class="rvs">★★★★★</div><div class="rvt">"This was our first north India trip. Gulliver Adventures not just bike rental — they help you with everything: routes, permits, stays, food. They felt like family by day 3. Big cheers to the whole team!"</div><div class="rva"><div class="rvav">PM</div><div><div class="rvn">Priya Menon</div><div class="rvp">TripAdvisor · First-time Himalayan rider</div></div></div></div>
+  </div>
+</div>
+
+<!-- ACTIVITIES -->
+<div class="section alt">
+  <div class="sec-eye">More Adventures</div>
+  <div class="sec-h">Beyond bike rentals</div>
+  <div class="sec-sub">Gulliver Adventures is your complete Himalayan experience partner — from bikes to rafting to high-altitude treks.</div>
+  <div class="act-grid">
+    <div class="ac ac-grad1"><div class="ac-dim"></div><div class="ac-name">Leh Ladakh Tours</div></div>
+    <div class="ac ac-grad2"><div class="ac-dim"></div><div class="ac-name">River Rafting</div></div>
+    <div class="ac ac-grad3"><div class="ac-dim"></div><div class="ac-name">Paragliding</div></div>
+    <div class="ac ac-grad4"><div class="ac-dim"></div><div class="ac-name">Trek & Camping</div></div>
+    <div class="ac" style="background:linear-gradient(135deg,#2a2a1a,#3a3a1a)"><div class="ac-dim"></div><div class="ac-name">Rock Climbing</div></div>
+    <div class="ac" style="background:linear-gradient(135deg,#1a1a2a,#2a2a3a)"><div class="ac-dim"></div><div class="ac-name">Skiing — Solang</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-sec">
+  <div class="cta-h">Ready to ride the Himalayas?</div>
+  <div class="cta-s">Book your bike in 2 minutes. Pickup from Manali. No hidden charges. Free route planning included.</div>
+  <div class="cta-btns">
+    <button class="cta-dark">Book a Bike Now</button>
+    <button class="cta-wa">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+      Chat on WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div>
+      <div class="ft-logo">Gulliver Adventures</div>
+      <div class="ft-amber">& Expeditions · Since 2003</div>
+      <div class="ft-addr">Ward No.7, Gompa Road<br>Near Tibetan Monastery<br>Manali, Himachal Pradesh — 175131<br><br>📞 +91 89882 92213<br>📞 +91 94590 16053<br>✉ info@gulliveradventures.com<br>⏰ Open 24hrs · Monday to Sunday</div>
+    </div>
+    <div>
+      <div class="ft-ct">Bike Rentals</div>
+      <a class="ft-lnk" href="#">RE Himalayan 411 / 450</a>
+      <a class="ft-lnk" href="#">RE Classic / Meteor / Hunter</a>
+      <a class="ft-lnk" href="#">Triumph Scrambler 400X</a>
+      <a class="ft-lnk" href="#">Hero X-Pulse 200 4V</a>
+      <a class="ft-lnk" href="#">Scooters (from ₹500/day)</a>
+      <a class="ft-lnk" href="#">Rental Pricing & Details</a>
+    </div>
+    <div>
+      <div class="ft-ct">Tour Packages</div>
+      <a class="ft-lnk" href="#">Leh–Nubra–Pangong–Umlingla</a>
+      <a class="ft-lnk" href="#">Kinnaur–Spiti Valley</a>
+      <a class="ft-lnk" href="#">Winter Spiti 4x4 Expedition</a>
+      <a class="ft-lnk" href="#">Delhi–Manali–Leh–Delhi</a>
+      <a class="ft-lnk" href="#">Sach Pass Extreme Ride</a>
+      <a class="ft-lnk" href="#">Custom Route Planning</a>
+    </div>
+    <div>
+      <div class="ft-ct">Quick Links</div>
+      <a class="ft-lnk" href="#">About us & Our Guides</a>
+      <a class="ft-lnk" href="#">Adventure Activities</a>
+      <a class="ft-lnk" href="#">Photo Gallery</a>
+      <a class="ft-lnk" href="#">Blog & Tips</a>
+      <a class="ft-lnk" href="#">Contact Us</a>
+      <a class="ft-lnk" href="#">Privacy Policy</a>
+    </div>
+  </div>
+  <div class="ft-btm">
+    <div class="ft-copy">© 2026 Gulliver Adventures and Expeditions. All rights reserved.</div>
+    <div class="ft-by">Redesigned by [Your Name] — [Your Website]</div>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<div class="wa-float" onclick="window.open('https://wa.me/918988292213','_blank')">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+  Chat on WhatsApp
+</div>
+
+</body>
+</html>

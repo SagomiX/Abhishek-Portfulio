@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHER | NYC Future-Press Cafe</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@100;400;900&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #050505;
+            --electric: #0066FF;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed; top:0; left:0; width: 100%; height: 100%;
+            background: #000; z-index: 10000; display: flex; 
+            justify-content: center; align-items: center;
+            font-family: 'Syncopate'; font-weight: 700; font-size: 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; padding: 20px 40px; border-radius: 100px;
+            background: var(--glass); backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 999;
+        }
+        .logo { font-family: 'Syncopate'; font-weight: 700; color: var(--electric); letter-spacing: 2px; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 25px; font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--electric); }
+
+        /* General Section Layout */
+        section { min-height: 100vh; padding: 100px 5%; position: relative; }
+
+        /* Hero Section */
+        .hero { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero-title { font-family: 'Syncopate'; font-size: 12vw; line-height: 0.8; margin-bottom: 20px; }
+        .hero-title span { display: block; color: transparent; -webkit-text-stroke: 1px var(--text); }
+        .hero-sub { max-width: 600px; font-weight: 100; font-size: 1.2rem; opacity: 0.7; }
+
+        /* Horizontal Scroll Section */
+        .horizontal-container {
+            width: 300%; height: 100vh; display: flex; flex-wrap: nowrap;
+        }
+        .horizontal-panel {
+            width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; padding: 0 10%;
+        }
+        .panel-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .panel-img { width: 100%; height: 500px; background-size: cover; background-position: center; border-radius: 20px; border: 1px solid var(--border); }
+        .panel-text h2 { font-size: 4rem; font-family: 'Syncopate'; margin-bottom: 20px; }
+
+        /* Menu Section - Glass Cards */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .glass-card {
+            background: var(--glass); border: 1px solid var(--border); 
+            padding: 40px; border-radius: 30px; backdrop-filter: blur(10px);
+            transition: 0.5s; position: relative; overflow: hidden;
+        }
+        .glass-card:hover { border-color: var(--electric); transform: translateY(-10px); background: rgba(0, 102, 255, 0.05); }
+        .glass-card h3 { font-family: 'Syncopate'; font-size: 1.2rem; margin-bottom: 15px; }
+        .card-price { position: absolute; top: 20px; right: 30px; color: var(--electric); font-weight: 900; }
+
+        /* Gallery - Masonry */
+        .gallery-wrap { columns: 3; column-gap: 20px; }
+        .gallery-wrap img { width: 100%; margin-bottom: 20px; border-radius: 15px; filter: saturate(0); transition: 0.5s; cursor: pointer; }
+        .gallery-wrap img:hover { filter: saturate(1); transform: scale(1.02); }
+
+        /* Testimonials Slider */
+        .testi-section { background: var(--electric); color: white; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .testi-track { position: relative; height: 400px; width: 100%; max-width: 800px; margin-top: 50px; }
+        .testi-card {
+            position: absolute; width: 100%; background: #000; padding: 50px; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        footer { padding: 100px 5%; border-top: 1px solid var(--border); text-align: center; }
+        .big-footer-text { font-family: 'Syncopate'; font-size: 18vw; font-weight: 700; opacity: 0.03; line-height: 0.8; margin-bottom: 50px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); text-align: left; }
+        .footer-col h4 { color: var(--electric); margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; }
+
+        /* Smooth Scroll Helper */
+        .scroller { width: 100%; }
+
+    </style>
+</head>
+<body>
+
+    <div id="loader">AETHER.</div>
+
+    <nav>
+        <div class="logo">AETHER.</div>
+        <div class="nav-links">
+            <a href="#process">Process</a>
+            <a href="#menu">The Lab</a>
+            <a href="#gallery">Space</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <div class="scroller">
+        <!-- HERO -->
+        <section class="hero">
+            <h1 class="hero-title">
+                <span>NEW YORK</span>
+                COFFEE
+            </h1>
+            <p class="hero-sub">Where molecular precision meets the street soul of Manhattan. Welcome to the future of the roast.</p>
+        </section>
+
+        <!-- HORIZONTAL SCROLL SECTION (PROCESS) -->
+        <div class="horizontal-wrapper">
+            <div class="horizontal-container">
+                <section class="horizontal-panel" id="process">
+                    <div class="panel-content">
+                        <div class="panel-img" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800');"></div>
+                        <div class="panel-text">
+                            <h2>The Source.</h2>
+                            <p>Directly from the volcanic highlands to our NYC lab. We track every bean via blockchain for ultimate transparency.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="horizontal-panel">
+                    <div class="panel-content">
+                        <div class="panel-img" style="background-image: url('https://images.unsplash.com/photo-1511233022909-4089d28a5061?q=80&w=800');"></div>
+                        <div class="panel-text">
+                            <h2>The Roast.</h2>
+                            <p>Liquid nitrogen cooled roasting chambers ensure that not a single aroma molecule escapes before it hits your cup.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="horizontal-panel">
+                    <div class="panel-content">
+                        <div class="panel-img" style="background-image: url('https://images.unsplash.com/photo-1507133750040-4a8f5700e35f?q=80&w=800');"></div>
+                        <div class="panel-text">
+                            <h2>The Pour.</h2>
+                            <p>Every latte is a work of geometric art. Precision, temperature, and texture—perfected for the New Yorker on the move.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- MENU (GLASS CARDS) -->
+        <section id="menu">
+            <h2 style="font-family: 'Syncopate'; font-size: 3rem;">THE LABORATORY</h2>
+            <div class="menu-grid">
+                <div class="glass-card">
+                    <span class="card-price">$8.50</span>
+                    <h3>Aether Espresso</h3>
+                    <p>Concentrated energy. High altitude beans, triple filtered.</p>
+                </div>
+                <div class="glass-card">
+                    <span class="card-price">$9.00</span>
+                    <h3>Cyber Cold Brew</h3>
+                    <p>24-hour cryo-steeped with a hint of vanilla bean.</p>
+                </div>
+                <div class="glass-card">
+                    <span class="card-price">$12.00</span>
+                    <h3>The Metropolis</h3>
+                    <p>Signature latte infused with honey and gold-dust flakes.</p>
+                </div>
+                <div class="glass-card">
+                    <span class="card-price">$7.00</span>
+                    <h3>Neon Matcha</h3>
+                    <p>Ceremonial grade whisked at 175°F for maximum vibrance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY (MASONRY) -->
+        <section id="gallery">
+            <h2 style="font-family: 'Syncopate'; font-size: 3rem; margin-bottom: 40px; text-align: right;">THE SPACE</h2>
+            <div class="gallery-wrap">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600" alt="">
+                <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=600" alt="">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600" alt="">
+                <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=600" alt="">
+                <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=600" alt="">
+                <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=600" alt="">
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS (3D STACK) -->
+        <section class="testi-section">
+            <h2 style="font-family: 'Syncopate'; font-size: 3rem;">COMMUNITY</h2>
+            <div class="testi-track">
+                <div class="testi-card">
+                    <p>"Aether is to coffee what Tesla is to cars. Simply futuristic."</p>
+                    <h4 style="margin-top:20px; color: var(--electric);">— Fast Company</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="big-footer-text">AETHER.</div>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>The Lab</h4>
+                    <p>55 Hudson Yards<br>New York, NY 10001</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Hours</h4>
+                    <p>Mon - Sun: 07:00 - 22:00</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Inquiries</h4>
+                    <p>lab@aether.coffee</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 1. Loader
+        window.addEventListener('load', () => {
+            gsap.to("#loader", { y: "-100%", duration: 1, ease: "expo.inOut", delay: 1 });
+        });
+
+        // 2. Smooth Scroll (Lenis)
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 3. GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Text Reveal
+        gsap.from(".hero-title span", { y: 100, opacity: 0, duration: 1.5, ease: "power4.out", delay: 1.5 });
+        gsap.from(".hero-title", { scale: 1.2, duration: 2, ease: "power4.out", delay: 1.5 });
+
+        // Horizontal Scroll Logic
+        let sections = gsap.utils.toArray(".horizontal-panel");
+        gsap.to(sections, {
+            xPercent: -100 * (sections.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".horizontal-wrapper",
+                pin: true,
+                scrub: 1,
+                end: () => "+=" + document.querySelector(".horizontal-container").offsetWidth
+            }
+        });
+
+        // Glass Card Reveal
+        gsap.from(".glass-card", {
+            scrollTrigger: { trigger: ".menu-grid", start: "top 80%" },
+            y: 50, opacity: 0, stagger: 0.1, duration: 1
+        });
+
+        // Parallax Footer
+        gsap.from(".big-footer-text", {
+            scrollTrigger: {
+                trigger: "footer",
+                start: "top bottom",
+                scrub: 1
+            },
+            x: -200
+        });
+
+    </script>
+</body>
+</html>

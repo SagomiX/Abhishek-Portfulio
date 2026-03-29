@@ -1,0 +1,374 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{font-family:var(--font-sans);padding:1rem 0}
+.section-label{font-size:11px;font-weight:500;letter-spacing:0.08em;color:var(--color-text-secondary);text-transform:uppercase;margin-bottom:10px}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.panel{border-radius:12px;overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
+.panel-header{padding:8px 14px;font-size:11px;font-weight:500;letter-spacing:0.05em;display:flex;align-items:center;gap:8px}
+.panel-header.old{background:#FCEBEB;color:#A32D2D}
+.panel-header.new{background:#EAF3DE;color:#3B6D11}
+.dot-row{display:flex;gap:5px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* OLD SITE STYLES */
+.old-site{background:#f5f5f0}
+.old-nav{background:#2a2a2a;padding:8px 12px;display:flex;justify-content:space-between;align-items:center}
+.old-logo{color:#fff;font-size:11px;font-weight:500}
+.old-nav-links{display:flex;gap:10px}
+.old-nav-link{color:#aaa;font-size:9px}
+.old-hero{background:#888;height:110px;display:flex;align-items:flex-end;padding:10px 12px;position:relative}
+.old-hero-img{position:absolute;inset:0;background:url('https://www.snowcityhotels.com/images/slider/img-10.jpg') center/cover;opacity:0.7}
+.old-hero-text{position:relative;z-index:1}
+.old-hero-h{color:#fff;font-size:13px;font-weight:500;text-shadow:1px 1px 3px #000}
+.old-hero-sub{color:#ddd;font-size:9px}
+.old-section{background:#fff;padding:10px 12px;border-top:1px solid #ddd}
+.old-sec-title{font-size:10px;font-weight:500;color:#333;margin-bottom:6px;text-align:center;text-transform:uppercase;letter-spacing:0.05em}
+.old-rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.old-room{border:1px solid #ddd;border-radius:2px;overflow:hidden}
+.old-room-img{height:36px;background:#ccc;display:flex;align-items:center;justify-content:center;font-size:8px;color:#666;position:relative;overflow:hidden}
+.old-room-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.old-room-info{padding:4px 5px}
+.old-room-name{font-size:8px;font-weight:500;color:#333}
+.old-no-price{font-size:7px;color:#999;font-style:italic}
+.old-footer{background:#222;padding:8px 12px;display:flex;justify-content:space-between}
+.old-footer-text{color:#888;font-size:8px}
+.issue-tag{display:inline-flex;align-items:center;gap:4px;background:#FCEBEB;color:#A32D2D;font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;margin:2px 3px 2px 0}
+.issue-tag:before{content:'!';font-weight:700;font-size:9px}
+
+/* NEW SITE STYLES */
+.new-site{background:#f0f4f8}
+.new-nav{background:#042C53;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.new-logo{color:#fff;font-size:12px;font-weight:500;letter-spacing:0.03em}
+.new-nav-links{display:flex;gap:12px;align-items:center}
+.new-nav-link{color:rgba(255,255,255,0.8);font-size:9px}
+.new-book-btn{background:#fff;color:#042C53;font-size:9px;font-weight:500;padding:4px 10px;border-radius:5px;border:none}
+.new-hero{background:#042C53;min-height:120px;padding:16px 14px 14px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.new-hero-img{position:absolute;inset:0;background:url('https://www.snowcityhotels.com/images/slider/img-10.jpg') center/cover;opacity:0.45}
+.new-hero-overlay{position:absolute;inset:0;background:#042C53;opacity:0.55}
+.new-hero-inner{position:relative;z-index:2}
+.new-pill{background:rgba(255,255,255,0.2);color:#fff;font-size:8px;font-weight:500;padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:7px;letter-spacing:0.05em}
+.new-hero-h{color:#fff;font-size:18px;font-weight:500;line-height:1.25;margin-bottom:5px}
+.new-hero-sub{color:rgba(255,255,255,0.7);font-size:9px;margin-bottom:10px}
+.new-cta-row{display:flex;gap:7px}
+.new-cta-primary{background:#fff;color:#042C53;font-size:9px;font-weight:500;padding:6px 13px;border-radius:5px;border:none}
+.new-cta-ghost{background:transparent;color:#fff;font-size:9px;font-weight:500;padding:6px 13px;border-radius:5px;border:1px solid rgba(255,255,255,0.4)}
+
+.new-search{background:#fff;border-radius:9px;padding:10px 12px;margin:10px;display:flex;gap:8px;align-items:center;border:0.5px solid #dde3ea}
+.sb-field{flex:1}
+.sb-label{font-size:8px;color:#888;margin-bottom:2px}
+.sb-val{font-size:10px;font-weight:500;color:#042C53}
+.sb-div{width:0.5px;height:24px;background:#dde3ea}
+.sb-search{background:#185FA5;color:#fff;font-size:9px;font-weight:500;padding:6px 12px;border-radius:6px;border:none;white-space:nowrap}
+
+.new-props{padding:0 10px 10px}
+.props-title{font-size:11px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px}
+.props-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.prop-card{background:#fff;border-radius:9px;overflow:hidden;border:0.5px solid #dde3ea}
+.prop-img{height:52px;background:#B5D4F4;position:relative;overflow:hidden}
+.prop-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.prop-badge{position:absolute;top:4px;left:4px;background:rgba(4,44,83,0.8);color:#fff;font-size:7px;padding:2px 6px;border-radius:10px;font-weight:500}
+.prop-body{padding:7px 8px}
+.prop-name{font-size:9px;font-weight:500;color:#042C53;margin-bottom:2px}
+.prop-loc{font-size:8px;color:#888;margin-bottom:4px}
+.prop-price-row{display:flex;justify-content:space-between;align-items:center}
+.prop-price{font-size:10px;font-weight:500;color:#185FA5}
+.prop-price span{font-size:7px;color:#999;font-weight:400}
+.book-link{font-size:8px;color:#185FA5;font-weight:500}
+
+.new-reviews{padding:0 10px 10px}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.rev-card{background:#fff;border:0.5px solid #dde3ea;border-radius:9px;padding:8px 9px}
+.rev-stars{color:#BA7517;font-size:10px;margin-bottom:4px}
+.rev-text{font-size:8px;color:#555;line-height:1.5;margin-bottom:4px}
+.rev-by{font-size:8px;font-weight:500;color:#042C53}
+
+.wa-btn{margin:0 10px 10px;background:#25D366;border-radius:20px;padding:8px 14px;display:flex;align-items:center;gap:8px;justify-content:center}
+.wa-icon{width:14px;height:14px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.wa-text{color:#fff;font-size:9px;font-weight:500}
+
+.new-footer{background:#042C53;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.nf-logo{color:#fff;font-size:11px;font-weight:500}
+.nf-links{display:flex;gap:12px}
+.nf-link{color:rgba(255,255,255,0.6);font-size:8px}
+
+.fix-tag{display:inline-flex;align-items:center;gap:4px;background:#EAF3DE;color:#3B6D11;font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;margin:2px 3px 2px 0}
+.fix-tag:before{content:'✓';font-weight:700}
+
+/* ISSUE CARDS */
+.issues-section{margin-bottom:20px}
+.issues-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.issue-card{border-radius:10px;overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
+.issue-header{padding:7px 12px;display:flex;align-items:center;gap:6px}
+.issue-header.bad{background:#FCEBEB}
+.issue-header.good{background:#EAF3DE}
+.issue-icon{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.issue-icon.bad{background:#E24B4A;color:#fff}
+.issue-icon.good{background:#639922;color:#fff}
+.issue-title{font-size:10px;font-weight:500;color:#A32D2D}
+.issue-title.good{color:#3B6D11}
+.issue-body{padding:8px 12px;background:var(--color-background-primary)}
+.issue-desc{font-size:10px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:6px}
+.issue-fix{font-size:9px;font-weight:500;color:#185FA5;background:#E6F1FB;padding:3px 8px;border-radius:5px;display:inline-block}
+
+.mobile-compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.phone-frame{background:var(--color-background-secondary);border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center}
+.phone{width:100px;background:#fff;border-radius:16px;border:2px solid #dde3ea;overflow:hidden;margin:0 auto}
+.phone-notch{height:8px;background:#2a2a2a;display:flex;justify-content:center;align-items:center}
+.phone-notch-dot{width:20px;height:3px;background:#555;border-radius:2px}
+.phone-screen{min-height:160px}
+.phone-label{font-size:10px;font-weight:500;margin-top:8px;color:var(--color-text-primary);text-align:center}
+.phone-sublabel{font-size:9px;color:var(--color-text-secondary);text-align:center;margin-top:2px}
+
+/* OLD MOBILE */
+.om-nav{background:#2a2a2a;padding:5px 8px;font-size:8px;color:#fff;display:flex;justify-content:space-between}
+.om-hero{background:#888;height:70px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.om-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7}
+.om-hero-txt{position:relative;z-index:1;color:#fff;font-size:8px;font-weight:500;text-align:center}
+.om-menu-icon{color:#fff;font-size:12px}
+.om-content{padding:6px 8px;background:#fff}
+.om-overflow{font-size:8px;color:#333;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.om-issue{background:#FCEBEB;padding:4px 6px;font-size:7px;color:#A32D2D;margin-top:4px;border-radius:4px}
+
+/* NEW MOBILE */
+.nm-nav{background:#042C53;padding:6px 8px;display:flex;justify-content:space-between;align-items:center}
+.nm-logo{color:#fff;font-size:8px;font-weight:500}
+.nm-hamburger{display:flex;flex-direction:column;gap:2px}
+.nm-bar{width:14px;height:1.5px;background:#fff;border-radius:1px}
+.nm-hero{background:#042C53;min-height:75px;padding:10px 8px 8px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.nm-hero-img{position:absolute;inset:0;background:url('https://www.snowcityhotels.com/images/slider/img-10.jpg') center/cover;opacity:0.4}
+.nm-overlay{position:absolute;inset:0;background:#042C53;opacity:0.5}
+.nm-inner{position:relative;z-index:2}
+.nm-h{color:#fff;font-size:11px;font-weight:500;margin-bottom:3px}
+.nm-btn{background:#fff;color:#042C53;font-size:7px;font-weight:500;padding:4px 9px;border-radius:4px;display:inline-block}
+.nm-search{background:#fff;margin:5px 6px;border-radius:7px;padding:6px 8px;border:0.5px solid #dde3ea}
+.nm-s-label{font-size:7px;color:#888;margin-bottom:2px}
+.nm-s-val{font-size:8px;font-weight:500;color:#042C53;margin-bottom:4px}
+.nm-s-btn{background:#185FA5;color:#fff;font-size:7px;font-weight:500;padding:4px 8px;border-radius:4px;width:100%;text-align:center}
+.nm-card{background:#fff;border:0.5px solid #dde3ea;border-radius:7px;margin:0 6px 5px;overflow:hidden}
+.nm-card-img{height:40px;position:relative;overflow:hidden}
+.nm-card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.nm-card-body{padding:5px 7px;display:flex;justify-content:space-between;align-items:center}
+.nm-card-name{font-size:8px;font-weight:500;color:#042C53}
+.nm-card-price{font-size:8px;font-weight:500;color:#185FA5}
+.nm-wa{background:#25D366;margin:4px 6px 6px;border-radius:15px;padding:5px 8px;display:flex;align-items:center;justify-content:center;gap:5px}
+.nm-wa-text{color:#fff;font-size:7px;font-weight:500}
+</style>
+
+<div class="wrap">
+
+<div class="section-label">Before vs after — full desktop layout</div>
+<div class="compare-row">
+  <div class="panel">
+    <div class="panel-header old">
+      <div class="dot-row"><span class="dot" style="background:#E24B4A"></span><span class="dot" style="background:#EF9F27"></span><span class="dot" style="background:#888"></span></div>
+      Current site (outdated)
+    </div>
+    <div class="old-site">
+      <div class="old-nav">
+        <div class="old-logo">Snow City Hotels</div>
+        <div class="old-nav-links">
+          <span class="old-nav-link">About</span>
+          <span class="old-nav-link">Hotels</span>
+          <span class="old-nav-link">Contact</span>
+        </div>
+      </div>
+      <div class="old-hero">
+        <div class="old-hero-img"></div>
+        <div class="old-hero-text">
+          <div class="old-hero-h">Welcome to Snow City Hotels</div>
+          <div class="old-hero-sub">Hotel Mountain Face Manali</div>
+        </div>
+      </div>
+      <div style="padding:4px 8px 2px;background:#fff">
+        <span class="issue-tag">No booking CTA</span>
+        <span class="issue-tag">No pricing</span>
+      </div>
+      <div class="old-section">
+        <div class="old-sec-title">Hotel Rooms</div>
+        <div class="old-rooms">
+          <div class="old-room"><div class="old-room-img"><img src="https://www.snowcityhotels.com/gallery/4.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/></div><div class="old-room-info"><div class="old-room-name">Honeymoon Suite</div><div class="old-no-price">Price on request</div></div></div>
+          <div class="old-room"><div class="old-room-img"><img src="https://www.snowcityhotels.com/gallery/luxury-suite4.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/></div><div class="old-room-info"><div class="old-room-name">Luxury Suite</div><div class="old-no-price">Price on request</div></div></div>
+          <div class="old-room"><div class="old-room-img"><img src="https://www.snowcityhotels.com/gallery/luxury-room11.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/></div><div class="old-room-info"><div class="old-room-name">Luxury Room</div><div class="old-no-price">Price on request</div></div></div>
+        </div>
+        <div style="padding:4px 0 0"><span class="issue-tag">No reviews section</span><span class="issue-tag">No WhatsApp</span></div>
+      </div>
+      <div class="old-footer">
+        <div class="old-footer-text">094595-15050 &amp; 089883-15050</div>
+        <div class="old-footer-text">booking@snowcityhotels.com</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header new">
+      <div class="dot-row"><span class="dot" style="background:#E24B4A"></span><span class="dot" style="background:#EF9F27"></span><span class="dot" style="background:#639922"></span></div>
+      Updated redesign
+    </div>
+    <div class="new-site">
+      <div class="new-nav">
+        <div class="new-logo">Snow City Hotels</div>
+        <div class="new-nav-links">
+          <span class="new-nav-link">Properties</span>
+          <span class="new-nav-link">Rooms</span>
+          <span class="new-nav-link">Packages</span>
+          <button class="new-book-btn">Book Now</button>
+        </div>
+      </div>
+      <div class="new-hero">
+        <div class="new-hero-img"></div>
+        <div class="new-hero-overlay"></div>
+        <div class="new-hero-inner">
+          <div class="new-pill">Manali, Himachal Pradesh</div>
+          <div class="new-hero-h">Where Mountains<br>Meet Luxury</div>
+          <div class="new-hero-sub">4 properties · Apple orchards · Mountain views</div>
+          <div class="new-cta-row">
+            <button class="new-cta-primary">Check Availability</button>
+            <button class="new-cta-ghost">Virtual Tour</button>
+          </div>
+        </div>
+      </div>
+      <div style="padding:2px 6px 0"><span class="fix-tag">Clear CTA</span><span class="fix-tag">Full-bleed hero photo</span></div>
+      <div class="new-search">
+        <div class="sb-field"><div class="sb-label">Check-in</div><div class="sb-val">15 Apr</div></div>
+        <div class="sb-div"></div>
+        <div class="sb-field"><div class="sb-label">Check-out</div><div class="sb-val">18 Apr</div></div>
+        <div class="sb-div"></div>
+        <div class="sb-field"><div class="sb-label">Guests</div><div class="sb-val">2 Adults</div></div>
+        <button class="sb-search">Search</button>
+      </div>
+      <div class="new-props">
+        <div class="props-title">Our properties</div>
+        <div class="props-grid">
+          <div class="prop-card"><div class="prop-img"><img src="https://www.snowcityhotels.com/images/slider/img-5.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/><div class="prop-badge">Top pick</div></div><div class="prop-body"><div class="prop-name">Hotel Mountain Face</div><div class="prop-loc">Aleo, Manali</div><div class="prop-price-row"><div class="prop-price">₹4,500<span>/night</span></div><span class="book-link">Book →</span></div></div></div>
+          <div class="prop-card"><div class="prop-img"><img src="https://www.snowcityhotels.com/images/slider/img-11.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/></div><div class="prop-body"><div class="prop-name">Montana Blues Resort</div><div class="prop-loc">Manali</div><div class="prop-price-row"><div class="prop-price">₹3,800<span>/night</span></div><span class="book-link">Book →</span></div></div></div>
+        </div>
+        <div style="margin-top:4px"><span class="fix-tag">Prices displayed</span><span class="fix-tag">Direct book links</span></div>
+      </div>
+      <div class="new-reviews">
+        <div class="props-title">Guest reviews</div>
+        <div class="rev-grid">
+          <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Stunning mountain views. Highly recommend!"</div><div class="rev-by">Priya S. — Delhi</div></div>
+          <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">"Best hotel in Manali. Apple orchard is magic."</div><div class="rev-by">Rahul M. — Bangalore</div></div>
+        </div>
+        <div style="margin-top:4px"><span class="fix-tag">Reviews on homepage</span></div>
+      </div>
+      <div class="wa-btn">
+        <div class="wa-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.088.537 4.05 1.476 5.758L0 24l6.395-1.461A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-5.003-1.374l-.358-.214-3.724.851.869-3.62-.234-.372A9.797 9.797 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg></div>
+        <div class="wa-text">Chat on WhatsApp — quick reply guaranteed</div>
+      </div>
+      <div style="padding:0 10px 4px"><span class="fix-tag">WhatsApp button</span></div>
+      <div class="new-footer">
+        <div class="nf-logo">Snow City Hotels</div>
+        <div class="nf-links"><span class="nf-link">094595-15050</span><span class="nf-link">booking@snowcityhotels.com</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">6 key issues — what's broken and how to fix it</div>
+<div class="issues-grid">
+
+  <div class="issue-card">
+    <div class="issue-header bad"><div class="issue-icon bad">1</div><div class="issue-title">No room pricing displayed</div></div>
+    <div class="issue-body">
+      <div class="issue-desc">Every room shows "Price on request." Guests leave immediately when they can't see costs — they go to MakeMyTrip instead.</div>
+      <span class="issue-fix">Fix: Show "from ₹3,500/night" on every room card</span>
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-header bad"><div class="issue-icon bad">2</div><div class="issue-title">Outdated visual design</div></div>
+    <div class="issue-body">
+      <div class="issue-desc">2013-era layout, tiny fonts, no whitespace. Feels untrustworthy for a premium mountain property.</div>
+      <span class="issue-fix">Fix: Full redesign — modern hero, clean cards, new typography</span>
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-header bad"><div class="issue-icon bad">3</div><div class="issue-title">Slow page load</div></div>
+    <div class="issue-body">
+      <div class="issue-desc">Gallery and slider images load at full resolution (3–5 MB each). Site takes 8–12 seconds on mobile networks.</div>
+      <span class="issue-fix">Fix: Compress to WebP, add lazy loading, use a CDN</span>
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-header bad"><div class="issue-icon bad">4</div><div class="issue-title">No WhatsApp button</div></div>
+    <div class="issue-body">
+      <div class="issue-desc">Most Manali travellers prefer quick WhatsApp chats over forms. Missing this loses easy enquiries daily.</div>
+      <span class="issue-fix">Fix: Add a sticky WhatsApp float button sitewide</span>
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-header bad"><div class="issue-icon bad">5</div><div class="issue-title">Weak mobile experience</div></div>
+    <div class="issue-body">
+      <div class="issue-desc">Navigation breaks on phones, text overflows, buttons are too small to tap. 70%+ traffic is mobile.</div>
+      <span class="issue-fix">Fix: Mobile-first responsive layout with thumb-friendly UI</span>
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-header bad"><div class="issue-icon bad">6</div><div class="issue-title">No guest reviews on homepage</div></div>
+    <div class="issue-body">
+      <div class="issue-desc">TripAdvisor CoE badge is hidden in footer. Reviews are the #1 trust signal for hotel bookings.</div>
+      <span class="issue-fix">Fix: Feature 3–4 star reviews prominently on the homepage</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-label">Before vs after — mobile view</div>
+<div class="mobile-compare">
+  <div class="phone-frame">
+    <div class="phone">
+      <div class="phone-notch"><div class="phone-notch-dot"></div></div>
+      <div class="phone-screen">
+        <div class="om-nav"><span>Snow City</span><span class="om-menu-icon">≡</span></div>
+        <div class="om-hero"><img src="https://www.snowcityhotels.com/images/slider/img-10.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/><div class="om-hero-txt">WELCOME TO SNOW CITY HOTELS</div></div>
+        <div style="padding:5px 7px;background:#fff">
+          <div class="om-overflow" style="font-size:8px;color:#333;font-weight:500;margin-bottom:3px">ABOUT US</div>
+          <div class="om-overflow" style="font-size:7px;color:#666">Snow City Hotels - a hospitality company incorporated in 2012. A fairly new company in tourism...</div>
+          <div class="om-issue">Text overflows · No pricing · No CTA button</div>
+          <div style="margin-top:5px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px">
+            <div style="border:1px solid #ddd;border-radius:1px;padding:3px;text-align:center"><div style="height:22px;background:#ccc;margin-bottom:2px;position:relative;overflow:hidden"><img src="https://www.snowcityhotels.com/gallery/4.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'"/></div><div style="font-size:6px;color:#333">Honeymoon</div></div>
+            <div style="border:1px solid #ddd;border-radius:1px;padding:3px;text-align:center"><div style="height:22px;background:#ccc;margin-bottom:2px"></div><div style="font-size:6px;color:#333">Luxury</div></div>
+            <div style="border:1px solid #ddd;border-radius:1px;padding:3px;text-align:center"><div style="height:22px;background:#bbb;margin-bottom:2px"></div><div style="font-size:6px;color:#333">Deluxe</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Current site</div>
+    <div class="phone-sublabel" style="color:#A32D2D">Broken mobile layout</div>
+  </div>
+
+  <div class="phone-frame">
+    <div class="phone">
+      <div class="phone-notch"><div class="phone-notch-dot"></div></div>
+      <div class="phone-screen">
+        <div class="nm-nav"><div class="nm-logo">Snow City Hotels</div><div class="nm-hamburger"><div class="nm-bar"></div><div class="nm-bar"></div><div class="nm-bar"></div></div></div>
+        <div class="nm-hero">
+          <div class="nm-hero-img"></div>
+          <div class="nm-overlay"></div>
+          <div class="nm-inner">
+            <div class="nm-h">Where Mountains<br>Meet Luxury</div>
+            <div class="nm-btn">Check Availability</div>
+          </div>
+        </div>
+        <div class="nm-search">
+          <div class="nm-s-label">Check-in · Check-out · Guests</div>
+          <div class="nm-s-val">15 Apr → 18 Apr · 2 Adults</div>
+          <div class="nm-s-btn">Search Rooms</div>
+        </div>
+        <div class="nm-card"><div class="nm-card-img"><img src="https://www.snowcityhotels.com/images/slider/img-5.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/></div><div class="nm-card-body"><div class="nm-card-name">Hotel Mountain Face</div><div class="nm-card-price">₹4,500/night</div></div></div>
+        <div class="nm-card"><div class="nm-card-img"><img src="https://www.snowcityhotels.com/images/slider/img-11.jpg" alt="" loading="lazy" onerror="this.style.display='none'"/></div><div class="nm-card-body"><div class="nm-card-name">Montana Blues Resort</div><div class="nm-card-price">₹3,800/night</div></div></div>
+        <div class="nm-wa"><div class="nm-wa-text">WhatsApp us now</div></div>
+      </div>
+    </div>
+    <div class="phone-label">Updated design</div>
+    <div class="phone-sublabel" style="color:#3B6D11">Clean mobile-first layout</div>
+  </div>
+</div>
+
+</div>

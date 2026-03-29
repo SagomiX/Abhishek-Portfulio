@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neetu Mehar Studio — Bridal & Beauty Artistry, Delhi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush:    #E8B4B8;
+    --blush-d:  #C97D84;
+    --rose:     #A0444E;
+    --mauve:    #7C4F5E;
+    --champagne:#F5EAE0;
+    --warm-wht: #FDF8F5;
+    --dark:     #1E1014;
+    --mid-dark: #2C1A20;
+    --text:     #3A2028;
+    --muted:    #8C6B74;
+    --gold:     #C9A96E;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-wht);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── CURSOR ── */
+  #cur { position:fixed; width:10px; height:10px; background:var(--blush-d); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .15s, background .3s; }
+  #cur-r { position:fixed; width:32px; height:32px; border:1.5px solid var(--blush-d); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:all .3s ease; opacity:.5; }
+  body:hover #cur { opacity:1; }
+
+  /* ── LOADER ── */
+  #loader {
+    position:fixed; inset:0; z-index:9000;
+    background:var(--dark);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
+    transition:opacity .9s ease, visibility .9s ease;
+  }
+  #loader.gone { opacity:0; visibility:hidden; pointer-events:none; }
+  .ld-name {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(32px,6vw,64px);
+    color:var(--champagne);
+    letter-spacing:.2em;
+    font-weight:400;
+    animation:ldPulse 1.8s ease-in-out infinite;
+  }
+  .ld-sub { font-size:10px; letter-spacing:.5em; text-transform:uppercase; color:var(--blush); opacity:.6; }
+  .ld-bar { width:0; height:1px; background:linear-gradient(90deg,transparent,var(--blush),transparent); animation:ldBar 2.4s ease forwards; }
+  @keyframes ldBar { to { width:180px; } }
+  @keyframes ldPulse { 0%,100%{opacity:.7} 50%{opacity:1} }
+
+  /* ── NAV ── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    padding:22px 72px;
+    display:flex; align-items:center; justify-content:space-between;
+    transition:all .4s ease;
+  }
+  nav.solid {
+    background:rgba(30,16,20,.93);
+    backdrop-filter:blur(14px);
+    padding:14px 72px;
+    border-bottom:1px solid rgba(232,180,184,.15);
+  }
+  .logo {
+    font-family:'Playfair Display', serif;
+    font-size:20px; font-weight:400;
+    color:var(--champagne);
+    text-decoration:none;
+    letter-spacing:.08em;
+  }
+  .logo span { color:var(--blush); font-style:italic; }
+  .nav-ul { display:flex; gap:36px; list-style:none; }
+  .nav-ul a {
+    font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(245,234,224,.65); text-decoration:none;
+    position:relative; transition:color .3s;
+  }
+  .nav-ul a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--blush); transform:scaleX(0); transition:transform .3s; }
+  .nav-ul a:hover { color:var(--champagne); }
+  .nav-ul a:hover::after { transform:scaleX(1); }
+  .nav-cta {
+    font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    background:var(--blush-d); color:#fff;
+    padding:10px 26px; text-decoration:none;
+    transition:background .3s, transform .2s;
+  }
+  .nav-cta:hover { background:var(--rose); transform:translateY(-1px); }
+
+  /* ── HERO ── */
+  #hero { height:100vh; position:relative; display:flex; align-items:flex-end; overflow:hidden; }
+  .hero-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to bottom, rgba(30,16,20,.3) 0%, rgba(30,16,20,.6) 60%, rgba(30,16,20,.92) 100%),
+      url('https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?w=1800&q=85') center/cover no-repeat;
+    animation:hZoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes hZoom { from{transform:scale(1.04)} to{transform:scale(1.12)} }
+  .hero-grain {
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity:.4; pointer-events:none;
+  }
+
+  /* Floating petals */
+  .petal { position:absolute; border-radius:50% 0 50% 0; background:rgba(232,180,184,.18); animation:petalFall linear infinite; pointer-events:none; }
+  @keyframes petalFall { 0%{transform:translateY(-40px) rotate(0deg) translateX(0); opacity:.7} 100%{transform:translateY(110vh) rotate(540deg) translateX(60px); opacity:0} }
+
+  .hero-inner {
+    position:relative; z-index:2;
+    padding:0 72px 90px;
+    display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:60px;
+    width:100%;
+  }
+  .hero-left {}
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:10px; letter-spacing:.4em; text-transform:uppercase;
+    color:var(--blush); margin-bottom:22px;
+    opacity:0; transform:translateY(16px);
+    animation:fu .7s ease .4s forwards;
+  }
+  .hero-tag::before { content:''; display:block; width:24px; height:1px; background:var(--blush); }
+  .hero-h1 {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(48px,7vw,100px);
+    font-weight:400; line-height:.95;
+    color:var(--champagne);
+    opacity:0; transform:translateY(28px);
+    animation:fu .9s ease .7s forwards;
+  }
+  .hero-h1 em { font-style:italic; color:var(--blush); }
+  .hero-h1 .line2 { display:block; padding-left:60px; }
+  .hero-desc {
+    font-size:14px; color:rgba(245,234,224,.6); font-weight:300;
+    line-height:1.9; max-width:380px; margin:28px 0 40px;
+    opacity:0; transform:translateY(16px);
+    animation:fu .7s ease 1s forwards;
+  }
+  .hero-btns {
+    display:flex; gap:20px; align-items:center;
+    opacity:0; animation:fu .7s ease 1.3s forwards;
+  }
+  .btn-fill {
+    padding:15px 38px; background:var(--blush-d); color:#fff;
+    text-decoration:none; font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+    transition:all .3s; position:relative; overflow:hidden;
+  }
+  .btn-fill::before { content:''; position:absolute; inset:0; background:var(--rose); transform:translateX(-100%); transition:transform .4s; }
+  .btn-fill span { position:relative; }
+  .btn-fill:hover::before { transform:translateX(0); }
+  .btn-ghost {
+    font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    color:rgba(245,234,224,.65); text-decoration:none;
+    border-bottom:1px solid rgba(232,180,184,.4);
+    padding-bottom:4px; transition:color .3s, border-color .3s;
+  }
+  .btn-ghost:hover { color:var(--blush); border-color:var(--blush); }
+
+  /* Hero right - floating stat cards */
+  .hero-right {
+    display:flex; flex-direction:column; gap:16px; align-items:flex-end;
+    opacity:0; animation:fu .9s ease 1.5s forwards;
+  }
+  .hstat {
+    background:rgba(255,255,255,.06); border:1px solid rgba(232,180,184,.2);
+    backdrop-filter:blur(10px);
+    padding:20px 28px; min-width:200px;
+    transition:transform .3s, border-color .3s;
+  }
+  .hstat:hover { transform:translateX(-6px); border-color:rgba(232,180,184,.5); }
+  .hstat-num { font-family:'Playfair Display',serif; font-size:38px; color:var(--blush); font-weight:400; line-height:1; }
+  .hstat-lbl { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(245,234,224,.45); margin-top:5px; }
+
+  .hero-scroll-hint {
+    position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    opacity:0; animation:fu .7s ease 2s forwards;
+  }
+  .scroll-dot { width:5px; height:5px; background:var(--blush); border-radius:50%; animation:bounce 1.5s ease-in-out infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+  .scroll-lbl { font-size:9px; letter-spacing:.35em; text-transform:uppercase; color:rgba(245,234,224,.4); }
+
+  @keyframes fu { to{opacity:1; transform:translateY(0)} }
+
+  /* ── TICKER ── */
+  .ticker { background:var(--blush-d); overflow:hidden; padding:12px 0; white-space:nowrap; }
+  .ticker-inner { display:inline-flex; animation:tick 22s linear infinite; }
+  .tick-item { font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#fff; padding:0 36px; opacity:.9; }
+  .tick-sep { color:rgba(255,255,255,.4); }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── ABOUT ── */
+  #about {
+    display:grid; grid-template-columns:1fr 1fr; min-height:90vh;
+    background:var(--warm-wht);
+  }
+  .about-visual {
+    position:relative; overflow:hidden;
+    background:var(--champagne);
+  }
+  .about-visual img {
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .8s ease;
+  }
+  .about-visual:hover img { transform:scale(1.04); }
+  .about-badge {
+    position:absolute; bottom:48px; right:-1px;
+    background:var(--rose); color:#fff;
+    padding:22px 28px; min-width:160px;
+    font-family:'Playfair Display',serif;
+    font-size:13px; font-style:italic;
+    border-left:3px solid var(--blush);
+  }
+  .about-badge strong { display:block; font-size:28px; font-style:normal; font-weight:400; }
+  .about-text-side {
+    padding:80px 72px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .chip {
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:10px; letter-spacing:.4em; text-transform:uppercase;
+    color:var(--blush-d); margin-bottom:20px;
+  }
+  .chip::before { content:''; display:block; width:28px; height:1px; background:var(--blush-d); }
+  .h2 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(32px,4vw,58px);
+    font-weight:400; line-height:1.1; color:var(--dark);
+    margin-bottom:24px;
+  }
+  .h2 em { font-style:italic; color:var(--rose); }
+  .body-text { font-size:15px; font-weight:300; color:var(--muted); line-height:1.95; margin-bottom:36px; }
+  .credential-list { display:flex; flex-direction:column; gap:12px; margin-bottom:40px; }
+  .cred-item { display:flex; align-items:center; gap:14px; font-size:13px; color:var(--text); font-weight:300; }
+  .cred-dot { width:6px; height:6px; background:var(--blush-d); border-radius:50%; flex-shrink:0; }
+
+  /* ── SERVICES ── */
+  #services { padding:110px 72px; background:var(--dark); }
+  #services .chip { color:var(--blush); }
+  #services .chip::before { background:var(--blush); }
+  #services .h2 { color:var(--champagne); margin-bottom:64px; }
+  .srv-grid {
+    display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+    background:rgba(232,180,184,.08);
+  }
+  .srv-item {
+    background:var(--mid-dark);
+    padding:52px 48px;
+    position:relative; overflow:hidden;
+    transition:background .4s;
+    cursor:none;
+  }
+  .srv-item::before {
+    content:''; position:absolute;
+    top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,var(--blush-d),var(--rose));
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .5s ease;
+  }
+  .srv-item:hover::before { transform:scaleX(1); }
+  .srv-item:hover { background:#2a1820; }
+  .srv-icon { font-size:32px; margin-bottom:20px; display:block; }
+  .srv-num { position:absolute; top:28px; right:36px; font-family:'Playfair Display',serif; font-size:52px; color:rgba(232,180,184,.07); font-weight:400; }
+  .srv-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:400; color:var(--champagne); margin-bottom:14px; }
+  .srv-desc { font-size:13px; color:rgba(245,234,224,.5); line-height:1.85; font-weight:300; }
+  .srv-arrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--blush); margin-top:24px; transition:gap .3s; text-decoration:none; }
+  .srv-arrow::after { content:'→'; transition:transform .3s; }
+  .srv-item:hover .srv-arrow { gap:14px; }
+  .srv-item:hover .srv-arrow::after { transform:translateX(4px); }
+
+  /* ── GALLERY ── */
+  #gallery { padding:110px 72px; background:var(--champagne); }
+  #gallery .chip { color:var(--blush-d); }
+  #gallery .chip::before { background:var(--blush-d); }
+  #gallery .h2 { color:var(--dark); margin-bottom:56px; }
+  .gal-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; }
+  .gal-masonry {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:220px;
+    gap:6px;
+  }
+  .gal-item { overflow:hidden; position:relative; }
+  .gal-item img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease, filter .4s; filter:saturate(.9); }
+  .gal-item:hover img { transform:scale(1.07); filter:saturate(1.15); }
+  .gal-item.tall { grid-row:span 2; }
+  .gal-item.wide { grid-column:span 2; }
+  .gal-over {
+    position:absolute; inset:0;
+    background:rgba(160,68,78,0);
+    display:flex; align-items:center; justify-content:center;
+    transition:background .4s;
+  }
+  .gal-over span {
+    font-family:'Playfair Display',serif; font-size:22px; font-style:italic;
+    color:rgba(255,255,255,0);
+    transition:color .4s;
+  }
+  .gal-item:hover .gal-over { background:rgba(160,68,78,.35); }
+  .gal-item:hover .gal-over span { color:#fff; }
+
+  /* ── WHY US ── */
+  #why { padding:110px 72px; background:var(--warm-wht); }
+  .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .why-img { position:relative; }
+  .why-img img { width:100%; display:block; }
+  .why-img-frame { position:absolute; top:-16px; left:-16px; right:40px; bottom:40px; border:1px solid rgba(201,125,132,.3); pointer-events:none; }
+  .why-img-badge {
+    position:absolute; bottom:-24px; right:-24px;
+    width:130px; height:130px; background:var(--blush-d);
+    border-radius:50%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif; color:#fff;
+    animation:rotateBadge 12s linear infinite;
+  }
+  @keyframes rotateBadge { to{transform:rotate(360deg)} }
+  .badge-inner { animation:rotateBadge 12s linear infinite reverse; text-align:center; }
+  .badge-inner strong { display:block; font-size:28px; font-weight:400; }
+  .badge-inner span { font-size:9px; letter-spacing:.15em; text-transform:uppercase; opacity:.8; }
+  .why-points { display:flex; flex-direction:column; gap:28px; margin-top:40px; }
+  .why-pt { display:grid; grid-template-columns:56px 1fr; gap:20px; align-items:start; }
+  .why-ico { width:52px; height:52px; background:var(--champagne); border:1px solid rgba(201,125,132,.3); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; transition:background .3s; }
+  .why-pt:hover .why-ico { background:var(--blush-d); }
+  .why-pt-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:400; color:var(--dark); margin-bottom:6px; }
+  .why-pt-desc { font-size:13px; color:var(--muted); font-weight:300; line-height:1.8; }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { padding:110px 72px; background:var(--mid-dark); overflow:hidden; }
+  #testimonials .chip { color:var(--blush); }
+  #testimonials .chip::before { background:var(--blush); }
+  #testimonials .h2 { color:var(--champagne); margin-bottom:60px; }
+  .test-slider { display:flex; gap:28px; overflow:hidden; position:relative; }
+  .test-track { display:flex; gap:28px; animation:slide 28s linear infinite; }
+  @keyframes slide { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .test-card {
+    min-width:380px; background:rgba(255,255,255,.04);
+    border:1px solid rgba(232,180,184,.12); padding:40px 36px;
+    flex-shrink:0; transition:border-color .3s;
+  }
+  .test-card:hover { border-color:rgba(232,180,184,.35); }
+  .test-stars { color:var(--blush); font-size:14px; margin-bottom:18px; letter-spacing:3px; }
+  .test-q { font-family:'Playfair Display',serif; font-size:42px; color:var(--blush); opacity:.25; line-height:.7; margin-bottom:16px; }
+  .test-body { font-size:15px; font-style:italic; font-weight:300; color:rgba(245,234,224,.8); line-height:1.8; margin-bottom:28px; font-family:'Playfair Display',serif; }
+  .test-name { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--blush); }
+  .test-event { font-size:11px; color:rgba(245,234,224,.3); margin-top:3px; }
+
+  /* ── BOOK ── */
+  #book { display:grid; grid-template-columns:1fr 1fr; background:var(--champagne); }
+  .book-left {
+    background:var(--rose);
+    padding:100px 72px;
+    display:flex; flex-direction:column; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .book-left::before {
+    content:''; position:absolute;
+    width:400px; height:400px; border-radius:50%;
+    background:rgba(255,255,255,.06);
+    top:-100px; right:-100px;
+  }
+  .book-left::after {
+    content:''; position:absolute;
+    width:250px; height:250px; border-radius:50%;
+    background:rgba(255,255,255,.04);
+    bottom:-60px; left:-60px;
+  }
+  .book-left .chip { color:rgba(255,255,255,.7); position:relative; z-index:1; }
+  .book-left .chip::before { background:rgba(255,255,255,.5); }
+  .book-left .h2 { color:#fff; position:relative; z-index:1; }
+  .book-left .body-text { color:rgba(255,255,255,.65); position:relative; z-index:1; }
+  .contact-rows { display:flex; flex-direction:column; gap:20px; position:relative; z-index:1; }
+  .contact-row { display:flex; align-items:center; gap:16px; }
+  .contact-row-ico { width:44px; height:44px; border:1px solid rgba(255,255,255,.3); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+  .contact-row-txt { font-size:13px; color:rgba(255,255,255,.8); font-weight:300; line-height:1.5; }
+  .contact-row-txt strong { display:block; color:#fff; font-size:12px; letter-spacing:.15em; text-transform:uppercase; font-weight:400; margin-bottom:2px; }
+
+  .book-right { padding:100px 72px; display:flex; flex-direction:column; justify-content:center; }
+  .book-right .h2 { color:var(--dark); }
+  .book-right .chip { color:var(--blush-d); }
+  .book-right .chip::before { background:var(--blush-d); }
+  .fg { margin-bottom:20px; }
+  .fg label { display:block; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+  .fg input, .fg select, .fg textarea {
+    width:100%; background:transparent;
+    border:none; border-bottom:1px solid rgba(160,68,78,.25);
+    padding:10px 0; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:300;
+    color:var(--text); outline:none;
+    transition:border-color .3s;
+    appearance:none;
+  }
+  .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--blush-d); }
+  .fg select { cursor:none; }
+  .fg-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .book-btn {
+    margin-top:12px; width:100%; padding:16px;
+    background:var(--rose); color:#fff; border:none;
+    font-family:'DM Sans',sans-serif;
+    font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+    cursor:none; transition:background .3s;
+  }
+  .book-btn:hover { background:var(--blush-d); }
+
+  /* ── FOOTER ── */
+  footer {
+    background:var(--dark); padding:72px 72px 36px;
+    border-top:1px solid rgba(232,180,184,.08);
+  }
+  .ft-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:56px; }
+  .ft-brand-logo { font-family:'Playfair Display',serif; font-size:22px; color:var(--champagne); text-decoration:none; letter-spacing:.07em; display:block; margin-bottom:16px; }
+  .ft-brand-logo span { color:var(--blush); font-style:italic; }
+  .ft-bio { font-size:13px; color:rgba(245,234,224,.38); font-weight:300; line-height:1.9; max-width:260px; }
+  .ft-col h5 { font-size:10px; letter-spacing:.35em; text-transform:uppercase; color:var(--blush-d); margin-bottom:22px; }
+  .ft-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .ft-col ul a { font-size:13px; color:rgba(245,234,224,.4); text-decoration:none; font-weight:300; transition:color .3s; }
+  .ft-col ul a:hover { color:var(--blush); }
+  .ft-bottom { border-top:1px solid rgba(232,180,184,.08); padding-top:28px; display:flex; justify-content:space-between; align-items:center; }
+  .ft-copy { font-size:11px; color:rgba(245,234,224,.2); letter-spacing:.07em; }
+  .socials { display:flex; gap:14px; }
+  .socials a { width:34px; height:34px; border:1px solid rgba(232,180,184,.15); display:flex; align-items:center; justify-content:center; color:rgba(245,234,224,.4); font-size:12px; text-decoration:none; transition:all .3s; }
+  .socials a:hover { border-color:var(--blush); color:var(--blush); }
+
+  /* ── SCROLL REVEAL ── */
+  .sr { opacity:0; transform:translateY(36px); transition:opacity .8s ease, transform .8s ease; }
+  .sr.show { opacity:1; transform:none; }
+  .sr-l { opacity:0; transform:translateX(-36px); transition:opacity .9s ease, transform .9s ease; }
+  .sr-l.show { opacity:1; transform:none; }
+  .sr-r { opacity:0; transform:translateX(36px); transition:opacity .9s ease, transform .9s ease; }
+  .sr-r.show { opacity:1; transform:none; }
+
+  @media(max-width:900px){
+    nav { padding:16px 24px; }
+    nav.solid { padding:12px 24px; }
+    .nav-ul, .nav-cta { display:none; }
+    .hero-inner { grid-template-columns:1fr; padding:0 24px 80px; gap:40px; }
+    .hero-right { align-items:flex-start; flex-direction:row; flex-wrap:wrap; }
+    #about { grid-template-columns:1fr; }
+    .about-text-side { padding:56px 28px; }
+    #services { padding:80px 24px; }
+    .srv-grid { grid-template-columns:1fr; }
+    #gallery { padding:80px 24px; }
+    .gal-masonry { grid-template-columns:1fr 1fr; }
+    #why { padding:80px 24px; }
+    .why-grid { grid-template-columns:1fr; }
+    #testimonials { padding:80px 24px; }
+    #book { grid-template-columns:1fr; }
+    .book-left,.book-right { padding:60px 28px; }
+    footer { padding:60px 24px 28px; }
+    .ft-top { grid-template-columns:1fr 1fr; gap:36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="ld-name">NEETU MEHAR</div>
+  <div class="ld-bar"></div>
+  <div class="ld-sub">Studio · Delhi</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo"><span>Neetu Mehar</span> Studio</a>
+  <ul class="nav-ul">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <a href="#book" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div id="petals-wrap" style="position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">Delhi's Premier Bridal Studio</div>
+      <h1 class="hero-h1">Beauty is<br><em>Your</em><span class="line2">Birthright</span></h1>
+      <p class="hero-desc">Trained under Chandni Singh & Blossom Kochhar, Neetu Mehar brings unmatched artistry to every bride, every ceremony, every moment.</p>
+      <div class="hero-btns">
+        <a href="#book" class="btn-fill"><span>Reserve Your Date</span></a>
+        <a href="#gallery" class="btn-ghost">See Our Work</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hstat">
+        <div class="hstat-num">800+</div>
+        <div class="hstat-lbl">Happy Brides</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">10+</div>
+        <div class="hstat-lbl">Years of Artistry</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">4.9★</div>
+        <div class="hstat-lbl">Google Rating</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-lbl">Discover</div>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="tick-item">Bridal Makeup</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Hair Styling</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Facial Services</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Party Glam</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Pre-Bridal Care</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Airbrush</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Mehndi Night</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Engagement Looks</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Bridal Makeup</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Hair Styling</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Facial Services</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Party Glam</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Pre-Bridal Care</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Airbrush</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Mehndi Night</span><span class="tick-sep">✦</span>
+    <span class="tick-item">Engagement Looks</span><span class="tick-sep">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual sr-l">
+    <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=800&q=85" alt="Neetu Mehar Studio">
+    <div class="about-badge">
+      <strong>10+</strong>
+      Years of Artistry in Delhi
+    </div>
+  </div>
+  <div class="about-text-side">
+    <div class="chip sr">About the Studio</div>
+    <h2 class="h2 sr">The Craft Behind<br>Every <em>Radiant</em> Bride</h2>
+    <p class="body-text sr">Neetu Mehar Studio is one of Delhi's most sought-after bridal and beauty studios. Founded with a deep passion for the transformative power of makeup, the studio has been creating breathtaking looks for hundreds of brides across Delhi-NCR and beyond.</p>
+    <p class="body-text sr">With advanced training from India's top industry leaders, every look from Neetu's brush is precise, soulful, and built to last through the longest of celebrations.</p>
+    <div class="credential-list sr">
+      <div class="cred-item"><div class="cred-dot"></div>Trained under Chandni Singh & Blossom Kochhar</div>
+      <div class="cred-item"><div class="cred-dot"></div>Serving Delhi-NCR & destination weddings</div>
+      <div class="cred-item"><div class="cred-dot"></div>International & luxury product brands only</div>
+      <div class="cred-item"><div class="cred-dot"></div>Beauty Parlour · Bridal · Hair · Facial</div>
+    </div>
+    <a href="#book" class="btn-fill sr" style="display:inline-block; width:fit-content"><span>Book a Consultation</span></a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="chip sr">What We Offer</div>
+  <h2 class="h2 sr">Our <em>Signature</em> Services</h2>
+  <div class="srv-grid">
+    <div class="srv-item sr">
+      <div class="srv-num">01</div>
+      <span class="srv-icon">💍</span>
+      <div class="srv-title">Bridal Makeup</div>
+      <p class="srv-desc">Your most important day, perfected. From dewy natural finishes to dramatic traditional looks, tailored entirely to your vision and skin type.</p>
+      <a href="#book" class="srv-arrow">Book Now</a>
+    </div>
+    <div class="srv-item sr">
+      <div class="srv-num">02</div>
+      <span class="srv-icon">✨</span>
+      <div class="srv-title">Party & Event Glam</div>
+      <p class="srv-desc">Make every celebration unforgettable with bold, camera-ready glam. From cocktail parties to reception nights — arrive looking extraordinary.</p>
+      <a href="#book" class="srv-arrow">Book Now</a>
+    </div>
+    <div class="srv-item sr">
+      <div class="srv-num">03</div>
+      <span class="srv-icon">🌸</span>
+      <div class="srv-title">Pre-Bridal Skin Care</div>
+      <p class="srv-desc">A curated series of facials and skin treatments in the weeks before your wedding. Arrive at your big day with glowing, camera-perfect skin.</p>
+      <a href="#book" class="srv-arrow">Book Now</a>
+    </div>
+    <div class="srv-item sr">
+      <div class="srv-num">04</div>
+      <span class="srv-icon">💇‍♀️</span>
+      <div class="srv-title">Hair Styling</div>
+      <p class="srv-desc">Elegant updos, romantic braids, voluminous blowouts — expert hair styling for every ceremony, function, and mood of your wedding journey.</p>
+      <a href="#book" class="srv-arrow">Book Now</a>
+    </div>
+    <div class="srv-item sr">
+      <div class="srv-num">05</div>
+      <span class="srv-icon">🎨</span>
+      <div class="srv-title">Airbrush Makeup</div>
+      <p class="srv-desc">A silky, featherlight finish that photographs flawlessly. Our airbrush technique ensures sweat-proof, 16-hour staying power.</p>
+      <a href="#book" class="srv-arrow">Book Now</a>
+    </div>
+    <div class="srv-item sr">
+      <div class="srv-num">06</div>
+      <span class="srv-icon">🕯️</span>
+      <div class="srv-title">Mehendi & Haldi Looks</div>
+      <p class="srv-desc">Vibrant, festive, and full of joy. Specially crafted looks for your Mehendi, Haldi, and Sangeet that balance tradition with modern beauty.</p>
+      <a href="#book" class="srv-arrow">Book Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-header">
+    <div>
+      <div class="chip sr">Portfolio</div>
+      <h2 class="h2 sr">Our <em>Work</em> Speaks</h2>
+    </div>
+    <a href="#book" class="btn-fill" style="display:inline-block"><span>Book a Look</span></a>
+  </div>
+  <div class="gal-masonry">
+    <div class="gal-item tall sr">
+      <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=85" alt="">
+      <div class="gal-over"><span>Bridal</span></div>
+    </div>
+    <div class="gal-item sr">
+      <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=85" alt="">
+      <div class="gal-over"><span>Glam</span></div>
+    </div>
+    <div class="gal-item sr">
+      <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=85" alt="">
+      <div class="gal-over"><span>Editorial</span></div>
+    </div>
+    <div class="gal-item tall sr">
+      <img src="https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?w=600&q=85" alt="">
+      <div class="gal-over"><span>Bridal</span></div>
+    </div>
+    <div class="gal-item wide sr">
+      <img src="https://images.unsplash.com/photo-1562887245-49e27a2a3cb5?w=800&q=85" alt="">
+      <div class="gal-over"><span>Airbrush</span></div>
+    </div>
+    <div class="gal-item sr">
+      <img src="https://images.unsplash.com/photo-1625870258025-8c8e7a19b775?w=600&q=85" alt="">
+      <div class="gal-over"><span>Engagement</span></div>
+    </div>
+    <div class="gal-item sr">
+      <img src="https://images.unsplash.com/photo-1576426863848-c21f53c60b19?w=600&q=85" alt="">
+      <div class="gal-over"><span>Pre-Bridal</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-grid">
+    <div class="why-img sr-l">
+      <div class="why-img-frame"></div>
+      <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=700&q=85" alt="Why Neetu Mehar">
+      <div class="why-img-badge">
+        <div class="badge-inner">
+          <strong>★4.9</strong>
+          <span>Google</span>
+        </div>
+      </div>
+    </div>
+    <div class="sr-r">
+      <div class="chip">Why Choose Us</div>
+      <h2 class="h2">The <em>Neetu Mehar</em><br>Difference</h2>
+      <div class="why-points">
+        <div class="why-pt">
+          <div class="why-ico">🎓</div>
+          <div>
+            <div class="why-pt-title">Elite Training Pedigree</div>
+            <div class="why-pt-desc">Trained under India's best — Chandni Singh and Blossom Kochhar. Every technique is rooted in professional excellence.</div>
+          </div>
+        </div>
+        <div class="why-pt">
+          <div class="why-ico">🧴</div>
+          <div>
+            <div class="why-pt-title">Luxury Products Only</div>
+            <div class="why-pt-desc">MAC, Charlotte Tilbury, NARS, Huda Beauty — only the finest international brands touch your skin.</div>
+          </div>
+        </div>
+        <div class="why-pt">
+          <div class="why-ico">⏱️</div>
+          <div>
+            <div class="why-pt-title">On Time. Always.</div>
+            <div class="why-pt-desc">We understand weddings run on tight schedules. Punctuality and efficiency are core to our practice.</div>
+          </div>
+        </div>
+        <div class="why-pt">
+          <div class="why-ico">🏠</div>
+          <div>
+            <div class="why-pt-title">Home & Venue Service</div>
+            <div class="why-pt-desc">We come to you — studio, home, hotel, or venue. Wherever you need us for your big day in Delhi-NCR.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="chip sr">Client Love</div>
+  <h2 class="h2 sr">What Our <em>Brides</em> Say</h2>
+  <div class="test-slider">
+    <div class="test-track">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">Neetu di made me look absolutely flawless on my wedding day. The makeup lasted through 8 hours of ceremonies — not a touch-up needed. I'll recommend her forever.</p>
+        <div class="test-name">Deepika Arora</div>
+        <div class="test-event">Bridal Makeup · Delhi</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">I was so nervous about my engagement look but Neetu understood exactly what I wanted. The result was dreamy, natural, and absolutely me. So grateful.</p>
+        <div class="test-name">Simran Kaur</div>
+        <div class="test-event">Engagement Look</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">Best decision of my wedding prep was booking Neetu Mehar Studio. Professional, warm, creative — and the airbrush finish was absolutely stunning in photos.</p>
+        <div class="test-name">Tanu Sharma</div>
+        <div class="test-event">Airbrush Bridal · Noida</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">She did makeup for my entire family for my sangeet and everyone looked gorgeous. Her attention to each person's skin tone and style is remarkable. 10/10!</p>
+        <div class="test-name">Meenakshi Gupta</div>
+        <div class="test-event">Sangeet & Family Makeup</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">Neetu di made me look absolutely flawless on my wedding day. The makeup lasted through 8 hours of ceremonies — not a touch-up needed. I'll recommend her forever.</p>
+        <div class="test-name">Deepika Arora</div>
+        <div class="test-event">Bridal Makeup · Delhi</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">I was so nervous about my engagement look but Neetu understood exactly what I wanted. The result was dreamy, natural, and absolutely me. So grateful.</p>
+        <div class="test-name">Simran Kaur</div>
+        <div class="test-event">Engagement Look</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">Best decision of my wedding prep was booking Neetu Mehar Studio. Professional, warm, creative — and the airbrush finish was absolutely stunning in photos.</p>
+        <div class="test-name">Tanu Sharma</div>
+        <div class="test-event">Airbrush Bridal · Noida</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-q">"</div>
+        <p class="test-body">She did makeup for my entire family for my sangeet and everyone looked gorgeous. Her attention to each person's skin tone and style is remarkable. 10/10!</p>
+        <div class="test-name">Meenakshi Gupta</div>
+        <div class="test-event">Sangeet & Family Makeup</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section id="book">
+  <div class="book-left">
+    <div class="chip">Get In Touch</div>
+    <h2 class="h2">Let's Create<br><em>Magic</em> Together</h2>
+    <p class="body-text" style="margin-bottom:40px">Ready to begin your beauty journey? Reach out to us and let's plan your most radiant look.</p>
+    <div class="contact-rows">
+      <div class="contact-row">
+        <div class="contact-row-ico">📍</div>
+        <div class="contact-row-txt">
+          <strong>Location</strong>
+          New Delhi, Delhi-NCR
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-ico">📞</div>
+        <div class="contact-row-txt">
+          <strong>Phone</strong>
+          +91 98765 43210
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-ico">📸</div>
+        <div class="contact-row-txt">
+          <strong>Instagram</strong>
+          @neetumehharstudio
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-ico">🕐</div>
+        <div class="contact-row-txt">
+          <strong>Hours</strong>
+          Monday – Sunday, 9am – 8pm
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="book-right">
+    <div class="chip">Booking Form</div>
+    <h2 class="h2" style="margin-bottom:36px">Reserve Your <em>Date</em></h2>
+    <div class="fg-row">
+      <div class="fg"><label>First Name</label><input type="text" placeholder="Ananya"></div>
+      <div class="fg"><label>Last Name</label><input type="text" placeholder="Kapoor"></div>
+    </div>
+    <div class="fg"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+    <div class="fg-row">
+      <div class="fg">
+        <label>Service Required</label>
+        <select>
+          <option>Bridal Makeup</option>
+          <option>Party & Event Glam</option>
+          <option>Pre-Bridal Skin Care</option>
+          <option>Hair Styling</option>
+          <option>Airbrush Makeup</option>
+          <option>Mehendi / Haldi Look</option>
+        </select>
+      </div>
+      <div class="fg"><label>Event Date</label><input type="date"></div>
+    </div>
+    <div class="fg"><label>Message (Optional)</label><input type="text" placeholder="Tell us about your event..."></div>
+    <button class="book-btn" onclick="alert('Thank you! Neetu Mehar Studio will contact you soon 🌸')">Confirm Booking ✦</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <a href="#" class="ft-brand-logo"><span>Neetu Mehar</span> Studio</a>
+      <p class="ft-bio">Delhi's trusted bridal beauty studio. Trained artistry, luxury products, and a passion for making every woman feel her most beautiful.</p>
+    </div>
+    <div class="ft-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Bridal Makeup</a></li>
+        <li><a href="#">Party Glam</a></li>
+        <li><a href="#">Hair Styling</a></li>
+        <li><a href="#">Airbrush</a></li>
+        <li><a href="#">Facials</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="#">About Neetu</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#">Google Reviews</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Google Maps</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <div class="ft-copy">© 2025 Neetu Mehar Studio, New Delhi. All rights reserved.</div>
+    <div class="socials">
+      <a href="#" title="Instagram">📷</a>
+      <a href="#" title="Facebook">f</a>
+      <a href="#" title="WhatsApp">💬</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Loader
+  window.addEventListener('load', () => {
+    setTimeout(() => document.getElementById('loader').classList.add('gone'), 2400);
+  });
+
+  // Cursor
+  const cur = document.getElementById('cur');
+  const curR = document.getElementById('cur-r');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+    setTimeout(() => { curR.style.left = e.clientX + 'px'; curR.style.top = e.clientY + 'px'; }, 90);
+  });
+  document.querySelectorAll('a, button, .srv-item, .gal-item, .why-pt').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cur.style.transform = 'translate(-50%,-50%) scale(2.2)';
+      curR.style.transform = 'translate(-50%,-50%) scale(1.6)';
+      curR.style.opacity = '1';
+    });
+    el.addEventListener('mouseleave', () => {
+      cur.style.transform = 'translate(-50%,-50%) scale(1)';
+      curR.style.transform = 'translate(-50%,-50%) scale(1)';
+      curR.style.opacity = '.5';
+    });
+  });
+
+  // Nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60));
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.sr, .sr-l, .sr-r').forEach(el => obs.observe(el));
+
+  // Petals
+  const pw = document.getElementById('petals-wrap');
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const s = 6 + Math.random() * 12;
+    p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}vw;top:-20px;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*10}s;opacity:${.08+Math.random()*.15}`;
+    pw.appendChild(p);
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

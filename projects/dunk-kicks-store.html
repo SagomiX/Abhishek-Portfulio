@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DUNK.KICKS — Premium Sneaker Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --orange: #ff4500;
+    --orange-dim: #cc3700;
+    --gray: #1a1a1a;
+    --muted: #888;
+    --border: #222;
+    --card-bg: #111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--orange); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 4px;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-actions { display: flex; align-items: center; gap: 20px; }
+  .nav-actions a {
+    color: var(--muted); text-decoration: none; font-size: 18px;
+    transition: color 0.2s;
+  }
+  .nav-actions a:hover { color: var(--orange); }
+  .cart-btn {
+    background: var(--orange); color: var(--black);
+    border: none; padding: 8px 20px; cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; transition: background 0.2s;
+  }
+  .cart-btn:hover { background: var(--orange-dim); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 64px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: 'DUNK';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(120px, 18vw, 240px);
+    color: rgba(255,69,0,0.04);
+    white-space: nowrap; pointer-events: none; z-index: 0;
+    letter-spacing: 20px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 60px; position: relative; z-index: 1;
+  }
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; color: var(--orange);
+    text-transform: uppercase; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--orange); }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 8vw, 110px);
+    line-height: 0.92; letter-spacing: 2px;
+    margin-bottom: 28px;
+  }
+  .hero-title .accent { color: var(--orange); }
+  .hero-desc {
+    font-size: 15px; color: var(--muted); line-height: 1.7;
+    max-width: 380px; margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 16px; }
+  .btn-primary {
+    background: var(--orange); color: var(--black);
+    border: none; padding: 14px 36px; cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; transition: all 0.25s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--orange-dim); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border); padding: 14px 36px; cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    transition: all 0.25s; text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+  .hero-right {
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-img-wrap {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #111 0%, #1a0800 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .hero-sneaker {
+    width: 85%; max-width: 560px;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 40px 80px rgba(255,69,0,0.25));
+    position: relative; z-index: 2;
+  }
+  .hero-circle {
+    position: absolute; width: 400px; height: 400px;
+    border-radius: 50%; border: 1px solid rgba(255,69,0,0.15);
+    animation: spin 20s linear infinite;
+  }
+  .hero-circle::before {
+    content: ''; position: absolute; top: -1px; left: 50%;
+    width: 8px; height: 8px; background: var(--orange);
+    border-radius: 50%; transform: translateX(-50%);
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(-5deg); }
+    50% { transform: translateY(-18px) rotate(-3deg); }
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--orange); padding: 12px 0;
+    overflow: hidden; white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex; gap: 60px;
+    animation: ticker 20s linear infinite;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px; letter-spacing: 3px; color: var(--black);
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 48px;
+  }
+  .section-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; color: var(--orange);
+    text-transform: uppercase; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-eyebrow::before { content: '//'; opacity: 0.5; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 5vw, 60px);
+    letter-spacing: 2px; line-height: 1;
+  }
+  .view-all {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; color: var(--muted);
+    text-transform: uppercase; text-decoration: none;
+    border-bottom: 1px solid var(--border); padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .view-all:hover { color: var(--orange); border-color: var(--orange); }
+
+  /* ── FEATURED ── */
+  .featured { padding: 100px 40px; }
+  .featured-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 2px;
+  }
+  .feat-card {
+    background: var(--card-bg);
+    position: relative; overflow: hidden; cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .feat-card:hover { transform: scale(0.99); }
+  .feat-card:hover .feat-img { transform: scale(1.06); }
+  .feat-card.large { grid-row: span 2; }
+  .feat-img-wrap { overflow: hidden; aspect-ratio: 1; }
+  .feat-card.large .feat-img-wrap { aspect-ratio: 3/4; height: 100%; }
+  .feat-img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+  .feat-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 24px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.92));
+  }
+  .feat-badge {
+    display: inline-block;
+    background: var(--orange); color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; padding: 4px 10px; margin-bottom: 8px;
+  }
+  .feat-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; margin-bottom: 4px; }
+  .feat-price { font-size: 14px; color: var(--muted); font-family: 'Space Mono', monospace; }
+  .feat-price strong { color: var(--white); }
+
+  /* ── PRODUCTS ── */
+  .products { padding: 80px 40px; background: var(--gray); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .prod-card {
+    background: var(--card-bg); cursor: pointer;
+    transition: transform 0.25s;
+    position: relative;
+  }
+  .prod-card:hover { transform: translateY(-4px); }
+  .prod-card:hover .prod-img { transform: scale(1.05); }
+  .prod-img-wrap { overflow: hidden; aspect-ratio: 1; position: relative; }
+  .prod-img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s ease; display: block;
+  }
+  .prod-overlay {
+    position: absolute; inset: 0;
+    background: rgba(255,69,0,0); 
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s;
+  }
+  .prod-card:hover .prod-overlay { background: rgba(255,69,0,0.12); }
+  .prod-quick {
+    background: var(--black); color: var(--white);
+    border: none; padding: 10px 20px; cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    opacity: 0; transform: translateY(8px);
+    transition: all 0.25s; font-weight: 700;
+  }
+  .prod-card:hover .prod-quick { opacity: 1; transform: translateY(0); }
+  .prod-info { padding: 18px 20px; }
+  .prod-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 3px; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .prod-name { font-size: 14px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+  .prod-footer { display: flex; align-items: center; justify-content: space-between; }
+  .prod-price { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; }
+  .prod-price .old { color: var(--muted); text-decoration: line-through; font-size: 11px; margin-right: 6px; }
+  .prod-sizes { display: flex; gap: 4px; flex-wrap: wrap; }
+  .size-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; padding: 3px 7px;
+    border: 1px solid var(--border); color: var(--muted);
+    transition: all 0.15s; cursor: pointer;
+  }
+  .size-chip:hover { border-color: var(--orange); color: var(--orange); }
+  .sold-out .prod-img { filter: grayscale(60%); }
+  .badge-new, .badge-sale, .badge-hot {
+    position: absolute; top: 12px; left: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 2px; font-weight: 700;
+    padding: 4px 10px; text-transform: uppercase;
+  }
+  .badge-new { background: #00c853; color: #000; }
+  .badge-sale { background: var(--orange); color: #000; }
+  .badge-hot { background: #ff1744; color: #fff; }
+
+  /* ── INSTAGRAM WALL ── */
+  .ig-wall { padding: 80px 40px; }
+  .ig-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; }
+  .ig-item {
+    aspect-ratio: 1; overflow: hidden; cursor: pointer;
+    position: relative;
+  }
+  .ig-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+  .ig-item:hover img { transform: scale(1.08); }
+  .ig-item:hover .ig-overlay { opacity: 1; }
+  .ig-overlay {
+    position: absolute; inset: 0; background: rgba(255,69,0,0.7);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+    font-size: 24px;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    padding: 60px 40px;
+    background: var(--orange);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .stat-item { text-align: center; padding: 20px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px; color: var(--black); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; color: rgba(0,0,0,0.6);
+    text-transform: uppercase; margin-top: 4px;
+  }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    padding: 100px 40px; text-align: center;
+    background: var(--gray); position: relative; overflow: hidden;
+  }
+  .newsletter::before {
+    content: 'KICKS';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 220px; color: rgba(255,69,0,0.03);
+    pointer-events: none; white-space: nowrap; letter-spacing: 20px;
+  }
+  .newsletter-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; color: var(--orange);
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .newsletter-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    letter-spacing: 2px; margin-bottom: 16px;
+  }
+  .newsletter-sub { color: var(--muted); font-size: 15px; margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .nl-form { display: flex; max-width: 500px; margin: 0 auto; }
+  .nl-input {
+    flex: 1; background: var(--black); border: 1px solid var(--border);
+    color: var(--white); padding: 14px 20px;
+    font-family: 'Barlow', sans-serif; font-size: 14px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .nl-input::placeholder { color: var(--muted); }
+  .nl-input:focus { border-color: var(--orange); }
+  .nl-btn {
+    background: var(--orange); color: var(--black);
+    border: none; padding: 14px 28px; cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700; transition: background 0.2s;
+  }
+  .nl-btn:hover { background: var(--orange-dim); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505; padding: 60px 40px 30px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 4px; margin-bottom: 14px; }
+  .footer-logo span { color: var(--orange); }
+  .footer-desc { color: var(--muted); font-size: 13px; line-height: 1.7; max-width: 280px; }
+  .footer-col-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; color: var(--orange);
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--muted); font-size: 12px;
+    font-family: 'Space Mono', monospace;
+  }
+  .socials { display: flex; gap: 16px; }
+  .socials a { color: var(--muted); font-size: 16px; text-decoration: none; transition: color 0.2s; }
+  .socials a:hover { color: var(--orange); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .ig-grid { grid-template-columns: repeat(3, 1fr); }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { height: 50vw; }
+    .hero-left { padding: 40px 20px; }
+    .featured-grid { grid-template-columns: 1fr; }
+    .feat-card.large { grid-row: span 1; }
+    .featured, .products, .ig-wall, .newsletter { padding: 60px 20px; }
+    .stats { grid-template-columns: repeat(2, 1fr); padding: 40px 20px; }
+    .footer-top { grid-template-columns: 1fr; gap: 40px; }
+    footer { padding: 40px 20px 20px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DUNK<span>.</span>KICKS</div>
+  <ul class="nav-links">
+    <li><a href="#">New Drops</a></li>
+    <li><a href="#">Nike Dunks</a></li>
+    <li><a href="#">Air Jordan</a></li>
+    <li><a href="#">Adidas</a></li>
+    <li><a href="#">Sale</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="https://www.instagram.com/dunk_.kicks" target="_blank" title="Instagram">📸</a>
+    <a href="#" title="Search">🔍</a>
+    <a href="#" title="Wishlist">♡</a>
+    <button class="cart-btn">Cart (0)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">New Drop 2025</div>
+    <h1 class="hero-title">
+      STEP INTO<br>THE <span class="accent">HEAT</span>
+    </h1>
+    <p class="hero-desc">
+      Handpicked premium sneakers. Deadstock, authenticated, and shipped worldwide. 
+      Follow <strong>@dunk_.kicks</strong> for the latest drops.
+    </p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Shop Now</a>
+      <a href="https://www.instagram.com/dunk_.kicks" target="_blank" class="btn-outline">Instagram</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <div class="hero-circle"></div>
+      <img class="hero-sneaker"
+        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80"
+        alt="Featured Sneaker">
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>FREE SHIPPING ON ORDERS OVER ₹5000</span>
+    <span>✦</span>
+    <span>100% AUTHENTICATED SNEAKERS</span>
+    <span>✦</span>
+    <span>DEADSTOCK &amp; BRAND NEW PAIRS</span>
+    <span>✦</span>
+    <span>DM @DUNK_.KICKS TO ORDER</span>
+    <span>✦</span>
+    <span>FREE SHIPPING ON ORDERS OVER ₹5000</span>
+    <span>✦</span>
+    <span>100% AUTHENTICATED SNEAKERS</span>
+    <span>✦</span>
+    <span>DEADSTOCK &amp; BRAND NEW PAIRS</span>
+    <span>✦</span>
+    <span>DM @DUNK_.KICKS TO ORDER</span>
+    <span>✦</span>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<section class="featured fade-up">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Editor's Pick</div>
+      <h2 class="section-title">HIGHLIGHTED<br>PRODUCTS</h2>
+    </div>
+    <a href="#products" class="view-all">View All →</a>
+  </div>
+  <div class="featured-grid">
+    <!-- Large card -->
+    <div class="feat-card large">
+      <div class="feat-img-wrap">
+        <img class="feat-img"
+          src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800&q=80"
+          alt="Nike Dunk Low Panda">
+      </div>
+      <div class="feat-info">
+        <div class="feat-badge">⚡ HOT</div>
+        <div class="feat-name">Nike Dunk Low Retro "Panda"</div>
+        <div class="feat-price"><strong>₹8,499</strong> &nbsp;<span style="text-decoration:line-through;opacity:0.5;font-size:12px">₹24,999</span></div>
+      </div>
+    </div>
+    <!-- Small card 1 -->
+    <div class="feat-card">
+      <div class="feat-img-wrap">
+        <img class="feat-img"
+          src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80"
+          alt="Air Jordan 1">
+      </div>
+      <div class="feat-info">
+        <div class="feat-badge">NEW</div>
+        <div class="feat-name">Air Jordan 1 High OG "Chicago"</div>
+        <div class="feat-price"><strong>₹18,999</strong></div>
+      </div>
+    </div>
+    <!-- Small card 2 -->
+    <div class="feat-card">
+      <div class="feat-img-wrap">
+        <img class="feat-img"
+          src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80"
+          alt="Nike Dunk High">
+      </div>
+      <div class="feat-info">
+        <div class="feat-badge">SALE</div>
+        <div class="feat-name">Nike Dunk High "Ambush Fuchsia"</div>
+        <div class="feat-price"><strong>₹44,999</strong></div>
+      </div>
+    </div>
+    <!-- Small card 3 -->
+    <div class="feat-card">
+      <div class="feat-img-wrap">
+        <img class="feat-img"
+          src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&q=80"
+          alt="Adidas Samba">
+      </div>
+      <div class="feat-info">
+        <div class="feat-badge">TRENDING</div>
+        <div class="feat-name">Adidas Samba OG "Cloud White"</div>
+        <div class="feat-price"><strong>₹7,499</strong> &nbsp;<span style="text-decoration:line-through;opacity:0.5;font-size:12px">₹10,999</span></div>
+      </div>
+    </div>
+    <!-- Small card 4 -->
+    <div class="feat-card">
+      <div class="feat-img-wrap">
+        <img class="feat-img"
+          src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=600&q=80"
+          alt="Nike SB">
+      </div>
+      <div class="feat-info">
+        <div class="feat-badge">LIMITED</div>
+        <div class="feat-name">Nike SB Dunk Low "Polaroid"</div>
+        <div class="feat-price"><strong>₹22,999</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products fade-up" id="products">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">All Stock</div>
+      <h2 class="section-title">SHOP ALL<br>KICKS</h2>
+    </div>
+    <a href="#" class="view-all">Filter & Sort</a>
+  </div>
+  <div class="products-grid">
+
+    <!-- Product 1 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <span class="badge-hot">🔥 HOT</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500&q=80" alt="Dunk Low Panda">
+        <div class="prod-overlay"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Nike</div>
+        <div class="prod-name">Dunk Low Retro "Panda"</div>
+        <div class="prod-sizes">
+          <span class="size-chip">UK7</span><span class="size-chip">UK8</span><span class="size-chip">UK9</span><span class="size-chip">UK10</span>
+        </div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price"><span class="old">₹24,999</span>₹8,499</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <span class="badge-new">NEW</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&q=80" alt="Air Jordan 1">
+        <div class="prod-overlay"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Air Jordan</div>
+        <div class="prod-name">Air Jordan 1 High OG "Chicago"</div>
+        <div class="prod-sizes">
+          <span class="size-chip">UK7</span><span class="size-chip">UK8</span><span class="size-chip">UK11</span>
+        </div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price">₹18,999</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <span class="badge-sale">SALE</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" alt="Dunk High Fuchsia">
+        <div class="prod-overlay"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Nike</div>
+        <div class="prod-name">Dunk High "Ambush Active Fuchsia"</div>
+        <div class="prod-sizes">
+          <span class="size-chip">UK6</span><span class="size-chip">UK7</span><span class="size-chip">UK9</span>
+        </div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price"><span class="old">₹54,999</span>₹44,999</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <img class="prod-img" src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500&q=80" alt="Adidas Samba">
+        <div class="prod-overlay"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Adidas</div>
+        <div class="prod-name">Samba OG "Cloud White Core Black"</div>
+        <div class="prod-sizes">
+          <span class="size-chip">UK7</span><span class="size-chip">UK8</span><span class="size-chip">UK9</span><span class="size-chip">UK10</span><span class="size-chip">UK11</span>
+        </div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price"><span class="old">₹10,999</span>₹7,499</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <span class="badge-new">NEW</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=500&q=80" alt="Nike SB Dunk">
+        <div class="prod-overlay"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Nike SB</div>
+        <div class="prod-name">SB Dunk Low "Polaroid"</div>
+        <div class="prod-sizes">
+          <span class="size-chip">UK8</span><span class="size-chip">UK9</span>
+        </div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price">₹22,999</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <span class="badge-sale">SALE</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=500&q=80" alt="Adidas Handball">
+        <div class="prod-overlay"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Adidas</div>
+        <div class="prod-name">Handball Spezial "Preloved Green"</div>
+        <div class="prod-sizes">
+          <span class="size-chip">UK7</span><span class="size-chip">UK8</span><span class="size-chip">UK10</span>
+        </div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price"><span class="old">₹10,999</span>₹8,999</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <span class="badge-hot">LIMITED</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80" alt="Nike Gamma Force">
+        <div class="prod-overlay"><button class="prod-quick">Quick Add</button></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Nike</div>
+        <div class="prod-name">Nike Gamma Force Shoes</div>
+        <div class="prod-sizes">
+          <span class="size-chip">UK6</span><span class="size-chip">UK7</span><span class="size-chip">UK8</span><span class="size-chip">UK9</span>
+        </div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price">₹12,999</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="prod-card sold-out">
+      <div class="prod-img-wrap">
+        <span class="badge-sale" style="background:#555;color:#fff">SOLD OUT</span>
+        <img class="prod-img" src="https://images.unsplash.com/photo-1556906781-9a412961a28c?w=500&q=80" alt="Nike Dunk Low Valentine">
+        <div class="prod-overlay"></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">Nike</div>
+        <div class="prod-name">Dunk Low "Valentine's Day Night Maroon"</div>
+        <div class="prod-sizes"></div>
+        <div class="prod-footer" style="margin-top:12px">
+          <div class="prod-price" style="color:var(--muted)">₹14,999 — Sold Out</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INSTAGRAM WALL -->
+<section class="ig-wall fade-up">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Instagram</div>
+      <h2 class="section-title">@DUNK_.KICKS</h2>
+    </div>
+    <a href="https://www.instagram.com/dunk_.kicks" target="_blank" class="view-all">Follow Us →</a>
+  </div>
+  <div class="ig-grid">
+    <div class="ig-item"><img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400&q=80" alt="ig1"><div class="ig-overlay">📷</div></div>
+    <div class="ig-item"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="ig2"><div class="ig-overlay">📷</div></div>
+    <div class="ig-item"><img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&q=80" alt="ig3"><div class="ig-overlay">📷</div></div>
+    <div class="ig-item"><img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&q=80" alt="ig4"><div class="ig-overlay">📷</div></div>
+    <div class="ig-item"><img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?w=400&q=80" alt="ig5"><div class="ig-overlay">📷</div></div>
+    <div class="ig-item"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&q=80" alt="ig6"><div class="ig-overlay">📷</div></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Pairs Sold</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Authenticated</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">48H</div>
+    <div class="stat-label">Dispatch Time</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5★</div>
+    <div class="stat-label">Avg. Rating</div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="newsletter fade-up">
+  <div class="newsletter-eyebrow">// Stay in the loop</div>
+  <h2 class="newsletter-title">GET EARLY<br>DROP ACCESS</h2>
+  <p class="newsletter-sub">Subscribe to get notified before drops sell out. No spam, only heat.</p>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="your@email.com">
+    <button class="nl-btn">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">DUNK<span>.</span>KICKS</div>
+      <p class="footer-desc">Premium authenticated sneakers. Every pair is verified deadstock before it ships. DM us on Instagram to place an order or ask about upcoming drops.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <ul class="footer-links">
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Nike Dunks</a></li>
+        <li><a href="#">Air Jordan</a></li>
+        <li><a href="#">Adidas</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Info</div>
+      <ul class="footer-links">
+        <li><a href="#">Authenticity</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="https://www.instagram.com/dunk_.kicks" target="_blank">@dunk_.kicks</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Email Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 DUNK.KICKS — All rights reserved</span>
+    <div class="socials">
+      <a href="https://www.instagram.com/dunk_.kicks" target="_blank">📸</a>
+      <a href="#">🐦</a>
+      <a href="#">📱</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade-up
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Cart button
+  let cart = 0;
+  document.querySelectorAll('.prod-quick').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cart++;
+      document.querySelector('.cart-btn').textContent = `Cart (${cart})`;
+      btn.textContent = 'Added ✓';
+      btn.style.background = 'var(--orange)';
+      btn.style.color = 'var(--black)';
+      setTimeout(() => { btn.textContent = 'Quick Add'; btn.style.background=''; btn.style.color=''; }, 1500);
+    });
+  });
+
+  // Size chip toggle
+  document.querySelectorAll('.size-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.closest('.prod-sizes').querySelectorAll('.size-chip').forEach(c => {
+        c.style.borderColor = '';
+        c.style.color = '';
+        c.style.background = '';
+      });
+      chip.style.borderColor = 'var(--orange)';
+      chip.style.color = 'var(--black)';
+      chip.style.background = 'var(--orange)';
+    });
+  });
+
+  // Newsletter
+  document.querySelector('.nl-btn').addEventListener('click', () => {
+    const inp = document.querySelector('.nl-input');
+    if (inp.value.includes('@')) {
+      inp.value = '🔥 You\'re on the list!';
+      inp.style.color = 'var(--orange)';
+    }
+  });
+</script>
+</body>
+</html>

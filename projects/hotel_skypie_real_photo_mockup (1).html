@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: transparent; }
+
+  /* NAV */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 66px;
+    background: rgba(8, 14, 20, 0.88);
+    backdrop-filter: blur(16px);
+    position: relative; z-index: 20;
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 9px; }
+  .logo-mark { width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(135deg,#EF9F27,#BA7517); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #fff; }
+  .logo-text { font-size: 15px; font-weight: 500; color: #fff; letter-spacing: 0.02em; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-link { font-size: 12px; color: rgba(255,255,255,0.55); letter-spacing: 0.03em; cursor: pointer; transition: color 0.2s; }
+  .nav-link:hover { color: #fff; }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  .nav-phone { font-size: 12px; color: rgba(255,255,255,0.45); }
+  .nav-cta { background: #EF9F27; color: #2c1600; font-size: 12px; font-weight: 500; padding: 8px 20px; border-radius: 24px; cursor: pointer; border: none; letter-spacing: 0.02em; }
+
+  /* HERO */
+  .hero {
+    position: relative; height: 520px; overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1241-1-scaled.jpg');
+    background-size: cover; background-position: center 40%;
+    filter: brightness(0.65);
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(5,12,20,0.92) 0%, rgba(5,12,20,0.3) 50%, rgba(5,12,20,0.1) 100%);
+  }
+  .hero-content { position: relative; z-index: 2; padding: 0 40px 52px; width: 100%; }
+  .hero-top-badge {
+    position: absolute; top: 28px; right: 36px; z-index: 5;
+    background: rgba(15,25,35,0.72); backdrop-filter: blur(12px);
+    border: 0.5px solid rgba(239,159,39,0.35); border-radius: 14px;
+    padding: 14px 18px; text-align: center;
+  }
+  .badge-stars { color: #EF9F27; font-size: 13px; letter-spacing: 2px; }
+  .badge-score { font-size: 28px; font-weight: 500; color: #fff; line-height: 1.1; margin: 3px 0; }
+  .badge-count { font-size: 10px; color: rgba(255,255,255,0.45); }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(239,159,39,0.15); border: 0.5px solid rgba(239,159,39,0.4);
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .hero-pill-dot { width: 5px; height: 5px; background: #EF9F27; border-radius: 50%; }
+  .hero-pill-text { font-size: 11px; color: #EF9F27; font-weight: 500; letter-spacing: 0.05em; }
+  .hero-title { font-size: 38px; font-weight: 500; color: #fff; line-height: 1.12; margin-bottom: 10px; }
+  .hero-title span { color: #EF9F27; }
+  .hero-sub { font-size: 13px; color: rgba(255,255,255,0.55); max-width: 420px; line-height: 1.65; margin-bottom: 26px; }
+  .hero-btns { display: flex; gap: 12px; }
+  .btn-primary { background: #EF9F27; color: #2c1600; font-size: 13px; font-weight: 500; padding: 12px 26px; border-radius: 26px; border: none; cursor: pointer; }
+  .btn-outline { background: transparent; color: rgba(255,255,255,0.75); font-size: 13px; padding: 12px 20px; border-radius: 26px; border: 0.5px solid rgba(255,255,255,0.25); cursor: pointer; }
+
+  /* BOOKING BAR */
+  .booking-bar {
+    margin: -22px 32px 0; position: relative; z-index: 10;
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 16px; padding: 18px 22px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  .bb-field { padding: 0 18px; }
+  .bb-field:first-child { padding-left: 0; }
+  .bb-field + .bb-field { border-left: 0.5px solid var(--color-border-tertiary); }
+  .bb-label { font-size: 10px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 5px; }
+  .bb-val { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .bb-val.dim { color: var(--color-text-secondary); font-weight: 400; }
+  .bb-btn { background: #EF9F27; color: #2c1600; font-size: 13px; font-weight: 500; padding: 12px 24px; border-radius: 12px; border: none; cursor: pointer; white-space: nowrap; align-self: center; margin-left: 14px; }
+
+  /* TRUST STRIP */
+  .trust-strip {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    margin: 40px 32px 0;
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 14px; overflow: hidden;
+  }
+  .trust-item {
+    padding: 18px 16px; text-align: center;
+    border-right: 0.5px solid var(--color-border-tertiary);
+  }
+  .trust-item:last-child { border-right: none; }
+  .trust-num { font-size: 20px; font-weight: 500; color: #185FA5; }
+  .trust-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; }
+
+  /* SECTION */
+  .section { padding: 44px 32px 0; }
+  .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 22px; }
+  .section-title { font-size: 22px; font-weight: 500; }
+  .section-link { font-size: 12px; color: #185FA5; cursor: pointer; }
+
+  /* ROOMS GRID */
+  .rooms-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+  .room-card { border-radius: 14px; overflow: hidden; border: 0.5px solid var(--color-border-tertiary); }
+  .room-img { height: 180px; position: relative; overflow: hidden; }
+  .room-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+  .room-card:hover .room-img img { transform: scale(1.04); }
+  .room-tag {
+    position: absolute; bottom: 10px; left: 10px;
+    background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+    border: 0.5px solid rgba(255,255,255,0.15);
+    font-size: 10px; color: rgba(255,255,255,0.85);
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .room-info { padding: 14px; }
+  .room-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .room-desc { font-size: 11px; color: var(--color-text-secondary); line-height: 1.55; margin-bottom: 12px; }
+  .room-footer { display: flex; justify-content: space-between; align-items: center; }
+  .room-price { font-size: 15px; font-weight: 500; color: #185FA5; }
+  .room-price small { font-size: 10px; color: var(--color-text-secondary); font-weight: 400; }
+  .book-btn-sm { font-size: 11px; background: #E6F1FB; color: #185FA5; border: 0.5px solid #B5D4F4; padding: 6px 14px; border-radius: 20px; cursor: pointer; }
+
+  /* PHOTO GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 200px 200px;
+    gap: 10px;
+  }
+  .gallery-item { border-radius: 12px; overflow: hidden; position: relative; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-item.tall { grid-row: span 2; }
+  .gallery-more {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .gallery-more-text { font-size: 16px; font-weight: 500; color: #fff; }
+
+  /* REVIEWS */
+  .reviews-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+  .review-card {
+    background: var(--color-background-secondary);
+    border-radius: 14px; padding: 18px;
+    border: 0.5px solid var(--color-border-tertiary);
+  }
+  .review-top { display: flex; align-items: center; gap: 11px; margin-bottom: 11px; }
+  .r-avatar { width: 38px; height: 38px; border-radius: 50%; background: #E6F1FB; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: #185FA5; flex-shrink: 0; }
+  .r-name { font-size: 13px; font-weight: 500; }
+  .r-stars { color: #EF9F27; font-size: 10px; margin-top: 2px; }
+  .r-text { font-size: 12px; color: var(--color-text-secondary); line-height: 1.65; }
+
+  /* LOCATION */
+  .location-card {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 16px; overflow: hidden;
+    display: grid; grid-template-columns: 1.6fr 1fr;
+  }
+  .location-img { position: relative; height: 200px; }
+  .location-img img { width: 100%; height: 100%; object-fit: cover; }
+  .location-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, transparent 60%, rgba(0,0,0,0.15));
+  }
+  .loc-pin {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    width: 32px; height: 32px;
+    background: #E24B4A; border-radius: 50% 50% 50% 0;
+    transform: translate(-50%,-50%) rotate(-45deg);
+    box-shadow: 0 3px 12px rgba(226,75,74,0.5);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .loc-pin-inner { width: 12px; height: 12px; background: #fff; border-radius: 50%; transform: rotate(45deg); }
+  .location-info { padding: 24px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+  .loc-title { font-size: 16px; font-weight: 500; }
+  .loc-line { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+  .loc-actions { display: flex; gap: 8px; margin-top: 6px; }
+  .loc-btn { font-size: 11px; padding: 7px 14px; border-radius: 20px; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); cursor: pointer; }
+  .loc-btn.primary { background: #EF9F27; color: #2c1600; border-color: transparent; }
+
+  /* FOOTER */
+  .footer { background: #070e18; margin-top: 44px; padding: 36px 32px 20px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-bottom: 28px; }
+  .footer-brand { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+  .footer-brand-text { font-size: 15px; font-weight: 500; color: #fff; }
+  .footer-desc { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.7; margin-bottom: 14px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .social-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.07); border: 0.5px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 11px; color: rgba(255,255,255,0.5); }
+  .footer-col-title { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .footer-link { font-size: 12px; color: rgba(255,255,255,0.45); display: block; margin-bottom: 8px; cursor: pointer; }
+  .footer-contact-line { font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+  .footer-bottom { border-top: 0.5px solid rgba(255,255,255,0.07); padding-top: 16px; display: flex; justify-content: space-between; }
+  .footer-copy { font-size: 10px; color: rgba(255,255,255,0.2); }
+
+  /* WHATSAPP FLOAT */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: #25D366; box-shadow: 0 4px 16px rgba(37,211,102,0.45);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .wa-float svg { width: 24px; height: 24px; fill: #fff; }
+</style>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-logo">
+    <div class="logo-mark">SP</div>
+    <span class="logo-text">Hotel Sky Pie</span>
+  </div>
+  <div class="nav-links">
+    <span class="nav-link">Rooms</span>
+    <span class="nav-link">Gallery</span>
+    <span class="nav-link">About</span>
+    <span class="nav-link">Contact</span>
+  </div>
+  <div class="nav-right">
+    <span class="nav-phone">+91 94186 05966</span>
+    <button class="nav-cta">Book Now</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-top-badge">
+    <div class="badge-stars">★★★★★</div>
+    <div class="badge-score">4.8</div>
+    <div class="badge-count">838 Google reviews</div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-pill">
+      <div class="hero-pill-dot"></div>
+      <span class="hero-pill-text">Bhagsu Nag · Mcleodganj · Himachal Pradesh</span>
+    </div>
+    <div class="hero-title">Wake up to<br>the <span>Dhauladhar</span> mountains</div>
+    <div class="hero-sub">Mountain-view rooms with private balconies, complimentary breakfast & warm Himalayan hospitality. Just steps from Bhagsu Falls.</div>
+    <div class="hero-btns">
+      <button class="btn-primary">Check availability</button>
+      <button class="btn-outline">Explore rooms ↓</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING BAR -->
+<div class="booking-bar">
+  <div class="bb-field">
+    <div class="bb-label">Check-in</div>
+    <div class="bb-val dim">Select date</div>
+  </div>
+  <div class="bb-field">
+    <div class="bb-label">Check-out</div>
+    <div class="bb-val dim">Select date</div>
+  </div>
+  <div class="bb-field">
+    <div class="bb-label">Guests</div>
+    <div class="bb-val">2 Adults</div>
+  </div>
+  <button class="bb-btn">Search rooms →</button>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-num">4.8 ★</div>
+    <div class="trust-label">Google rating</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">838+</div>
+    <div class="trust-label">Verified reviews</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">Free</div>
+    <div class="trust-label">Breakfast included</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">2 min</div>
+    <div class="trust-label">Walk to Bhagsu Falls</div>
+  </div>
+</div>
+
+<!-- ROOMS SECTION -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Rooms & suites</div>
+    <span class="section-link">View all rooms →</span>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://hotelskypie.com/wp-content/uploads/2021/04/WhatsApp-Image-2021-04-07-at-11.00.21-AM.jpeg" alt="Deluxe Room" loading="lazy" />
+        <span class="room-tag">Mountain view · Balcony</span>
+      </div>
+      <div class="room-info">
+        <div class="room-name">Deluxe Room</div>
+        <div class="room-desc">Luxury double bed, Dhauladhar mountain views, private balcony, DTH TV, attached bathroom.</div>
+        <div class="room-footer">
+          <div class="room-price">₹2,499 <small>/ night</small></div>
+          <button class="book-btn-sm">Book now</button>
+        </div>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://hotelskypie.com/wp-content/uploads/2021/04/WhatsApp-Image-2021-04-07-at-11.00.12-AM.jpeg" alt="Family Room" loading="lazy" />
+        <span class="room-tag">Family · Twin beds</span>
+      </div>
+      <div class="room-info">
+        <div class="room-name">Family Room</div>
+        <div class="room-desc">Twin setup, kitchenette, seating area, rain shower — perfect for families.</div>
+        <div class="room-footer">
+          <div class="room-price">₹3,499 <small>/ night</small></div>
+          <button class="book-btn-sm">Book now</button>
+        </div>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1249-1-1024x768.jpg" alt="Standard Room" loading="lazy" />
+        <span class="room-tag">Valley view</span>
+      </div>
+      <div class="room-info">
+        <div class="room-name">Standard Room</div>
+        <div class="room-desc">Comfortable double bed, warm lighting, modern furnishings, attached bathroom & WiFi.</div>
+        <div class="room-footer">
+          <div class="room-price">₹1,799 <small>/ night</small></div>
+          <button class="book-btn-sm">Book now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO GALLERY -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Photo gallery</div>
+    <span class="section-link">View all 50+ photos →</span>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item tall">
+      <img src="https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1265-1-1024x768.jpg" alt="Hotel exterior" loading="lazy" />
+    </div>
+    <div class="gallery-item">
+      <img src="https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1237-1-1024x768.jpg" alt="Mountain view" loading="lazy" />
+    </div>
+    <div class="gallery-item">
+      <img src="https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1250-1-1024x768.jpg" alt="Balcony" loading="lazy" />
+    </div>
+    <div class="gallery-item">
+      <img src="https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1260-2-1-1024x768.jpg" alt="Dining area" loading="lazy" />
+    </div>
+    <div class="gallery-item" style="position:relative;">
+      <img src="https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1216-1-1024x768.jpg" alt="More photos" loading="lazy" />
+      <div class="gallery-more">
+        <span class="gallery-more-text">+44 photos</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">What guests say</div>
+    <span class="section-link">838 reviews on Google →</span>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-top">
+        <div class="r-avatar">KK</div>
+        <div>
+          <div class="r-name">Kapil Kakkar</div>
+          <div class="r-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="r-text">"So peaceful environment and the owner is so friendly, everyone is so nice and ever smiling including staff. Very nice place."</div>
+    </div>
+    <div class="review-card">
+      <div class="review-top">
+        <div class="r-avatar" style="background:#EAF3DE;color:#27500A;">AM</div>
+        <div>
+          <div class="r-name">Alon Mizrahi</div>
+          <div class="r-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="r-text">"Probably the best guesthouse in Bagsu. Staff is amazing, helpful and kind. Rooms are clean, spacious with balcony and nice view."</div>
+    </div>
+    <div class="review-card">
+      <div class="review-top">
+        <div class="r-avatar" style="background:#FAEEDA;color:#633806;">LR</div>
+        <div>
+          <div class="r-name">Laakush Rathore</div>
+          <div class="r-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="r-text">"Sky Pie has the best location, best food and great staff. Best view and great guesthouse — clean and clear. Loved it. We will be back!"</div>
+    </div>
+    <div class="review-card">
+      <div class="review-top">
+        <div class="r-avatar" style="background:#FBEAF0;color:#72243E;">IL</div>
+        <div>
+          <div class="r-name">Ilan Har</div>
+          <div class="r-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="r-text">"Nice place, centrally located, good atmosphere, excellent food. The staff is very kind and courteous. The owners are very helpful and involved."</div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCATION -->
+<div class="section" style="padding-bottom: 0;">
+  <div class="section-header">
+    <div class="section-title">How to find us</div>
+  </div>
+  <div class="location-card">
+    <div class="location-img">
+      <img src="https://hotelskypie.com/wp-content/uploads/2021/04/IMG_1277-1-1024x768.jpg" alt="Hotel surroundings" style="width:100%;height:100%;object-fit:cover;" />
+      <div class="location-img-overlay"></div>
+      <div class="loc-pin"><div class="loc-pin-inner"></div></div>
+    </div>
+    <div class="location-info">
+      <div class="loc-title">Hotel Sky Pie</div>
+      <div class="loc-line">Opposite Vaishno Devi Temple,<br>Bhagsu Nag, Dharamshala,<br>Himachal Pradesh 176219</div>
+      <div class="loc-line">📞 +91 94186 05966<br>✉ skypieguesthouse@gmail.com</div>
+      <div class="loc-line" style="margin-top:2px;font-size:11px;color:var(--color-text-secondary);">2 min walk · Bhagsu Falls &nbsp;|&nbsp; 6 min walk · Bhagsu Temple</div>
+      <div class="loc-actions">
+        <button class="loc-btn primary">Get directions</button>
+        <button class="loc-btn">WhatsApp us</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <div class="logo-mark">SP</div>
+        <span class="footer-brand-text">Hotel Sky Pie</span>
+      </div>
+      <div class="footer-desc">A boutique mountain retreat in the heart of Bhagsu Nag, Mcleodganj. Dhauladhar views, warm hospitality, and complimentary breakfast — rated 4.8★ by 838+ guests.</div>
+      <div class="footer-socials">
+        <div class="social-btn">f</div>
+        <div class="social-btn">in</div>
+        <div class="social-btn">wa</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick links</div>
+      <span class="footer-link">Home</span>
+      <span class="footer-link">Rooms & suites</span>
+      <span class="footer-link">Photo gallery</span>
+      <span class="footer-link">About us</span>
+      <span class="footer-link">Contact</span>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-contact-line">Bhagsu Nag, Dharamshala</div>
+      <div class="footer-contact-line">HP 176219, India</div>
+      <div class="footer-contact-line" style="margin-top:8px;">+91 94186 05966</div>
+      <div class="footer-contact-line">skypieguesthouse@gmail.com</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Hotel Sky Pie. All rights reserved.</span>
+    <span class="footer-copy">Rated 4.8★ · 838 reviews on Google</span>
+  </div>
+</div>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<div class="wa-float">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</div>

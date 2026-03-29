@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Himalayan Architects – Himachal Pradesh</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --stone: #1a1714;
+    --earth: #2d2520;
+    --clay: #8b6e52;
+    --sand: #c4a882;
+    --mist: #e8ddd0;
+    --snow: #f5f0ea;
+    --pine: #3d5a47;
+    --sky: #7a9bae;
+    --accent: #c4a060;
+    --white: #faf7f3;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--stone);
+    color: var(--mist);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: rgba(26, 23, 20, 0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(196, 168, 130, 0.15);
+    transition: padding 0.3s;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--sand);
+  }
+  .logo span { color: var(--accent); font-style: italic; }
+  nav ul { list-style: none; display: flex; gap: 2.4rem; }
+  nav ul a {
+    text-decoration: none; color: var(--mist); font-size: 0.78rem;
+    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400;
+    position: relative; opacity: 0.7; transition: opacity 0.2s;
+  }
+  nav ul a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0;
+    width: 0; height: 1px; background: var(--accent); transition: width 0.3s;
+  }
+  nav ul a:hover { opacity: 1; }
+  nav ul a:hover::after { width: 100%; }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--accent);
+    color: var(--accent) !important; padding: 0.45rem 1.2rem !important;
+    opacity: 1 !important; transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: var(--stone) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* ─── HERO ─── */
+  #hero {
+    height: 100vh; position: relative;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(26,23,20,0.3) 0%, rgba(26,23,20,0.7) 60%, rgba(26,23,20,0.95) 100%),
+      url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80') center/cover no-repeat;
+    transform: scale(1.05);
+    animation: slowZoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes slowZoom { from { transform: scale(1.05); } to { transform: scale(1.12); } }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 6vw 8vh;
+    max-width: 800px;
+  }
+  .hero-tag {
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    font-weight: 300; line-height: 0.95;
+    color: var(--snow); margin-bottom: 1.8rem;
+    letter-spacing: -0.01em;
+  }
+  h1 em { font-style: italic; color: var(--sand); }
+  .hero-desc {
+    font-size: 1rem; line-height: 1.7;
+    color: rgba(232, 221, 208, 0.7);
+    max-width: 480px; margin-bottom: 2.8rem;
+  }
+  .hero-btns { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--stone);
+    padding: 0.9rem 2.2rem; font-size: 0.78rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--sand); transform: translateY(-1px); }
+  .btn-ghost {
+    border: 1px solid rgba(196, 168, 130, 0.4); color: var(--sand);
+    padding: 0.9rem 2.2rem; font-size: 0.78rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; font-weight: 400;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; right: 6vw;
+    writing-mode: vertical-rl; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(196, 168, 130, 0.5);
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-scroll::after {
+    content: ''; width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    background: var(--earth);
+    border-top: 1px solid rgba(196, 168, 130, 0.1);
+    border-bottom: 1px solid rgba(196, 168, 130, 0.1);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 2.8rem 6vw;
+  }
+  .stat-item { text-align: center; position: relative; }
+  .stat-item + .stat-item::before {
+    content: ''; position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%); height: 40px; width: 1px;
+    background: rgba(196, 168, 130, 0.2);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(196, 168, 130, 0.6); margin-top: 0.4rem;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 7rem 6vw; }
+  .section-tag {
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    font-weight: 300; line-height: 1.1;
+    color: var(--snow); margin-bottom: 1.5rem;
+  }
+  h2 em { font-style: italic; color: var(--sand); }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--stone); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-img {
+    position: relative; aspect-ratio: 4/5; overflow: hidden;
+  }
+  .about-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: sepia(20%) brightness(0.85);
+    transition: transform 0.6s ease;
+  }
+  .about-img:hover img { transform: scale(1.03); }
+  .about-img::before {
+    content: ''; position: absolute;
+    top: -16px; left: -16px; right: 16px; bottom: 16px;
+    border: 1px solid rgba(196, 168, 130, 0.25);
+    z-index: 1; pointer-events: none;
+  }
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 110px; height: 110px;
+    background: var(--accent); z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .about-badge span:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 300; color: var(--stone);
+  }
+  .about-badge span:last-child {
+    font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--stone); opacity: 0.7;
+  }
+  .about-text p {
+    color: rgba(232, 221, 208, 0.65);
+    line-height: 1.8; margin-bottom: 1.2rem; font-size: 0.95rem;
+  }
+  .about-features {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2rem;
+  }
+  .feature-item {
+    padding: 1.2rem; border: 1px solid rgba(196, 168, 130, 0.15);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .feature-item:hover {
+    border-color: rgba(196, 168, 130, 0.4);
+    background: rgba(196, 168, 130, 0.04);
+  }
+  .feature-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .feature-item h4 {
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--sand); margin-bottom: 0.3rem; font-weight: 500;
+  }
+  .feature-item p {
+    font-size: 0.8rem; color: rgba(196, 168, 130, 0.5);
+    line-height: 1.5; margin: 0;
+  }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--earth); }
+  .services-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem; gap: 2rem; flex-wrap: wrap;
+  }
+  .services-header p {
+    max-width: 360px; color: rgba(196, 168, 130, 0.55);
+    font-size: 0.9rem; line-height: 1.7;
+  }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; background: rgba(196, 168, 130, 0.1);
+  }
+  .service-card {
+    background: var(--earth); padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--accent); transition: width 0.4s ease;
+  }
+  .service-card:hover { background: rgba(45, 37, 32, 0.6); }
+  .service-card:hover::before { width: 100%; }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300;
+    color: rgba(196, 168, 130, 0.1); line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400;
+    color: var(--snow); margin-bottom: 0.8rem;
+  }
+  .service-card p {
+    font-size: 0.85rem; color: rgba(196, 168, 130, 0.5);
+    line-height: 1.7;
+  }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1.5rem; font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+    text-decoration: none; transition: gap 0.2s;
+  }
+  .service-link:hover { gap: 0.8rem; }
+
+  /* ─── PORTFOLIO ─── */
+  #portfolio { background: var(--stone); }
+  .portfolio-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+  .portfolio-item {
+    position: relative; overflow: hidden;
+    cursor: pointer;
+  }
+  .portfolio-item:first-child { grid-row: span 2; }
+  .portfolio-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.8) sepia(15%);
+    transition: transform 0.6s ease, filter 0.4s;
+    display: block;
+  }
+  .portfolio-item:first-child img { height: 100%; min-height: 500px; }
+  .portfolio-item:not(:first-child) img { height: 240px; }
+  .portfolio-item:hover img { transform: scale(1.05); filter: brightness(0.9) sepia(10%); }
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,23,20,0.9) 0%, transparent 50%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.5rem;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-overlay h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 400; color: var(--snow);
+  }
+  .portfolio-overlay span {
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ─── PROCESS ─── */
+  #process { background: var(--earth); overflow: hidden; }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 4rem; position: relative;
+  }
+  .process-grid::before {
+    content: ''; position: absolute;
+    top: 28px; left: 5%; right: 5%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .process-step { padding: 0 2rem; text-align: center; }
+  .step-circle {
+    width: 56px; height: 56px;
+    border: 1px solid var(--accent); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--accent); background: var(--earth);
+    position: relative; z-index: 1;
+  }
+  .process-step h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 400;
+    color: var(--snow); margin-bottom: 0.6rem;
+  }
+  .process-step p {
+    font-size: 0.8rem; color: rgba(196, 168, 130, 0.5);
+    line-height: 1.6;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials { background: var(--stone); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .testimonial-card {
+    background: var(--earth);
+    padding: 2.2rem;
+    border: 1px solid rgba(196, 168, 130, 0.1);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .testimonial-card:hover { border-color: rgba(196, 168, 130, 0.3); }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; line-height: 1;
+    color: rgba(196, 168, 130, 0.15);
+    position: absolute; top: 0.5rem; left: 1.5rem;
+  }
+  .testimonial-text {
+    font-size: 0.9rem; color: rgba(232, 221, 208, 0.7);
+    line-height: 1.75; margin-bottom: 1.5rem; position: relative;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+  .author-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--clay); display: flex; align-items: center;
+    justify-content: center; font-size: 0.85rem; color: var(--stone); font-weight: 500;
+  }
+  .author-name {
+    font-size: 0.8rem; color: var(--sand); font-weight: 500;
+  }
+  .author-loc {
+    font-size: 0.7rem; color: rgba(196, 168, 130, 0.4); letter-spacing: 0.08em;
+  }
+  .stars { color: var(--accent); font-size: 0.75rem; margin-bottom: 1rem; }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--earth); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 5rem; align-items: start;
+  }
+  .contact-info h2 { margin-bottom: 1rem; }
+  .contact-info > p {
+    color: rgba(196, 168, 130, 0.55); font-size: 0.9rem;
+    line-height: 1.8; margin-bottom: 2.5rem;
+  }
+  .contact-detail {
+    display: flex; gap: 1rem; align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+  .detail-icon {
+    width: 38px; height: 38px; border: 1px solid rgba(196, 168, 130, 0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0; color: var(--accent);
+  }
+  .detail-label {
+    font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(196, 168, 130, 0.4); margin-bottom: 0.2rem;
+  }
+  .detail-value {
+    font-size: 0.9rem; color: var(--sand);
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  label {
+    font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(196, 168, 130, 0.45);
+  }
+  input, textarea, select {
+    background: rgba(26, 23, 20, 0.6);
+    border: 1px solid rgba(196, 168, 130, 0.15);
+    color: var(--mist); padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    font-weight: 300; outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: rgba(196, 168, 130, 0.5);
+  }
+  textarea { resize: vertical; min-height: 110px; }
+  select option { background: var(--stone); }
+  .btn-submit {
+    background: var(--accent); color: var(--stone);
+    padding: 1rem 2.5rem; font-size: 0.78rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    border: none; cursor: pointer; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s; align-self: flex-start;
+  }
+  .btn-submit:hover { background: var(--sand); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--stone);
+    border-top: 1px solid rgba(196, 168, 130, 0.1);
+    padding: 3rem 6vw 2rem;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--sand); margin-bottom: 1rem;
+  }
+  .footer-logo span { color: var(--accent); font-style: italic; }
+  .footer-about {
+    font-size: 0.8rem; color: rgba(196, 168, 130, 0.4);
+    line-height: 1.7;
+  }
+  .footer-col h5 {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--sand); margin-bottom: 1.2rem; font-weight: 500;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul a {
+    text-decoration: none; font-size: 0.82rem;
+    color: rgba(196, 168, 130, 0.45);
+    transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid rgba(196, 168, 130, 0.08);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p {
+    font-size: 0.75rem; color: rgba(196, 168, 130, 0.3);
+  }
+  .social-links { display: flex; gap: 0.8rem; }
+  .social-links a {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(196, 168, 130, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: rgba(196, 168, 130, 0.4);
+    font-size: 0.75rem; transition: all 0.2s;
+  }
+  .social-links a:hover {
+    border-color: var(--accent); color: var(--accent);
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .services-grid, .portfolio-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-item:first-child { grid-row: span 1; }
+    .portfolio-item:first-child img { min-height: 240px; }
+    .process-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .stats-bar { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav ul { display: none; }
+    .about-badge { width: 90px; height: 90px; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 1.2rem 1.5rem; }
+    section { padding: 5rem 5vw; }
+    h1 { font-size: 3rem; }
+    .stats-bar { grid-template-columns: 1fr 1fr; padding: 2rem 5vw; }
+    .services-grid, .portfolio-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Himalayan <span>Architects</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Projects</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Himachal Pradesh, India</div>
+    <h1>Designing <em>Spaces</em><br>Amid the<br>Himalayas</h1>
+    <p class="hero-desc">Where architecture meets altitude. We craft structures that honour the mountains — sustainable, breathtaking, and built to last generations.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-primary">View Our Work</a>
+      <a href="#contact" class="btn-ghost">Get a Consultation</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll Down</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">10+</div>
+    <div class="stat-label">Years of Excellence</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">200+</div>
+    <div class="stat-label">Projects Completed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Project Success Rate</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">HP</div>
+    <div class="stat-label">Based in Himachal</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img reveal">
+      <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80" alt="Mountain Architecture">
+      <div class="about-badge">
+        <span>10+</span>
+        <span>Years</span>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag">Who We Are</div>
+      <h2>Architecture <em>Born</em> of the Mountains</h2>
+      <p>Welcome to Himalayan Architects — a pioneering force in architectural innovation nestled amidst the breathtaking landscapes of Himachal Pradesh. We don't merely design structures; we weave narratives of culture, sustainability, and timeless beauty into every blueprint.</p>
+      <p>Our deep understanding of Himalayan terrain, local materials, and indigenous traditions allows us to create spaces that endure in both beauty and durability — perfectly blending modern functionality with the spirit of the hills.</p>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon">🏔️</div>
+          <h4>Himalayan Expertise</h4>
+          <p>Deep knowledge of mountain terrain and climate</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌿</div>
+          <h4>Eco-Friendly Design</h4>
+          <p>Sustainable materials & green building practices</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🏛️</div>
+          <h4>Cultural Integrity</h4>
+          <p>Respecting local heritage in every project</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📐</div>
+          <h4>Precision Delivery</h4>
+          <p>100% project completion, on time and on budget</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-tag">What We Do</div>
+      <h2>Our <em>Services</em></h2>
+    </div>
+    <p>From concept to completion, we offer a full spectrum of architectural and design services tailored for the Himalayan landscape.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <h3>Residential Architecture</h3>
+      <p>Bespoke homes and villas that harmonise with the mountain environment, using local stone, timber, and traditional craftsmanship.</p>
+      <a href="#contact" class="service-link">Enquire →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <h3>Commercial Design</h3>
+      <p>Hotels, resorts, offices, and retail spaces designed for Himachal's growing economy with aesthetic distinction.</p>
+      <a href="#contact" class="service-link">Enquire →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <h3>Structural Engineering</h3>
+      <p>Earthquake-resilient structural systems designed for the unique challenges of Himalayan seismic zones.</p>
+      <a href="#contact" class="service-link">Enquire →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <h3>Interior Design</h3>
+      <p>Interiors that blend contemporary comfort with traditional Himachali elements — warm, functional, and memorable.</p>
+      <a href="#contact" class="service-link">Enquire →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <h3>Master Planning</h3>
+      <p>Strategic large-scale planning for townships, campuses, and hill stations with sustainability at the core.</p>
+      <a href="#contact" class="service-link">Enquire →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">06</div>
+      <h3>Vastu & Landscape</h3>
+      <p>Vastu consultancy and landscape design to create balanced, serene environments in tune with nature.</p>
+      <a href="#contact" class="service-link">Enquire →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header reveal">
+    <div>
+      <div class="section-tag">Our Projects</div>
+      <h2>Recent <em>Work</em></h2>
+    </div>
+    <a href="#contact" class="btn-ghost">All Projects →</a>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-item reveal">
+      <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Mountain Villa">
+      <div class="portfolio-overlay">
+        <span>Residential</span>
+        <h4>Himalayan Valley Villa, Manali</h4>
+      </div>
+    </div>
+    <div class="portfolio-item reveal">
+      <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Hill Resort">
+      <div class="portfolio-overlay">
+        <span>Hospitality</span>
+        <h4>Pine Forest Resort, Bir</h4>
+      </div>
+    </div>
+    <div class="portfolio-item reveal">
+      <img src="https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=600&q=80" alt="Modern Home">
+      <div class="portfolio-overlay">
+        <span>Residential</span>
+        <h4>Eco Cottage, Palampur</h4>
+      </div>
+    </div>
+    <div class="portfolio-item reveal">
+      <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80" alt="Commercial">
+      <div class="portfolio-overlay">
+        <span>Commercial</span>
+        <h4>Mountain View Office, Dharamshala</h4>
+      </div>
+    </div>
+    <div class="portfolio-item reveal">
+      <img src="https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=600&q=80" alt="Interior">
+      <div class="portfolio-overlay">
+        <span>Interior Design</span>
+        <h4>Heritage Home Interiors, Shimla</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div style="text-align:center" class="reveal">
+    <div class="section-tag" style="justify-content:center">How We Work</div>
+    <h2>Our <em>Process</em></h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="step-circle">01</div>
+      <h4>Consultation</h4>
+      <p>We meet, listen, and understand your vision, site constraints, and aspirations in detail.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-circle">02</div>
+      <h4>Concept Design</h4>
+      <p>Our architects develop initial concepts, sketches, and 3D visualisations for your approval.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-circle">03</div>
+      <h4>Development</h4>
+      <p>Detailed drawings, structural plans, material selection, and regulatory approvals handled end-to-end.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-circle">04</div>
+      <h4>Delivery</h4>
+      <p>Site supervision, quality checks, and handover — your dream built to perfection, on schedule.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal" style="text-align:center; margin-bottom:0.5rem">
+    <div class="section-tag" style="justify-content:center">Client Stories</div>
+    <h2>What Our <em>Clients</em> Say</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="quote-mark">"</div>
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">They transformed our vision into a stunning mountain retreat. Every detail was thoughtfully planned and the team was professional throughout. Truly the best architects in Himachal Pradesh.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">RS</div>
+        <div>
+          <div class="author-name">Rajesh Sharma</div>
+          <div class="author-loc">Manali, HP</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="quote-mark">"</div>
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Our resort was delivered on time and exceeded all expectations. The blend of traditional Himachali style with modern amenities is exactly what we wanted for our guests.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">PV</div>
+        <div>
+          <div class="author-name">Priya Verma</div>
+          <div class="author-loc">Dharamshala, HP</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="quote-mark">"</div>
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">The structural design gave us complete confidence for our hillside home. Their knowledge of local terrain and earthquake-resistant construction is unmatched in the region.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AK</div>
+        <div>
+          <div class="author-name">Amit Kumar</div>
+          <div class="author-loc">Shimla, HP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="section-tag">Get in Touch</div>
+      <h2>Start Your <em>Project</em> Today</h2>
+      <p>Whether you're building a home, a resort, or a commercial space in Himachal Pradesh — we're ready to bring your vision to life. Reach out for a free initial consultation.</p>
+      <div class="contact-detail">
+        <div class="detail-icon">📍</div>
+        <div>
+          <div class="detail-label">Location</div>
+          <div class="detail-value">Himachal Pradesh, India</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="detail-icon">📞</div>
+        <div>
+          <div class="detail-label">Phone / WhatsApp</div>
+          <div class="detail-value">+91 XXXXX XXXXX</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="detail-icon">✉️</div>
+        <div>
+          <div class="detail-label">Email</div>
+          <div class="detail-value">info@himalayanarchitects.com</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="detail-icon">🕐</div>
+        <div>
+          <div class="detail-label">Working Hours</div>
+          <div class="detail-value">Mon – Sat: 9:00 AM – 6:00 PM</div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label for="service">Service Interested In</label>
+        <select id="service">
+          <option value="">Select a service</option>
+          <option>Residential Architecture</option>
+          <option>Commercial Design</option>
+          <option>Structural Engineering</option>
+          <option>Interior Design</option>
+          <option>Master Planning</option>
+          <option>Vastu & Landscape</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Tell Us About Your Project</label>
+        <textarea id="message" placeholder="Describe your project, location, budget, and timeline..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit" onclick="this.textContent='Message Sent ✓'; this.style.background='#3d5a47'">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Himalayan <span>Architects</span></div>
+      <p class="footer-about">A pioneering architectural firm crafting sustainable, culturally-rich structures amidst the breathtaking landscapes of Himachal Pradesh, India.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Residential Design</a></li>
+        <li><a href="#">Commercial Projects</a></li>
+        <li><a href="#">Structural Engineering</a></li>
+        <li><a href="#">Interior Design</a></li>
+        <li><a href="#">Vastu Consultancy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Portfolio</a></li>
+        <li><a href="#">Our Process</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Locations</h5>
+      <ul>
+        <li><a href="#">Palampur</a></li>
+        <li><a href="#">Dharamshala</a></li>
+        <li><a href="#">Manali</a></li>
+        <li><a href="#">Shimla</a></li>
+        <li><a href="#">Bir Billing</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Himalayan Architects, Himachal Pradesh. All rights reserved.</p>
+    <div class="social-links">
+      <a href="#">f</a>
+      <a href="#">in</a>
+      <a href="#">ig</a>
+      <a href="#">yt</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav shrink on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 80 ? '1rem 3rem' : '1.4rem 3rem';
+  });
+</script>
+</body>
+</html>

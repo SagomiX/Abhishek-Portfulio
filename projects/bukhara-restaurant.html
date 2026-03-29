@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bukhara — Since 1978 · ITC Maurya · New Delhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --fire:     #c84a10;
+  --ember:    #e0721e;
+  --gold:     #c8960a;
+  --gold-l:   #e8c050;
+  --gold-pale:#f0dca0;
+  --char:     #0c0a08;
+  --coal:     #141210;
+  --dark:     #1c1810;
+  --stone:    #2a2418;
+  --bark:     #3a3020;
+  --umber:    #5a4830;
+  --tan:      #8a7050;
+  --cream:    #f5edd8;
+  --parch:    #ede0c0;
+  --warm:     #d8c8a0;
+  --muted:    rgba(245,237,216,.5);
+  --border:   rgba(200,150,10,.15);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Jost',sans-serif;
+  background:var(--char);
+  color:var(--cream);
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--char)}
+::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* ── Stone texture overlay ── */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:250px;mix-blend-mode:overlay;
+}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 4.5rem;
+  transition:all .5s;
+}
+nav.pinned{
+  background:rgba(12,10,8,.95);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:1rem 4.5rem;
+}
+.nav-brand{
+  display:flex;flex-direction:column;align-items:flex-start;
+}
+.nav-name{
+  font-family:'Cinzel',serif;
+  font-size:1.3rem;font-weight:600;letter-spacing:.2em;
+  color:var(--cream);transition:color .4s;line-height:1;
+}
+nav.pinned .nav-name{color:var(--gold-l)}
+.nav-since{
+  font-family:'Cinzel',serif;
+  font-size:.42rem;letter-spacing:.5em;text-transform:uppercase;
+  color:rgba(200,150,10,.6);line-height:1.6;font-weight:400;
+}
+.nav-links{display:flex;gap:2.8rem;list-style:none}
+.nav-links a{
+  font-family:'Cinzel',serif;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;
+  color:rgba(245,237,216,.55);text-decoration:none;transition:color .3s;
+}
+.nav-links a:hover{color:var(--gold-l)}
+.nav-reserve{
+  font-family:'Cinzel',serif;
+  font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+  border:1px solid rgba(200,150,10,.4);
+  color:var(--gold);padding:.55rem 1.5rem;
+  text-decoration:none;transition:all .3s;
+}
+.nav-reserve:hover{background:var(--gold);color:var(--char);border-color:var(--gold)}
+
+/* ══ HERO ══ */
+#hero{
+  position:relative;height:100vh;min-height:700px;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero-stone{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(160deg, rgba(12,10,8,.95) 0%, rgba(12,10,8,.55) 40%, rgba(12,10,8,.88) 100%),
+    linear-gradient(180deg, #1c1810 0%, #2a1808 50%, #0c0a08 100%);
+}
+.hero-img{
+  position:absolute;inset:0;
+  background:
+    url('https://www.itchotels.com/content/dam/itchotels/in/umbrella/itcmaurya/dining/bukhara/images/bukhara-banner-image.jpg') center/cover,
+    url('https://b.zmtcdn.com/data/pictures/5/20565855/9c71d44d67b7eff3d1e1e5ac21f31b28.jpg') center/cover,
+    linear-gradient(135deg,#2a1808,#1c1810);
+  opacity:.38;filter:sepia(.3) brightness(.7);
+  transition:transform 10s ease;
+}
+#hero:hover .hero-img{transform:scale(1.05)}
+
+/* Fire particles */
+.fire-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.ember-p{
+  position:absolute;border-radius:50%;opacity:0;
+  animation:ember-fly var(--et) ease-out infinite;
+  animation-delay:var(--ed);
+  left:var(--ex);bottom:var(--ey);
+  width:var(--es);height:var(--es);
+  background:var(--ec);
+  filter:blur(1px);
+}
+@keyframes ember-fly{
+  0%{opacity:0;transform:translate(0,0) scale(1)}
+  20%{opacity:.9}
+  80%{opacity:.3}
+  100%{opacity:0;transform:translate(var(--edx),calc(var(--edy) - 180px)) scale(.2)}
+}
+/* Subtle glow vignette */
+.hero-glow{
+  position:absolute;bottom:0;left:0;right:0;height:40%;
+  background:linear-gradient(to top,rgba(200,74,16,.06),transparent);
+}
+
+.hero-inner{
+  position:relative;z-index:5;
+  padding:0 5rem 7rem;max-width:1000px;
+}
+.h-pre{
+  display:inline-flex;align-items:center;gap:1rem;
+  font-family:'Cinzel',serif;
+  font-size:.55rem;letter-spacing:.5em;text-transform:uppercase;font-weight:400;
+  color:var(--gold);margin-bottom:2rem;
+  animation:rise .9s .1s cubic-bezier(.22,1,.36,1) both;
+}
+.h-pre-rule{width:35px;height:1px;background:var(--gold);opacity:.6}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.h-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(3.5rem,10vw,9rem);
+  font-weight:400;line-height:.88;color:var(--cream);
+  letter-spacing:.06em;
+  animation:rise .9s .28s cubic-bezier(.22,1,.36,1) both;
+}
+.h-divider{
+  display:flex;align-items:center;gap:1.5rem;
+  margin:1rem 0 1.5rem;
+  animation:rise .9s .45s cubic-bezier(.22,1,.36,1) both;
+}
+.h-div-line{flex:0 0 60px;height:1px;background:rgba(200,150,10,.4)}
+.h-div-text{
+  font-family:'Cinzel',serif;
+  font-size:.55rem;letter-spacing:.3em;color:var(--muted);
+}
+.h-sub{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:clamp(1rem,2vw,1.3rem);
+  color:rgba(245,237,216,.55);
+  margin-bottom:2.5rem;max-width:560px;line-height:1.6;
+  animation:rise .9s .58s cubic-bezier(.22,1,.36,1) both;
+}
+.h-tags{
+  display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem;
+  animation:rise .9s .68s cubic-bezier(.22,1,.36,1) both;
+}
+.h-tag{
+  font-family:'Cinzel',serif;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  border:1px solid rgba(200,150,10,.2);color:rgba(245,237,216,.4);
+  padding:.35rem .9rem;transition:all .3s;
+}
+.h-tag:hover{border-color:var(--gold);color:var(--gold)}
+.h-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:rise .9s .82s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-gold{
+  font-family:'Cinzel',serif;
+  font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;font-weight:600;
+  background:var(--gold);color:var(--char);
+  padding:.9rem 2.5rem;text-decoration:none;
+  position:relative;overflow:hidden;transition:all .35s;
+}
+.btn-gold::before{
+  content:'';position:absolute;inset:0;
+  background:var(--fire);transform:scaleX(0);transform-origin:right;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.btn-gold:hover::before{transform:scaleX(1);transform-origin:left}
+.btn-gold:hover{color:white}
+.btn-gold span{position:relative}
+.btn-stone{
+  font-family:'Cinzel',serif;
+  font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;
+  border:1px solid rgba(200,150,10,.3);color:var(--gold-pale);
+  padding:.9rem 2rem;text-decoration:none;transition:all .3s;
+}
+.btn-stone:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Hero scroll cue */
+.h-scroll{
+  position:absolute;right:4.5rem;bottom:3rem;z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  animation:rise .9s 1.1s both;
+}
+.h-scroll-word{
+  font-family:'Cinzel',serif;
+  font-size:.42rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,237,216,.25)
+}
+.h-scroll-stem{
+  width:1px;height:55px;
+  background:linear-gradient(to bottom,var(--gold),transparent);overflow:hidden;position:relative;
+}
+.h-scroll-stem::after{
+  content:'';position:absolute;top:-20px;left:0;right:0;height:20px;
+  background:var(--gold-pale);opacity:.7;
+  animation:stem-drip 2.2s ease-in-out infinite;
+}
+@keyframes stem-drip{from{top:-20px}to{top:75px}}
+
+/* Medals cluster */
+.h-medals{
+  position:absolute;right:4.5rem;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:1.2rem;z-index:5;
+  animation:rise .9s 1s both;
+}
+.medal{
+  width:72px;height:72px;border-radius:50%;
+  border:1px solid rgba(200,150,10,.25);
+  background:rgba(12,10,8,.75);backdrop-filter:blur(8px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+}
+.medal-v{
+  font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;
+  color:var(--gold);line-height:1;
+}
+.medal-l{font-size:.36rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tan);line-height:1.4}
+
+/* ══ PROCLAMATION STRIP ══ */
+.proclaim{
+  background:linear-gradient(90deg,var(--dark),var(--stone),var(--dark));
+  padding:.9rem 0;overflow:hidden;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.proc-track{
+  display:flex;width:max-content;
+  animation:proc-run 40s linear infinite;
+}
+@keyframes proc-run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.proc-item{
+  display:flex;align-items:center;gap:2rem;padding:0 3rem;white-space:nowrap;
+  font-family:'Cinzel',serif;
+  font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold-pale);font-weight:400;
+}
+.proc-sep{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+
+/* ══ SHARED ══ */
+.section{padding:8rem 5rem}
+.sect-tag{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-family:'Cinzel',serif;
+  font-size:.5rem;letter-spacing:.45em;text-transform:uppercase;font-weight:400;
+  color:var(--gold);margin-bottom:1rem;
+}
+.sect-tag::before,.sect-tag::after{content:'✦';font-size:.5rem;opacity:.5}
+
+/* ══ LEGACY ══ */
+#legacy{background:var(--coal)}
+.legacy-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8rem;
+  max-width:1240px;margin:0 auto;align-items:center;
+}
+.legacy-text h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.4rem,4.5vw,4rem);font-weight:600;
+  line-height:1.05;color:var(--cream);margin-bottom:1.8rem;
+  letter-spacing:.04em;
+}
+.legacy-text h2 em{
+  display:block;font-family:'Crimson Text',serif;font-style:italic;
+  color:var(--gold-l);font-weight:400;letter-spacing:.02em;
+}
+.legacy-text p{
+  font-family:'Crimson Text',serif;
+  font-size:1.1rem;line-height:1.9;color:var(--muted);
+  margin-bottom:1.3rem;font-weight:400;
+}
+.legacy-pull{
+  border-left:2px solid var(--gold);
+  padding:1rem 1.5rem;
+  background:rgba(200,150,10,.04);
+  margin:2rem 0;
+}
+.legacy-pull p{
+  font-family:'Cinzel',serif;
+  font-size:.92rem;color:var(--parch);letter-spacing:.04em;line-height:1.6;
+}
+.legacy-pull cite{
+  display:block;margin-top:.6rem;
+  font-family:'Jost',sans-serif;
+  font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tan);
+}
+.legacy-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:2.5rem;background:var(--border);
+}
+.lstat{
+  background:var(--coal);padding:1.6rem 1.2rem;text-align:center;transition:background .3s;
+}
+.lstat:hover{background:rgba(200,150,10,.05)}
+.lstat-val{
+  font-family:'Cinzel',serif;
+  font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;
+}
+.lstat-key{
+  font-family:'Cinzel',serif;
+  font-size:.42rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tan);margin-top:.4rem;
+}
+/* Visual */
+.legacy-visual{position:relative}
+.legacy-frame{
+  width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;
+  background:var(--dark);
+}
+.legacy-photo{
+  width:100%;height:100%;
+  background:
+    url('https://b.zmtcdn.com/data/pictures/5/20565855/9c71d44d67b7eff3d1e1e5ac21f31b28.jpg') center/cover,
+    url('https://www.itchotels.com/content/dam/itchotels/in/umbrella/itcmaurya/dining/bukhara/images/bukhara-banner-image.jpg') center/cover,
+    linear-gradient(145deg,#3a3020,#2a1808);
+  filter:sepia(.2) brightness(.85);transition:all .7s;
+}
+.legacy-frame:hover .legacy-photo{transform:scale(1.05);filter:sepia(.1) brightness(.95)}
+.legacy-year-seal{
+  position:absolute;top:-1.2rem;right:-1.2rem;
+  width:110px;height:110px;
+  background:var(--fire);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+}
+.lys-num{
+  font-family:'Cinzel',serif;font-size:1.6rem;font-weight:700;color:white;line-height:1;
+}
+.lys-txt{font-size:.38rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.legacy-label{
+  position:absolute;bottom:2rem;left:-1.2rem;
+  background:var(--gold);color:var(--char);
+  font-family:'Cinzel',serif;font-size:.48rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
+  padding:.55rem 1.2rem;
+}
+.award-badge{
+  position:absolute;bottom:-2rem;right:1rem;
+  background:var(--coal);border:1px solid var(--border);
+  padding:1.2rem;text-align:center;max-width:190px;
+}
+.award-icon{font-size:1.2rem;display:block;margin-bottom:.4rem}
+.award-text{
+  font-family:'Crimson Text',serif;font-size:.8rem;font-style:italic;
+  color:var(--parch);line-height:1.4;
+}
+.award-src{font-size:.42rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tan);margin-top:.3rem}
+
+/* ══ MENU ══ */
+#menu{background:var(--char)}
+.menu-head{text-align:center;margin-bottom:3.5rem}
+.menu-head h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:600;letter-spacing:.08em;
+  color:var(--cream);margin-bottom:.4rem;
+}
+.menu-head h2 em{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold-l);font-weight:400}
+.menu-head p{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:.92rem;color:var(--tan);letter-spacing:.06em;
+}
+.menu-nav{
+  display:flex;justify-content:center;gap:0;
+  max-width:820px;margin:0 auto 3.5rem;
+  border:1px solid var(--border);
+}
+.mntab{
+  flex:1;padding:.72rem;background:transparent;
+  font-family:'Cinzel',serif;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:rgba(200,150,10,.4);cursor:pointer;border:none;
+  border-right:1px solid var(--border);transition:all .3s;
+}
+.mntab:last-child{border-right:none}
+.mntab.on,.mntab:hover{background:var(--gold);color:var(--char)}
+.dishes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;max-width:1240px;margin:0 auto;
+  background:var(--border);
+}
+.dish{
+  background:var(--char);padding:2.2rem 2rem;
+  position:relative;overflow:hidden;transition:background .4s;
+}
+.dish-glow{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--fire),var(--gold));
+  transform:scaleX(0);transform-origin:left;transition:transform .45s;
+}
+.dish:hover{background:rgba(200,150,10,.05)}
+.dish:hover .dish-glow{transform:scaleX(1)}
+.dish-origin{
+  font-family:'Cinzel',serif;
+  font-size:.48rem;letter-spacing:.3em;text-transform:uppercase;font-weight:400;
+  color:var(--gold);margin-bottom:.5rem;
+}
+.dish h3{
+  font-family:'Cinzel',serif;
+  font-size:1.05rem;font-weight:600;letter-spacing:.04em;
+  color:var(--cream);margin-bottom:.5rem;line-height:1.2;
+}
+.dish-desc{
+  font-family:'Crimson Text',serif;
+  font-size:.95rem;line-height:1.8;color:var(--muted);
+}
+.dish-price{
+  margin-top:1.1rem;font-family:'Cinzel',serif;
+  font-size:.72rem;font-weight:400;color:var(--gold-l);letter-spacing:.1em;
+}
+.dish-veg,.dish-nv{
+  position:absolute;top:1.2rem;right:1.2rem;
+  width:11px;height:11px;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+.dish-veg{border:1.5px solid #4ec94e}
+.dish-veg::after{content:'';width:5px;height:5px;background:#4ec94e;border-radius:50%}
+.dish-nv{border:1.5px solid #d84040}
+.dish-nv::after{content:'';width:5px;height:5px;background:#d84040;border-radius:50%}
+/* Dal Bukhara signature callout */
+.dal-callout{
+  max-width:1240px;margin:2px auto 0;
+  background:linear-gradient(135deg,var(--stone),var(--dark));
+  border:1px solid var(--border);
+  padding:3rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+}
+.dc-left h3{
+  font-family:'Cinzel',serif;font-size:1.6rem;font-weight:700;letter-spacing:.06em;
+  color:var(--cream);margin-bottom:.4rem;
+}
+.dc-left p{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:.95rem;color:var(--tan);max-width:520px;line-height:1.7;
+}
+.dc-right{text-align:center;flex-shrink:0}
+.dc-hours{
+  font-family:'Cinzel',serif;
+  font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.4rem;
+}
+.dc-time{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:.9rem;color:var(--parch);line-height:1.6;
+}
+
+/* ══ GALLERY ══ */
+#gallery{background:var(--dark);padding:8rem 0}
+.gal-hdr{padding:0 5rem;margin-bottom:3rem}
+.gal-hdr h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.2rem,4vw,3.4rem);font-weight:600;letter-spacing:.06em;
+  color:var(--cream);
+}
+.gal-hdr h2 em{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold-l);font-weight:400}
+.gal-mosaic{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:230px 230px;
+  gap:3px;padding:0 5rem;
+}
+.gc{overflow:hidden;position:relative;background:var(--stone)}
+.gc.tall{grid-row:span 2}.gc.wide{grid-column:span 2}
+.gc-img{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  filter:sepia(.35) brightness(.72);
+  transition:all .55s cubic-bezier(.22,1,.36,1);
+}
+.gc:hover .gc-img{filter:sepia(.1) brightness(.95);transform:scale(1.07)}
+.gc-over{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(12,10,8,.9),transparent 55%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:1.2rem;
+}
+.gc:hover .gc-over{opacity:1}
+.gc-lbl{
+  font-family:'Cinzel',serif;font-size:.55rem;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold-pale);
+}
+.gal-reel{
+  display:flex;gap:3px;overflow-x:auto;
+  padding:3px 5rem 1.5rem;margin-top:3px;
+  scrollbar-width:thin;scrollbar-color:var(--gold) transparent;
+}
+.reel-f{
+  flex:0 0 210px;height:185px;overflow:hidden;background:var(--stone);flex-shrink:0;
+}
+.reel-i{
+  width:100%;height:100%;background-size:cover;background-position:center;
+  filter:sepia(.3) brightness(.7);transition:all .4s;
+}
+.reel-f:hover .reel-i{filter:sepia(.1) brightness(.9);transform:scale(1.08)}
+
+/* ══ LEGENDS ══ */
+#legends{background:var(--coal)}
+.legends-head{text-align:center;margin-bottom:4rem}
+.legends-head h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.2rem,4vw,3.4rem);font-weight:600;letter-spacing:.06em;color:var(--cream);
+}
+.legends-head h2 em{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold-l);font-weight:400}
+.legends-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;
+  max-width:1240px;margin:0 auto;
+  background:var(--border);
+}
+.legend-card{
+  background:var(--coal);padding:2.5rem 2rem;text-align:center;
+  position:relative;overflow:hidden;transition:all .4s;
+}
+.legend-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--fire),var(--gold));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.legend-card:hover{background:rgba(200,150,10,.05)}
+.legend-card:hover::before{transform:scaleX(1)}
+.legend-flag{font-size:1.8rem;margin-bottom:.8rem;display:block}
+.legend-name{
+  font-family:'Cinzel',serif;font-size:.85rem;font-weight:600;letter-spacing:.08em;
+  color:var(--cream);margin-bottom:.3rem;
+}
+.legend-role{
+  font-family:'Crimson Text',serif;font-style:italic;font-size:.82rem;
+  color:var(--gold-l);margin-bottom:.6rem;
+}
+.legend-note{
+  font-family:'Crimson Text',serif;font-size:.82rem;line-height:1.65;color:var(--tan);
+}
+/* Award shelf */
+.award-shelf{
+  background:var(--dark);padding:4rem 5rem;
+  display:flex;gap:0;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.award-item{
+  flex:1;padding:1.5rem;text-align:center;
+  border-right:1px solid var(--border);transition:background .3s;
+}
+.award-item:last-child{border-right:none}
+.award-item:hover{background:rgba(200,150,10,.04)}
+.award-trophy{font-size:1.4rem;display:block;margin-bottom:.6rem}
+.award-title{
+  font-family:'Cinzel',serif;font-size:.75rem;font-weight:600;letter-spacing:.06em;
+  color:var(--cream);margin-bottom:.2rem;
+}
+.award-body{font-family:'Crimson Text',serif;font-size:.78rem;color:var(--tan);line-height:1.5}
+
+/* ══ EXPERIENCE ══ */
+#experience{background:var(--char)}
+.exp-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:8rem;
+  max-width:1240px;margin:0 auto;align-items:center;
+}
+.exp-right h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.2rem,3.8vw,3.2rem);font-weight:600;letter-spacing:.04em;
+  color:var(--cream);margin-bottom:1.8rem;line-height:1.1;
+}
+.exp-right h2 em{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold-l);font-weight:400}
+.exp-right p{
+  font-family:'Crimson Text',serif;font-size:1.05rem;line-height:1.9;color:var(--muted);
+  margin-bottom:1.2rem;
+}
+.exp-items{display:flex;flex-direction:column;gap:.8rem;margin-top:2rem}
+.exp-item{
+  display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;
+  border-left:2px solid rgba(200,150,10,.2);
+  transition:border-color .3s,background .3s;
+}
+.exp-item:hover{border-color:var(--gold);background:rgba(200,150,10,.04)}
+.exp-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+.exp-text h4{
+  font-family:'Cinzel',serif;font-size:.72rem;font-weight:600;letter-spacing:.06em;
+  color:var(--cream);margin-bottom:.2rem;
+}
+.exp-text p{font-family:'Crimson Text',serif;font-size:.88rem;color:var(--tan);line-height:1.55;margin:0}
+.exp-visual{position:relative}
+.exp-img-frame{
+  width:100%;aspect-ratio:3/4;overflow:hidden;background:var(--dark);
+}
+.exp-photo{
+  width:100%;height:100%;
+  background:
+    url('https://b.zmtcdn.com/data/pictures/5/20565855/3a8b2c7d4e1f9a6b5c8d2e3f4a7b1c9d.jpg') center/cover,
+    linear-gradient(135deg,#2a1808,#1c1810);
+  filter:sepia(.2) brightness(.8);transition:all .6s;
+}
+.exp-img-frame:hover .exp-photo{transform:scale(1.05);filter:sepia(.1) brightness(.9)}
+.apron-note{
+  position:absolute;bottom:-1.5rem;left:-1.2rem;
+  background:var(--fire);color:white;
+  font-family:'Cinzel',serif;font-size:.5rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  padding:.6rem 1.4rem;max-width:200px;line-height:1.5;
+}
+
+/* ══ REVIEWS ══ */
+#reviews{background:var(--coal)}
+.rev-head{text-align:center;margin-bottom:3.5rem}
+.rev-head h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2rem,4vw,3.2rem);font-weight:600;letter-spacing:.06em;color:var(--cream);
+}
+.rev-head h2 em{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold-l);font-weight:400}
+.rev-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;
+  max-width:1240px;margin:0 auto;background:var(--border);
+}
+.rev-card{
+  background:var(--coal);padding:2.5rem 2rem;
+  position:relative;transition:background .3s;
+}
+.rev-card:hover{background:rgba(200,150,10,.04)}
+.rev-stars{display:flex;gap:.25rem;margin-bottom:.9rem}
+.star{
+  width:11px;height:11px;background:var(--gold);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.rev-text{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:.98rem;line-height:1.85;color:var(--muted);margin-bottom:1rem;
+}
+.rev-author{
+  font-family:'Cinzel',serif;font-size:.55rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);
+}
+.rev-platform{font-size:.5rem;letter-spacing:.12em;color:var(--tan);margin-top:.2rem}
+.rev-tag{
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-family:'Cinzel',serif;
+  font-size:.42rem;letter-spacing:.15em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--tan);padding:.2rem .6rem;
+}
+
+/* ══ VISIT ══ */
+#visit{background:var(--dark)}
+.visit-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1240px;margin:0 auto;align-items:start;
+}
+.visit-left h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2rem,3.8vw,3rem);font-weight:600;letter-spacing:.04em;
+  color:var(--cream);margin-bottom:2.5rem;line-height:1.05;
+}
+.visit-left h2 em{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold-l);font-weight:400}
+.vrow{margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--border)}
+.vlbl{
+  font-family:'Cinzel',serif;
+  font-size:.48rem;letter-spacing:.32em;text-transform:uppercase;font-weight:600;
+  color:var(--fire);margin-bottom:.4rem;
+}
+.vrow p,.vrow a{
+  font-family:'Crimson Text',serif;
+  font-size:1.02rem;color:var(--muted);line-height:1.75;
+  text-decoration:none;display:block;transition:color .3s;
+}
+.vrow a:hover{color:var(--gold-l)}
+.visit-map{
+  background:var(--stone);aspect-ratio:1;
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.map-grid-b{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(200,150,10,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(200,150,10,.06) 1px,transparent 1px);
+  background-size:38px 38px;
+}
+.map-glow-b{
+  position:absolute;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,74,16,.12),transparent 70%);
+  animation:mglow 3s ease-in-out infinite;
+}
+@keyframes mglow{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.5);opacity:1}}
+.map-rings-b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.mrb{
+  position:absolute;width:70px;height:70px;border-radius:50%;
+  border:1px solid rgba(200,150,10,.3);opacity:0;
+  animation:mrb-out 3.5s ease-out infinite;
+}
+.mrb:nth-child(2){animation-delay:1.2s}.mrb:nth-child(3){animation-delay:2.4s}
+@keyframes mrb-out{0%{transform:scale(.3);opacity:.9}100%{transform:scale(5);opacity:0}}
+.map-pin-center{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+}
+.pin-b{
+  width:44px;height:44px;background:var(--gold);
+  border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+  animation:pin-glow 2.5s ease-in-out infinite;position:relative;
+}
+.pin-b::after{content:'';position:absolute;inset:8px;background:var(--char);border-radius:50%}
+@keyframes pin-glow{
+  0%,100%{transform:rotate(-45deg) translateY(0);box-shadow:0 0 0 0 rgba(200,150,10,.4)}
+  50%{transform:rotate(-45deg) translateY(-10px)}
+}
+.map-name-b{text-align:center;z-index:2}
+.map-name-b h4{
+  font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;letter-spacing:.08em;
+  color:var(--cream);margin-bottom:.2rem;
+}
+.map-name-b p{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.2em;color:var(--tan)}
+.map-corner-b{
+  position:absolute;font-family:'Cinzel',serif;font-size:.45rem;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(200,150,10,.3);
+}
+.map-corner-b.tl{top:.8rem;left:.8rem}.map-corner-b.br{bottom:.8rem;right:.8rem;text-align:right}
+
+/* ══ RESERVATION ══ */
+#reservation{
+  background:linear-gradient(135deg,var(--stone),var(--dark));
+  text-align:center;position:relative;overflow:hidden;
+}
+#reservation::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 60% at 50% 50%,rgba(200,74,16,.07),transparent);
+}
+#reservation h2{
+  font-family:'Cinzel',serif;
+  font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:600;letter-spacing:.08em;
+  color:var(--cream);position:relative;
+}
+#reservation h2 em{font-family:'Crimson Text',serif;font-style:italic;color:var(--gold-l);font-weight:400}
+#reservation>p{
+  font-family:'Crimson Text',serif;font-style:italic;
+  font-size:.95rem;color:var(--tan);letter-spacing:.04em;margin-bottom:3rem;position:relative;
+}
+.res-row{
+  display:flex;gap:.8rem;max-width:900px;margin:0 auto;flex-wrap:wrap;
+  justify-content:center;position:relative;
+}
+.ri{
+  flex:1;min-width:175px;
+  background:rgba(0,0,0,.3);
+  border:1px solid rgba(200,150,10,.2);
+  color:var(--cream);padding:.9rem 1.2rem;
+  font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.08em;
+  outline:none;transition:border-color .3s;
+}
+.ri::placeholder{color:rgba(245,237,216,.3);font-family:'Crimson Text',serif;font-style:italic;font-size:.85rem;letter-spacing:.04em}
+.ri:focus{border-color:var(--gold)}
+.ri option{background:var(--stone);font-family:'Jost',sans-serif;font-size:.85rem}
+.res-btn{
+  font-family:'Cinzel',serif;
+  font-size:.58rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  background:var(--gold);color:var(--char);border:none;
+  padding:.9rem 2.5rem;cursor:pointer;transition:background .3s;
+}
+.res-btn:hover{background:var(--gold-l)}
+
+/* ══ FOOTER ══ */
+footer{
+  background:var(--char);padding:4.5rem 5rem;
+  display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:3rem;
+  border-top:1px solid var(--border);
+}
+.f-name{
+  font-family:'Cinzel Decorative',serif;
+  font-size:1.3rem;font-weight:400;letter-spacing:.06em;color:var(--cream);margin-bottom:.2rem;
+}
+.f-itc{
+  font-family:'Cinzel',serif;
+  font-size:.42rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;display:block;
+}
+.f-about{
+  font-family:'Crimson Text',serif;font-size:.9rem;color:var(--tan);line-height:1.8;max-width:240px;
+}
+.f-quote{
+  font-family:'Crimson Text',serif;font-style:italic;font-size:.82rem;
+  color:var(--gold-l);margin-top:.8rem;display:block;line-height:1.5;
+}
+.fcol h5{
+  font-family:'Cinzel',serif;
+  font-size:.48rem;letter-spacing:.32em;text-transform:uppercase;font-weight:600;
+  color:var(--gold);margin-bottom:1.2rem;
+}
+.fcol a,.fcol p{
+  display:block;font-family:'Crimson Text',serif;font-size:.9rem;
+  color:var(--tan);text-decoration:none;margin-bottom:.5rem;line-height:1.6;transition:color .3s;
+}
+.fcol a:hover{color:var(--gold-l)}
+.fbar{
+  background:var(--coal);padding:1.2rem 5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--border);
+}
+.fbar p{
+  font-family:'Cinzel',serif;font-size:.44rem;letter-spacing:.1em;color:rgba(245,237,216,.18);
+}
+
+/* ══ REVEAL ══ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}.d4{transition-delay:.46s}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links,.h-medals{display:none}
+  .section{padding:5rem 1.5rem}
+  #gallery{padding:5rem 0}
+  .gal-hdr,.gal-reel{padding:0 1.5rem}
+  .gal-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto;padding:0 1.5rem}
+  .gc.tall{grid-row:span 1}
+  .legacy-grid,.exp-wrap,.visit-layout{grid-template-columns:1fr;gap:3rem}
+  .dishes{grid-template-columns:1fr}
+  .legends-grid{grid-template-columns:1fr 1fr}
+  .rev-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .award-shelf{flex-wrap:wrap}
+  .h-inner{padding:0 1.5rem 5rem}
+  .dal-callout{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">
+    <div class="nav-name">Bukhara</div>
+    <div class="nav-since">ITC Maurya · Est. 1978 · New Delhi</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#legacy">Legacy</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#legends">Legends</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-reserve">Reserve a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-stone"></div>
+  <div class="hero-img"></div>
+  <div class="fire-wrap" id="fireWrap"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <div class="h-pre">
+      <span class="h-pre-rule"></span>
+      Established 1978 · ITC Maurya · New Delhi · Since 47 Years
+      <span class="h-pre-rule"></span>
+    </div>
+    <h1 class="h-title">Bukhara</h1>
+    <div class="h-divider">
+      <span class="h-div-line"></span>
+      <span class="h-div-text">North-West Frontier Cuisine · ITC Maurya · Diplomatic Enclave</span>
+      <span class="h-div-line"></span>
+    </div>
+    <p class="h-sub">"The romance of the rugged North-West Frontier of India comes alive — an authentic, award-winning restaurant and a landmark dining destination in the world."</p>
+    <div class="h-tags">
+      <span class="h-tag">Since 1978</span>
+      <span class="h-tag">World's 50 Best</span>
+      <span class="h-tag">Asia's 50 Best</span>
+      <span class="h-tag">Dal Bukhara</span>
+      <span class="h-tag">Sikandari Raan</span>
+      <span class="h-tag">No Cutlery</span>
+    </div>
+    <div class="h-btns">
+      <a href="#reservation" class="btn-gold"><span>Reserve a Table</span></a>
+      <a href="#legacy" class="btn-stone">Discover the Legacy</a>
+    </div>
+  </div>
+
+  <div class="h-medals">
+    <div class="medal"><div class="medal-v">4.5</div><div class="medal-l">★ Rated<br>Google</div></div>
+    <div class="medal"><div class="medal-v">47</div><div class="medal-l">Years of<br>Legacy</div></div>
+    <div class="medal"><div class="medal-v">W50</div><div class="medal-l">Best<br>Listed</div></div>
+  </div>
+  <div class="h-scroll"><div class="h-scroll-stem"></div><span class="h-scroll-word">Scroll</span></div>
+</section>
+
+<!-- PROCLAMATION -->
+<div class="proclaim">
+  <div class="proc-track" id="procTrack"></div>
+</div>
+
+<!-- LEGACY -->
+<section id="legacy" class="section">
+  <div class="legacy-grid">
+    <div class="legacy-text">
+      <div class="sect-tag reveal">The Story of Bukhara</div>
+      <h2 class="reveal d1">A Legend Born<br><em>from a Campfire in 1978</em></h2>
+      <p class="reveal d2">The origins of Bukhara trace back to the rugged terrains and spirited camaraderie of the North-West Frontier Province — the borderlands of Afghanistan and undivided India. When ITC Maurya opened in 1978, Chairman A.N. Haksar carved a simple kabab restaurant from the hotel's kitchen space, inspired by the spirit of communal eating around a frontier campfire. He nearly named it Samarkand.</p>
+      <p class="reveal d2">From the day it opened, Bukhara was Delhi's most sought-after table. It took no reservations after 8pm. There was always a queue outside. Half a century later, the queues are just as long — and the menu has barely changed a word since 1978.</p>
+      <div class="legacy-pull reveal d3">
+        <p>"The grandmother revealed that her mother used to dine here in the early 1980s. She has done so all her life with her children, and now she's here with her grandson — and the food has evoked the exact same sentiments, always."</p>
+        <cite>— Slurrp Magazine, 2024</cite>
+      </div>
+      <div class="legacy-stats reveal d3">
+        <div class="lstat"><div class="lstat-val">1978</div><div class="lstat-key">Year Founded</div></div>
+        <div class="lstat"><div class="lstat-val">47</div><div class="lstat-key">Years Running</div></div>
+        <div class="lstat"><div class="lstat-val">5</div><div class="lstat-key">Tandoors</div></div>
+      </div>
+    </div>
+    <div class="legacy-visual reveal d2">
+      <div class="legacy-frame">
+        <div class="legacy-photo"></div>
+      </div>
+      <div class="legacy-year-seal">
+        <div class="lys-num">1978</div>
+        <div class="lys-txt">Est. Year</div>
+      </div>
+      <div class="legacy-label">ITC Maurya · Chanakyapuri</div>
+      <div class="award-badge">
+        <span class="award-icon">🏆</span>
+        <div class="award-text">One of the World's 50 Best Restaurants</div>
+        <div class="award-src">50Best Discovery · 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="section">
+  <div class="menu-head">
+    <div class="sect-tag reveal" style="justify-content:center">The Unchanging Menu</div>
+    <h2 class="reveal d1">Recipes Unchanged<br><em>Since 1978</em></h2>
+    <p class="reveal d2">"We have never changed the menu and that has been the USP of the restaurant" — Executive Chef J.P. Singh</p>
+  </div>
+  <div class="menu-nav reveal d2">
+    <button class="mntab on" data-cat="signatures">Signatures</button>
+    <button class="mntab" data-cat="kebabs">Kebabs & Grill</button>
+    <button class="mntab" data-cat="veg">Vegetarian</button>
+    <button class="mntab" data-cat="breads">Breads</button>
+    <button class="mntab" data-cat="desserts">Desserts</button>
+  </div>
+  <div class="dishes reveal d3" id="menuGrid"></div>
+  <div class="dal-callout reveal d2">
+    <div class="dc-left">
+      <h3>Dal Bukhara — The World's Most Famous Dal</h3>
+      <p>"Slow-simmered black urad lentils cooked overnight with cream and butter — imbued with the soul of tradition and bursting with flavour. Bill Clinton declared it among his two favourite dishes on Earth."</p>
+    </div>
+    <div class="dc-right">
+      <div class="dc-hours">Open for Dining</div>
+      <div class="dc-time">Lunch: 12:30 PM – 2:45 PM<br>Dinner: 7:00 PM – 11:45 PM<br>Daily · All Week</div>
+      <a href="#reservation" class="btn-gold" style="display:inline-block;margin-top:1.2rem;font-size:.52rem"><span>Reserve Now</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-hdr">
+    <div class="sect-tag reveal">Inside Bukhara</div>
+    <h2 class="reveal d1">Stone Walls. Clay Tandoors.<br><em>Living History.</em></h2>
+  </div>
+  <div class="gal-mosaic reveal d1">
+    <div class="gc tall">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/9c71d44d67b7eff3d1e1e5ac21f31b28.jpg'),linear-gradient(135deg,#3a3020,#1c1810)"></div>
+      <div class="gc-over"><span class="gc-lbl">The Stone Dining Room</span></div>
+    </div>
+    <div class="gc wide">
+      <div class="gc-img" style="background-image:url('https://www.itchotels.com/content/dam/itchotels/in/umbrella/itcmaurya/dining/bukhara/images/bukhara-banner-image.jpg'),linear-gradient(135deg,#2a1808,#1c1810)"></div>
+      <div class="gc-over"><span class="gc-lbl">Dal Bukhara — Slow Simmered 18 Hours</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d.jpg'),linear-gradient(135deg,#3a3020,#2a1808)"></div>
+      <div class="gc-over"><span class="gc-lbl">Sikandari Raan</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/f1e2d3c4b5a6b7c8d9e0f1a2b3c4d5e6.jpg'),linear-gradient(135deg,#1c1810,#3a3020)"></div>
+      <div class="gc-over"><span class="gc-lbl">Murgh Malai Kebab</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3.jpg'),linear-gradient(135deg,#2a1808,#1c1810)"></div>
+      <div class="gc-over"><span class="gc-lbl">The Clay Tandoor</span></div>
+    </div>
+    <div class="gc wide">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b.jpg'),linear-gradient(135deg,#3a3020,#1c1810)"></div>
+      <div class="gc-over"><span class="gc-lbl">The Legendary Open Kitchen</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a7f.jpg'),linear-gradient(135deg,#1c1810,#3a3020)"></div>
+      <div class="gc-over"><span class="gc-lbl">Naan Bukhara</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a.jpg'),linear-gradient(135deg,#2a1808,#3a3020)"></div>
+      <div class="gc-over"><span class="gc-lbl">Tandoori Platter</span></div>
+    </div>
+    <div class="gc">
+      <div class="gc-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c.jpg'),linear-gradient(135deg,#3a3020,#2a1808)"></div>
+      <div class="gc-over"><span class="gc-lbl">The Log-Top Tables</span></div>
+    </div>
+  </div>
+  <div class="gal-reel">
+    <div class="reel-f"><div class="reel-i" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/9c71d44d67b7eff3d1e1e5ac21f31b28.jpg'),linear-gradient(135deg,#2a1808,#3a3020)"></div></div>
+    <div class="reel-f"><div class="reel-i" style="background-image:url('https://www.itchotels.com/content/dam/itchotels/in/umbrella/itcmaurya/dining/bukhara/images/bukhara-banner-image.jpg'),linear-gradient(135deg,#1c1810,#2a1808)"></div></div>
+    <div class="reel-f"><div class="reel-i" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d.jpg'),linear-gradient(135deg,#3a3020,#1c1810)"></div></div>
+    <div class="reel-f"><div class="reel-i" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/f1e2d3c4b5a6b7c8d9e0f1a2b3c4d5e6.jpg'),linear-gradient(135deg,#2a1808,#3a3020)"></div></div>
+    <div class="reel-f"><div class="reel-i" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3.jpg'),linear-gradient(135deg,#1c1810,#2a1808)"></div></div>
+    <div class="reel-f"><div class="reel-i" style="background-image:url('https://b.zmtcdn.com/data/pictures/5/20565855/7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b.jpg'),linear-gradient(135deg,#3a3020,#1c1810)"></div></div>
+  </div>
+</section>
+
+<!-- LEGENDS TABLE -->
+<section id="legends" class="section">
+  <div class="legends-head">
+    <div class="sect-tag reveal" style="justify-content:center">The Guest Book</div>
+    <h2 class="reveal d1">Presidents. Prime Ministers.<br><em>Legends at the Table.</em></h2>
+  </div>
+  <div class="legends-grid reveal d2">
+    <div class="legend-card">
+      <span class="legend-flag">🇺🇸</span>
+      <div class="legend-name">Bill Clinton</div>
+      <div class="legend-role">President of the United States</div>
+      <div class="legend-note">"He loves food from two places in the world — one is an Italian restaurant, and the other is Bukhara." He visited 6 times and asked the chef how Naan Bukhara is made in the tandoor.</div>
+    </div>
+    <div class="legend-card">
+      <span class="legend-flag">🇷🇺</span>
+      <div class="legend-name">Vladimir Putin</div>
+      <div class="legend-role">President of Russia</div>
+      <div class="legend-note">Dined at Bukhara during his state visit to India. Part of the extraordinary list of world leaders who have broken bread at this iconic table.</div>
+    </div>
+    <div class="legend-card">
+      <span class="legend-flag">🇬🇧</span>
+      <div class="legend-name">David Cameron</div>
+      <div class="legend-role">Prime Minister of UK</div>
+      <div class="legend-note">Visited twice. Was so impressed by the Naan Bukhara that the chef had to stop him from putting his hands inside the live tandoor while being shown the baking process.</div>
+    </div>
+    <div class="legend-card">
+      <span class="legend-flag">🎨</span>
+      <div class="legend-name">M.F. Husain</div>
+      <div class="legend-role">India's Master Painter</div>
+      <div class="legend-note">So inspired while dining at Bukhara that he painted his trademark horse on canvas at the table. The iconic image has since been printed on the limited-edition Bukhara apron.</div>
+    </div>
+    <div class="legend-card">
+      <span class="legend-flag">🏏</span>
+      <div class="legend-name">Sachin Tendulkar</div>
+      <div class="legend-role">God of Cricket</div>
+      <div class="legend-note">A regular guest at Bukhara whenever in Delhi. Along with MS Dhoni, Yuvraj Singh and the Indian cricket fraternity, they have all shared tables here.</div>
+    </div>
+    <div class="legend-card">
+      <span class="legend-flag">🎬</span>
+      <div class="legend-name">Shah Rukh Khan</div>
+      <div class="legend-role">Bollywood Icon</div>
+      <div class="legend-note">"I have served Lata Mangeshkar, Asha Bhosle, Shah Rukh Khan, Saif Ali Khan, Karisma Kapoor and Kareena Kapoor," — Chef J.P. Singh, Executive Chef.</div>
+    </div>
+    <div class="legend-card">
+      <span class="legend-flag">🎾</span>
+      <div class="legend-name">Roger Federer</div>
+      <div class="legend-role">Tennis Champion</div>
+      <div class="legend-note">Listed by The World's 50 Best Discovery as one of Bukhara's celebrated guests, alongside Arnold Schwarzenegger, over nearly 40 years of iconic dining.</div>
+    </div>
+    <div class="legend-card">
+      <span class="legend-flag">🇺🇸</span>
+      <div class="legend-name">Hillary Clinton</div>
+      <div class="legend-role">US Secretary of State</div>
+      <div class="legend-note">Her 2009 visit spawned the iconic "Hillary Platter" which was added to the menu alongside the "Presidential Platter" and the "Chelsea Platter" — three permanent menu items.</div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARD SHELF -->
+<div class="award-shelf">
+  <div class="award-item"><span class="award-trophy">🥇</span><div class="award-title">Golden Fork Award</div><div class="award-body">Highest honour in Indian restaurant dining</div></div>
+  <div class="award-item"><span class="award-trophy">🌍</span><div class="award-title">World's 50 Best Restaurants</div><div class="award-body">50Best Discovery — globally listed</div></div>
+  <div class="award-item"><span class="award-trophy">🌏</span><div class="award-title">Asia's 50 Best Restaurants</div><div class="award-body">Recognised as Asia's finest</div></div>
+  <div class="award-item"><span class="award-trophy">🏛️</span><div class="award-title">Legacy Restaurant — Luxe</div><div class="award-body">Iconic Restaurant designation</div></div>
+  <div class="award-item"><span class="award-trophy">⭐</span><div class="award-title">Favourite Indian Hotel Restaurant</div><div class="award-body">Consistently voted by travel & food media</div></div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section">
+  <div class="exp-wrap">
+    <div class="exp-visual reveal">
+      <div class="exp-img-frame">
+        <div class="exp-photo"></div>
+      </div>
+      <div class="apron-note">Guests receive aprons — the signature Bukhara tradition since 1978</div>
+    </div>
+    <div class="exp-right">
+      <div class="sect-tag reveal">The Dining Experience</div>
+      <h2 class="reveal d1">No Cutlery.<br>Wear the Apron.<br><em>Eat with Your Hands.</em></h2>
+      <p class="reveal d2">In a novel twist that has captured the hearts of visitors from every nation, guests at Bukhara are presented with bib-like aprons upon seating — an invitation to embrace the tactile joy of eating with their hands, exactly as people ate around frontier campfires centuries ago.</p>
+      <div class="exp-items reveal d3">
+        <div class="exp-item">
+          <span class="exp-icon">🔥</span>
+          <div class="exp-text">
+            <h4>Five Custom Clay Tandoors</h4>
+            <p>Live tandoors visible from every table — watch chefs skewer and char over direct flame with precision honed over decades</p>
+          </div>
+        </div>
+        <div class="exp-item">
+          <span class="exp-icon">🫙</span>
+          <div class="exp-text">
+            <h4>Menu Unchanged Since 1978</h4>
+            <p>A small, deliberate selection on an embossed wooden board. Every dish a perfected recipe — never modified, never replaced</p>
+          </div>
+        </div>
+        <div class="exp-item">
+          <span class="exp-icon">🪵</span>
+          <div class="exp-text">
+            <h4>Stone Walls & Log-Top Tables</h4>
+            <p>Raw stone walls, low wooden stools and log-top tables — a frontier mess-hall that defies five-star convention</p>
+          </div>
+        </div>
+        <div class="exp-item">
+          <span class="exp-icon">👐</span>
+          <div class="exp-text">
+            <h4>The Bukhara Apron</h4>
+            <p>Featured the M.F. Husain horse painting since his dining visit. A souvenir of one of the world's most iconic meals</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="section">
+  <div class="rev-head">
+    <div class="sect-tag reveal" style="justify-content:center">The Verdict</div>
+    <h2 class="reveal d1">Words from the<br><em>Bukhara Table</em></h2>
+  </div>
+  <div class="rev-grid reveal d2">
+    <div class="rev-card">
+      <div class="rev-stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+      <p class="rev-text">"Bukhara has been entertaining the great and the good — Arnold Schwarzenegger and Roger Federer included — for almost 40 years, barely changing its menu across its lifespan. The dining room's stone walls and log-top tables belie the sophistication of the food."</p>
+      <div class="rev-author">The World's 50 Best</div>
+      <div class="rev-platform">50Best Discovery · Featured Review</div>
+      <span class="rev-tag">Global Recognition</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+      <p class="rev-text">"Bill Clinton told me that he loves food from two places in the world — one is some Italian restaurant and the other is Bukhara. Barack Obama has been here. Tony Blair has been here three times. David Cameron twice. They all came specifically for the food."</p>
+      <div class="rev-author">Chef J.P. Singh</div>
+      <div class="rev-platform">Executive Chef, Bukhara · ITC Maurya</div>
+      <span class="rev-tag">World Leaders' Verdict</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars"><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span></div>
+      <p class="rev-text">"From the day it opened, Bukhara became Delhi's top restaurant and was always jam-packed for dinner. It wouldn't take reservations after 8pm so there was always a line outside waiting for tables. That was 1978. In 2024, the queues are just as long."</p>
+      <div class="rev-author">Vir Sanghvi</div>
+      <div class="rev-platform">India's Leading Food Critic · VirsAnghvi.com</div>
+      <span class="rev-tag">47 Years of Queues</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" class="section">
+  <div class="visit-layout">
+    <div class="visit-left">
+      <div class="sect-tag reveal">Plan Your Visit</div>
+      <h2 class="reveal d1">Come to the<br><em>Legendary Table</em></h2>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Address</div>
+        <p>ITC Maurya · Sardar Patel Marg<br>Diplomatic Enclave · Chanakyapuri<br>New Delhi — 110021</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Nearest Metro</div>
+        <p>Patel Chowk Station (Yellow Line)<br>or Race Course (Yellow Line) · 10 min drive</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Dining Hours</div>
+        <p>Lunch: 12:30 PM – 2:45 PM<br>Dinner: 7:00 PM – 11:45 PM (Daily)<br>Note: Reservations not accepted after 8:00 PM</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Parking</div>
+        <p>Valet parking available at ITC Maurya</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Price</div>
+        <p>₹8,000 – ₹10,000 for two (approx.)<br>Including drinks · Taxes applicable</p>
+      </div>
+      <a href="https://maps.app.goo.gl/ExDfaQw36ipArCfdA" target="_blank" class="btn-gold" style="display:inline-block;margin-top:1rem"><span>Get Directions</span></a>
+    </div>
+    <div class="visit-map reveal d2">
+      <div class="map-grid-b"></div>
+      <div class="map-glow-b"></div>
+      <div class="map-rings-b">
+        <div class="mrb"></div>
+        <div class="mrb"></div>
+        <div class="mrb"></div>
+      </div>
+      <div class="map-pin-center">
+        <div class="pin-b"></div>
+        <div class="map-name-b">
+          <h4>Bukhara</h4>
+          <p>ITC Maurya · Diplomatic Enclave</p>
+        </div>
+      </div>
+      <div class="map-corner-b tl">Sardar Patel Marg</div>
+      <div class="map-corner-b br">Est. 1978 · Chanakyapuri</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="section">
+  <div class="sect-tag reveal" style="justify-content:center">Reserve</div>
+  <h2 class="reveal d1">Secure Your Table at<br><em>India's Most Legendary Restaurant</em></h2>
+  <p class="reveal d2">Book in advance — especially for dinner and weekends. Note: walk-ins accepted until 8:00 PM.</p>
+  <div class="res-row reveal d3">
+    <input class="ri" type="text" placeholder="Your Name">
+    <input class="ri" type="tel" placeholder="Phone Number">
+    <input class="ri" type="date">
+    <select class="ri">
+      <option value="" disabled selected>Guests</option>
+      <option>1–2 Guests</option><option>3–4 Guests</option>
+      <option>5–6 Guests</option><option>7–8 Guests</option><option>9+ Guests (Group)</option>
+    </select>
+    <select class="ri">
+      <option value="" disabled selected>Meal</option>
+      <option>Lunch (12:30 PM – 2:45 PM)</option>
+      <option>Dinner (7:00 PM – 11:45 PM)</option>
+    </select>
+    <button class="res-btn">Confirm Reservation</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-name">Bukhara</div>
+    <span class="f-itc">ITC Maurya · New Delhi · Est. 1978</span>
+    <p class="f-about">India's most celebrated restaurant. The North-West Frontier menu, the frontier spirit, the campfire warmth — unchanged and unmatched since 1978. A World's 50 Best Discovery.</p>
+    <span class="f-quote">"An icon of culinary heritage, delighting diners from across the globe for over four decades."<br>— ITC Hotels</span>
+  </div>
+  <div class="fcol">
+    <h5>Navigate</h5>
+    <a href="#legacy">The Legacy</a>
+    <a href="#menu">The Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#legends">Guest Book</a>
+    <a href="#experience">Experience</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <div class="fcol">
+    <h5>Location</h5>
+    <p>ITC Maurya</p>
+    <p>Sardar Patel Marg</p>
+    <p>Diplomatic Enclave</p>
+    <p>Chanakyapuri, New Delhi — 110021</p>
+    <p style="margin-top:.6rem">Lunch 12:30–2:45 PM<br>Dinner 7:00–11:45 PM</p>
+  </div>
+  <div class="fcol">
+    <h5>Honours</h5>
+    <p>Golden Fork Award</p>
+    <p>World's 50 Best Restaurants</p>
+    <p>Asia's 50 Best Restaurants</p>
+    <p>Legacy Restaurant — Luxe</p>
+    <p style="margin-top:.8rem;color:var(--gold);font-size:.82rem">4.5★ Google · 47 Years of Legacy<br>Part of ITC Hotels</p>
+  </div>
+</footer>
+<div class="fbar">
+  <p>© 2026 Bukhara — ITC Maurya, New Delhi. All rights reserved. Sardar Patel Marg, Chanakyapuri, New Delhi 110021.</p>
+  <p>Est. 1978 · North-West Frontier Cuisine · A Living Heritage</p>
+</div>
+
+<script>
+// Fire embers
+const fw=document.getElementById('fireWrap');
+const ec=['#c84a10','#e0721e','#c8960a','#f0b040','rgba(240,180,80,.8)'];
+for(let i=0;i<55;i++){
+  const e=document.createElement('div');e.className='ember-p';
+  const sz=2+Math.random()*4;
+  e.style.cssText=`--et:${2+Math.random()*5}s;--ed:${Math.random()*6}s;--ex:${Math.random()*100}%;--ey:${Math.random()*50}%;--es:${sz}px;--ec:${ec[Math.floor(Math.random()*ec.length)]};--edx:${(Math.random()-.5)*60}px;--edy:${-40-Math.random()*60}px`;
+  fw.appendChild(e);
+}
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('pinned',scrollY>60));
+
+// Proclamation track
+const pWords=['Since 1978','North-West Frontier Cuisine','Dal Bukhara','Sikandari Raan','Murgh Malai Kebab','Naan Bukhara','No Cutlery · No Change','World\'s 50 Best','Asia\'s 50 Best','Golden Fork Award','Bill Clinton\'s Favourite','ITC Maurya · Chanakyapuri','47 Years · Same Menu','Stone Walls · Clay Tandoors','Presidential Platter · Hillary Platter'];
+const pt=document.getElementById('procTrack');
+[...pWords,...pWords].forEach(w=>{
+  pt.innerHTML+=`<div class="proc-item"><span class="proc-sep"></span><span>${w}</span></div>`;
+});
+
+// Menu data
+const menuData={
+  signatures:[
+    {veg:false,origin:'Signature · World Famous',name:'Dal Bukhara',desc:'Slow-simmered whole black urad lentils cooked overnight with butter and cream — the dish Bill Clinton declared among his two favourite on Earth. Never changed since 1978.',price:'Market Price'},
+    {veg:false,origin:'North-West Frontier',name:'Sikandari Raan',desc:'A whole marinated leg of spring lamb — rubbed with raw papaya, ginger-garlic and frontier spices, slow-roasted in the tandoor for hours. The king of the Bukhara menu.',price:'Market Price'},
+    {veg:false,origin:'Signature Kebab',name:'Murgh Malai Kebab',desc:'Supremely tender chicken breast marinated in cream, processed cheese and green herb paste — char-grilled to a silky, melt-in-mouth finish in five custom clay tandoors.',price:'Market Price'},
+    {veg:false,origin:'Presidential',name:'Presidential Platter',desc:'The non-vegetarian selection ordered by President Bill Clinton during his visit. A curated assortment of Bukhara\'s finest kebabs on a single magnificent platter.',price:'Market Price'},
+    {veg:true,origin:'Heritage',name:'Hillary Platter (Veg)',desc:'Created when Hillary Clinton visited as US Secretary of State in 2009 — a complete vegetarian arrangement of Bukhara\'s best paneer, vegetable and lentil dishes.',price:'Market Price'},
+    {veg:false,origin:'Frontier Classic',name:'Seekh Kebab Bukhara',desc:'Minced lamb and chicken seekh on iron skewers over live coals — the original frontier kabab, seasoned with nothing but the right spices and the right fire.',price:'Market Price'},
+  ],
+  kebabs:[
+    {veg:false,origin:'Tandoor · Whole Bird',name:'Murgh Tandoori',desc:'A whole chicken marinated in yoghurt, garlic, ginger and spices — charred over direct tandoor flame. Served with bare hands as it was meant to be eaten.',price:'Market Price'},
+    {veg:false,origin:'Frontier Lamb',name:'Burra Kebab',desc:'Lamb chops marinated overnight in raw papaya and mustard oil — tenderised to the bone and chargrilled. Chef JP Singh\'s masterpiece.',price:'Market Price'},
+    {veg:false,origin:'Mince Kebab',name:'Boti Kebab',desc:'Tender chunks of lamb marinated in spiced yoghurt — threaded on iron skewers and slow-cooked in the clay tandoor.',price:'Market Price'},
+    {veg:true,origin:'Vegetarian',name:'Paneer Tikka',desc:'Cottage cheese slabs marinated in hung curd, ginger-garlic and frontier spices — charred until slightly smoky in the tandoor.',price:'Market Price'},
+    {veg:true,origin:'Vegetarian Grill',name:'Tandoori Sabzi',desc:'Seasonal vegetables marinated in spiced yoghurt and charred in the tandoor — the vegetarian centrepiece of the Bukhara menu.',price:'Market Price'},
+    {veg:false,origin:'Prawn · Coastal Frontier',name:'Jheenga Bukhara',desc:'Jumbo prawns marinated in frontier spices, cream and raw papaya — skewered on iron and cooked over the live clay tandoor.',price:'Market Price'},
+  ],
+  veg:[
+    {veg:true,origin:'Heritage Veg',name:'Dal Bukhara (Veg)',desc:'The same world-famous slow-simmered lentil dish — overnight-cooked black urad dal with cream and butter. Naturally vegetarian and naturally legendary.',price:'Market Price'},
+    {veg:true,origin:'Frontier Vegetarian',name:'Subz Bukhara',desc:'A chargrilled platter of seasonal vegetables — cauliflower, mushroom, corn and pepper — from the open clay tandoor.',price:'Market Price'},
+    {veg:true,origin:'Paneer',name:'Paneer Bukhara',desc:'Cottage cheese in a rich tomato-cream masala with frontier spice paste — deeply flavoured and perfectly paired with Naan Bukhara.',price:'Market Price'},
+    {veg:true,origin:'Heritage',name:'Chelsea Platter (Veg)',desc:'Created during Bill Clinton\'s visit for Chelsea\'s vegetarian dietary preference — a complete vegetable meal from the Bukhara tradition.',price:'Market Price'},
+    {veg:true,origin:'Vegetarian Starter',name:'Seekh Paneer',desc:'Crumbled paneer and cashew on iron seekh skewers — seasoned with cardamom, green chilli and fresh coriander. Grilled live.',price:'Market Price'},
+    {veg:true,origin:'Seasonal',name:'Mushroom Tandoori',desc:'Whole button mushrooms marinated in spiced cream and charred in the tandoor. Earthy, smoky, perfect.',price:'Market Price'},
+  ],
+  breads:[
+    {veg:true,origin:'World Famous',name:'Naan Bukhara',desc:'Bukhara\'s legendary naan — so large it hangs over the plate. Baked in a dedicated tandoor at extreme heat. David Cameron tried to bake it himself. Bill Clinton learnt the method.',price:'Market Price'},
+    {veg:true,origin:'Stuffed Bread',name:'Kulcha Bukhara',desc:'Soft stuffed bread with spiced potato and onion filling, baked in the clay tandoor and finished with a desi ghee brush.',price:'Market Price'},
+    {veg:true,origin:'Whole Wheat',name:'Tandoori Roti',desc:'Traditional whole wheat roti slapped onto the tandoor wall and served direct — the original frontier bread.',price:'Market Price'},
+    {veg:true,origin:'Layered',name:'Paratha Bukhara',desc:'Multi-layered flaky paratha cooked in the tandoor with clarified butter — the perfect companion to Dal Bukhara.',price:'Market Price'},
+    {veg:true,origin:'Sweet Bread',name:'Sheermal',desc:'Saffron-enriched sweet flatbread baked in the tandoor — a North-West Frontier delicacy eaten as dessert or with rich curries.',price:'Market Price'},
+    {veg:false,origin:'Frontier Puri',name:'Gosht Naan',desc:'Stuffed naan with a minced lamb filling — a frontier stuffed bread tradition from Peshawar, made in the Bukhara tandoor.',price:'Market Price'},
+  ],
+  desserts:[
+    {veg:true,origin:'Classic Indian',name:'Phirni Bukhara',desc:'Set rice pudding flavoured with saffron, rose water and cardamom — served in an earthen matka, just as it was on the North-West Frontier.',price:'Market Price'},
+    {veg:true,origin:'Cold Dessert',name:'Kulfi Bukhara',desc:'Hand-churned Indian ice cream in malai and kesar-pista flavours — dense, creamy and fragrant with cardamom.',price:'Market Price'},
+    {veg:true,origin:'Mughlai Sweet',name:'Shahi Tukda',desc:'Double-fried bread soaked in condensed milk and saffron rabri — a Mughal royal dessert to close the frontier feast.',price:'Market Price'},
+    {veg:true,origin:'Winter Classic',name:'Gajar Halwa',desc:'Slow-cooked carrot halwa with desi ghee, milk, sugar and cardamom. A Bukhara seasonal staple of great comfort.',price:'Market Price'},
+    {veg:true,origin:'Signature Sweet',name:'Gulab Jamun Bukhara',desc:'Soft milk-solid dumplings soaked in rose-cardamom syrup — served warm with a garnish of chopped pistachios.',price:'Market Price'},
+    {veg:true,origin:'Cold',name:'Rabri',desc:'Thick, slow-reduced full-cream milk sweetened with jaggery and flavoured with cardamom and rose petals. A traditional frontier close to the meal.',price:'Market Price'},
+  ]
+};
+let ac='signatures';
+function renderMenu(cat){
+  document.getElementById('menuGrid').innerHTML=menuData[cat].map(d=>`
+    <div class="dish">
+      <div class="dish-glow"></div>
+      <div class="${d.veg?'dish-veg':'dish-nv'}"></div>
+      <div class="dish-origin">${d.origin}</div>
+      <h3>${d.name}</h3>
+      <p class="dish-desc">${d.desc}</p>
+      <div class="dish-price">${d.price}</div>
+    </div>`).join('');
+}
+renderMenu(ac);
+document.querySelectorAll('.mntab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.mntab').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');renderMenu(b.dataset.cat);
+  });
+});
+
+// Reveal
+const revs=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.07});
+revs.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

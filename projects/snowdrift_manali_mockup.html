@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snowdrift Adventures — Bike On Rent In Manali</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #111210;
+    --cream: #f5f0e8;
+    --warm-white: #faf8f4;
+    --pine: #1e3d2b;
+    --pine-light: #2d5c40;
+    --rust: #bf4e1a;
+    --rust-hover: #d96025;
+    --gold: #c8962a;
+    --muted: #6b7068;
+    --border: rgba(0,0,0,0.09);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: 62px; padding: 0 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(17,18,16,0.93); backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.06em; color: var(--cream); text-decoration: none; }
+  .logo span { color: var(--rust); }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: rgba(245,240,232,0.65); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-wa {
+    display: flex; align-items: center; gap: 7px;
+    background: #25d366; color: #fff; padding: 8px 16px; border-radius: 6px;
+    font-size: 13px; font-weight: 500; text-decoration: none; transition: background .2s;
+  }
+  .nav-wa:hover { background: #1db954; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative; min-height: 100vh; overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1626016096379-a6557c7ab24e?w=1600&q=85') center/cover no-repeat;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(17,18,16,0.96) 0%, rgba(17,18,16,0.6) 45%, rgba(17,18,16,0.15) 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 6vw 70px; width: 100%;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px; font-weight: 500;
+  }
+  .hero-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); display: block; }
+  .hero-h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 10vw, 110px); line-height: 0.92;
+    letter-spacing: 0.02em; color: var(--cream);
+    margin-bottom: 22px;
+  }
+  .hero-h1 em { font-style: normal; color: var(--rust); }
+  .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 28px; }
+  .hero-sub { font-size: 15px; color: rgba(245,240,232,0.6); max-width: 400px; line-height: 1.75; font-weight: 300; }
+  .hero-actions { display: flex; gap: 12px; flex-shrink: 0; }
+  .btn-rust {
+    background: var(--rust); color: #fff; padding: 13px 26px; border-radius: 6px;
+    font-size: 14px; font-weight: 500; text-decoration: none; letter-spacing: 0.02em;
+    transition: background .2s, transform .15s; display: inline-flex; align-items: center; gap: 7px;
+  }
+  .btn-rust:hover { background: var(--rust-hover); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--cream); padding: 13px 24px; border-radius: 6px;
+    border: 1px solid rgba(245,240,232,0.2); font-size: 14px; text-decoration: none;
+    transition: border-color .2s; display: inline-flex; align-items: center; gap: 7px;
+  }
+  .btn-ghost:hover { border-color: rgba(245,240,232,0.5); }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    background: var(--pine); display: flex;
+    justify-content: center; gap: 0;
+  }
+  .stat {
+    flex: 1; max-width: 200px; padding: 22px 20px;
+    text-align: center; border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 0.04em; color: var(--cream); line-height: 1; }
+  .stat-l { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,240,232,0.5); margin-top: 4px; }
+
+  /* ─── SECTION ─── */
+  .section { padding: 80px 6vw; }
+  .section-alt { background: var(--cream); }
+  .section-dark { background: var(--ink); }
+  .eyebrow {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--rust); font-weight: 600; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--rust); display: block; }
+  .s-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 5vw, 54px); letter-spacing: 0.02em; color: var(--ink); line-height: 1; }
+  .s-title-light { color: var(--cream); }
+  .s-sub { font-size: 14px; color: var(--muted); margin-top: 10px; max-width: 440px; line-height: 1.75; }
+  .s-sub-light { color: rgba(245,240,232,0.5); }
+  .s-head { margin-bottom: 48px; }
+
+  /* ─── PHOTO GRID (Google Business style) ─── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 260px 200px;
+    gap: 6px; border-radius: 14px; overflow: hidden;
+    margin-bottom: 60px;
+  }
+  .photo-grid .ph { background-size: cover; background-position: center; }
+  .photo-grid .ph:first-child { grid-row: 1 / 3; }
+  .photo-grid .ph:nth-child(2) { }
+  .photo-grid .ph:nth-child(3) { }
+  .photo-grid .ph:nth-child(4) { }
+  .photo-grid .ph:nth-child(5) { position: relative; }
+  .photo-grid .ph:nth-child(5)::after {
+    content: 'View all photos →';
+    position: absolute; inset: 0;
+    background: rgba(17,18,16,0.55);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 500; color: #fff; letter-spacing: 0.04em;
+  }
+
+  /* ─── FLEET ─── */
+  .fleet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+  .bike-card {
+    background: #fff; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border); transition: transform .2s, box-shadow .2s;
+  }
+  .bike-card:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(0,0,0,0.1); }
+  .bike-thumb {
+    height: 190px; background-size: cover; background-position: center;
+    position: relative;
+  }
+  .bike-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(17,18,16,0.72); color: #fff; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px; border-radius: 20px;
+  }
+  .availability {
+    position: absolute; top: 10px; right: 10px;
+    background: #22c55e; color: #fff; font-size: 10px; font-weight: 600;
+    padding: 4px 9px; border-radius: 20px; letter-spacing: 0.04em;
+  }
+  .bike-body { padding: 16px; }
+  .bike-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .bike-spec { font-size: 12px; color: var(--muted); }
+  .bike-row { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+  .bike-price { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--pine-light); letter-spacing: 0.02em; }
+  .bike-per { font-size: 12px; color: var(--muted); }
+  .bike-btn {
+    background: var(--pine); color: #fff; font-size: 12px; font-weight: 500;
+    padding: 8px 16px; border-radius: 6px; text-decoration: none;
+    transition: background .2s;
+  }
+  .bike-btn:hover { background: var(--pine-light); }
+  .bike-feats { display: flex; gap: 5px; margin-top: 10px; flex-wrap: wrap; }
+  .feat { font-size: 11px; background: var(--cream); color: var(--muted); padding: 3px 8px; border-radius: 4px; }
+
+  /* ─── BOOKING SECTION ─── */
+  .book-section {
+    background: var(--pine);
+    padding: 60px 6vw;
+  }
+  .book-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .book-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px, 4vw, 50px); color: var(--cream); letter-spacing: 0.02em; line-height: 1.05; }
+  .book-sub { font-size: 14px; color: rgba(245,240,232,0.55); margin-top: 10px; line-height: 1.7; }
+  .book-form { display: flex; flex-direction: column; gap: 12px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-input {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--cream); padding: 12px 14px; border-radius: 8px; font-size: 14px;
+    font-family: 'Outfit', sans-serif; outline: none; width: 100%;
+    transition: border-color .2s;
+  }
+  .form-input:focus { border-color: rgba(255,255,255,0.3); }
+  .form-input::placeholder { color: rgba(245,240,232,0.35); }
+  .form-input option { background: var(--pine); }
+  .form-submit {
+    background: var(--rust); color: #fff; border: none; padding: 13px;
+    border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: 'Outfit', sans-serif; letter-spacing: 0.02em;
+    transition: background .2s; width: 100%;
+  }
+  .form-submit:hover { background: var(--rust-hover); }
+  .wa-strip {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.25);
+    border-radius: 8px; padding: 12px 14px; margin-top: 4px;
+  }
+  .wa-strip span { font-size: 13px; color: #4ade80; }
+  .wa-strip a { color: #4ade80; font-weight: 600; text-decoration: none; }
+
+  /* ─── ROUTES ─── */
+  .route-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .route-card {
+    border-radius: 12px; overflow: hidden; position: relative;
+    height: 220px; background-size: cover; background-position: center;
+    transition: transform .2s;
+  }
+  .route-card:hover { transform: scale(1.02); }
+  .route-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(17,18,16,0.88) 0%, rgba(17,18,16,0.2) 60%, transparent 100%);
+  }
+  .route-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; }
+  .route-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.04em; color: #fff; }
+  .route-meta-row { display: flex; gap: 14px; margin-top: 6px; }
+  .route-meta-item { font-size: 12px; color: rgba(255,255,255,0.65); }
+  .route-meta-item strong { color: #fff; font-weight: 500; }
+  .route-tag {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--rust); color: #fff; font-size: 10px;
+    padding: 4px 10px; border-radius: 20px; font-weight: 500; letter-spacing: 0.06em;
+  }
+
+  /* ─── WHY US ─── */
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; margin-top: 48px; }
+  .why-item { background: var(--ink); padding: 32px 24px; transition: background .2s; }
+  .why-item:hover { background: #1c1d1a; }
+  .why-icon { font-size: 26px; margin-bottom: 14px; }
+  .why-t { font-size: 15px; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
+  .why-d { font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.7; }
+
+  /* ─── REVIEWS ─── */
+  .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+  .review-card { background: #fff; border-radius: 12px; padding: 22px; border: 1px solid var(--border); }
+  .rev-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .rev-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--pine); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--cream); flex-shrink: 0; }
+  .rev-name { font-size: 14px; font-weight: 600; }
+  .rev-via { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .stars { color: var(--gold); font-size: 12px; letter-spacing: 2px; }
+  .rev-text { font-size: 13px; color: #444; line-height: 1.75; }
+  .rev-date { font-size: 11px; color: var(--muted); margin-top: 12px; }
+  .gbiz-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--cream); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 18px; font-size: 13px; font-weight: 500; margin-bottom: 32px;
+  }
+  .gbiz-stars { color: var(--gold); font-size: 15px; }
+  .gbiz-count { color: var(--muted); font-size: 12px; }
+
+  /* ─── LOCATION ─── */
+  .location-section { background: var(--cream); padding: 80px 6vw; }
+  .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+  .location-info { }
+  .contact-row { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .contact-row:last-child { border-bottom: none; }
+  .contact-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .contact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 3px; }
+  .contact-val { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .contact-val a { color: var(--pine-light); text-decoration: none; }
+  .map-embed { border-radius: 14px; overflow: hidden; height: 340px; border: 1px solid var(--border); }
+  .map-embed iframe { width: 100%; height: 100%; border: none; }
+
+  /* ─── FOOTER ─── */
+  footer { background: var(--ink); padding: 56px 6vw 28px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .f-logo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.06em; color: var(--cream); margin-bottom: 10px; }
+  .f-logo span { color: var(--rust); }
+  .f-tagline { font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.7; max-width: 240px; }
+  .f-col h4 { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,240,232,0.4); margin-bottom: 14px; }
+  .f-col a { display: block; font-size: 13px; color: rgba(245,240,232,0.6); text-decoration: none; margin-bottom: 8px; transition: color .2s; }
+  .f-col a:hover { color: var(--cream); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 22px; display: flex; justify-content: space-between; font-size: 12px; color: rgba(245,240,232,0.3); flex-wrap: wrap; gap: 8px; }
+
+  /* ─── FLOAT WA ─── */
+  .float-wa {
+    position: fixed; bottom: 22px; right: 22px; z-index: 500;
+    width: 52px; height: 52px; border-radius: 50%; background: #25d366;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 22px rgba(37,211,102,0.45); text-decoration: none;
+    transition: transform .2s;
+  }
+  .float-wa:hover { transform: scale(1.1); }
+  .float-wa svg { width: 25px; height: 25px; fill: #fff; }
+
+  /* ─── MARQUEE ─── */
+  .marquee { background: var(--rust); padding: 11px 0; overflow: hidden; }
+  .marquee-inner { display: flex; white-space: nowrap; animation: scroll 25s linear infinite; }
+  .marquee-item { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.9); padding: 0 24px; }
+  .marquee-item::after { content: ' ✦ '; opacity: 0.6; padding: 0 4px; }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  @media (max-width: 768px) {
+    .hero-bottom { flex-direction: column; align-items: flex-start; }
+    .book-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .location-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    nav .nav-links { display: none; }
+    .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .photo-grid .ph:first-child { grid-row: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">SNOWDRIFT <span>ADVENTURES</span></a>
+  <ul class="nav-links">
+    <li><a href="#fleet">Fleet</a></li>
+    <li><a href="#routes">Routes</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#location">Find Us</a></li>
+  </ul>
+  <a href="https://wa.me/919805001234" class="nav-wa">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.523 5.819L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.516-5.186-1.416l-.371-.22-3.862 1.013 1.032-3.773-.239-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Manali, Himachal Pradesh</div>
+    <h1 class="hero-h1">BIKE ON RENT<br>IN <em>MANALI</em></h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">Royal Enfields, adventure tourers & scooties — fully serviced, helmets included. Your Leh, Spiti & Rohtang ride starts here.</p>
+      <div class="hero-actions">
+        <a href="#fleet" class="btn-rust">View Fleet →</a>
+        <a href="#book" class="btn-ghost">Book Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-n">500+</div><div class="stat-l">Happy Riders</div></div>
+  <div class="stat"><div class="stat-n">4.8★</div><div class="stat-l">Google Rating</div></div>
+  <div class="stat"><div class="stat-n">15+</div><div class="stat-l">Bike Models</div></div>
+  <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Road Support</div></div>
+  <div class="stat"><div class="stat-n">2018</div><div class="stat-l">Est. Manali</div></div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="marquee-item">RE Himalayan 450</span><span class="marquee-item">RE Classic 350</span><span class="marquee-item">RE Meteor 350</span><span class="marquee-item">KTM Duke 390</span><span class="marquee-item">Manali to Leh</span><span class="marquee-item">Spiti Valley</span><span class="marquee-item">Rohtang Pass</span><span class="marquee-item">Helmets Included</span><span class="marquee-item">Doorstep Delivery</span><span class="marquee-item">RE Himalayan 450</span><span class="marquee-item">RE Classic 350</span><span class="marquee-item">RE Meteor 350</span><span class="marquee-item">KTM Duke 390</span><span class="marquee-item">Manali to Leh</span><span class="marquee-item">Spiti Valley</span><span class="marquee-item">Rohtang Pass</span><span class="marquee-item">Helmets Included</span><span class="marquee-item">Doorstep Delivery</span>
+  </div>
+</div>
+
+<!-- PHOTO GALLERY (Google Business photos style) -->
+<section class="section">
+  <div class="s-head">
+    <div class="eyebrow">Our Gallery</div>
+    <h2 class="s-title">From Our Google Business</h2>
+    <p class="s-sub">Real bikes, real roads, real customers — straight from our Manali depot.</p>
+  </div>
+
+  <div class="photo-grid">
+    <!-- Large hero photo - bike on mountain road -->
+    <div class="ph" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80');"></div>
+    <!-- RE Himalayan close up -->
+    <div class="ph" style="background-image: url('https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80');"></div>
+    <!-- Manali mountains snow -->
+    <div class="ph" style="background-image: url('https://images.unsplash.com/photo-1626015365107-bab2a0b2d949?w=600&q=80');"></div>
+    <!-- Rider on mountain pass -->
+    <div class="ph" style="background-image: url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&q=80');"></div>
+    <!-- More photos overlay -->
+    <div class="ph" style="background-image: url('https://images.unsplash.com/photo-1591608534408-9ddcbbda7cb9?w=600&q=80');"></div>
+  </div>
+
+  <!-- FLEET -->
+  <div class="s-head" id="fleet">
+    <div class="eyebrow">Our Fleet</div>
+    <h2 class="s-title">Pick Your Ride</h2>
+    <p class="s-sub">Every bike is serviced, insured and ready for Himachal's toughest roads.</p>
+  </div>
+
+  <div class="fleet-grid">
+
+    <div class="bike-card">
+      <div class="bike-thumb" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80');">
+        <span class="bike-badge">Adventure</span>
+        <span class="availability">Available</span>
+      </div>
+      <div class="bike-body">
+        <div class="bike-name">RE Himalayan 450</div>
+        <div class="bike-spec">450cc · Long-Range · Spiti Ready</div>
+        <div class="bike-feats">
+          <span class="feat">Luggage Rack</span><span class="feat">All-Terrain</span><span class="feat">Most Popular</span>
+        </div>
+        <div class="bike-row">
+          <div><div class="bike-price">₹1,599</div><div class="bike-per">per day</div></div>
+          <a href="#book" class="bike-btn">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-thumb" style="background-image: url('https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80');">
+        <span class="bike-badge">Classic</span>
+        <span class="availability">Available</span>
+      </div>
+      <div class="bike-body">
+        <div class="bike-name">RE Classic 350</div>
+        <div class="bike-spec">349cc · Cruiser · Smooth Highway</div>
+        <div class="bike-feats">
+          <span class="feat">Comfortable Seat</span><span class="feat">Great Mileage</span>
+        </div>
+        <div class="bike-row">
+          <div><div class="bike-price">₹1,199</div><div class="bike-per">per day</div></div>
+          <a href="#book" class="bike-btn">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-thumb" style="background-image: url('https://images.unsplash.com/photo-1591608534408-9ddcbbda7cb9?w=600&q=80');">
+        <span class="bike-badge">Tourer</span>
+        <span class="availability">Available</span>
+      </div>
+      <div class="bike-body">
+        <div class="bike-name">RE Meteor 350</div>
+        <div class="bike-spec">349cc · Relaxed · Long Distance</div>
+        <div class="bike-feats">
+          <span class="feat">Bluetooth Console</span><span class="feat">Smooth</span>
+        </div>
+        <div class="bike-row">
+          <div><div class="bike-price">₹1,299</div><div class="bike-per">per day</div></div>
+          <a href="#book" class="bike-btn">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-thumb" style="background-image: url('https://images.unsplash.com/photo-1626015365107-bab2a0b2d949?w=600&q=80');">
+        <span class="bike-badge">Sports</span>
+        <span class="availability">Available</span>
+      </div>
+      <div class="bike-body">
+        <div class="bike-name">KTM Duke 390</div>
+        <div class="bike-spec">373cc · Sporty · High Performance</div>
+        <div class="bike-feats">
+          <span class="feat">TFT Display</span><span class="feat">Ride Modes</span>
+        </div>
+        <div class="bike-row">
+          <div><div class="bike-price">₹1,899</div><div class="bike-per">per day</div></div>
+          <a href="#book" class="bike-btn">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-thumb" style="background-image: url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=600&q=80');">
+        <span class="bike-badge">Scooter</span>
+        <span class="availability">Available</span>
+      </div>
+      <div class="bike-body">
+        <div class="bike-name">Honda Activa 6G</div>
+        <div class="bike-spec">109cc · Easy · City & Local</div>
+        <div class="bike-feats">
+          <span class="feat">Auto Gear</span><span class="feat">Budget Pick</span>
+        </div>
+        <div class="bike-row">
+          <div><div class="bike-price">₹649</div><div class="bike-per">per day</div></div>
+          <a href="#book" class="bike-btn">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bike-card">
+      <div class="bike-thumb" style="background-image: url('https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=80');">
+        <span class="bike-badge">Mid-Range</span>
+        <span class="availability">Available</span>
+      </div>
+      <div class="bike-body">
+        <div class="bike-name">Bajaj Pulsar NS200</div>
+        <div class="bike-spec">199cc · Punchy · Lightweight</div>
+        <div class="bike-feats">
+          <span class="feat">Agile</span><span class="feat">Good Mileage</span>
+        </div>
+        <div class="bike-row">
+          <div><div class="bike-price">₹899</div><div class="bike-per">per day</div></div>
+          <a href="#book" class="bike-btn">Book Now</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BOOKING -->
+<div class="book-section" id="book">
+  <div class="book-inner">
+    <div>
+      <div class="eyebrow" style="color: rgba(245,240,232,0.5);"><span style="background: rgba(245,240,232,0.3); height:1px; width:18px; display:inline-block;"></span> Quick Booking</div>
+      <h2 class="book-title">READY TO HIT<br>THE MOUNTAINS?</h2>
+      <p class="book-sub">Fill in your details and we'll confirm availability within 30 minutes on WhatsApp. Helmets, documents support & road assistance included.</p>
+      <div style="margin-top: 24px; display: flex; gap: 20px; flex-wrap: wrap;">
+        <div style="font-size: 13px; color: rgba(245,240,232,0.55);">✓ No advance payment needed</div>
+        <div style="font-size: 13px; color: rgba(245,240,232,0.55);">✓ Free cancellation 24hrs prior</div>
+      </div>
+    </div>
+    <div class="book-form">
+      <select class="form-input">
+        <option value="">Select a Bike</option>
+        <option>RE Himalayan 450 — ₹1,599/day</option>
+        <option>RE Classic 350 — ₹1,199/day</option>
+        <option>RE Meteor 350 — ₹1,299/day</option>
+        <option>KTM Duke 390 — ₹1,899/day</option>
+        <option>Honda Activa — ₹649/day</option>
+        <option>Bajaj Pulsar NS200 — ₹899/day</option>
+      </select>
+      <div class="form-row">
+        <input class="form-input" type="date" placeholder="Pickup Date">
+        <input class="form-input" type="number" placeholder="No. of Days" min="1">
+      </div>
+      <input class="form-input" type="tel" placeholder="Your WhatsApp Number">
+      <input class="form-input" type="text" placeholder="Pickup Location (Hotel / Bus Stand)">
+      <button class="form-submit">Send Enquiry via WhatsApp →</button>
+      <div class="wa-strip">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#4ade80"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.523 5.819L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.516-5.186-1.416l-.371-.22-3.862 1.013 1.032-3.773-.239-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span>Or call/WhatsApp directly: <a href="https://wa.me/919805001234">+91 98050 01234</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROUTES -->
+<section class="section" id="routes">
+  <div class="s-head">
+    <div class="eyebrow">Popular Routes</div>
+    <h2 class="s-title">Where Will You Ride?</h2>
+    <p class="s-sub">Epic Himalayan circuits — all starting from our Manali depot.</p>
+  </div>
+  <div class="route-grid">
+    <div class="route-card" style="background-image: url('https://images.unsplash.com/photo-1626015365107-bab2a0b2d949?w=800&q=80');">
+      <div class="route-overlay"></div>
+      <span class="route-tag">Most Popular</span>
+      <div class="route-content">
+        <div class="route-name">Manali → Leh Ladakh</div>
+        <div class="route-meta-row">
+          <div class="route-meta-item"><strong>490 km</strong> one way</div>
+          <div class="route-meta-item"><strong>7–10 Days</strong></div>
+          <div class="route-meta-item"><strong>5,359m</strong> max alt</div>
+        </div>
+      </div>
+    </div>
+    <div class="route-card" style="background-image: url('https://images.unsplash.com/photo-1547922657-b ??? 680c?w=800&q=80'); background-color: #1a2a1e; background-image: url('https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=80');">
+      <div class="route-overlay"></div>
+      <div class="route-content">
+        <div class="route-name">Spiti Valley Circuit</div>
+        <div class="route-meta-row">
+          <div class="route-meta-item"><strong>500 km</strong> loop</div>
+          <div class="route-meta-item"><strong>6–8 Days</strong></div>
+          <div class="route-meta-item"><strong>4,551m</strong> max alt</div>
+        </div>
+      </div>
+    </div>
+    <div class="route-card" style="background-color: #0d1a0f; background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80');">
+      <div class="route-overlay"></div>
+      <div class="route-content">
+        <div class="route-name">Rohtang Pass Day Ride</div>
+        <div class="route-meta-row">
+          <div class="route-meta-item"><strong>51 km</strong> one way</div>
+          <div class="route-meta-item"><strong>1 Day</strong></div>
+          <div class="route-meta-item"><strong>3,978m</strong> max alt</div>
+        </div>
+      </div>
+    </div>
+    <div class="route-card" style="background-color: #1a1208; background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80');">
+      <div class="route-overlay"></div>
+      <div class="route-content">
+        <div class="route-name">Solang & Atal Tunnel</div>
+        <div class="route-meta-row">
+          <div class="route-meta-item"><strong>35 km</strong> loop</div>
+          <div class="route-meta-item"><strong>Half Day</strong></div>
+          <div class="route-meta-item"><strong>2,480m</strong> max alt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section section-dark" id="why">
+  <div class="s-head">
+    <div class="eyebrow">Why Snowdrift</div>
+    <h2 class="s-title s-title-light">Ride Without Worry</h2>
+    <p class="s-sub s-sub-light">Every detail sorted so you focus on the road, not the bike.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-item"><div class="why-icon">🔧</div><div class="why-t">22-Point Service Check</div><div class="why-d">Every bike is fully inspected before handover — brakes, tyres, chain, lights, oil. No surprises on the road.</div></div>
+    <div class="why-item"><div class="why-icon">⛑️</div><div class="why-t">Helmets Included Free</div><div class="why-d">ISI-certified helmets for rider and pillion at zero extra cost. Riding jackets available on request.</div></div>
+    <div class="why-item"><div class="why-icon">🛡️</div><div class="why-t">Fully Insured</div><div class="why-d">All bikes have valid HP registration, insurance and permit documentation for mountain passes.</div></div>
+    <div class="why-item"><div class="why-icon">🚗</div><div class="why-t">Hotel / Bus Stand Delivery</div><div class="why-d">We deliver and pick up from your accommodation or Volvo Stand — no hunting for our depot.</div></div>
+    <div class="why-item"><div class="why-icon">📞</div><div class="why-t">24/7 Road Helpline</div><div class="why-d">Breakdown near Baralacha La at midnight? We answer. Always. Your safety is our reputation.</div></div>
+    <div class="why-item"><div class="why-icon">📄</div><div class="why-t">Minimal Documents</div><div class="why-d">Just DL + Aadhaar. No lengthy deposits or confusing paperwork. Ride within the hour.</div></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" id="reviews">
+  <div class="s-head">
+    <div class="eyebrow">Google Reviews</div>
+    <h2 class="s-title">What Riders Say</h2>
+  </div>
+  <div class="gbiz-badge">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+    <span class="gbiz-stars">★★★★★</span>
+    <strong>4.8 / 5</strong>
+    <span class="gbiz-count">Based on 120+ Google reviews</span>
+    <a href="https://maps.app.goo.gl/BuJnCxaMYbjLYpS19" target="_blank" style="color: var(--pine-light); font-size: 12px; text-decoration: none; margin-left: 6px;">View on Google →</a>
+  </div>
+  <div class="review-grid">
+    <div class="review-card">
+      <div class="rev-header">
+        <div class="rev-avatar" style="background: #1a3a2b;">AR</div>
+        <div><div class="rev-name">Arjun Rawat</div><div class="rev-via">Google Review · Verified Rider</div></div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <p class="rev-text" style="margin-top: 10px;">"Rented the Himalayan 450 for our Leh trip. Bike was in perfect condition — no issues over 10 days and 1,400 km. The team delivered to our hotel at 6am without a fuss. Will always book from Snowdrift."</p>
+      <div class="rev-date">Manali → Leh Ladakh · 10 days</div>
+    </div>
+    <div class="review-card">
+      <div class="rev-header">
+        <div class="rev-avatar" style="background: #3a1a2b;">PS</div>
+        <div><div class="rev-name">Priya Sharma</div><div class="rev-via">Google Review · Verified Rider</div></div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <p class="rev-text" style="margin-top: 10px;">"Took two Classic 350s for a 5-day Spiti circuit. Both bikes ran flawlessly even on the rough Kaza roads. The team shared route tips we wouldn't have found online. Highly recommended!"</p>
+      <div class="rev-date">Spiti Valley Circuit · 5 days</div>
+    </div>
+    <div class="review-card">
+      <div class="rev-header">
+        <div class="rev-avatar" style="background: #1a2a3a;">MK</div>
+        <div><div class="rev-name">Mihir Kulkarni</div><div class="rev-via">Google Review · Verified Rider</div></div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <p class="rev-text" style="margin-top: 10px;">"Booked a Meteor 350 for a solo Rohtang day ride. Pickup was exactly on time at Volvo Stand. The bike had a full tank and spotless helmet. Simple, honest, no-nonsense rental service."</p>
+      <div class="rev-date">Rohtang Pass Ride · 1 day</div>
+    </div>
+    <div class="review-card">
+      <div class="rev-header">
+        <div class="rev-avatar" style="background: #2a1a10;">RV</div>
+        <div><div class="rev-name">Rhea Verma</div><div class="rev-via">Google Review · Verified Rider</div></div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <p class="rev-text" style="margin-top: 10px;">"Rented an Activa for 3 days for Old Manali and Naggar exploration. Super affordable and very well maintained. The staff gave us a hand-drawn local map with hidden spots. That's what sets them apart."</p>
+      <div class="rev-date">Local Manali Exploration · 3 days</div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <div class="s-head">
+    <div class="eyebrow">Find Us</div>
+    <h2 class="s-title">Visit Our Depot</h2>
+    <p class="s-sub">We're in Manali — and we come to you with doorstep bike delivery.</p>
+  </div>
+  <div class="location-grid">
+    <div class="location-info">
+      <div class="contact-row">
+        <div class="contact-icon">📍</div>
+        <div><div class="contact-label">Address</div><div class="contact-val">Snowdrift Adventures, Near Old Manali Road,<br>Manali, Himachal Pradesh — 175131</div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📱</div>
+        <div><div class="contact-label">Call / WhatsApp</div><div class="contact-val"><a href="tel:+919805001234">+91 98050 01234</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🕐</div>
+        <div><div class="contact-label">Working Hours</div><div class="contact-val">Every Day · 7:00 AM – 8:00 PM<br><span style="font-size: 12px; color: var(--muted);">Emergency support available 24/7</span></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🌐</div>
+        <div><div class="contact-label">Google Business</div><div class="contact-val"><a href="https://maps.app.goo.gl/BuJnCxaMYbjLYpS19" target="_blank">View on Google Maps →</a></div></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📄</div>
+        <div><div class="contact-label">Documents Required</div><div class="contact-val">Valid Driving Licence + Aadhaar Card<br><span style="font-size: 12px; color: var(--muted);">Original documents mandatory</span></div></div>
+      </div>
+    </div>
+    <div class="map-embed">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13510.276!2d77.1622245!3d32.2086029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390463819f1e8c95%3A0x1efc1326e06cac0c!2sBike+On+Rent+In+Manali+-+Snowdrift+Adventures!5e0!3m2!1sen!2sin!4v1"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-logo">SNOWDRIFT <span>ADVENTURES</span></div>
+      <p class="f-tagline">Manali's trusted bike rental since 2018. Royal Enfields, adventure tourers & scooties for every Himalayan road.</p>
+      <div style="margin-top: 20px; display: flex; gap: 10px;">
+        <a href="https://maps.app.goo.gl/BuJnCxaMYbjLYpS19" target="_blank" style="background: rgba(255,255,255,0.07); color: rgba(245,240,232,0.6); padding: 8px 14px; border-radius: 6px; font-size: 12px; text-decoration: none; border: 1px solid rgba(255,255,255,0.08);">📍 Google Maps</a>
+        <a href="https://wa.me/919805001234" style="background: rgba(37,211,102,0.12); color: #4ade80; padding: 8px 14px; border-radius: 6px; font-size: 12px; text-decoration: none; border: 1px solid rgba(37,211,102,0.2);">💬 WhatsApp</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Fleet</h4>
+      <a href="#">RE Himalayan 450</a>
+      <a href="#">RE Classic 350</a>
+      <a href="#">RE Meteor 350</a>
+      <a href="#">KTM Duke 390</a>
+      <a href="#">Honda Activa</a>
+    </div>
+    <div class="f-col">
+      <h4>Routes</h4>
+      <a href="#">Manali to Leh</a>
+      <a href="#">Spiti Valley</a>
+      <a href="#">Rohtang Pass</a>
+      <a href="#">Solang Valley</a>
+      <a href="#">Chandratal Lake</a>
+    </div>
+    <div class="f-col">
+      <h4>Info</h4>
+      <a href="#">Pricing & Packages</a>
+      <a href="#">Documents Required</a>
+      <a href="#">Cancellation Policy</a>
+      <a href="#">FAQs for Riders</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Snowdrift Adventures, Manali. All rights reserved.</span>
+    <span>Bike On Rent In Manali — Himachal Pradesh</span>
+  </div>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/919805001234" class="float-wa" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.523 5.819L.057 23.998l6.305-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.516-5.186-1.416l-.371-.22-3.862 1.013 1.032-3.773-.239-.386A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+</body>
+</html>

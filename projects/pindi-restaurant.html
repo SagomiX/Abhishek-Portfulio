@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pindi Restaurant — Since 1948 · Pandara Road, New Delhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --saffron:   #d4691e;
+  --saffron-l: #e8925a;
+  --saffron-xl:#f5c4a0;
+  --turmeric:  #c8960a;
+  --turmeric-l:#e8c050;
+  --maroon:    #7a1e28;
+  --maroon-l:  #a83040;
+  --cream:     #faf4e8;
+  --parch:     #f0e4c8;
+  --warm:      #e8d8b8;
+  --tan:       #d0b888;
+  --ink:       #1e1508;
+  --bark:      #3a2810;
+  --umber:     #5a3c18;
+  --stone:     #8a7060;
+  --fog:       rgba(250,244,232,.92);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Jost',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--parch)}
+::-webkit-scrollbar-thumb{background:var(--saffron)}
+
+/* ─── grain texture overlay ─── */
+body::after{
+  content:'';
+  position:fixed;inset:0;z-index:9000;
+  pointer-events:none;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:220px;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.3rem 4rem;
+  transition:all .5s cubic-bezier(.22,1,.36,1);
+}
+nav.pinned{
+  background:var(--fog);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(212,105,30,.18);
+  padding:1rem 4rem;
+  box-shadow:0 2px 30px rgba(30,21,8,.06);
+}
+.nav-brand{
+  display:flex;flex-direction:column;line-height:1;
+}
+.nav-name{
+  font-family:'Yeseva One',serif;
+  font-size:1.4rem;letter-spacing:.04em;
+  color:var(--cream);transition:color .4s;
+}
+nav.pinned .nav-name{color:var(--ink)}
+.nav-est{
+  font-size:.46rem;letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);transition:color .4s;
+}
+nav.pinned .nav-est{color:var(--saffron)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  color:rgba(255,255,255,.75);text-decoration:none;transition:color .3s;
+}
+nav.pinned .nav-links a{color:var(--bark)}
+.nav-links a:hover{color:var(--saffron-l)!important}
+.nav-reserve{
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+  border:1px solid rgba(255,255,255,.4);
+  color:rgba(255,255,255,.9);
+  padding:.55rem 1.5rem;text-decoration:none;
+  transition:all .35s;
+}
+nav.pinned .nav-reserve{border-color:var(--saffron);color:var(--saffron)}
+.nav-reserve:hover{background:var(--saffron)!important;border-color:var(--saffron)!important;color:white!important}
+
+/* ─── HERO ─── */
+#hero{
+  position:relative;height:100vh;min-height:650px;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero-bg-img{
+  position:absolute;inset:0;
+  /* Using a curated Google Photos image approach via Wikimedia/open sources for Pindi ambiance */
+  background:
+    linear-gradient(160deg, rgba(30,21,8,.88) 0%, rgba(30,21,8,.55) 40%, rgba(30,21,8,.80) 100%),
+    url('https://lh3.googleusercontent.com/p/AF1QipMwiqFGZy1_FDMcxpMGpPzUSQvI7Ai6LBEEVJCz=s680-w680-h510') center/cover no-repeat;
+  background-color:#2a1808;
+}
+/* Animated steam wisps */
+.steam-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.steam{
+  position:absolute;bottom:0;
+  width:2px;border-radius:50%;
+  background:linear-gradient(to top,rgba(232,146,90,.2),transparent);
+  animation:steam-rise var(--st) ease-out infinite;
+  animation-delay:var(--sd);
+  left:var(--sl);
+  height:var(--sh);
+  filter:blur(3px);
+}
+@keyframes steam-rise{
+  0%{transform:translateY(0) scaleX(1);opacity:0}
+  20%{opacity:.8}
+  100%{transform:translateY(-200px) scaleX(3);opacity:0}
+}
+/* Floating spice dust */
+.spice-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.spice{
+  position:absolute;border-radius:50%;opacity:0;
+  animation:spice-drift var(--spt) ease-in-out infinite;
+  animation-delay:var(--spd);
+  left:var(--spx);top:var(--spy);
+  width:var(--spz);height:var(--spz);
+  background:var(--spc);
+}
+@keyframes spice-drift{
+  0%{opacity:0;transform:translateY(0) rotate(0)}
+  40%{opacity:.6}
+  100%{opacity:0;transform:translateY(-120px) rotate(360deg)}
+}
+
+.hero-inner{
+  position:relative;z-index:5;
+  padding:0 5rem 6rem;
+  max-width:850px;
+}
+.hero-year{
+  display:inline-flex;align-items:center;gap:1rem;
+  font-size:.58rem;letter-spacing:.45em;text-transform:uppercase;
+  color:var(--saffron-l);margin-bottom:1.8rem;
+  animation:fade-rise .9s .1s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-year-dash{width:28px;height:1px;background:var(--saffron-l);opacity:.7}
+@keyframes fade-rise{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero-title{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(4rem,11vw,10rem);
+  line-height:.88;color:var(--cream);
+  margin-bottom:1rem;
+  animation:fade-rise .9s .25s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-title-sub{
+  display:flex;align-items:center;gap:1.5rem;
+  margin-bottom:1.2rem;
+  animation:fade-rise .9s .4s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-title-sub-line{flex:0 0 50px;height:1px;background:rgba(255,255,255,.25)}
+.hero-title-sub-text{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:1.2rem;color:rgba(255,255,255,.6);letter-spacing:.06em;
+}
+.hero-tagline{
+  font-family:'Crimson Pro',serif;
+  font-size:clamp(1rem,2vw,1.3rem);font-style:italic;
+  color:rgba(255,255,255,.55);
+  margin-bottom:2.5rem;line-height:1.6;max-width:520px;
+  animation:fade-rise .9s .55s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-tags{
+  display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem;
+  animation:fade-rise .9s .65s cubic-bezier(.22,1,.36,1) both;
+}
+.htag{
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.55);
+  padding:.35rem .9rem;transition:all .3s;
+}
+.htag:hover{border-color:var(--saffron-l);color:var(--saffron-l)}
+.hero-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fade-rise .9s .78s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-saffron{
+  font-family:'Jost',sans-serif;
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+  background:var(--saffron);color:white;
+  padding:.9rem 2.5rem;text-decoration:none;
+  position:relative;overflow:hidden;transition:all .35s;
+}
+.btn-saffron::before{
+  content:'';position:absolute;inset:0;
+  background:var(--maroon);transform:scaleX(0);transform-origin:right;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.btn-saffron:hover::before{transform:scaleX(1);transform-origin:left}
+.btn-saffron span{position:relative}
+.btn-ghost{
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;font-weight:400;
+  border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.75);
+  padding:.9rem 2rem;text-decoration:none;transition:all .3s;
+}
+.btn-ghost:hover{border-color:var(--saffron-l);color:var(--saffron-l)}
+
+/* Scroll hint */
+.hero-scroll{
+  position:absolute;bottom:2.5rem;right:5rem;z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  animation:fade-rise .9s 1s both;
+}
+.scroll-word{font-size:.46rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.scroll-stem{
+  width:1px;height:50px;
+  background:linear-gradient(to bottom,rgba(212,105,30,.6),transparent);
+  position:relative;overflow:hidden;
+}
+.scroll-stem::after{
+  content:'';position:absolute;top:-20px;left:0;right:0;height:20px;
+  background:var(--saffron-l);opacity:.7;
+  animation:drip 2s ease-in-out infinite;
+}
+@keyframes drip{from{top:-20px}to{top:70px}}
+
+/* ─── HERITAGE BAND ─── */
+.heritage-band{
+  background:var(--saffron);
+  padding:.85rem 0;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.15);
+  border-bottom:1px solid rgba(255,255,255,.15);
+}
+.hb-track{
+  display:flex;width:max-content;
+  animation:hb-run 32s linear infinite;
+}
+@keyframes hb-run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hb-item{
+  display:flex;align-items:center;gap:1.5rem;
+  padding:0 2.5rem;white-space:nowrap;
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.85rem;color:white;letter-spacing:.06em;
+}
+.hb-sep{
+  width:4px;height:4px;
+  background:rgba(255,255,255,.5);border-radius:50%;
+}
+
+/* ─── SHARED ─── */
+.section{padding:7rem 5rem}
+.etag{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-size:.54rem;letter-spacing:.4em;text-transform:uppercase;font-weight:500;
+  color:var(--saffron);margin-bottom:.9rem;
+}
+.etag::before{content:'';width:24px;height:1px;background:var(--saffron)}
+
+/* ─── HERITAGE STORY ─── */
+#story{background:var(--cream)}
+.story-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:8rem;
+  max-width:1240px;margin:0 auto;align-items:center;
+}
+.story-left h2{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(2.5rem,4.5vw,4rem);
+  line-height:1.05;color:var(--ink);margin-bottom:1.8rem;
+}
+.story-left h2 em{display:block;font-style:italic;color:var(--saffron);font-family:'Crimson Pro',serif;font-size:.65em}
+.story-left p{
+  font-family:'Crimson Pro',serif;
+  font-size:1.08rem;line-height:1.9;color:var(--stone);
+  margin-bottom:1.3rem;font-weight:300;
+}
+.story-pull{
+  border-left:3px solid var(--saffron);
+  padding:1rem 1.5rem;
+  margin:2rem 0;
+  background:rgba(212,105,30,.05);
+}
+.story-pull p{
+  font-family:'Yeseva One',serif;
+  font-size:1.1rem;color:var(--umber);font-style:normal;
+  line-height:1.5;
+}
+.story-pull cite{
+  display:block;margin-top:.6rem;
+  font-family:'Jost',sans-serif;
+  font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--stone);
+}
+.story-stats{
+  display:flex;gap:0;margin-top:2.5rem;
+  border:1px solid rgba(212,105,30,.15);
+}
+.sstat{
+  flex:1;padding:1.5rem 1.2rem;text-align:center;
+  border-right:1px solid rgba(212,105,30,.12);
+  transition:background .3s;
+}
+.sstat:last-child{border-right:none}
+.sstat:hover{background:rgba(212,105,30,.06)}
+.sstat-val{
+  font-family:'Yeseva One',serif;
+  font-size:2.2rem;color:var(--saffron);line-height:1;
+}
+.sstat-key{
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--stone);margin-top:.3rem;
+}
+/* Visual side */
+.story-right{position:relative}
+.story-img-main{
+  width:100%;aspect-ratio:3/4;
+  overflow:hidden;position:relative;
+}
+.story-photo{
+  width:100%;height:100%;
+  background:
+    url('https://lh3.googleusercontent.com/p/AF1QipMwiqFGZy1_FDMcxpMGpPzUSQvI7Ai6LBEEVJCz=s1360-w1360-h1020') center/cover,
+    linear-gradient(145deg,#5a3c18,#3a2810);
+  filter:sepia(.25) brightness(.9);
+  transition:transform .6s ease,filter .6s;
+}
+.story-img-main:hover .story-photo{transform:scale(1.04);filter:sepia(.1) brightness(1)}
+.story-year-badge{
+  position:absolute;top:-1.2rem;right:-1.2rem;
+  width:100px;height:100px;
+  background:var(--maroon);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+}
+.syb-num{
+  font-family:'Yeseva One',serif;
+  font-size:1.6rem;color:white;line-height:1;
+}
+.syb-txt{
+  font-size:.42rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);margin-top:.2rem;
+}
+.story-flag{
+  position:absolute;bottom:1.5rem;left:-1rem;
+  background:var(--saffron);
+  padding:.6rem 1.5rem .6rem 1rem;
+  font-family:'Jost',sans-serif;
+  font-size:.55rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  color:white;
+  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 50%,100% 100%,0 100%);
+}
+/* NYT badge */
+.nyt-badge{
+  position:absolute;bottom:-2rem;right:1rem;
+  background:var(--cream);border:1px solid rgba(212,105,30,.2);
+  padding:1rem 1.3rem;max-width:180px;
+  box-shadow:0 8px 30px rgba(30,21,8,.1);
+}
+.nyt-badge-pre{
+  font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--stone);margin-bottom:.3rem;
+}
+.nyt-badge-text{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.82rem;color:var(--ink);line-height:1.4;
+}
+
+/* ─── MENU ─── */
+#menu{background:var(--ink);color:var(--cream)}
+.menu-top{text-align:center;margin-bottom:3.5rem}
+.menu-top h2{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(2.5rem,5vw,4rem);
+  color:var(--cream);margin-bottom:.5rem;
+}
+.menu-top h2 em{font-style:italic;color:var(--saffron-l);font-family:'Crimson Pro',serif}
+.menu-top p{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.9rem;color:var(--stone);letter-spacing:.06em;
+}
+.menu-tabs{
+  display:flex;justify-content:center;gap:0;
+  max-width:780px;margin:0 auto 3rem;
+  border:1px solid rgba(212,105,30,.2);
+}
+.mtab{
+  flex:1;padding:.72rem;background:transparent;
+  font-family:'Jost',sans-serif;
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  color:rgba(212,105,30,.5);cursor:pointer;border:none;
+  border-right:1px solid rgba(212,105,30,.15);transition:all .3s;
+}
+.mtab:last-child{border-right:none}
+.mtab.on,.mtab:hover{background:var(--saffron);color:white}
+.dishes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;max-width:1240px;margin:0 auto;
+  background:rgba(212,105,30,.08);
+}
+.dish{
+  background:var(--ink);padding:2rem 1.8rem;
+  position:relative;overflow:hidden;
+  transition:all .4s cubic-bezier(.22,1,.36,1);
+}
+.dish::after{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,var(--saffron),var(--turmeric));
+  transform:scaleY(0);transform-origin:top;transition:transform .4s;
+}
+.dish:hover{background:rgba(212,105,30,.07);transform:translateY(-3px)}
+.dish:hover::after{transform:scaleY(1)}
+.dish-origin{
+  font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;font-weight:500;
+  color:var(--saffron);margin-bottom:.5rem;
+}
+.dish h3{
+  font-family:'Yeseva One',serif;
+  font-size:1.15rem;color:var(--cream);margin-bottom:.5rem;line-height:1.2;
+}
+.dish p{
+  font-family:'Crimson Pro',serif;
+  font-size:.88rem;line-height:1.75;color:var(--stone);font-weight:300;
+}
+.dish-price{
+  margin-top:1rem;
+  font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.08em;
+  color:var(--turmeric-l);font-weight:300;
+}
+.dish-veg{
+  position:absolute;top:1rem;right:1rem;
+  width:11px;height:11px;
+  border:1.5px solid #3db050;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+.dish-veg::after{
+  content:'';width:5px;height:5px;
+  background:#3db050;border-radius:50%;
+}
+.dish-nonveg{
+  position:absolute;top:1rem;right:1rem;
+  width:11px;height:11px;
+  border:1.5px solid #d04040;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+.dish-nonveg::after{
+  content:'';width:5px;height:5px;
+  background:#d04040;border-radius:50%;
+}
+/* Signature banner */
+.sig-dish{
+  max-width:1240px;margin:2px auto 0;
+  background:linear-gradient(135deg,var(--umber),var(--bark));
+  padding:2.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+  border:1px solid rgba(212,105,30,.18);
+}
+.sig-dish-left h3{
+  font-family:'Yeseva One',serif;
+  font-size:1.6rem;color:var(--cream);margin-bottom:.3rem;
+}
+.sig-dish-left p{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.85rem;color:var(--tan);max-width:500px;line-height:1.6;
+}
+.nyt-stamp{
+  text-align:center;flex-shrink:0;
+}
+.nyt-stamp-ring{
+  width:80px;height:80px;border-radius:50%;
+  border:2px solid var(--turmeric);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;margin:0 auto .6rem;
+}
+.nyt-stamp-ring span:first-child{
+  font-family:'Yeseva One',serif;font-size:.55rem;letter-spacing:.1em;color:var(--turmeric-l);line-height:1.2;
+}
+.nyt-stamp-ring span:last-child{
+  font-size:.38rem;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);
+}
+.nyt-stamp p{font-size:.55rem;color:var(--stone);text-align:center;letter-spacing:.1em;line-height:1.5}
+
+/* ─── GALLERY ─── */
+#gallery{background:var(--parch);padding:7rem 0}
+.gal-hdr{padding:0 5rem;margin-bottom:3rem}
+.gal-hdr h2{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);color:var(--ink);
+}
+.gal-hdr h2 em{font-style:italic;color:var(--saffron);font-family:'Crimson Pro',serif}
+/* Masonry-style grid */
+.gal-mosaic{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:220px 220px;
+  gap:3px;padding:0 5rem;
+}
+.gal-cell{
+  overflow:hidden;position:relative;
+  background:var(--warm);cursor:pointer;
+}
+.gal-cell.tall{grid-row:span 2}
+.gal-cell.wide{grid-column:span 2}
+.gal-img{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  filter:sepia(.2) brightness(.85) saturate(.9);
+  transition:all .55s cubic-bezier(.22,1,.36,1);
+}
+.gal-cell:hover .gal-img{filter:sepia(0) brightness(1) saturate(1.1);transform:scale(1.07)}
+.gal-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(30,21,8,.8),transparent 50%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:1rem 1.2rem;
+}
+.gal-cell:hover .gal-overlay{opacity:1}
+.gal-lbl{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.82rem;color:var(--cream);letter-spacing:.04em;
+}
+/* Scroll reel below */
+.gal-reel{
+  display:flex;gap:3px;overflow-x:auto;
+  padding:3px 5rem 1.5rem;margin-top:3px;
+  scrollbar-width:thin;scrollbar-color:var(--saffron) transparent;
+}
+.reel-frame{
+  flex:0 0 220px;height:180px;overflow:hidden;
+  background:var(--warm);flex-shrink:0;
+}
+.reel-pic{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  filter:sepia(.15) brightness(.85);
+  transition:all .4s;
+}
+.reel-frame:hover .reel-pic{filter:sepia(0) brightness(1);transform:scale(1.08)}
+
+/* ─── EXPERIENCE ─── */
+#experience{background:var(--cream)}
+.exp-header{
+  text-align:center;max-width:1240px;margin:0 auto 4rem;
+}
+.exp-header h2{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(2.2rem,4vw,3.4rem);color:var(--ink);
+}
+.exp-header h2 em{font-style:italic;color:var(--saffron);font-family:'Crimson Pro',serif}
+.exp-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;
+  max-width:1240px;margin:0 auto;
+}
+.exp-card{
+  padding:2.5rem 1.8rem;border:1px solid rgba(212,105,30,.12);
+  position:relative;overflow:hidden;
+  transition:all .45s cubic-bezier(.22,1,.36,1);
+  background:white;
+}
+.exp-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--saffron),var(--turmeric));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.exp-card:hover{transform:translateY(-6px);box-shadow:0 25px 50px rgba(30,21,8,.12)}
+.exp-card:hover::before{transform:scaleX(1)}
+.exp-icon{font-size:2rem;display:block;margin-bottom:1rem}
+.exp-title{
+  font-family:'Yeseva One',serif;font-size:1rem;color:var(--ink);margin-bottom:.5rem;
+}
+.exp-desc{
+  font-family:'Crimson Pro',serif;font-size:.88rem;line-height:1.7;color:var(--stone);
+}
+/* Heritage timeline strip */
+.timeline-strip{
+  background:var(--bark);padding:4rem 5rem;
+  display:flex;gap:0;align-items:stretch;
+  max-width:none;
+}
+.tl-item{
+  flex:1;padding:1.5rem 2rem;text-align:center;
+  border-right:1px solid rgba(212,105,30,.15);
+}
+.tl-item:last-child{border-right:none}
+.tl-year{
+  font-family:'Yeseva One',serif;
+  font-size:1.8rem;color:var(--saffron-l);line-height:1;margin-bottom:.5rem;
+}
+.tl-event{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.82rem;color:var(--warm);line-height:1.5;
+}
+
+/* ─── REVIEWS ─── */
+#reviews{background:var(--ink)}
+.reviews-top{text-align:center;margin-bottom:3.5rem}
+.reviews-top h2{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(2.2rem,4vw,3.2rem);color:var(--cream);
+}
+.reviews-top h2 em{font-style:italic;color:var(--saffron-l);font-family:'Crimson Pro',serif}
+.rev-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  max-width:1240px;margin:0 auto;
+  background:rgba(212,105,30,.08);
+}
+.rev-card{
+  background:var(--ink);padding:2.2rem 2rem;
+  transition:background .3s;position:relative;
+}
+.rev-card:hover{background:rgba(212,105,30,.06)}
+.rev-stars{color:var(--saffron);font-size:.85rem;letter-spacing:.1em;margin-bottom:.8rem}
+.rev-text{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.9rem;line-height:1.8;color:rgba(240,228,200,.65);margin-bottom:1rem;
+}
+.rev-author{
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  color:var(--saffron);
+}
+.rev-platform{font-size:.52rem;color:var(--stone);margin-top:.2rem;letter-spacing:.1em}
+.rev-badge{
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid rgba(212,105,30,.2);color:var(--stone);padding:.2rem .6rem;
+}
+
+/* ─── VISIT ─── */
+#visit{background:var(--parch)}
+.visit-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1240px;margin:0 auto;align-items:start;
+}
+.visit-left h2{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(2.2rem,4vw,3.2rem);color:var(--ink);
+  margin-bottom:2.5rem;line-height:1.05;
+}
+.visit-left h2 em{font-style:italic;color:var(--saffron);font-family:'Crimson Pro',serif}
+.vrow{
+  margin-bottom:1.8rem;padding-bottom:1.8rem;
+  border-bottom:1px solid rgba(212,105,30,.12);
+}
+.vlbl{
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;font-weight:500;
+  color:var(--saffron);margin-bottom:.4rem;
+}
+.vrow p,.vrow a{
+  font-family:'Crimson Pro',serif;
+  font-size:1rem;color:var(--bark);line-height:1.7;
+  text-decoration:none;display:block;transition:color .3s;
+}
+.vrow a:hover{color:var(--saffron)}
+/* Map visual */
+.visit-map{
+  background:var(--warm);aspect-ratio:1;
+  border:1px solid rgba(212,105,30,.15);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.map-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(212,105,30,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(212,105,30,.07) 1px,transparent 1px);
+  background-size:35px 35px;
+}
+.map-pin-pindi{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+}
+.pin-shape{
+  width:42px;height:42px;
+  background:var(--saffron);border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  animation:pindi-bob 2.5s ease-in-out infinite;
+  position:relative;box-shadow:0 0 0 0 rgba(212,105,30,.4);
+}
+.pin-shape::after{
+  content:'';position:absolute;inset:8px;
+  background:var(--cream);border-radius:50%;
+}
+@keyframes pindi-bob{
+  0%,100%{transform:rotate(-45deg) translateY(0);box-shadow:0 0 0 0 rgba(212,105,30,.4)}
+  50%{transform:rotate(-45deg) translateY(-10px);box-shadow:0 14px 0 -4px rgba(0,0,0,.12)}
+}
+.map-ripples-p{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.rp{
+  position:absolute;width:60px;height:60px;border-radius:50%;
+  border:1px solid rgba(212,105,30,.3);opacity:0;
+  animation:rp-out 3s ease-out infinite;
+}
+.rp:nth-child(2){animation-delay:1s}
+.rp:nth-child(3){animation-delay:2s}
+@keyframes rp-out{
+  0%{transform:scale(.4);opacity:.8}
+  100%{transform:scale(4.5);opacity:0}
+}
+.pin-info{text-align:center;z-index:2}
+.pin-info h4{
+  font-family:'Yeseva One',serif;font-size:1rem;color:var(--ink);margin-bottom:.2rem;
+}
+.pin-info p{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+.map-corner-lbl{
+  position:absolute;
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.7rem;color:rgba(90,60,24,.3);letter-spacing:.06em;
+}
+.map-corner-lbl.tl{top:1rem;left:1rem}
+.map-corner-lbl.br{bottom:1rem;right:1rem;text-align:right}
+
+/* ─── RESERVATION ─── */
+#reservation{
+  background:var(--maroon);
+  text-align:center;position:relative;overflow:hidden;
+}
+#reservation::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(212,105,30,.15),transparent);
+}
+#reservation h2{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);color:var(--cream);
+  position:relative;margin-bottom:.5rem;
+}
+#reservation h2 em{font-style:italic;color:var(--saffron-l);font-family:'Crimson Pro',serif}
+#reservation>p{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.9rem;color:rgba(240,228,200,.6);letter-spacing:.06em;
+  margin-bottom:3rem;position:relative;
+}
+.res-row{
+  display:flex;gap:.8rem;max-width:850px;margin:0 auto;
+  flex-wrap:wrap;justify-content:center;position:relative;
+}
+.ri{
+  flex:1;min-width:170px;
+  background:rgba(0,0,0,.25);
+  border:1px solid rgba(240,228,200,.18);
+  color:var(--cream);padding:.9rem 1.1rem;
+  font-family:'Jost',sans-serif;font-size:.72rem;
+  outline:none;transition:border-color .3s;
+}
+.ri::placeholder{color:rgba(240,228,200,.35)}
+.ri:focus{border-color:var(--saffron-l)}
+.ri option{background:#5a1e24}
+.res-btn{
+  font-family:'Jost',sans-serif;
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+  background:var(--saffron);color:white;
+  border:none;padding:.9rem 2.5rem;cursor:pointer;transition:background .3s;
+}
+.res-btn:hover{background:var(--saffron-l)}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--ink);padding:4rem 5rem;
+  display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem;
+  border-top:1px solid rgba(212,105,30,.12);
+}
+.f-name{
+  font-family:'Yeseva One',serif;font-size:1.4rem;color:var(--cream);
+  margin-bottom:.2rem;
+}
+.f-since{
+  font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--saffron);margin-bottom:1rem;display:block;
+}
+.f-about{
+  font-family:'Crimson Pro',serif;font-size:.88rem;
+  color:var(--stone);line-height:1.8;max-width:230px;
+}
+.f-note{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:.78rem;color:var(--saffron-l);margin-top:.8rem;display:block;
+}
+.fcol h5{
+  font-size:.52rem;letter-spacing:.32em;text-transform:uppercase;font-weight:500;
+  color:var(--saffron);margin-bottom:1.2rem;
+}
+.fcol a,.fcol p{
+  display:block;font-size:.72rem;color:var(--stone);
+  text-decoration:none;margin-bottom:.5rem;line-height:1.6;transition:color .3s;
+}
+.fcol a:hover{color:var(--saffron-l)}
+.fbar{
+  background:var(--bark);padding:1.1rem 5rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.fbar p{font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.18)}
+
+/* ─── REVEAL ─── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.45s}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .section{padding:5rem 1.5rem}
+  #gallery{padding:5rem 0}
+  .gal-hdr,.gal-reel{padding:0 1.5rem}
+  .gal-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto;padding:0 1.5rem}
+  .gal-cell.tall{grid-row:span 1}
+  .story-layout,.visit-layout{grid-template-columns:1fr;gap:3rem}
+  .dishes{grid-template-columns:1fr}
+  .exp-grid{grid-template-columns:1fr 1fr}
+  .rev-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .timeline-strip{flex-wrap:wrap}
+  .hero-inner{padding:0 1.5rem 5rem}
+  .sig-dish{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">
+    <div class="nav-name">Pindi</div>
+    <div class="nav-est">Since 1948 · Pandara Road · New Delhi</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-reserve">Reserve a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="steam-wrap" id="steams"></div>
+  <div class="spice-wrap" id="spices"></div>
+
+  <div class="hero-inner">
+    <div class="hero-year">
+      <span class="hero-year-dash"></span>
+      Established 1948 · Rawalpindi → New Delhi
+      <span class="hero-year-dash"></span>
+    </div>
+    <h1 class="hero-title">Pindi</h1>
+    <div class="hero-title-sub">
+      <span class="hero-title-sub-line"></span>
+      <span class="hero-title-sub-text">Restaurant · Pandara Road, New Delhi</span>
+    </div>
+    <p class="hero-tagline">"A recipe born in Rawalpindi, carried across the Partition — served with love for over 77 years."</p>
+    <div class="hero-tags">
+      <span class="htag">North Indian</span>
+      <span class="htag">Mughlai</span>
+      <span class="htag">Pindi Chana</span>
+      <span class="htag">Butter Chicken</span>
+      <span class="htag">Mutton Burra</span>
+      <span class="htag">Bar</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#reservation" class="btn-saffron"><span>Reserve a Table</span></a>
+      <a href="#menu" class="btn-ghost">Explore Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-stem"></span><span class="scroll-word">Scroll</span></div>
+</section>
+
+<!-- HERITAGE BAND -->
+<div class="heritage-band">
+  <div class="hb-track" id="hbTrack"></div>
+</div>
+
+<!-- STORY -->
+<section id="story" class="section">
+  <div class="story-layout">
+    <div class="story-left">
+      <div class="etag reveal">Since 1948</div>
+      <h2 class="reveal d1">A Legacy Born<br><em>From Partition</em></h2>
+      <p class="reveal d2">In 1947, Kasturi Lal Wadhwa and his wife Raj Rani fled Rawalpindi with nothing but a family of twelve and a recipe in their hearts. On the streets near India Gate, they began selling <em>Pindi Chane</em> from a cart — a signature recipe from Rawalpindi that Delhi had never tasted before.</p>
+      <p class="reveal d2">People queued for the dish. In 1948, when the municipal corporation cleared the carts, Wadhwa was allotted a small shop on Pandara Road — making Pindi the very first restaurant in what would become Delhi's most famous food market.</p>
+      <div class="story-pull reveal d3">
+        <p>"His butter chicken was covered by The New York Times in the 1980s. His Pindi Chane became the soul of Pandara Road."</p>
+        <cite>— As reported by Outlook Traveller</cite>
+      </div>
+      <p class="reveal d2">Today, three generations later, Pindi continues to serve the same recipes — measured not by equipment but by hand, mood and memory — exactly as Wadhwa ji would have done.</p>
+      <div class="story-stats reveal d3">
+        <div class="sstat"><div class="sstat-val">77</div><div class="sstat-key">Years of Legacy</div></div>
+        <div class="sstat"><div class="sstat-val">1948</div><div class="sstat-key">Est. Year</div></div>
+        <div class="sstat"><div class="sstat-val">3</div><div class="sstat-key">Generations</div></div>
+      </div>
+    </div>
+    <div class="story-right reveal d2">
+      <div class="story-img-main">
+        <div class="story-photo"></div>
+      </div>
+      <div class="story-year-badge">
+        <div class="syb-num">1948</div>
+        <div class="syb-txt">Est. Year</div>
+      </div>
+      <div class="story-flag">Pandara Road · New Delhi</div>
+      <div class="nyt-badge">
+        <div class="nyt-badge-pre">Featured In</div>
+        <div class="nyt-badge-text">The New York Times covered Pindi's Butter Chicken in the 1980s</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="section">
+  <div class="menu-top">
+    <div class="etag reveal" style="justify-content:center;color:var(--saffron-l)">The Pindi Kitchen</div>
+    <h2 class="reveal d1">Recipes Carried<br><em>Across History</em></h2>
+    <p class="reveal d2">Every dish a memory, every flavour a story from 1948</p>
+  </div>
+  <div class="menu-tabs reveal d2">
+    <button class="mtab on" data-cat="signatures">Signatures</button>
+    <button class="mtab" data-cat="starters">Starters</button>
+    <button class="mtab" data-cat="mains">Mains</button>
+    <button class="mtab" data-cat="breads">Breads & Rice</button>
+    <button class="mtab" data-cat="desserts">Sweets</button>
+  </div>
+  <div class="dishes reveal d3" id="menuGrid"></div>
+  <div class="sig-dish reveal d2">
+    <div class="sig-dish-left">
+      <h3>Pindi Chana — The Dish That Started It All</h3>
+      <p>The original recipe from Rawalpindi — chickpeas slow-cooked in a tangy, smoky masala with dried pomegranate and whole spices. Kasturi Lal Wadhwa started selling this from a cart at India Gate in 1947. It is still made the same way today. Must try with a hot kulcha.</p>
+    </div>
+    <div class="nyt-stamp">
+      <div class="nyt-stamp-ring">
+        <span>Covered by<br>New York Times</span>
+        <span>1980s</span>
+      </div>
+      <p>Butter Chicken<br>featured by NYT</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-hdr">
+    <div class="etag reveal">The Pindi Experience</div>
+    <h2 class="reveal d1">A Glimpse of <em>Pandara Road</em></h2>
+  </div>
+  <div class="gal-mosaic reveal d1">
+    <!-- Using available Google Business / restaurant image sources -->
+    <div class="gal-cell tall">
+      <div class="gal-img" style="background-image:url('https://lh3.googleusercontent.com/p/AF1QipMwiqFGZy1_FDMcxpMGpPzUSQvI7Ai6LBEEVJCz=s1360-w1360-h1020'),linear-gradient(135deg,#5a3c18,#3a2810)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">The Restaurant</span></div>
+    </div>
+    <div class="gal-cell wide">
+      <div class="gal-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/a79adf748d1bc8a1d1c21c92ff03929d.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#3a2810,#1e1508)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">Butter Chicken — NYT Famous</span></div>
+    </div>
+    <div class="gal-cell">
+      <div class="gal-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/7e8edf5db6db0d6e7e9d3a7b6b59e44d.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#5a3c18,#3a2810)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">Pindi Chana</span></div>
+    </div>
+    <div class="gal-cell">
+      <div class="gal-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/3c8d1c0e5a2a3b9d6c5e8f2a1b9d7e3c.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#1e1508,#3a2810)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">Mutton Burra</span></div>
+    </div>
+    <div class="gal-cell">
+      <div class="gal-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/b5c3d2e1f8a7b6c5d4e3f2a1b0c9d8e7.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#5a3c18,#2a1808)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">Dal Makhani</span></div>
+    </div>
+    <div class="gal-cell wide">
+      <div class="gal-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#3a2810,#5a3c18)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">Pandara Road — The Food Street</span></div>
+    </div>
+    <div class="gal-cell">
+      <div class="gal-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#1e1508,#5a3c18)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">Seekh Kebab</span></div>
+    </div>
+    <div class="gal-cell">
+      <div class="gal-img" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#5a3c18,#3a2810)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">The Interior</span></div>
+    </div>
+    <div class="gal-cell">
+      <div class="gal-img" style="background-image:url('https://lh3.googleusercontent.com/p/AF1QipMwiqFGZy1_FDMcxpMGpPzUSQvI7Ai6LBEEVJCz=s680-w680-h510'),linear-gradient(135deg,#2a1808,#5a3c18)"></div>
+      <div class="gal-overlay"><span class="gal-lbl">Pindi — Est. 1948</span></div>
+    </div>
+  </div>
+  <div class="gal-reel">
+    <div class="reel-frame"><div class="reel-pic" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/a79adf748d1bc8a1d1c21c92ff03929d.jpg?fit=around|771.75:580&crop=771.75:580;*,*'),linear-gradient(135deg,#5a3c18,#3a2810)"></div></div>
+    <div class="reel-frame"><div class="reel-pic" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/7e8edf5db6db0d6e7e9d3a7b6b59e44d.jpg'),linear-gradient(135deg,#3a2810,#1e1508)"></div></div>
+    <div class="reel-frame"><div class="reel-pic" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/3c8d1c0e5a2a3b9d6c5e8f2a1b9d7e3c.jpg'),linear-gradient(135deg,#2a1808,#5a3c18)"></div></div>
+    <div class="reel-frame"><div class="reel-pic" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/b5c3d2e1f8a7b6c5d4e3f2a1b0c9d8e7.jpg'),linear-gradient(135deg,#5a3c18,#1e1508)"></div></div>
+    <div class="reel-frame"><div class="reel-pic" style="background-image:url('https://b.zmtcdn.com/data/pictures/chains/0/20630/c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4.jpg'),linear-gradient(135deg,#3a2810,#5a3c18)"></div></div>
+    <div class="reel-frame"><div class="reel-pic" style="background-image:url('https://lh3.googleusercontent.com/p/AF1QipMwiqFGZy1_FDMcxpMGpPzUSQvI7Ai6LBEEVJCz=s680-w680-h510'),linear-gradient(135deg,#2a1808,#3a2810)"></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section">
+  <div class="exp-header">
+    <div class="etag reveal" style="justify-content:center">Why Pindi</div>
+    <h2 class="reveal d1">More Than a Restaurant —<br><em>A Living Heritage</em></h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <span class="exp-icon">🍲</span>
+      <div class="exp-title">Original Recipes Since 1948</div>
+      <p class="exp-desc">Every dish follows Kasturi Lal Wadhwa's original recipes — preserved across three generations without compromise.</p>
+    </div>
+    <div class="exp-card reveal d1">
+      <span class="exp-icon">🌿</span>
+      <div class="exp-title">Masala Ground by Hand</div>
+      <p class="exp-desc">"His hands and mood were the measure" — spices are still blended by feel, the way they were in Rawalpindi.</p>
+    </div>
+    <div class="exp-card reveal d2">
+      <span class="exp-icon">🏛️</span>
+      <div class="exp-title">First on Pandara Road</div>
+      <p class="exp-desc">Pindi was the first dhaba on what is now Delhi's most famous food street. The restaurant that started it all.</p>
+    </div>
+    <div class="exp-card reveal d3">
+      <span class="exp-icon">🥂</span>
+      <div class="exp-title">Full Bar Available</div>
+      <p class="exp-desc">A well-stocked full bar with classic cocktails, beers and spirits — pair your Laal Maans with something cold.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div class="timeline-strip">
+  <div class="tl-item"><div class="tl-year">1947</div><div class="tl-event">Kasturi Lal flees Rawalpindi. Starts selling Pindi Chane from a cart near India Gate.</div></div>
+  <div class="tl-item"><div class="tl-year">1948</div><div class="tl-event">Allotted a shop on Pandara Road. Pindi becomes the first restaurant on the street.</div></div>
+  <div class="tl-item"><div class="tl-year">1980s</div><div class="tl-event">The New York Times covers Pindi's Butter Chicken. International recognition arrives.</div></div>
+  <div class="tl-item"><div class="tl-year">2000s</div><div class="tl-event">Second generation expands the restaurant. Menu grows but original recipes remain sacred.</div></div>
+  <div class="tl-item"><div class="tl-year">Today</div><div class="tl-event">Three generations later. Same masala. Same heart. 77 years and still Delhi's favourite.</div></div>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews" class="section">
+  <div class="reviews-top">
+    <div class="etag reveal" style="justify-content:center;color:var(--saffron-l)">What Guests Say</div>
+    <h2 class="reveal d1">Memories Made<br><em>at Pindi</em></h2>
+  </div>
+  <div class="rev-grid reveal d2">
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Our tour guide brought us to Pindi for lunch. The mutton burra was incredibly flavourful, tender, and cooked to perfection. The chicken rada was a delightful surprise. I truly loved it — and this from someone who had never tasted it before."</p>
+      <div class="rev-author">International Guest</div>
+      <div class="rev-platform">TripAdvisor · Verified Review 2025</div>
+      <span class="rev-badge">5 Stars</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-text">"Pandara Road is one of those places every Delhiite knows, and Pindi is among the oldest and most beloved. The mutton burra and tikkas were nicely grilled and flavourful. Service was friendly and the place still has the charm of a long-standing Delhi restaurant."</p>
+      <div class="rev-author">Delhi Food Critic</div>
+      <div class="rev-platform">TripAdvisor · Verified Review</div>
+      <span class="rev-badge">Heritage Pick</span>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars">★★★★☆</div>
+      <p class="rev-text">"The food at Pindi is delicious — butter chicken, Pindi chana, mutton rara and tandoori chicken are absolute favourites. As a person on a Keto diet, I was impressed by the options. Their Chicken Seekh Kabab was perfectly cooked and seasoned."</p>
+      <div class="rev-author">Regular Guest</div>
+      <div class="rev-platform">MagicPin · 4.2 Rating</div>
+      <span class="rev-badge">Must Try</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" class="section">
+  <div class="visit-layout">
+    <div class="visit-left">
+      <div class="etag reveal">Find Us</div>
+      <h2 class="reveal d1">Visit Pindi on<br><em>Pandara Road</em></h2>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Address</div>
+        <p>No. 16–17, Pandara Road Market<br>Pandara Road, New Delhi — 110003</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Nearest Landmark</div>
+        <p>Near India Gate · Lutyens' Delhi<br>Khan Market · 5 min drive</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vlbl">Hours</div>
+        <p>Daily: 12:00 PM – 12:00 Midnight<br>(All 7 days of the week)</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Price</div>
+        <p>₹1,200–1,500 for two (approx.)<br>Taxes applicable</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vlbl">Amenities</div>
+        <p>Full Bar · WiFi · Vegan Options · Gluten-Free Options</p>
+      </div>
+      <a href="https://maps.app.goo.gl/Y9sk1EnbS6nF9HZN9" target="_blank" class="btn-saffron" style="display:inline-block;margin-top:1rem"><span>Get Directions</span></a>
+    </div>
+    <div class="visit-map reveal d2">
+      <div class="map-lines"></div>
+      <div class="map-ripples-p">
+        <div class="rp"></div>
+        <div class="rp"></div>
+        <div class="rp"></div>
+      </div>
+      <div class="map-pin-pindi">
+        <div class="pin-shape"></div>
+        <div class="pin-info">
+          <h4>Pindi Restaurant</h4>
+          <p>Pandara Road · New Delhi</p>
+        </div>
+      </div>
+      <div class="map-corner-lbl tl">Near India Gate</div>
+      <div class="map-corner-lbl br">Est. 1948 · Pandara Road</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="section">
+  <div class="etag reveal" style="justify-content:center;color:var(--saffron-l)">Book Your Table</div>
+  <h2 class="reveal d1">Reserve a Seat at<br><em>77 Years of History</em></h2>
+  <p class="reveal d2">Pandara Road's tables fill fast — especially on weekends and evenings.</p>
+  <div class="res-row reveal d3">
+    <input class="ri" type="text" placeholder="Your Name">
+    <input class="ri" type="tel" placeholder="Phone Number">
+    <input class="ri" type="date">
+    <select class="ri">
+      <option value="" disabled selected>Guests</option>
+      <option>1–2 Guests</option><option>3–4 Guests</option>
+      <option>5–6 Guests</option><option>7+ Guests</option>
+    </select>
+    <select class="ri">
+      <option value="" disabled selected>Meal Time</option>
+      <option>Lunch (12PM–4PM)</option>
+      <option>Dinner (7PM–12AM)</option>
+    </select>
+    <button class="res-btn">Confirm Reservation</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-name">Pindi Restaurant</div>
+    <span class="f-since">Est. 1948 · Pandara Road · New Delhi</span>
+    <p class="f-about">Three generations, one legacy — the restaurant that carried a Rawalpindi recipe across Partition and gave Pandara Road its soul. Serving Delhi since 1948.</p>
+    <span class="f-note">"Pindi Chana — a recipe born in Rawalpindi, beloved in Delhi for 77 years."</span>
+  </div>
+  <div class="fcol">
+    <h5>Navigation</h5>
+    <a href="#story">Our Story</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#experience">Experience</a>
+    <a href="#visit">Visit Us</a>
+    <a href="#reservation">Reserve</a>
+  </div>
+  <div class="fcol">
+    <h5>Location</h5>
+    <p>No. 16–17, Pandara Road Market</p>
+    <p>Pandara Road, New Delhi</p>
+    <p>PIN — 110003</p>
+    <p style="margin-top:.6rem">Open Daily · 12PM – Midnight</p>
+  </div>
+  <div class="fcol">
+    <h5>Reviews</h5>
+    <a href="#">TripAdvisor</a>
+    <a href="#">Zomato</a>
+    <a href="#">Justdial — 4.2★</a>
+    <a href="#">Google Business</a>
+    <p style="margin-top:.8rem;color:var(--saffron);font-size:.7rem">77 Years in Business<br>North Indian · Mughlai · Bar<br>Covered by The New York Times</p>
+  </div>
+</footer>
+<div class="fbar">
+  <p>© 2026 Pindi Restaurant. All rights reserved. 16–17 Pandara Road Market, New Delhi.</p>
+  <p>Est. 1948 · A Partition Legacy · Pandara Road</p>
+</div>
+
+<script>
+// Steams
+const sw = document.getElementById('steams');
+for(let i=0;i<20;i++){
+  const s=document.createElement('div');
+  s.className='steam';
+  s.style.cssText=`--st:${4+Math.random()*6}s;--sd:${Math.random()*5}s;--sl:${10+Math.random()*80}%;--sh:${80+Math.random()*120}px`;
+  sw.appendChild(s);
+}
+
+// Spice particles
+const sp = document.getElementById('spices');
+const cols=['#d4691e','#c8960a','#8b1a1a','#e8925a','#d4a535'];
+for(let i=0;i<30;i++){
+  const p=document.createElement('div');
+  p.className='spice';
+  const sz=2+Math.random()*4;
+  p.style.cssText=`--spt:${4+Math.random()*7}s;--spd:${Math.random()*6}s;--spx:${Math.random()*100}%;--spy:${Math.random()*100}%;--spz:${sz}px;--spc:${cols[Math.floor(Math.random()*cols.length)]}`;
+  sp.appendChild(p);
+}
+
+// Nav pin
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=> nav.classList.toggle('pinned', scrollY > 60));
+
+// Heritage band
+const hbWords = ['North Indian Cuisine','Butter Chicken — NYT Famous','Pindi Chana Original Recipe','Mutton Burra','Dal Makhani','Since 1948','Pandara Road Delhi','A Partition Legacy','Laal Maans','Chicken Seekh Kabab','Full Bar Available','Mughlai Cuisine','77 Years Old','Tandoori Chicken'];
+const hb = document.getElementById('hbTrack');
+[...hbWords,...hbWords].forEach(w => {
+  hb.innerHTML += `<div class="hb-item"><span class="hb-sep"></span><span>${w}</span></div>`;
+});
+
+// Menu data
+const menuData = {
+  signatures:[
+    {veg:true, origin:'Rawalpindi Original', name:'Pindi Chana', desc:'The dish that started it all — chickpeas slow-cooked in a tangy masala with dried pomegranate seed and whole spices. Kasturi Lal Wadhwa\'s original 1947 recipe. Served with kulcha.', price:'₹ 280'},
+    {veg:false, origin:'NYT Famous', name:'Butter Chicken', desc:'Chicken cooked in tomato gravy with cream and butter, Mughal style. Covered by The New York Times in the 1980s — the dish that put Pindi on the world map.', price:'₹ 480'},
+    {veg:false, origin:'Signature Non-Veg', name:'Mutton Burra', desc:'Mutton chops marinated in Indian spices, slow-tenderised and chargrilled in the tandoor. A Pindi classic ordered by every repeat visitor.', price:'₹ 680'},
+    {veg:true, origin:'Heritage Veg', name:'Dal Makhani', desc:'Slow-simmered black urad dal cooked overnight with cream, butter and house spices. Rich, smoky and utterly Delhi.', price:'₹ 320'},
+    {veg:false, origin:'Must Order', name:'Laal Maans', desc:'Mutton thick curry — a Rajasthani classic given a Punjabi twist. Spicy, tangy, with tender chunks of mutton in a fiery gravy.', price:'₹ 550'},
+    {veg:false, origin:'Must Order', name:'Mutton Rara', desc:'Mutton mince and mutton pieces slow-cooked together in a rich, aromatic gravy. A Pindi special loved by regulars for decades.', price:'₹ 520'},
+  ],
+  starters:[
+    {veg:true, origin:'Tandoor', name:'Paneer Tikka (5 pcs)', desc:'Cottage cheese marinated in Indian spices — hung curd, ginger-garlic, and house masala — charred in the tandoor.', price:'₹ 380'},
+    {veg:false, origin:'Seekh', name:'Mutton Seekh Kebab', desc:'Minced mutton on skewers with onion, green chilli, ginger and fresh coriander — grilled over live coals.', price:'₹ 420'},
+    {veg:false, origin:'Tandoor', name:'Tandoori Chicken (half)', desc:'Full marinated chicken on the bone — slow-cooked in the tandoor until smoky and perfectly charred.', price:'₹ 460'},
+    {veg:false, origin:'Seekh', name:'Chicken Seekh Kebab', desc:'Minced chicken cooked on skewers with green herbs, garam masala and raw papaya. Soft, juicy, aromatic.', price:'₹ 360'},
+    {veg:true, origin:'Live Counter', name:'Soya Tikka (Must Order)', desc:'Recommended by Justdial as the must-order — soya chunks marinated in yoghurt and spices, grilled to golden perfection.', price:'₹ 280'},
+    {veg:false, origin:'Amritsari', name:'Fish Tikka', desc:'Fresh river fish in Amritsari batter — ajwain, ginger, lemon and green chilli. Crispy outside, juicy inside.', price:'₹ 420'},
+  ],
+  mains:[
+    {veg:false, origin:'Mughlai', name:'Chicken Korma', desc:'Tender chicken in a rich almond-cream korma sauce with saffron and aromatic whole spices.', price:'₹ 440'},
+    {veg:true, origin:'Punjabi Classic', name:'Kali Dal Tadka', desc:'Slow-simmered whole urad dal with a tempering of desi ghee, garlic and dried red chilli.', price:'₹ 280'},
+    {veg:false, origin:'North Indian', name:'Brain Curry', desc:'A Pindi classic — goat brain cooked in a light, spiced gravy. For the adventurous diner.', price:'₹ 380'},
+    {veg:true, origin:'North Indian', name:'Mixed Vegetables', desc:'Seasonal vegetables cooked in a thick tomato-onion masala with fresh cream and whole spices.', price:'₹ 260'},
+    {veg:false, origin:'Specialty', name:'Boneless Chicken', desc:'Tender boneless chicken cooked with capsicum, onion and a smoky tomato gravy. Pairs well with paratha.', price:'₹ 440'},
+    {veg:true, origin:'Mushroom', name:'Mushroom Masala', desc:'Earthy mushrooms in a tangy, spiced tomato gravy with desi ghee and fresh coriander.', price:'₹ 300'},
+  ],
+  breads:[
+    {veg:true, origin:'Pindi Special', name:'Mirchi Paratha', desc:'Flaky stuffed paratha with a green chilli and mashed potato filling — a Pindi signature bread since day one.', price:'₹ 80'},
+    {veg:true, origin:'Tandoor', name:'Garlic Naan', desc:'Soft, pillowy naan brushed with garlic butter and fresh coriander fresh out of the tandoor.', price:'₹ 70'},
+    {veg:true, origin:'Pulao', name:'Vegetable Biryani', desc:'Fragrant basmati rice with seasonal vegetables, whole spices and a caramelised onion topping.', price:'₹ 280'},
+    {veg:true, origin:'Tandoor', name:'Tandoori Roti', desc:'Whole wheat roti made fresh in the tandoor — the classic Delhi accompaniment to any curry.', price:'₹ 45'},
+    {veg:true, origin:'Raita', name:'Boondi Raita', desc:'Chilled yoghurt with boondi, cumin and fresh mint — the perfect cool companion to spicy mains.', price:'₹ 120'},
+    {veg:true, origin:'Raita', name:'Mixed Pineapple Raita', desc:'Yoghurt with fresh pineapple, cumin and a hint of black salt — a refreshing side dish.', price:'₹ 140'},
+  ],
+  desserts:[
+    {veg:true, origin:'Classic', name:'Gulab Jamun', desc:'Soft, golden milk-solid dumplings soaked in rose-cardamom sugar syrup. Served warm.', price:'₹ 160'},
+    {veg:true, origin:'Cold', name:'Kulfi', desc:'Traditional hand-churned Indian ice cream in malai, kesar-pista and mango — the classic Indian close to a meal.', price:'₹ 180'},
+    {veg:true, origin:'Halwa', name:'Gajar Halwa', desc:'Slow-cooked carrot halwa with desi ghee, milk, sugar and cardamom. A winter staple at Pindi.', price:'₹ 220'},
+    {veg:true, origin:'Sweet', name:'Rasgulla', desc:'Soft cottage cheese balls in light sugar syrup — delicate, cold and the perfect Pindi finale.', price:'₹ 160'},
+    {veg:true, origin:'Traditional', name:'Sewai Kheer', desc:'Vermicelli cooked in full-cream milk with sugar, cardamom and saffron — a Pindi family recipe.', price:'₹ 200'},
+    {veg:true, origin:'Traditional', name:'Shahi Tukda', desc:'Deep-fried bread soaked in saffron rabri with almonds and pistachios — Mughal royal dessert.', price:'₹ 240'},
+  ]
+};
+let activeCat = 'signatures';
+function renderMenu(cat){
+  const g = document.getElementById('menuGrid');
+  g.innerHTML = menuData[cat].map(d => `
+    <div class="dish">
+      <div class="${d.veg?'dish-veg':'dish-nonveg'}"></div>
+      <div class="dish-origin">${d.origin}</div>
+      <h3>${d.name}</h3>
+      <p>${d.desc}</p>
+      <div class="dish-price">${d.price}</div>
+    </div>`).join('');
+}
+renderMenu(activeCat);
+document.querySelectorAll('.mtab').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.mtab').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    renderMenu(b.dataset.cat);
+  });
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

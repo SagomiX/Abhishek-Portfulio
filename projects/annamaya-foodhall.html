@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnnaMaya FoodHall — Andaz Delhi | Eat Mindful. Shop Artisanal.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Raleway:wght@200;300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --sage:       #6b8c5a;
+  --sage-deep:  #4a6640;
+  --sage-pale:  #c8d9be;
+  --moss:       #2e3d28;
+  --forest:     #1a2616;
+  --terra:      #c4714a;
+  --terra-pale: #e8a882;
+  --turmeric:   #d4a535;
+  --cream:      #f7f2ea;
+  --parchment:  #ede5d4;
+  --linen:      #f9f5ee;
+  --ink:        #1e1e18;
+  --bark:       #5a4835;
+  --stone:      #8a8070;
+  --fog:        rgba(247,242,234,0.88);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Raleway',sans-serif;
+  background:var(--linen);
+  color:var(--ink);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* Custom cursor */
+.cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--terra);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .15s,width .3s,height .3s,background .3s;
+  mix-blend-mode:multiply;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1.5px solid var(--sage);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform .35s cubic-bezier(.22,1,.36,1),width .3s,height .3s;
+}
+body:has(a:hover) .cursor{width:16px;height:16px;background:var(--sage)}
+body:has(a:hover) .cursor-ring{width:50px;height:50px;border-color:var(--terra)}
+
+/* Grain overlay */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:9997;
+  pointer-events:none;
+  opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--parchment)}
+::-webkit-scrollbar-thumb{background:var(--sage)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 4rem;
+  transition:all .5s cubic-bezier(.22,1,.36,1);
+}
+nav.scrolled{
+  background:var(--fog);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(107,140,90,.18);
+  padding:1rem 4rem;
+}
+.nav-brand{display:flex;flex-direction:column;gap:0}
+.nav-brand-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:500;
+  color:var(--linen);letter-spacing:.04em;
+  line-height:1;transition:color .5s;
+}
+nav.scrolled .nav-brand-name{color:var(--ink)}
+.nav-brand-tag{
+  font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);transition:color .5s;
+  font-weight:300;line-height:1.6;
+}
+nav.scrolled .nav-brand-tag{color:var(--sage)}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  color:rgba(255,255,255,.75);text-decoration:none;transition:color .3s;
+}
+nav.scrolled .nav-links a{color:var(--bark)}
+.nav-links a:hover{color:var(--terra-pale)!important}
+.nav-cta{
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+  border:1px solid rgba(255,255,255,.45);
+  color:rgba(255,255,255,.9);padding:.55rem 1.5rem;
+  text-decoration:none;transition:all .35s;
+}
+nav.scrolled .nav-cta{border-color:var(--sage);color:var(--sage-deep)}
+.nav-cta:hover{background:var(--terra)!important;border-color:var(--terra)!important;color:white!important}
+
+/* ── HERO ── */
+#hero{
+  position:relative;height:100vh;min-height:640px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 60%, rgba(46,61,40,.65) 0%, transparent 70%),
+    linear-gradient(160deg, #1a2616 0%, #2e3d28 40%, #1e2e1a 70%, #141e11 100%);
+}
+/* Botanical SVG leaf pattern */
+.hero-botanicals{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;
+}
+.leaf-svg{
+  position:absolute;opacity:0;
+  animation:leaf-drift var(--ld) ease-in-out infinite;
+  animation-delay:var(--ldelay);
+  left:var(--lx);top:var(--ly);
+}
+@keyframes leaf-drift{
+  0%{opacity:0;transform:translateY(0) rotate(var(--lr)) scale(.8)}
+  15%{opacity:.25}
+  85%{opacity:.15}
+  100%{opacity:0;transform:translateY(-60px) rotate(calc(var(--lr) + 20deg)) scale(1)}
+}
+/* Floating spice dots */
+.spice-particles{position:absolute;inset:0;overflow:hidden}
+.spice{
+  position:absolute;border-radius:50%;opacity:0;
+  animation:spice-float var(--sd) ease-in-out infinite;
+  animation-delay:var(--sdelay);
+}
+@keyframes spice-float{
+  0%{opacity:0;transform:translateY(20px) scale(0)}
+  30%{opacity:.5}
+  70%{opacity:.3}
+  100%{opacity:0;transform:translateY(-80px) scale(1.5)}
+}
+.hero-content{
+  position:relative;z-index:5;
+  text-align:center;max-width:900px;
+  padding:0 2rem;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:1rem;
+  font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--terra-pale);margin-bottom:2rem;
+  animation:rise .9s .2s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-eyebrow-line{width:30px;height:1px;background:var(--terra-pale);opacity:.7}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,8vw,7.5rem);
+  font-weight:400;line-height:.95;color:var(--cream);
+  margin-bottom:.6rem;
+  animation:rise .9s .35s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-title em{display:block;font-style:italic;color:var(--sage-pale);font-weight:400}
+.hero-divider{
+  display:flex;align-items:center;justify-content:center;gap:1.2rem;
+  margin:.8rem 0 1.8rem;
+  animation:rise .9s .5s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-divider-line{flex:0 0 60px;height:1px;background:rgba(255,255,255,.25)}
+.hero-divider-icon{font-size:.7rem;color:var(--terra-pale);letter-spacing:.2em;text-transform:uppercase;font-size:.55rem}
+.hero-tagline{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:clamp(.9rem,1.8vw,1.1rem);
+  color:rgba(255,255,255,.6);letter-spacing:.06em;
+  margin-bottom:2.8rem;
+  animation:rise .9s .6s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-pills{
+  display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;
+  margin-bottom:2.5rem;
+  animation:rise .9s .7s cubic-bezier(.22,1,.36,1) both;
+}
+.pill{
+  font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);
+  padding:.4rem 1rem;transition:all .3s;
+}
+.pill:hover{border-color:var(--sage-pale);color:var(--sage-pale)}
+.hero-btns{
+  display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+  animation:rise .9s .85s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes rise{
+  from{opacity:0;transform:translateY(35px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.btn-leaf{
+  font-family:'Raleway',sans-serif;
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  background:var(--sage);color:white;
+  padding:.9rem 2.3rem;text-decoration:none;
+  border-radius:0;transition:all .35s;
+  position:relative;overflow:hidden;
+}
+.btn-leaf::before{
+  content:'';position:absolute;inset:0;
+  background:var(--moss);transform:scaleX(0);transform-origin:right;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.btn-leaf:hover::before{transform:scaleX(1);transform-origin:left}
+.btn-leaf span{position:relative}
+.btn-ghost-leaf{
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  border:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.8);
+  padding:.9rem 2rem;text-decoration:none;transition:all .3s;
+}
+.btn-ghost-leaf:hover{border-color:var(--sage-pale);color:var(--sage-pale)}
+.hero-scroll-cue{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  animation:rise .9s 1.1s both;
+}
+.scroll-label{font-size:.48rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.scroll-bar{
+  width:1px;height:55px;
+  background:linear-gradient(to bottom,var(--sage-pale),transparent);
+  position:relative;overflow:hidden;
+}
+.scroll-bar::after{
+  content:'';position:absolute;top:-100%;left:0;right:0;height:40%;
+  background:white;opacity:.6;
+  animation:scroll-drip 2s ease-in-out infinite;
+}
+@keyframes scroll-drip{
+  from{top:-40%}to{top:140%}
+}
+
+/* ── MANIFESTO STRIP ── */
+.manifesto{
+  background:var(--moss);padding:1.1rem 0;overflow:hidden;
+  border-top:1px solid rgba(200,217,190,.12);
+  border-bottom:1px solid rgba(200,217,190,.12);
+}
+.manifesto-track{
+  display:flex;width:max-content;
+  animation:run 35s linear infinite;
+}
+@keyframes run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.manifesto-item{
+  display:flex;align-items:center;gap:1.5rem;padding:0 2.5rem;
+  font-family:'Lora',serif;font-style:italic;font-size:.78rem;
+  color:var(--sage-pale);white-space:nowrap;letter-spacing:.04em;
+}
+.manifesto-sep{
+  width:5px;height:5px;
+  background:var(--terra);transform:rotate(45deg);flex-shrink:0;
+}
+
+/* ── SECTIONS SHARED ── */
+.sec{padding:7rem 4rem}
+.tag{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-size:.55rem;letter-spacing:.38em;text-transform:uppercase;font-weight:500;
+  color:var(--sage);margin-bottom:.9rem;
+}
+.tag::before{content:'';width:28px;height:1px;background:var(--sage)}
+
+/* ── PHILOSOPHY ── */
+#philosophy{background:var(--linen)}
+.phil-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8rem;
+  max-width:1200px;margin:0 auto;align-items:center;
+}
+.phil-text h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,4vw,3.8rem);font-weight:400;
+  line-height:1.1;color:var(--ink);margin-bottom:2rem;
+}
+.phil-text h2 em{font-style:italic;color:var(--sage-deep)}
+.phil-text p{
+  font-size:.88rem;line-height:1.95;color:var(--stone);
+  margin-bottom:1.4rem;font-weight:300;letter-spacing:.01em;
+}
+.phil-text blockquote{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:1.05rem;color:var(--sage-deep);
+  border-left:3px solid var(--terra);padding-left:1.3rem;
+  margin:2.2rem 0;line-height:1.6;
+}
+.phil-pillars{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;
+  margin-top:2.5rem;
+}
+.pillar{
+  padding:1.4rem;background:var(--parchment);
+  border-top:2px solid var(--sage);
+  transition:all .4s;
+}
+.pillar:hover{background:var(--sage);transform:translateY(-3px)}
+.pillar:hover .pillar-title,.pillar:hover .pillar-desc{color:white}
+.pillar-title{
+  font-family:'Playfair Display',serif;font-size:.95rem;font-weight:500;
+  color:var(--ink);margin-bottom:.4rem;transition:color .4s;
+}
+.pillar-desc{font-size:.65rem;line-height:1.6;color:var(--stone);transition:color .4s}
+/* Illustration side */
+.phil-visual{position:relative}
+.phil-frame{
+  width:100%;aspect-ratio:3/4;
+  background:linear-gradient(145deg,#2e3d28,#4a6640);
+  position:relative;overflow:hidden;
+}
+/* Inline SVG botanical illustration */
+.phil-frame svg{
+  position:absolute;inset:0;width:100%;height:100%;
+}
+.phil-tag{
+  position:absolute;bottom:-1rem;left:-1.5rem;
+  background:var(--terra);padding:1.5rem;
+  font-family:'Playfair Display',serif;font-size:.85rem;font-style:italic;
+  color:white;max-width:180px;line-height:1.4;
+}
+.phil-counter{
+  position:absolute;top:-1rem;right:-1rem;
+  width:90px;height:90px;
+  background:var(--turmeric);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.phil-counter span:first-child{
+  font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;
+  color:var(--forest);line-height:1;
+}
+.phil-counter span:last-child{
+  font-size:.42rem;letter-spacing:.15em;text-transform:uppercase;color:var(--forest);opacity:.8;
+}
+
+/* ── MENU HALL ── */
+#menu{background:var(--forest);color:var(--cream)}
+.menu-intro{text-align:center;margin-bottom:3.5rem}
+.menu-intro h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4vw,3.4rem);font-weight:400;
+  color:var(--cream);margin-bottom:.5rem;
+}
+.menu-intro h2 em{font-style:italic;color:var(--terra-pale)}
+.menu-intro p{font-size:.75rem;color:rgba(200,217,190,.6);letter-spacing:.1em}
+.menu-nav{
+  display:flex;justify-content:center;gap:0;
+  max-width:800px;margin:0 auto 3.5rem;
+  border:1px solid rgba(200,217,190,.15);
+}
+.mnav-btn{
+  flex:1;padding:.7rem;background:transparent;
+  font-family:'Raleway',sans-serif;
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  color:rgba(200,217,190,.5);cursor:pointer;border:none;
+  border-right:1px solid rgba(200,217,190,.12);transition:all .3s;
+}
+.mnav-btn:last-child{border-right:none}
+.mnav-btn.on,.mnav-btn:hover{background:var(--sage);color:white}
+.menu-stage{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  max-width:1200px;margin:0 auto;
+  background:rgba(200,217,190,.08);
+}
+.dish{
+  background:var(--forest);padding:2rem 1.8rem;
+  position:relative;overflow:hidden;
+  transition:all .4s;
+}
+.dish::after{
+  content:'';position:absolute;left:0;bottom:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--sage),var(--terra));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.dish:hover{background:rgba(107,140,90,.12)}
+.dish:hover::after{transform:scaleX(1)}
+.dish-origin{
+  font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--terra-pale);margin-bottom:.55rem;font-weight:500;
+}
+.dish h3{
+  font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;
+  color:var(--cream);margin-bottom:.6rem;line-height:1.3;
+}
+.dish-desc{font-size:.7rem;line-height:1.8;color:rgba(200,217,190,.55);font-weight:300}
+.dish-kcal{
+  margin-top:1.1rem;font-size:.62rem;
+  color:rgba(200,217,190,.3);letter-spacing:.1em;
+  font-style:italic;font-family:'Lora',serif;
+}
+.dish-badge{
+  position:absolute;top:1rem;right:1rem;
+  font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;
+  padding:.25rem .6rem;font-weight:600;
+}
+.badge-veg{background:rgba(46,100,46,.4);color:#7dba7d;border:1px solid rgba(125,186,125,.3)}
+.badge-vegan{background:rgba(46,80,100,.4);color:#7dbaba;border:1px solid rgba(125,186,186,.3)}
+.badge-gf{background:rgba(100,80,20,.4);color:#d4a535;border:1px solid rgba(212,165,53,.3)}
+/* Artisan store banner */
+.artisan-bar{
+  max-width:1200px;margin:2.5rem auto 0;
+  background:linear-gradient(135deg,#2e3d28,#4a6640);
+  padding:2.5rem 3rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  flex-wrap:wrap;
+  border:1px solid rgba(200,217,190,.12);
+}
+.artisan-bar-text h3{
+  font-family:'Playfair Display',serif;font-size:1.5rem;font-style:italic;
+  color:var(--cream);margin-bottom:.3rem;
+}
+.artisan-bar-text p{font-size:.72rem;color:rgba(200,217,190,.6);max-width:450px;line-height:1.6}
+.btn-artisan{
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;
+  background:var(--terra);color:white;padding:.8rem 2rem;
+  text-decoration:none;white-space:nowrap;transition:all .3s;
+  flex-shrink:0;
+}
+.btn-artisan:hover{background:var(--bark)}
+
+/* ── EXPERIENCE GRID ── */
+#experience{background:var(--parchment)}
+.exp-header{text-align:center;max-width:1200px;margin:0 auto 4rem}
+.exp-header h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4vw,3.4rem);font-weight:400;
+  color:var(--ink);
+}
+.exp-header h2 em{font-style:italic;color:var(--terra)}
+.exp-mosaic{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto auto;
+  gap:1.2rem;
+  max-width:1200px;margin:0 auto;
+}
+.exp-card{
+  background:var(--linen);padding:2.2rem 1.8rem;
+  border:1px solid rgba(107,140,90,.12);
+  position:relative;overflow:hidden;
+  transition:all .45s cubic-bezier(.22,1,.36,1);
+}
+.exp-card::before{
+  content:'';position:absolute;inset:0;
+  background:var(--sage);opacity:0;transition:opacity .4s;
+}
+.exp-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(46,61,40,.15)}
+.exp-card:hover::before{opacity:1}
+.exp-card>*{position:relative;z-index:1;transition:color .4s}
+.exp-card:hover .exp-icon{filter:brightness(10)}
+.exp-card:hover .exp-name,.exp-card:hover .exp-detail{color:white!important}
+.exp-card.wide{grid-column:span 2}
+.exp-icon{font-size:1.8rem;margin-bottom:1rem;display:block}
+.exp-name{
+  font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;
+  color:var(--ink);margin-bottom:.5rem;
+}
+.exp-detail{font-size:.7rem;line-height:1.7;color:var(--stone);font-weight:300}
+/* Farm stats row */
+.farm-stats{
+  background:var(--sage);padding:3.5rem 4rem;
+  display:flex;gap:0;max-width:none;
+}
+.farm-stat{
+  flex:1;text-align:center;padding:1.5rem;
+  border-right:1px solid rgba(255,255,255,.15);
+}
+.farm-stat:last-child{border-right:none}
+.farm-stat h3{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;font-weight:400;color:white;line-height:1;
+  margin-bottom:.4rem;
+}
+.farm-stat p{
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.65);
+}
+
+/* ── SUNDAY BRUNCH ── */
+#brunch{
+  background:var(--ink);position:relative;overflow:hidden;
+}
+#brunch::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 0% 50%, rgba(196,113,74,.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 100% 50%, rgba(107,140,90,.08) 0%, transparent 60%);
+}
+.brunch-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:center;position:relative;z-index:1;
+}
+.brunch-text .tag{color:var(--terra-pale)}
+.brunch-text .tag::before{background:var(--terra-pale)}
+.brunch-text h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,3.5vw,3.4rem);font-weight:400;
+  color:var(--cream);margin-bottom:1.5rem;line-height:1.1;
+}
+.brunch-text h2 em{font-style:italic;color:var(--terra-pale)}
+.brunch-text p{font-size:.86rem;line-height:1.9;color:rgba(255,255,255,.5);margin-bottom:1.2rem;font-weight:300}
+.brunch-details{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0;
+}
+.brunch-detail{
+  background:rgba(255,255,255,.04);padding:1.2rem;
+  border-left:2px solid var(--terra);
+}
+.brunch-detail-label{
+  font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--terra-pale);margin-bottom:.4rem;
+}
+.brunch-detail p{font-size:.78rem;color:var(--cream);line-height:1.5}
+/* Circular timing badge */
+.brunch-visual{display:flex;align-items:center;justify-content:center;position:relative}
+.brunch-ring{
+  width:320px;height:320px;border-radius:50%;
+  border:1px solid rgba(200,217,190,.12);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  animation:slow-spin 40s linear infinite;
+}
+@keyframes slow-spin{to{transform:rotate(360deg)}}
+.brunch-ring-inner{
+  width:240px;height:240px;border-radius:50%;
+  background:linear-gradient(145deg,#2e3d28,#1a2616);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;animation:slow-spin 40s linear infinite reverse;
+  border:1px solid rgba(200,217,190,.1);
+}
+.brunch-ring-label{
+  font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;
+  color:var(--cream);line-height:1.2;margin-bottom:.5rem;
+}
+.brunch-ring-time{
+  font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--sage-pale);
+}
+.brunch-ring-day{
+  font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--terra-pale);margin-top:.3rem;
+}
+/* Orbit dots */
+.orbit-dot{
+  position:absolute;width:8px;height:8px;
+  background:var(--terra);border-radius:50%;
+  top:50%;left:0;margin-top:-4px;margin-left:-4px;
+  transform-origin:160px 4px;
+}
+.orbit-dot:nth-child(2){transform:rotate(120deg);background:var(--sage)}
+.orbit-dot:nth-child(3){transform:rotate(240deg);background:var(--turmeric)}
+
+/* ── GALLERY ── */
+#gallery{background:var(--linen);padding:7rem 0}
+#gallery .tag,#gallery h2{padding:0 4rem}
+#gallery h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4vw,3.2rem);font-weight:400;
+  color:var(--ink);margin-bottom:3rem;
+}
+#gallery h2 em{font-style:italic;color:var(--sage-deep)}
+.gallery-scroll{
+  display:flex;gap:1rem;overflow-x:auto;
+  padding:0 4rem 1.5rem;
+  scrollbar-width:thin;scrollbar-color:var(--sage) transparent;
+  scroll-snap-type:x mandatory;
+}
+.g-card{
+  flex:0 0 270px;aspect-ratio:2/3;
+  scroll-snap-align:start;position:relative;overflow:hidden;
+  background:linear-gradient(var(--ga,145deg),var(--gc1),var(--gc2));
+  transition:transform .4s cubic-bezier(.22,1,.36,1),filter .4s;
+  filter:saturate(.7);
+}
+.g-card:hover{transform:scale(1.04);filter:saturate(1)}
+.g-cap{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:3.5rem 1.2rem 1.2rem;
+  background:linear-gradient(to top,rgba(26,38,22,.95),transparent);
+}
+.g-cap h4{
+  font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;
+  color:var(--cream);margin-bottom:.2rem;
+}
+.g-cap p{font-size:.55rem;letter-spacing:.18em;color:rgba(200,217,190,.55);text-transform:uppercase}
+
+/* ── VISIT ── */
+#visit{background:var(--forest)}
+.visit-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:start;
+}
+.visit-left .tag{color:var(--sage-pale)}
+.visit-left .tag::before{background:var(--sage-pale)}
+.visit-left h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,3.5vw,3rem);font-weight:400;
+  color:var(--cream);margin-bottom:2.5rem;line-height:1.1;
+}
+.visit-left h2 em{font-style:italic;color:var(--terra-pale)}
+.vinfo{
+  margin-bottom:2rem;padding-bottom:2rem;
+  border-bottom:1px solid rgba(200,217,190,.08);
+}
+.vinfo-lbl{
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:.5rem;font-weight:500;
+}
+.vinfo p,.vinfo a{
+  font-size:.84rem;color:rgba(200,217,190,.65);line-height:1.75;
+  font-weight:300;text-decoration:none;display:block;transition:color .3s;
+}
+.vinfo a:hover{color:var(--terra-pale)}
+.visit-map{
+  background:var(--moss);aspect-ratio:1;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  border:1px solid rgba(200,217,190,.08);
+}
+/* Organic grid lines */
+.map-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(107,140,90,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(107,140,90,.07) 1px,transparent 1px);
+  background-size:35px 35px;
+}
+.map-center{
+  display:flex;flex-direction:column;align-items:center;z-index:2;gap:1.2rem;
+}
+.map-pin-am{
+  width:46px;height:46px;
+  background:var(--terra);
+  border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  animation:pin-breathe 2.5s ease-in-out infinite;
+  position:relative;
+}
+.map-pin-am::after{
+  content:'';position:absolute;inset:8px;
+  background:var(--forest);border-radius:50%;
+}
+@keyframes pin-breathe{
+  0%,100%{transform:rotate(-45deg) translateY(0);box-shadow:0 0 0 0 rgba(196,113,74,.4)}
+  50%{transform:rotate(-45deg) translateY(-10px);box-shadow:0 0 0 12px rgba(196,113,74,0)}
+}
+.map-ripples{position:absolute;display:flex;align-items:center;justify-content:center;inset:0}
+.ripple-am{
+  position:absolute;width:70px;height:70px;border-radius:50%;
+  border:1px solid var(--terra);opacity:0;
+  animation:ripple-out 3s ease-out infinite;
+}
+.ripple-am:nth-child(2){animation-delay:1s}
+.ripple-am:nth-child(3){animation-delay:2s}
+@keyframes ripple-out{
+  0%{transform:scale(.4);opacity:.8}
+  100%{transform:scale(4);opacity:0}
+}
+.map-name{text-align:center;z-index:2}
+.map-name h4{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1rem;color:var(--cream);margin-bottom:.2rem;
+}
+.map-name p{font-size:.55rem;letter-spacing:.2em;color:var(--stone);text-transform:uppercase}
+
+/* ── RESERVATION ── */
+#reservation{
+  background:var(--parchment);
+  text-align:center;
+}
+#reservation h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);font-weight:400;
+  color:var(--ink);margin-bottom:.6rem;
+}
+#reservation h2 em{font-style:italic;color:var(--terra)}
+#reservation>p{
+  font-size:.78rem;color:var(--stone);letter-spacing:.08em;
+  margin-bottom:3rem;
+}
+.res-row{
+  display:flex;gap:.8rem;max-width:780px;margin:0 auto;flex-wrap:wrap;justify-content:center;
+}
+.ri{
+  flex:1;min-width:170px;
+  background:white;border:1px solid rgba(107,140,90,.2);
+  color:var(--ink);padding:.9rem 1.1rem;
+  font-family:'Raleway',sans-serif;font-size:.72rem;font-weight:400;
+  outline:none;transition:border-color .3s;
+}
+.ri::placeholder{color:var(--stone)}
+.ri:focus{border-color:var(--sage)}
+.ri option{background:white}
+.res-submit{
+  font-family:'Raleway',sans-serif;
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+  background:var(--sage);color:white;
+  border:none;padding:.9rem 2.5rem;cursor:pointer;
+  transition:background .3s;
+}
+.res-submit:hover{background:var(--moss)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--forest);
+  padding:4rem;
+  display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem;
+  border-top:1px solid rgba(200,217,190,.07);
+}
+.f-brand-name{
+  font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;
+  color:var(--cream);margin-bottom:.2rem;
+}
+.f-brand-sub{
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:1rem;
+}
+.f-brand p{font-size:.7rem;color:rgba(200,217,190,.45);line-height:1.8;max-width:230px}
+.f-brand-tagline{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:.75rem;color:var(--terra-pale);margin-top:.8rem;display:block;
+}
+.fcol h5{
+  font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:1.2rem;font-weight:500;
+}
+.fcol a,.fcol p{
+  display:block;font-size:.7rem;color:rgba(200,217,190,.4);
+  text-decoration:none;margin-bottom:.55rem;line-height:1.6;transition:color .3s;
+}
+.fcol a:hover{color:var(--terra-pale)}
+.footer-bar{
+  background:var(--ink);padding:1.1rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-bar p{font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.18)}
+
+/* ── REVEAL ── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1);
+}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .sec{padding:5rem 1.5rem}
+  .phil-grid,.brunch-wrap,.visit-grid{grid-template-columns:1fr;gap:3rem}
+  .menu-stage{grid-template-columns:1fr}
+  .exp-mosaic{grid-template-columns:1fr 1fr}
+  .exp-card.wide{grid-column:span 1}
+  .phil-pillars{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr}
+  #gallery{padding:5rem 0}
+  #gallery .tag,#gallery h2{padding:0 1.5rem}
+  .gallery-scroll{padding:0 1.5rem 1.5rem}
+  .farm-stats{flex-wrap:wrap}
+  .artisan-bar{flex-direction:column}
+  .brunch-visual{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-brand">
+    <div class="nav-brand-name">AnnaMaya</div>
+    <div class="nav-brand-tag">FoodHall · Andaz Delhi · Hyatt</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#philosophy">Our Story</a></li>
+    <li><a href="#menu">Menu Hall</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#brunch">Sunday Brunch</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-cta">Reserve a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-botanicals" id="botanicals"></div>
+  <div class="spice-particles" id="spices"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      Andaz Delhi · Aerocity · A Hyatt Concept
+      <span class="hero-eyebrow-line"></span>
+    </div>
+    <h1 class="hero-title">
+      Anna<em>Maya</em>
+    </h1>
+    <div class="hero-divider">
+      <span class="hero-divider-line"></span>
+      <span class="hero-divider-icon">Anna = Food &nbsp;·&nbsp; Maya = Magic</span>
+      <span class="hero-divider-line"></span>
+    </div>
+    <p class="hero-tagline">"Eat Mindful. Shop Artisanal. Raise Awareness."</p>
+    <div class="hero-pills">
+      <span class="pill">Farm to Table</span>
+      <span class="pill">Artisan Ingredients</span>
+      <span class="pill">Live Kitchens</span>
+      <span class="pill">Organic &amp; Vegan</span>
+      <span class="pill">Sunday Brunch</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#reservation" class="btn-leaf"><span>Reserve a Table</span></a>
+      <a href="#menu" class="btn-ghost-leaf">Explore Menu Hall</a>
+    </div>
+  </div>
+  <div class="hero-scroll-cue">
+    <div class="scroll-bar"></div>
+    <span class="scroll-label">Discover</span>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <div class="manifesto-track" id="mTrack"></div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy" class="sec">
+  <div class="phil-grid">
+    <div class="phil-text">
+      <div class="tag reveal">Our Philosophy</div>
+      <h2 class="reveal d1">Food as <em>Magic</em>,<br>Sourced with <em>Soul</em></h2>
+      <p class="reveal d2">AnnaMaya is named after two goddesses: <strong>Annapurna</strong> — the goddess of nourishment — and <strong>Maya</strong> — the goddess of magic. Together they give birth to a foodhall that is more than dining; it is a conscious celebration of India's artisans, farmers, and food-makers.</p>
+      <blockquote class="reveal d2">"Our chefs spent a day at Tijara Farm to understand the finer nuances of seasonal produce — going beyond farm-to-table to celebrate the farmers and their food."<br><cite style="font-size:.7rem;opacity:.6;font-style:normal;display:block;margin-top:.5rem">— Chef Vikram Ganpule, Executive Chef</cite></blockquote>
+      <p class="reveal d2">Old Delhi's soul — hand-painted glass windows, sacks of spices, weathered wooden doors — meets a European food-hall floor of brown-and-white geometric tiles. Every square metre tells a story of where India's ingredients come from.</p>
+      <div class="phil-pillars reveal d3">
+        <div class="pillar">
+          <div class="pillar-title">Eat Mindful</div>
+          <div class="pillar-desc">Seasonal menus, calorie-tagged dishes, organic produce</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Shop Artisanal</div>
+          <div class="pillar-desc">Locally crafted pantry goods, teas, chocolates & spices</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Raise Awareness</div>
+          <div class="pillar-desc">Every product supports an inspiring Made-in-India story</div>
+        </div>
+      </div>
+    </div>
+    <div class="phil-visual reveal d2">
+      <div class="phil-frame">
+        <!-- Botanical SVG illustration -->
+        <svg viewBox="0 0 400 530" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stop-color="#4a6640"/>
+              <stop offset="100%" stop-color="#1a2616"/>
+            </radialGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <rect width="400" height="530" fill="url(#bg)"/>
+          <!-- Large leaves -->
+          <ellipse cx="120" cy="200" rx="55" ry="22" fill="#6b8c5a" opacity=".6" transform="rotate(-35 120 200)"/>
+          <ellipse cx="280" cy="180" rx="60" ry="20" fill="#5a7a4a" opacity=".5" transform="rotate(30 280 180)"/>
+          <ellipse cx="200" cy="280" rx="70" ry="24" fill="#6b8c5a" opacity=".45" transform="rotate(-10 200 280)"/>
+          <ellipse cx="80" cy="320" rx="45" ry="18" fill="#4a6640" opacity=".55" transform="rotate(-50 80 320)"/>
+          <ellipse cx="330" cy="350" rx="50" ry="19" fill="#5a7a4a" opacity=".5" transform="rotate(45 330 350)"/>
+          <!-- Stems -->
+          <path d="M200 530 Q190 400 185 300 Q180 200 200 100" stroke="#3a5230" stroke-width="3" fill="none" opacity=".6"/>
+          <path d="M200 530 Q210 410 215 310 Q220 210 200 100" stroke="#3a5230" stroke-width="2" fill="none" opacity=".4"/>
+          <!-- Berries / spices -->
+          <circle cx="160" cy="160" r="6" fill="#c4714a" filter="url(#glow)" opacity=".9"/>
+          <circle cx="240" cy="220" r="5" fill="#d4a535" filter="url(#glow)" opacity=".9"/>
+          <circle cx="180" cy="300" r="7" fill="#c4714a" filter="url(#glow)" opacity=".8"/>
+          <circle cx="260" cy="290" r="4" fill="#6b8c5a" filter="url(#glow)" opacity=".9"/>
+          <circle cx="140" cy="380" r="5" fill="#d4a535" filter="url(#glow)" opacity=".8"/>
+          <circle cx="300" cy="150" r="6" fill="#c4714a" filter="url(#glow)" opacity=".7"/>
+          <!-- Text -->
+          <text x="200" y="460" text-anchor="middle" fill="rgba(200,217,190,.25)" font-family="Georgia" font-size="12" letter-spacing="4">FARM · ARTISAN · TABLE</text>
+          <text x="200" y="485" text-anchor="middle" fill="rgba(196,113,74,.4)" font-family="Georgia" font-size="20" font-style="italic">AnnaMaya</text>
+          <text x="200" y="505" text-anchor="middle" fill="rgba(255,255,255,.15)" font-family="Arial" font-size="8" letter-spacing="5">ANDAZ DELHI · AEROCITY</text>
+        </svg>
+      </div>
+      <div class="phil-tag">Since 2016 — inspiring mindful meals across Delhi</div>
+      <div class="phil-counter"><span>4.3</span><span>★ Rated</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="sec">
+  <div class="menu-intro">
+    <div class="tag reveal" style="justify-content:center;color:var(--sage-pale)">The Food Hall</div>
+    <h2 class="reveal d1">A World of <em>Flavour</em>,<br>One Inspired Menu</h2>
+    <p class="reveal d2">Consciously sourced · Responsibly prepared · Pan-to-plate live kitchens</p>
+  </div>
+  <div class="menu-nav reveal d2">
+    <button class="mnav-btn on" data-m="signatures">Signatures</button>
+    <button class="mnav-btn" data-m="planttable">Plant Table</button>
+    <button class="mnav-btn" data-m="artisan">Artisan Breads</button>
+    <button class="mnav-btn" data-m="cocktails">Cocktails</button>
+    <button class="mnav-btn" data-m="desserts">Desserts</button>
+  </div>
+  <div class="menu-stage reveal d3" id="menuStage"></div>
+  <div class="artisan-bar reveal d2">
+    <div class="artisan-bar-text">
+      <h3>The Artisan Store</h3>
+      <p>Take home bean-to-bar chocolates, organic spice blends, artisanal teas, microgreens, hand-picked jams, picnic baskets and locally sourced pantry goods — all with an inspiring Made-in-India story.</p>
+    </div>
+    <a href="#visit" class="btn-artisan">Shop Artisanal Products</a>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="sec" style="background:var(--parchment)">
+  <div class="exp-header">
+    <div class="tag reveal" style="justify-content:center">The AnnaMaya Experience</div>
+    <h2 class="reveal d1">More Than Dining —<br>A <em>Living Food Hall</em></h2>
+  </div>
+  <div class="exp-mosaic">
+    <div class="exp-card reveal">
+      <span class="exp-icon">🌱</span>
+      <h3 class="exp-name">Live Pan-to-Plate</h3>
+      <p class="exp-detail">Watch chefs cook fresh at live stations — no buffet trays, just food made minutes before it reaches you.</p>
+    </div>
+    <div class="exp-card reveal d1">
+      <span class="exp-icon">🫙</span>
+      <h3 class="exp-name">Artisan Deli Counter</h3>
+      <p class="exp-detail">Fresh-baked breads, cheese boards, bean-to-bar chocolate, cold cuts and seasonal preserves.</p>
+    </div>
+    <div class="exp-card reveal d2">
+      <span class="exp-icon">🌾</span>
+      <h3 class="exp-name">Seasonal Menus</h3>
+      <p class="exp-detail">Menus shift with seasons — tied to Tijara Farm's harvest calendar and local artisan sourcing cycles.</p>
+    </div>
+    <div class="exp-card reveal d3">
+      <span class="exp-icon">🍃</span>
+      <h3 class="exp-name">Microgreens Garden</h3>
+      <p class="exp-detail">AnnaMaya grows and harvests its own microgreens on-site — straight from tray to your plate.</p>
+    </div>
+    <div class="exp-card wide reveal d1">
+      <span class="exp-icon">🎨</span>
+      <h3 class="exp-name">Art-Meets-Food Interiors</h3>
+      <p class="exp-detail">Old Delhi reimagined — hand-painted glass windows from Chandni Chowk, weathered wooden doors, sacks of spices, larger-than-life floral sculptures curated by renowned art curator Rajeev Sethi. A European food-hall floor meets the bazaars of Mughal India.</p>
+    </div>
+    <div class="exp-card wide reveal d2">
+      <span class="exp-icon">🥂</span>
+      <h3 class="exp-name">Artisanal Cocktail Bar</h3>
+      <p class="exp-detail">Re-imagined Indian botanicals in every glass. The bar team crafts cocktails with local herbs, turmeric infusions, hand-pressed juices, and house-made shrubs — a sip of India's seasons.</p>
+    </div>
+    <div class="exp-card reveal d3">
+      <span class="exp-icon">🛍️</span>
+      <h3 class="exp-name">Shop Local</h3>
+      <p class="exp-detail">Every product in-store empowers an Indian artisan. Browse, taste, buy — take the experience home.</p>
+    </div>
+    <div class="exp-card reveal d4">
+      <span class="exp-icon">🍮</span>
+      <h3 class="exp-name">Retro Dessert Zone</h3>
+      <p class="exp-detail">Nostalgic Indian sweets reimagined — from kulfi to mithai bars, each piece tells a city's story.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FARM STATS -->
+<div class="farm-stats">
+  <div class="farm-stat"><h3>100%</h3><p>Responsibly Sourced</p></div>
+  <div class="farm-stat"><h3>40+</h3><p>Artisan Partners</p></div>
+  <div class="farm-stat"><h3>5★</h3><p>Andaz Hotel Rating</p></div>
+  <div class="farm-stat"><h3>2016</h3><p>Year Established</p></div>
+  <div class="farm-stat"><h3>4.3★</h3><p>Google Reviews</p></div>
+</div>
+
+<!-- SUNDAY BRUNCH -->
+<section id="brunch" class="sec">
+  <div class="brunch-wrap">
+    <div class="brunch-text">
+      <div class="tag reveal">Every Sunday</div>
+      <h2 class="reveal d1">The AnnaMaya<br><em>Artisan Brunch</em></h2>
+      <p class="reveal d2">Not your typical Sunday brunch. AnnaMaya's Artisan Brunch is a curated slow-food experience — live stations, seasonal spreads from Tijara Farm, artisan breads baked that morning, and cocktails built around the week's freshest produce.</p>
+      <p class="reveal d2">Voted one of Delhi's most celebrated Sunday rituals, it draws food lovers, families, and farm-to-fork advocates every week without fail.</p>
+      <div class="brunch-details reveal d3">
+        <div class="brunch-detail">
+          <div class="brunch-detail-label">When</div>
+          <p>Every Sunday<br>12:30 PM – 3:30 PM</p>
+        </div>
+        <div class="brunch-detail">
+          <div class="brunch-detail-label">Includes</div>
+          <p>Food + Soft Beverages<br>Alcohol add-on available</p>
+        </div>
+        <div class="brunch-detail">
+          <div class="brunch-detail-label">Location</div>
+          <p>AnnaMaya FoodHall<br>Andaz Delhi, Aerocity</p>
+        </div>
+        <div class="brunch-detail">
+          <div class="brunch-detail-label">Dress Code</div>
+          <p>Smart Casual<br>Reservations Recommended</p>
+        </div>
+      </div>
+      <a href="#reservation" class="btn-leaf" style="margin-top:1rem;display:inline-block"><span>Book Sunday Brunch</span></a>
+    </div>
+    <div class="brunch-visual reveal d2">
+      <div class="brunch-ring">
+        <div class="orbit-dot"></div>
+        <div class="orbit-dot"></div>
+        <div class="orbit-dot"></div>
+        <div class="brunch-ring-inner">
+          <div class="brunch-ring-label">Artisan<br>Sunday Brunch</div>
+          <div class="brunch-ring-time">12:30 – 3:30 PM</div>
+          <div class="brunch-ring-day">Every Sunday</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="tag reveal">Inside AnnaMaya</div>
+  <h2 class="reveal d1">A Feast for the <em>Eyes</em></h2>
+  <div class="gallery-scroll">
+    <div class="g-card" style="--gc1:#2e3d28;--gc2:#4a6640"><div class="g-cap"><h4>The Food Hall</h4><p>Old Delhi Meets European Deli</p></div></div>
+    <div class="g-card" style="--gc1:#3d2a18;--gc2:#6b4a2a"><div class="g-cap"><h4>Live Kitchen Station</h4><p>Pan-to-Plate, Every Dish</p></div></div>
+    <div class="g-card" style="--gc1:#1a2616;--gc2:#2e3d28"><div class="g-cap"><h4>Microgreens Tray</h4><p>Grown On-Site, Daily</p></div></div>
+    <div class="g-card" style="--gc1:#2a1a0e;--gc2:#5a3820"><div class="g-cap"><h4>Artisan Deli Counter</h4><p>Cheese · Bread · Chocolate</p></div></div>
+    <div class="g-card" style="--gc1:#1e2a1a;--gc2:#3a4e30"><div class="g-cap"><h4>Floral Art Installation</h4><p>Curated by Rajeev Sethi</p></div></div>
+    <div class="g-card" style="--gc1:#2a1a12;--gc2:#4a2e1e"><div class="g-cap"><h4>Chandni Chowk Windows</h4><p>Hand-Painted Glass · Heritage</p></div></div>
+    <div class="g-card" style="--gc1:#1a2822;--gc2:#2e4838"><div class="g-cap"><h4>Sunday Brunch Spread</h4><p>Weekly · 12:30–3:30 PM</p></div></div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" class="sec">
+  <div class="visit-grid">
+    <div class="visit-left">
+      <div class="tag reveal">Find AnnaMaya</div>
+      <h2 class="reveal d1">Visit Us at<br><em>Andaz Delhi</em></h2>
+      <div class="vinfo reveal d2">
+        <div class="vinfo-lbl">Address</div>
+        <p>Asset No. 1, Hospitality District<br>Aerocity, New Delhi — 110037</p>
+      </div>
+      <div class="vinfo reveal d2">
+        <div class="vinfo-lbl">Nearest Metro</div>
+        <p>IGI Airport Metro Station (Orange Line)<br>2 minute walk from the station</p>
+      </div>
+      <div class="vinfo reveal d2">
+        <div class="vinfo-lbl">Hours</div>
+        <p>All-Day Dining: 6:30 AM – 11:30 PM (Daily)<br>Sunday Brunch: 12:30 PM – 3:30 PM</p>
+      </div>
+      <div class="vinfo reveal d3">
+        <div class="vinfo-lbl">Contact</div>
+        <a href="tel:+911146932222">+91 11 4693 2222</a>
+      </div>
+      <div class="vinfo reveal d3">
+        <div class="vinfo-lbl">Price</div>
+        <p>₹3,500 for two (approx.) · Taxes applicable</p>
+      </div>
+      <a href="https://maps.app.goo.gl/HT6pPPkhyW3QbTDHA" target="_blank" class="btn-leaf" style="display:inline-block;margin-top:1rem"><span>Get Directions</span></a>
+    </div>
+    <div class="visit-map reveal d2">
+      <div class="map-grid"></div>
+      <div class="map-ripples">
+        <div class="ripple-am"></div>
+        <div class="ripple-am"></div>
+        <div class="ripple-am"></div>
+      </div>
+      <div class="map-center">
+        <div class="map-pin-am"></div>
+        <div class="map-name">
+          <h4>AnnaMaya FoodHall</h4>
+          <p>Andaz Delhi · Aerocity</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="sec">
+  <div class="tag reveal" style="justify-content:center">Reserve Your Experience</div>
+  <h2 class="reveal d1">Book a <em>Table</em></h2>
+  <p class="reveal d2">Walk-ins welcome, but reservations ensure you get the best seat in the food hall.</p>
+  <div class="res-row reveal d3">
+    <input class="ri" type="text" placeholder="Your Name">
+    <input class="ri" type="tel" placeholder="Phone Number">
+    <input class="ri" type="date">
+    <select class="ri">
+      <option value="" disabled selected>Guests</option>
+      <option>1 Guest</option><option>2 Guests</option>
+      <option>3–4 Guests</option><option>5–6 Guests</option><option>7+ Guests</option>
+    </select>
+    <select class="ri">
+      <option value="" disabled selected>Occasion</option>
+      <option>Breakfast</option><option>Lunch</option>
+      <option>Dinner</option><option>Sunday Brunch</option><option>Special Event</option>
+    </select>
+    <button class="res-submit">Confirm Reservation</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <div class="f-brand-name">AnnaMaya</div>
+    <div class="f-brand-sub">FoodHall · Andaz Delhi</div>
+    <p>A modern food hall celebrating India's artisans through mindful meals, consciously sourced ingredients and a living space where food tells stories.</p>
+    <span class="f-brand-tagline">"Eat Mindful. Shop Artisanal. Raise Awareness."</span>
+  </div>
+  <div class="fcol">
+    <h5>Explore</h5>
+    <a href="#philosophy">Our Philosophy</a>
+    <a href="#menu">Menu Hall</a>
+    <a href="#experience">Experience</a>
+    <a href="#brunch">Sunday Brunch</a>
+    <a href="#gallery">Gallery</a>
+  </div>
+  <div class="fcol">
+    <h5>Visit</h5>
+    <p>Asset No. 1, Aerocity</p>
+    <p>New Delhi – 110037</p>
+    <a href="tel:+911146932222">+91 11 4693 2222</a>
+    <p style="margin-top:.6rem">All-Day: 6:30AM – 11:30PM</p>
+    <p>Sunday Brunch: 12:30–3:30PM</p>
+  </div>
+  <div class="fcol">
+    <h5>Connect</h5>
+    <a href="#">@annamayadelhi</a>
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <p style="margin-top:.8rem;color:var(--terra-pale);font-size:.68rem">Part of Andaz Delhi<br>A Hyatt Concept · Since 2016</p>
+  </div>
+</footer>
+<div class="footer-bar">
+  <p>© 2026 AnnaMaya FoodHall, Andaz Delhi. All rights reserved.</p>
+  <p>Aerocity · New Delhi · India</p>
+</div>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
+});
+
+// Spice particles
+const sp=document.getElementById('spices');
+const colors=['#c4714a','#d4a535','#6b8c5a','#e8c060','#c8d9be'];
+for(let i=0;i<35;i++){
+  const d=document.createElement('div');
+  d.className='spice';
+  const c=colors[Math.floor(Math.random()*colors.length)];
+  const sz=2+Math.random()*4;
+  d.style.cssText=`width:${sz}px;height:${sz}px;background:${c};left:${Math.random()*100}%;bottom:${Math.random()*40}%;--sd:${5+Math.random()*8}s;--sdelay:${Math.random()*7}s`;
+  sp.appendChild(d);
+}
+
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+// Manifesto
+const mWords=['Eat Mindful','Shop Artisanal','Raise Awareness','Farm to Table','Live Kitchens','Artisan Ingredients','Old Delhi Soul','Seasonal Menus','Organic & Vegan','Responsibly Sourced','Made in India','Sunday Brunch','Bean-to-Bar','Microgreens','Tijara Farm'];
+const mt=document.getElementById('mTrack');
+[...mWords,...mWords].forEach(w=>{
+  mt.innerHTML+=`<div class="manifesto-item"><span class="manifesto-sep"></span><span>${w}</span></div>`;
+});
+
+// Menu data
+const dishes={
+  signatures:[
+    {origin:'Delhi Signature',v:'veg',badge:'badge-veg',name:'Martaban ka Paneer',desc:'Cottage cheese, fennel, kalonji, capsicum — a Delhi go-to reinvented with AnnaMaya flair.',kcal:'553 Kcal'},
+    {origin:'Kashmiri',v:'nonveg',badge:'',name:'Mutton Roganjosh',desc:'Spicy mutton curry with Kashmiri chilli, desi ghee, ginger and fennel. Slow-cooked perfection.',kcal:'715 Kcal'},
+    {origin:'South Indian',v:'nonveg',badge:'',name:'Chicken Chettinad',desc:'Chicken with black pepper, fennel, coconut and curry leaf — a South Indian classic done right.',kcal:'1083 Kcal'},
+    {origin:'Mughlai',v:'veg',badge:'badge-veg',name:'Gulnar Kofta',desc:'Paneer & nuts kofta with dry fig, saffron, brown onion and cashew gravy.',kcal:'1276 Kcal'},
+    {origin:'Coastal',v:'nonveg',badge:'',name:'Spicy Mango Prawn Curry',desc:'Prawns, raw mango, coconut, deggi chilli — tangy, tropical and utterly memorable.',kcal:'580 Kcal'},
+    {origin:'Punjabi',v:'veg',badge:'badge-veg',name:'Pindi Chole',desc:'Chickpea cooked with home ground spices, imli pyaz ki chutney and Amritsari kulcha.',kcal:'558 Kcal'},
+  ],
+  planttable:[
+    {origin:'Plant-Based · Star',v:'vegan',badge:'badge-vegan',name:'Kathal ka Haleem',desc:'Jackfruit, lentils, wheat and AnnaMaya special haleem masala — a theatrical plant-based delight.',kcal:'Plant Magic'},
+    {origin:'Seasonal',v:'veg',badge:'badge-veg',name:'Punjabi Aloo Gobi',desc:'Classic potato and cauliflower sabzi with hand-ground spices and fresh coriander.',kcal:'465 Kcal'},
+    {origin:'48 Hours',v:'veg',badge:'badge-veg',name:'Dal Makhani',desc:'48-hour braised black urad lentils cooked with Indian spices, finished with cream & butter.',kcal:'1113 Kcal'},
+    {origin:'Street Classic',v:'veg',badge:'badge-veg',name:'Muradabadi Dal',desc:'Moong dal with tomato, onion, green chillies, hing & dried dal — soul food done right.',kcal:'1146 Kcal'},
+    {origin:'Artisan',v:'vegan',badge:'badge-vegan',name:'Seasonal Microgreens Salad',desc:'Grown on-site at AnnaMaya. Tossed with house vinaigrette, local nuts and edible flowers.',kcal:'Seasonal'},
+    {origin:'Heritage',v:'veg',badge:'badge-veg',name:'Laal Maas (Veg)',desc:'A vegetarian reinterpretation of the Rajasthani classic — charred peppers, arbol chilli and ghee.',kcal:'620 Kcal'},
+  ],
+  artisan:[
+    {origin:'Baked Daily',v:'veg',badge:'badge-veg',name:'Sourdough Loaf',desc:'Long-fermented sourdough baked in the stone oven every morning using heritage grain flour.',kcal:'Artisan Bakes'},
+    {origin:'French',v:'veg',badge:'badge-veg',name:'Butter Croissant',desc:'Laminated with cultured butter from a local Himachal dairy. Flaky, golden and extraordinary.',kcal:'Daily Fresh'},
+    {origin:'Traditional',v:'veg',badge:'badge-veg',name:'Amritsari Kulcha',desc:'Wood-fired stuffed kulcha with spiced potato filling, house-made makhani butter on top.',kcal:'Heritage Bread'},
+    {origin:'Continental',v:'veg',badge:'badge-veg',name:'Cheese & Herb Focaccia',desc:'Topped with rosemary from the kitchen garden, local olive oil and aged Parmesan.',kcal:'Artisan'},
+    {origin:'Deli Counter',v:'veg',badge:'badge-veg',name:'Bean-to-Bar Chocolate',desc:'Single-origin Indian cacao, processed and crafted entirely in India. Take a bar home.',kcal:'Shop Artisanal'},
+    {origin:'Organic',v:'veg',badge:'badge-veg',name:'Artisan Jam Selection',desc:'Hand-picked seasonal jams — mango-cardamom, guava-chilli, and strawberry-rose.',kcal:'Made in India'},
+  ],
+  cocktails:[
+    {origin:'House Craft',v:'',badge:'',name:'Turmeric Mule',desc:'Haldi-infused vodka, house-made ginger beer, fresh lime and a turmeric rim. Golden perfection.',kcal:'Signature'},
+    {origin:'Botanical',v:'',badge:'',name:'Moringa Gin Fizz',desc:'Locally sourced moringa leaf-infused gin, elderflower, lime and soda water.',kcal:'Garden Fresh'},
+    {origin:'Non-Alcoholic',v:'veg',badge:'badge-veg',name:'Kokum Cooler',desc:'Kokum extract, tamarind water, jaggery syrup and mint — the most refreshing drink in Delhi.',kcal:'Mindful Sip'},
+    {origin:'Seasonal',v:'',badge:'',name:'Rose & Cardamom Spritz',desc:'Desi rose water, cardamom bitters, sparkling wine and a petal garnish from the farm.',kcal:'Artisan Mix'},
+    {origin:'Classic Remix',v:'',badge:'',name:'Aam Panna Old Fashioned',desc:'Raw mango shrub, rye whiskey, burnt coconut sugar and aromatic bitters.',kcal:'India Inspired'},
+    {origin:'Zero Proof',v:'veg',badge:'badge-veg',name:'Spiced Lassi Flight',desc:'Classic, mango-saffron and rose-pistachio lassi served side by side. A dairy trilogy.',kcal:'Farm Fresh'},
+  ],
+  desserts:[
+    {origin:'Retro Zone',v:'veg',badge:'badge-veg',name:'Mithai Bar',desc:'Rotating display of seasonal Indian sweets — barfi, ladoo, halwa — made fresh each day.',kcal:'Daily Special'},
+    {origin:'French-Indian Fusion',v:'veg',badge:'badge-veg',name:'Gulab Jamun Panna Cotta',desc:'Italian panna cotta infused with rose, topped with warm gulab jamun and pistachio crumble.',kcal:'Fusion Dessert'},
+    {origin:'Heritage',v:'veg',badge:'badge-veg',name:'Kulfi on Stick',desc:'Hand-churned kulfi in malai, kesar-pista and seasonal flavours — made the old-fashioned way.',kcal:'India Classic'},
+    {origin:'Artisan Pantry',v:'veg',badge:'badge-veg',name:'Chocolate Tasting Board',desc:'Three single-origin bean-to-bar chocolates with house-made praline, dried mango and sea salt.',kcal:'Bean-to-Bar'},
+    {origin:'Farm',v:'veg',badge:'badge-veg',name:'Seasonal Fruit Tart',desc:'Pastry shell filled with seasonal farm fruit, crème pâtissière and edible-flower garnish.',kcal:'Seasonal'},
+    {origin:'North India',v:'veg',badge:'badge-veg',name:'Gajar Halwa Soufflé',desc:'A warm, airy soufflé built on the soul of Delhi\'s beloved winter halwa.',kcal:'Winter Special'},
+  ]
+};
+let activeMenu='signatures';
+function renderMenu(cat){
+  const s=document.getElementById('menuStage');
+  s.innerHTML=dishes[cat].map(d=>`
+    <div class="dish">
+      ${d.badge?`<span class="dish-badge ${d.badge}">${d.v==='vegan'?'Vegan':d.v==='veg'?'Veg':''}</span>`:''}
+      <div class="dish-origin">${d.origin}</div>
+      <h3>${d.name}</h3>
+      <p class="dish-desc">${d.desc}</p>
+      <div class="dish-kcal">${d.kcal}</div>
+    </div>`).join('');
+}
+renderMenu(activeMenu);
+document.querySelectorAll('.mnav-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.mnav-btn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    renderMenu(b.dataset.m);
+  });
+});
+
+// Reveal
+const revs=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.08});
+revs.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

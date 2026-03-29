@@ -1,0 +1,536 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.page{font-family:var(--font-sans);max-width:820px;margin:0 auto}
+.browser{background:var(--color-background-secondary);border-radius:14px;padding:12px 14px 0}
+.brow{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:8px 14px;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.bd{width:9px;height:9px;border-radius:50%;display:inline-block}
+.burl{flex:1;background:var(--color-background-secondary);border-radius:4px;padding:4px 12px;font-size:11px;color:var(--color-text-secondary);text-align:center}
+.site{border-radius:10px 10px 0 0;overflow:hidden;background:#fff}
+
+/* NAV */
+.nav{background:#0D2137;padding:13px 30px;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{display:flex;flex-direction:column}
+.nav-main{color:#fff;font-size:15px;font-weight:500;letter-spacing:0.02em}
+.nav-sub{color:#D4A843;font-size:9px;letter-spacing:0.13em;text-transform:uppercase;margin-top:2px}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nl{color:rgba(255,255,255,0.72);font-size:11px}
+.nb{background:#D4A843;color:#fff;font-size:11px;font-weight:500;padding:8px 18px;border-radius:5px;border:none}
+
+/* HERO */
+.hero{height:440px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(13,33,55,0.92) 0%, rgba(13,33,55,0.35) 55%, rgba(13,33,55,0.15) 100%)}
+.hero-inner{position:relative;z-index:2;padding:36px 30px;width:100%}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.hero-pip{width:6px;height:6px;background:#D4A843;border-radius:50%}
+.hero-place{color:rgba(255,255,255,0.72);font-size:11px;letter-spacing:0.06em}
+.hero-h{color:#fff;font-size:42px;font-weight:500;line-height:1.15;margin-bottom:8px}
+.hero-h em{color:#D4A843;font-style:normal}
+.hero-desc{color:rgba(255,255,255,0.65);font-size:13px;margin-bottom:22px;line-height:1.6}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-g{background:#D4A843;color:#fff;font-size:12px;font-weight:500;padding:12px 24px;border-radius:6px;border:none}
+.btn-o{background:transparent;color:#fff;font-size:12px;font-weight:500;padding:12px 24px;border-radius:6px;border:1px solid rgba(255,255,255,0.4)}
+.hero-badges{position:absolute;top:24px;right:30px;z-index:3;display:flex;flex-direction:column;gap:8px}
+.hbadge{background:rgba(13,33,55,0.9);border:1px solid #D4A843;border-radius:8px;padding:10px 14px;text-align:center}
+.hb-num{color:#D4A843;font-size:22px;font-weight:500;line-height:1}
+.hb-lbl{color:rgba(255,255,255,0.7);font-size:8px;margin-top:2px}
+.hb-src{color:rgba(255,255,255,0.4);font-size:7px}
+
+/* BOOKING BAR */
+.bbar{background:#0D2137;padding:16px 30px;display:flex;gap:0;align-items:stretch}
+.bbf{flex:1;padding:0 16px;border-right:1px solid rgba(255,255,255,0.1)}
+.bbf:first-child{padding-left:0}
+.bbl{color:rgba(255,255,255,0.42);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px}
+.bbv{color:#fff;font-size:13px;font-weight:500}
+.bbbtn{background:#D4A843;color:#fff;font-size:12px;font-weight:500;padding:0 22px;border-radius:6px;border:none;margin-left:16px;white-space:nowrap}
+
+/* TRUST */
+.trust{background:#F6F2ED;padding:14px 30px;display:flex;gap:0;border-bottom:1px solid #E8E0D4}
+.ti{flex:1;display:flex;align-items:center;gap:8px;padding:0 12px;border-right:1px solid #DDD5C8}
+.ti:first-child{padding-left:0}
+.ti:last-child{border-right:none}
+.tic{width:30px;height:30px;background:#0D2137;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tin{font-size:11px;font-weight:500;color:#1a1a1a}
+.tis{font-size:9px;color:#888;margin-top:1px}
+
+/* GALLERY */
+.gal-sec{padding:38px 30px}
+.sec-eye{font-size:10px;font-weight:500;color:#D4A843;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.sec-h{font-size:24px;font-weight:500;color:#0D2137;margin-bottom:22px}
+.gal-grid{display:grid;grid-template-columns:1.9fr 1fr 1fr;grid-template-rows:155px 155px;gap:8px}
+.gi{border-radius:8px;overflow:hidden;position:relative;background:#C8B89A}
+.gi.tall{grid-row:span 2}
+.gi img{width:100%;height:100%;object-fit:cover;display:block}
+.gi-lbl{position:absolute;bottom:8px;left:10px;background:rgba(13,33,55,0.82);color:#fff;font-size:8px;font-weight:500;padding:3px 9px;border-radius:10px}
+.gi-more{position:absolute;inset:0;background:rgba(13,33,55,0.7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:500}
+
+/* ROOMS */
+.rooms-sec{padding:0 30px 38px}
+.sec-sub{font-size:13px;color:#666;margin-bottom:24px;line-height:1.6}
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rc{border:1px solid #E8E0D4;border-radius:12px;overflow:hidden;background:#fff}
+.rc-img{height:130px;position:relative;overflow:hidden;background:#C8B89A}
+.rc-img img{width:100%;height:100%;object-fit:cover;display:block}
+.rc-tag{position:absolute;top:8px;left:8px;background:#0D2137;color:#fff;font-size:8px;font-weight:500;padding:3px 9px;border-radius:20px}
+.rc-body{padding:14px}
+.rc-name{font-size:13px;font-weight:500;color:#0D2137;margin-bottom:6px}
+.rc-feats{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.rf{font-size:8px;color:#666;background:#F6F2ED;padding:2px 7px;border-radius:20px}
+.rc-foot{display:flex;justify-content:space-between;align-items:center}
+.rc-price{font-size:16px;font-weight:500;color:#D4A843}
+.rc-price span{font-size:9px;color:#aaa;font-weight:400}
+.rc-btn{background:#0D2137;color:#fff;font-size:9px;font-weight:500;padding:6px 13px;border-radius:5px;border:none}
+
+/* ABOUT */
+.about-sec{background:#F6F2ED;padding:38px 30px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.about-img{border-radius:12px;overflow:hidden;height:220px;position:relative}
+.about-img img{width:100%;height:100%;object-fit:cover;display:block}
+.about-body{}
+.about-tag{font-size:10px;font-weight:500;color:#D4A843;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.about-h{font-size:22px;font-weight:500;color:#0D2137;margin-bottom:12px;line-height:1.3}
+.about-p{font-size:12px;color:#555;line-height:1.7;margin-bottom:16px}
+.about-btn{background:#0D2137;color:#fff;font-size:11px;font-weight:500;padding:10px 20px;border-radius:6px;border:none;display:inline-block}
+
+/* AMENITIES */
+.amen-sec{padding:38px 30px}
+.amen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.am{background:#fff;border:1px solid #E8E0D4;border-radius:10px;padding:16px 12px;text-align:center}
+.am-ic{width:38px;height:38px;background:#0D2137;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
+.am-n{font-size:11px;font-weight:500;color:#0D2137}
+.am-s{font-size:9px;color:#999;margin-top:2px}
+
+/* REVIEWS */
+.rev-sec{background:#F6F2ED;padding:38px 30px}
+.rev-score-block{background:#0D2137;border-radius:12px;padding:22px 26px;display:flex;align-items:center;gap:22px;margin-bottom:22px}
+.rsn{color:#D4A843;font-size:46px;font-weight:500;line-height:1;flex-shrink:0}
+.rst{color:#fff;font-size:12px;line-height:1.75}
+.rst strong{color:#D4A843}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.rvc{background:#fff;border:1px solid #E8E0D4;border-radius:10px;padding:16px}
+.rvs{color:#D4A843;font-size:14px;margin-bottom:8px}
+.rvt{font-size:11px;color:#444;line-height:1.65;margin-bottom:12px;font-style:italic}
+.rva{display:flex;align-items:center;gap:9px}
+.rvav{width:30px;height:30px;border-radius:50%;background:#0D2137;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:500;flex-shrink:0}
+.rvn{font-size:11px;font-weight:500;color:#0D2137}
+.rvp{font-size:9px;color:#999}
+
+/* ACTIVITIES */
+.act-sec{padding:38px 30px}
+.act-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.act-card{border-radius:10px;overflow:hidden;position:relative;height:100px;background:#C8B89A}
+.act-card img{width:100%;height:100%;object-fit:cover;display:block}
+.act-overlay{position:absolute;inset:0;background:rgba(13,33,55,0.55)}
+.act-name{position:absolute;bottom:10px;left:12px;color:#fff;font-size:11px;font-weight:500}
+
+/* PACKAGES */
+.pkg-sec{background:#0D2137;padding:38px 30px}
+.pkg-eye{font-size:10px;font-weight:500;color:#D4A843;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.pkg-h{font-size:24px;font-weight:500;color:#fff;margin-bottom:22px}
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pkg-card{background:rgba(255,255,255,0.07);border:1px solid rgba(212,168,67,0.3);border-radius:12px;overflow:hidden}
+.pkg-img{height:110px;position:relative;overflow:hidden;background:#1a3a5c}
+.pkg-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pkg-badge{position:absolute;top:10px;right:10px;background:#D4A843;color:#fff;font-size:8px;font-weight:500;padding:3px 9px;border-radius:20px}
+.pkg-body{padding:14px 16px}
+.pkg-name{color:#fff;font-size:13px;font-weight:500;margin-bottom:4px}
+.pkg-inc{color:rgba(255,255,255,0.55);font-size:10px;margin-bottom:10px}
+.pkg-foot{display:flex;justify-content:space-between;align-items:center}
+.pkg-price{color:#D4A843;font-size:16px;font-weight:500}
+.pkg-price span{color:rgba(255,255,255,0.45);font-size:9px;font-weight:400}
+.pkg-btn{background:#D4A843;color:#fff;font-size:9px;font-weight:500;padding:6px 14px;border-radius:5px;border:none}
+
+/* LOCATION */
+.loc-sec{padding:38px 30px}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+.map-box{background:#D0E8CC;border-radius:12px;height:190px;display:flex;align-items:center;justify-content:center;border:1px solid #BCD4B8;position:relative;overflow:hidden}
+.map-txt{text-align:center;z-index:2;position:relative}
+.map-pin{width:26px;height:26px;background:#0D2137;border-radius:50% 50% 50% 0;transform:rotate(-45deg);margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
+.map-dot{width:9px;height:9px;background:#fff;border-radius:50%;transform:rotate(45deg)}
+.map-name{font-size:12px;font-weight:500;color:#0D2137}
+.map-addr{font-size:10px;color:#555;margin-top:3px}
+.loc-list{display:flex;flex-direction:column;gap:9px}
+.li{display:flex;align-items:center;gap:10px;background:#fff;border-radius:8px;padding:10px 14px;border:1px solid #E8E0D4}
+.li-dist{background:#0D2137;color:#fff;font-size:9px;font-weight:500;padding:3px 10px;border-radius:10px;white-space:nowrap;margin-left:auto;flex-shrink:0}
+.li-name{font-size:11px;font-weight:500;color:#0D2137}
+.li-type{font-size:9px;color:#999}
+
+/* CTA */
+.cta-sec{background:#0D2137;padding:44px 30px;text-align:center;position:relative;overflow:hidden}
+.cta-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.12}
+.cta-inner{position:relative;z-index:2}
+.cta-eye{color:#D4A843;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+.cta-h{color:#fff;font-size:28px;font-weight:500;margin-bottom:8px;line-height:1.3}
+.cta-sub{color:rgba(255,255,255,0.55);font-size:12px;margin-bottom:26px}
+.cta-row{display:flex;justify-content:center;gap:14px}
+.cta-g{background:#D4A843;color:#fff;font-size:12px;font-weight:500;padding:13px 28px;border-radius:6px;border:none}
+.cta-w{background:#25D366;color:#fff;font-size:12px;font-weight:500;padding:13px 22px;border-radius:6px;border:none;display:flex;align-items:center;gap:8px}
+
+/* FOOTER */
+.footer{background:#060F1C;padding:28px 30px 20px}
+.ft{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:28px;margin-bottom:22px}
+.ft-logo{color:#fff;font-size:15px;font-weight:500;margin-bottom:3px}
+.ft-gold{color:#D4A843;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px}
+.ft-addr{color:rgba(255,255,255,0.38);font-size:10px;line-height:1.85}
+.ft-ct{color:rgba(255,255,255,0.5);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px}
+.ft-lnk{color:rgba(255,255,255,0.38);font-size:10px;display:block;margin-bottom:6px}
+.ft-btm{border-top:1px solid rgba(255,255,255,0.07);padding-top:14px;display:flex;justify-content:space-between}
+.ft-copy{color:rgba(255,255,255,0.22);font-size:9px}
+.ft-by{color:#D4A843;font-size:9px}
+</style>
+
+<div class="page">
+<div class="browser">
+  <div class="brow">
+    <span class="bd" style="background:#E24B4A"></span>
+    <span class="bd" style="background:#EF9F27"></span>
+    <span class="bd" style="background:#639922"></span>
+    <div class="burl">hotelmountainface.com</div>
+    <span style="font-size:10px;color:#3B6D11;font-weight:500">🔒 Secure</span>
+  </div>
+
+<div class="site">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-main">Hotel Mountain Face</div>
+    <div class="nav-sub">by Snow City Hotels</div>
+  </div>
+  <div class="nav-links">
+    <span class="nl">Rooms</span>
+    <span class="nl">Gallery</span>
+    <span class="nl">Packages</span>
+    <span class="nl">Activities</span>
+    <button class="nb">Book Now</button>
+  </div>
+</nav>
+
+<!-- HERO with real Snow City image -->
+<div class="hero">
+  <img class="hero-img" src="https://www.snowcityhotels.com/images/slider/img-5.jpg" alt="Hotel Mountain Face" onerror="this.src='https://www.snowcityhotels.com/images/slider/img-7.jpg'"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-badges">
+    <div class="hbadge">
+      <div class="hb-num">CoE</div>
+      <div class="hb-lbl">Award Winner</div>
+      <div class="hb-src">TripAdvisor</div>
+    </div>
+    <div class="hbadge">
+      <div class="hb-num">3.9</div>
+      <div class="hb-lbl">Excellent</div>
+      <div class="hb-src">MakeMyTrip</div>
+    </div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><div class="hero-pip"></div><div class="hero-place">Left Bank Aleo, Prini · Manali, Himachal Pradesh 175143</div></div>
+    <div class="hero-h">Wake Up to <em>Apple Orchards</em><br>and Himalayan Peaks</div>
+    <div class="hero-desc">Nestled amid apple orchards · Panoramic mountain views · Bonfire evenings · 360° Virtual Tour</div>
+    <div class="hero-ctas">
+      <button class="btn-g">Check Availability</button>
+      <button class="btn-o">360° Virtual Tour</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING BAR -->
+<div class="bbar">
+  <div class="bbf"><div class="bbl">Check-in</div><div class="bbv">15 Apr 2026</div></div>
+  <div class="bbf"><div class="bbl">Check-out</div><div class="bbv">18 Apr 2026</div></div>
+  <div class="bbf"><div class="bbl">Guests</div><div class="bbv">2 Adults</div></div>
+  <div class="bbf" style="border-right:none"><div class="bbl">Room type</div><div class="bbv">Any</div></div>
+  <button class="bbbtn">Search Rooms</button>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="ti"><div class="tic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/></svg></div><div><div class="tin">Apple Orchard</div><div class="tis">Surrounding the hotel</div></div></div>
+  <div class="ti"><div class="tic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="tin">Mountain Views</div><div class="tis">Every room, every balcony</div></div></div>
+  <div class="ti"><div class="tic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="tin">Bonfire Evenings</div><div class="tis">With live music nightly</div></div></div>
+  <div class="ti"><div class="tic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><circle cx="12" cy="20" r="1" fill="#D4A843"/></svg></div><div><div class="tin">Free WiFi</div><div class="tis">Throughout hotel</div></div></div>
+  <div class="ti"><div class="tic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div><div class="tin">Free Parking</div><div class="tis">On-site secure</div></div></div>
+</div>
+
+<!-- GALLERY with real images -->
+<div class="gal-sec">
+  <div class="sec-eye">Photo gallery</div>
+  <div class="sec-h">See Hotel Mountain Face</div>
+  <div class="gal-grid">
+    <div class="gi tall">
+      <img src="https://www.snowcityhotels.com/gallery/4.jpg" alt="Honeymoon Suite" onerror="this.style.background='linear-gradient(135deg,#1a3a5c,#2d6a8a)'"/>
+      <div class="gi-lbl">Honeymoon Suite</div>
+    </div>
+    <div class="gi">
+      <img src="https://www.snowcityhotels.com/thumb/45.jpg" alt="Snow View" onerror="this.style.background='linear-gradient(135deg,#3a2a1a,#6a4a2a)'"/>
+      <div class="gi-lbl">Back view in snow</div>
+    </div>
+    <div class="gi">
+      <img src="https://www.snowcityhotels.com/thumb/30.jpg" alt="Garden" onerror="this.style.background='linear-gradient(135deg,#1a3a2a,#2a6a4a)'"/>
+      <div class="gi-lbl">Garden area</div>
+    </div>
+    <div class="gi">
+      <img src="https://www.snowcityhotels.com/thumb/32.jpg" alt="Bonfire" onerror="this.style.background='linear-gradient(135deg,#3a1a1a,#8a2a2a)'"/>
+      <div class="gi-lbl">Bonfire evenings</div>
+    </div>
+    <div class="gi">
+      <img src="https://www.snowcityhotels.com/thumb/34.jpg" alt="Restaurant" onerror="this.style.background='linear-gradient(135deg,#2a2a1a,#5a5a2a)'"/>
+      <div class="gi-more">+ 12 More Photos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROOMS with real images -->
+<div class="rooms-sec">
+  <div class="sec-eye">Accommodation</div>
+  <div class="sec-h">Rooms & Suites</div>
+  <div class="sec-sub">Each room frames the Himalayas. Wake up to mountain peaks, step out to apple orchards, and fall asleep to crisp mountain air.</div>
+  <div class="rooms-grid">
+    <div class="rc">
+      <div class="rc-img">
+        <img src="https://www.snowcityhotels.com/gallery/4.jpg" alt="Honeymoon Suite" onerror="this.style.background='#1a3a5c'"/>
+        <div class="rc-tag">Most Popular</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Honeymoon Suite</div>
+        <div class="rc-feats"><span class="rf">Mountain view</span><span class="rf">Balcony</span><span class="rf">King bed</span><span class="rf">Max 2</span></div>
+        <div class="rc-foot"><div class="rc-price">₹5,500 <span>/night</span></div><button class="rc-btn">Book Now</button></div>
+      </div>
+    </div>
+    <div class="rc">
+      <div class="rc-img">
+        <img src="https://www.snowcityhotels.com/gallery/luxury-suite4.jpg" alt="Luxury Suite" onerror="this.style.background='#2a3a1a'"/>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Luxury Suite</div>
+        <div class="rc-feats"><span class="rf">Mountain view</span><span class="rf">Balcony</span><span class="rf">Double bed</span><span class="rf">Max 3</span></div>
+        <div class="rc-foot"><div class="rc-price">₹4,800 <span>/night</span></div><button class="rc-btn">Book Now</button></div>
+      </div>
+    </div>
+    <div class="rc">
+      <div class="rc-img">
+        <img src="https://www.snowcityhotels.com/gallery/luxury-room11.jpg" alt="Luxury Room" onerror="this.style.background='#3a2a1a'"/>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Luxury Room</div>
+        <div class="rc-feats"><span class="rf">Mountain view</span><span class="rf">Balcony</span><span class="rf">Double bed</span><span class="rf">Max 3</span></div>
+        <div class="rc-foot"><div class="rc-price">₹4,200 <span>/night</span></div><button class="rc-btn">Book Now</button></div>
+      </div>
+    </div>
+    <div class="rc">
+      <div class="rc-img">
+        <img src="https://www.snowcityhotels.com/gallery/deluxe-room1.jpg" alt="Deluxe Room" onerror="this.style.background='#1a2a3a'"/>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Deluxe Room</div>
+        <div class="rc-feats"><span class="rf">Mountain view</span><span class="rf">Balcony</span><span class="rf">Double bed</span><span class="rf">Max 3</span></div>
+        <div class="rc-foot"><div class="rc-price">₹3,600 <span>/night</span></div><button class="rc-btn">Book Now</button></div>
+      </div>
+    </div>
+    <div class="rc">
+      <div class="rc-img">
+        <img src="https://www.snowcityhotels.com/gallery/standard-room3.jpg" alt="Standard Room" onerror="this.style.background='#2a1a3a'"/>
+      </div>
+      <div class="rc-body">
+        <div class="rc-name">Standard Room</div>
+        <div class="rc-feats"><span class="rf">Mountain view</span><span class="rf">Double bed</span><span class="rf">Max 3</span></div>
+        <div class="rc-foot"><div class="rc-price">₹2,800 <span>/night</span></div><button class="rc-btn">Book Now</button></div>
+      </div>
+    </div>
+    <div class="rc" style="background:#F6F2ED;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px;text-align:center;border:1px dashed #D4A843">
+      <div style="font-size:22px;color:#D4A843;margin-bottom:8px">360°</div>
+      <div style="font-size:12px;font-weight:500;color:#0D2137;margin-bottom:4px">Virtual Tour</div>
+      <div style="font-size:10px;color:#888;margin-bottom:12px">Explore every room before you book</div>
+      <button style="background:#D4A843;color:#fff;font-size:10px;font-weight:500;padding:7px 16px;border-radius:5px;border:none">Take the Tour</button>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT with real image -->
+<div class="about-sec">
+  <div class="about-img">
+    <img src="https://www.snowcityhotels.com/images/home/about/img-1.jpg" alt="About Snow City Hotels" onerror="this.style.background='linear-gradient(135deg,#1a3a5c,#2d6a8a)'"/>
+  </div>
+  <div class="about-body">
+    <div class="about-tag">About us</div>
+    <div class="about-h">A Himalayan retreat amidst apple orchards</div>
+    <div class="about-p">Snow City Hotels was founded in 2012 with a simple vision — to offer complete satisfaction and impeccable personalised service in the heart of Himachal Pradesh. Hotel Mountain Face is our flagship property, nestled in apple orchards in Prini, Manali, offering luxury, comfort, and a true escape from the city.</div>
+    <div class="about-p">Our founders bring over a decade of hospitality experience and a deep love for the Himalayas to every guest interaction.</div>
+    <button class="about-btn">Read Our Story</button>
+  </div>
+</div>
+
+<!-- AMENITIES -->
+<div class="amen-sec">
+  <div class="sec-eye">What's included</div>
+  <div class="sec-h">Hotel amenities</div>
+  <div class="amen-grid">
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><circle cx="12" cy="20" r="1" fill="#D4A843"/></svg></div><div class="am-n">Free WiFi</div><div class="am-s">Throughout hotel</div></div>
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><div class="am-n">Restaurant</div><div class="am-s">Multi-cuisine menu</div></div>
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="am-n">Bonfire Evenings</div><div class="am-s">Live music nightly</div></div>
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="am-n">Free Parking</div><div class="am-s">Secure on-site</div></div>
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div class="am-n">24hr Front Desk</div><div class="am-s">Always available</div></div>
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="am-n">Room Service</div><div class="am-s">24 hours</div></div>
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg></div><div class="am-n">Tour Assistance</div><div class="am-s">Treks & day trips</div></div>
+    <div class="am"><div class="am-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M3 22V8a1 1 0 0 1 1-1h1V3h14v4h1a1 1 0 0 1 1 1v14"/><path d="M2 22h20"/></svg></div><div class="am-n">Garden & Terrace</div><div class="am-s">Apple orchard views</div></div>
+  </div>
+</div>
+
+<!-- REVIEWS with real quotes -->
+<div class="rev-sec">
+  <div class="sec-eye">Guest reviews</div>
+  <div class="sec-h">What our guests say</div>
+  <div class="rev-score-block">
+    <div class="rsn">★ 5.0</div>
+    <div class="rst">Rated <strong>Outstanding</strong> on TripAdvisor and Goibibo · Guests consistently praise the <strong>panoramic Himalayan views from every room</strong>, excellent food, signature bonfire evenings with music, and the apple orchard setting that makes every morning feel extraordinary. <strong>TripAdvisor Certificate of Excellence</strong> winner.</div>
+  </div>
+  <div class="rev-grid">
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"The view from the mountain facing room is one of the best I have ever seen from a hotel room. Especially heavenly during snowfall. Apple gardens surround the hotel."</div>
+      <div class="rva"><div class="rvav">SK</div><div><div class="rvn">Suresh K.</div><div class="rvp">TripAdvisor</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"Rooms are clean, spacious, excellent views of snow-clad mountains, apple orchard and the whole valley. Fantastic food in the restaurant, friendly staff."</div>
+      <div class="rva"><div class="rvav">AM</div><div><div class="rvn">Avinash M.</div><div class="rvp">Goibibo · 5.0</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"Young brigade in Reception and Restaurant was par excellence. Mindblowing location in backdrop of Himalaya surrounded by Apple orchard and food quality overwhelmingly praiseworthy."</div>
+      <div class="rva"><div class="rvav">RG</div><div><div class="rvn">Raj G.</div><div class="rvp">Goibibo</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"The campfire at evening time for all guests is the most enjoyable and remarkable experience. Will definitely stay here only whenever I visit Manali again."</div>
+      <div class="rva"><div class="rvav">PV</div><div><div class="rvn">Priya V.</div><div class="rvp">MakeMyTrip</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"As soon as we entered, the panoramic view from the balcony was awesome. Very good service and ambience. Food is very tasty. Fully satisfied with hotel services."</div>
+      <div class="rva"><div class="rvav">AU</div><div><div class="rvn">Anusha A.</div><div class="rvp">TripAdvisor</div></div></div>
+    </div>
+    <div class="rvc">
+      <div class="rvs">★★★★★</div>
+      <div class="rvt">"7 days there and it truly felt like a home away from home. The food was absolutely delicious. The hospitality was remarkable — going above and beyond every single day."</div>
+      <div class="rva"><div class="rvav">DS</div><div><div class="rvn">Divya S.</div><div class="rvp">Yatra.com</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PACKAGES with real images -->
+<div class="pkg-sec">
+  <div class="pkg-eye">Special offers</div>
+  <div class="pkg-h">Packages & Deals</div>
+  <div class="pkg-grid">
+    <div class="pkg-card">
+      <div class="pkg-img">
+        <img src="https://www.snowcityhotels.com/images/package1.jpg" alt="Honeymoon Package" onerror="this.style.background='linear-gradient(135deg,#1a3a5c,#2d6a8a)'"/>
+        <div class="pkg-badge">Honeymoon</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-name">Delhi–Manali–Delhi Honeymoon Package</div>
+        <div class="pkg-inc">Volvo AC sleeper · 3 nights hotel · Daily breakfast · Sightseeing</div>
+        <div class="pkg-foot"><div class="pkg-price">₹12,500 <span>/couple</span></div><button class="pkg-btn">Book Now</button></div>
+      </div>
+    </div>
+    <div class="pkg-card">
+      <div class="pkg-img">
+        <img src="https://www.snowcityhotels.com/images/package2.jpg" alt="Family Package" onerror="this.style.background='linear-gradient(135deg,#2a3a1a,#4a6a2a)'"/>
+        <div class="pkg-badge">Family</div>
+      </div>
+      <div class="pkg-body">
+        <div class="pkg-name">Delhi–Manali–Delhi Family Package</div>
+        <div class="pkg-inc">Volvo AC sleeper · 3 nights hotel · Breakfast · Rohtang tour</div>
+        <div class="pkg-foot"><div class="pkg-price">₹9,800 <span>/person</span></div><button class="pkg-btn">Book Now</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITIES with real images -->
+<div class="act-sec">
+  <div class="sec-eye">See & do</div>
+  <div class="sec-h">Explore Manali</div>
+  <div class="act-grid">
+    <div class="act-card"><img src="https://www.snowcityhotels.com/activities/thumb/1.jpg" alt="Hadimba Temple" onerror="this.style.background='#1a3a5c'"/><div class="act-overlay"></div><div class="act-name">Hadimba Temple</div></div>
+    <div class="act-card"><img src="https://www.snowcityhotels.com/activities/thumb/3.jpg" alt="Rohtang" onerror="this.style.background='#2a4a2a'"/><div class="act-overlay"></div><div class="act-name">Rohtang Pass</div></div>
+    <div class="act-card"><img src="https://www.snowcityhotels.com/activities/thumb/4.jpg" alt="Solang Valley" onerror="this.style.background='#3a2a1a'"/><div class="act-overlay"></div><div class="act-name">Solang Valley</div></div>
+    <div class="act-card"><img src="https://www.snowcityhotels.com/activities/thumb/5.jpg" alt="Paragliding" onerror="this.style.background='#1a2a4a'"/><div class="act-overlay"></div><div class="act-name">Paragliding</div></div>
+    <div class="act-card"><img src="https://www.snowcityhotels.com/activities/thumb/6.jpg" alt="River Rafting" onerror="this.style.background='#2a3a4a'"/><div class="act-overlay"></div><div class="act-name">River Rafting</div></div>
+    <div class="act-card"><img src="https://www.snowcityhotels.com/activities/thumb/8.jpg" alt="Skiing" onerror="this.style.background='#3a3a4a'"/><div class="act-overlay"></div><div class="act-name">Skiing</div></div>
+  </div>
+</div>
+
+<!-- LOCATION -->
+<div class="loc-sec">
+  <div class="sec-eye">Find us</div>
+  <div class="sec-h">Location & nearby</div>
+  <div class="loc-grid">
+    <div class="map-box">
+      <div class="map-txt">
+        <div class="map-pin"><div class="map-dot"></div></div>
+        <div class="map-name">Hotel Mountain Face</div>
+        <div class="map-addr">Prini, Left Bank Aleo<br>Manali · HP 175143</div>
+      </div>
+    </div>
+    <div class="loc-list">
+      <div class="li"><div><div class="li-name">Hadimba Devi Temple</div><div class="li-type">Religious landmark</div></div><div class="li-dist">3.2 km</div></div>
+      <div class="li"><div><div class="li-name">Manali Mall Road</div><div class="li-type">Shopping & dining</div></div><div class="li-dist">4.2 km</div></div>
+      <div class="li"><div><div class="li-name">Tibetan Monastery</div><div class="li-type">Cultural site</div></div><div class="li-dist">3.9 km</div></div>
+      <div class="li"><div><div class="li-name">Solang Valley</div><div class="li-type">Adventure sports</div></div><div class="li-dist">14 km</div></div>
+      <div class="li"><div><div class="li-name">Rohtang Pass</div><div class="li-type">Scenic mountain pass</div></div><div class="li-dist">51 km</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA with hotel image -->
+<div class="cta-sec">
+  <img class="cta-bg-img" src="https://www.snowcityhotels.com/images/slider/img-9.jpg" alt="bg" onerror="this.style.display='none'"/>
+  <div class="cta-inner">
+    <div class="cta-eye">Direct booking — zero OTA commission</div>
+    <div class="cta-h">Ready to wake up to the Himalayas?</div>
+    <div class="cta-sub">Book directly with us for the best price. No hidden charges. Instant confirmation.</div>
+    <div class="cta-row">
+      <button class="cta-g">Book Your Room Now</button>
+      <button class="cta-w">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+        WhatsApp Us
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="ft">
+    <div>
+      <div class="ft-logo">Hotel Mountain Face</div>
+      <div class="ft-gold">by Snow City Hotels</div>
+      <div class="ft-addr">Left Bank Aleo, Prini<br>Manali, Distt. Kullu<br>Himachal Pradesh — 175143<br><br>094595-15050 / 089883-15050<br>booking@snowcityhotels.com</div>
+    </div>
+    <div>
+      <div class="ft-ct">Quick links</div>
+      <span class="ft-lnk">Rooms & rates</span>
+      <span class="ft-lnk">Photo gallery</span>
+      <span class="ft-lnk">360° Virtual Tour</span>
+      <span class="ft-lnk">Packages & deals</span>
+      <span class="ft-lnk">Contact us</span>
+    </div>
+    <div>
+      <div class="ft-ct">Our properties</div>
+      <span class="ft-lnk">Hotel Mountain Face</span>
+      <span class="ft-lnk">Montana Blues Resort</span>
+      <span class="ft-lnk">Nature House Cottages</span>
+      <span class="ft-lnk">Baan By Snow City Farm</span>
+      <span class="ft-lnk">Snow City Travels</span>
+    </div>
+  </div>
+  <div class="ft-btm">
+    <div class="ft-copy">© 2026 Snow City Hotels. All rights reserved.</div>
+    <div class="ft-by">Redesigned by [Your Name]</div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>

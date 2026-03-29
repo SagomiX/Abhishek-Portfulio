@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olive Bar & Kitchen — Mehrauli, New Delhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #faf7f2;
+    --olive: #6b7c4a;
+    --olive-dark: #4a5733;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --charcoal: #2a2a2a;
+    --terracotta: #c07050;
+    --stone: #9a8f7f;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Josefin Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: transparent;
+    transition: background 0.5s, backdrop-filter 0.5s;
+  }
+  nav.scrolled {
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--warm-white);
+    letter-spacing: 0.05em;
+    transition: color 0.5s;
+  }
+  nav.scrolled .nav-logo { color: var(--charcoal); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav.scrolled .nav-links a { color: var(--charcoal); }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-reserve {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.6);
+    color: white; padding: 0.55rem 1.4rem;
+    text-decoration: none; transition: all 0.3s;
+  }
+  nav.scrolled .nav-reserve {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .nav-reserve:hover { background: var(--gold); color: white !important; border-color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a1f12 0%, #2d3820 40%, #1e2a18 70%, #0f140b 100%);
+  }
+  /* Animated olive branches SVG background */
+  .hero-pattern {
+    position: absolute; inset: 0; opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cellipse cx='100' cy='100' rx='8' ry='18' fill='%236b7c4a' transform='rotate(-30 100 100)'/%3E%3Cellipse cx='70' cy='80' rx='6' ry='14' fill='%236b7c4a' transform='rotate(-50 70 80)'/%3E%3Cellipse cx='130' cy='120' rx='6' ry='14' fill='%236b7c4a' transform='rotate(-10 130 120)'/%3E%3C/svg%3E");
+    background-size: 140px;
+  }
+  /* Animated golden particles */
+  .particles { position: absolute; inset: 0; overflow: hidden; }
+  .particle {
+    position: absolute; width: 2px; height: 2px;
+    background: var(--gold-light); border-radius: 50%;
+    opacity: 0;
+    animation: float-up var(--dur) ease-in infinite;
+    animation-delay: var(--delay);
+    left: var(--x); bottom: -10px;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.4; }
+    100% { transform: translateY(-100vh) translateX(var(--drift)); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    animation: hero-reveal 1.4s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes hero-reveal {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.8rem;
+    animation: hero-reveal 1.4s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300; color: var(--cream);
+    line-height: 1.05; margin-bottom: 1rem;
+    animation: hero-reveal 1.4s 0.35s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .hero-title em { font-style: italic; color: var(--gold-light); }
+  .hero-sub {
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); margin-bottom: 3rem;
+    animation: hero-reveal 1.4s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 1.2rem; align-items: center;
+    animation: hero-reveal 1.4s 0.65s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--charcoal);
+    padding: 0.85rem 2.5rem;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; font-family: 'Josefin Sans', sans-serif;
+    transition: all 0.35s; font-weight: 400;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--charcoal); transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; }
+  .btn-primary:hover { color: white; }
+  .btn-ghost {
+    color: white; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; padding: 0.85rem 2rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.4); font-size: 0.55rem; letter-spacing: 0.25em;
+    text-transform: uppercase; animation: hero-reveal 1.4s 1s both;
+  }
+  .scroll-line {
+    width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    background: var(--olive-dark); padding: 0.9rem 0; overflow: hidden;
+    border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold);
+  }
+  .marquee-track {
+    display: flex; gap: 3rem; width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: flex; align-items: center; gap: 1rem; white-space: nowrap;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold-light);
+  }
+  .marquee-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 4rem; }
+
+  .section-label {
+    font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before {
+    content: ''; width: 40px; height: 1px; background: var(--gold);
+  }
+
+  /* ── STORY ── */
+  #story { background: var(--warm-white); }
+  .story-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .story-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    font-weight: 300; line-height: 1.15;
+    color: var(--charcoal); margin-bottom: 2rem;
+  }
+  .story-text h2 em { font-style: italic; color: var(--olive); }
+  .story-text p {
+    font-size: 0.85rem; line-height: 1.9; color: var(--stone);
+    margin-bottom: 1.5rem; font-weight: 300; letter-spacing: 0.02em;
+  }
+  .story-visual {
+    position: relative;
+  }
+  .story-img-card {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(145deg, #2d3820, #4a5733);
+    position: relative; overflow: hidden;
+  }
+  .story-img-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect width='400' height='500' fill='%232d3820'/%3E%3Ccircle cx='200' cy='180' r='90' fill='%234a5733' opacity='0.5'/%3E%3Cellipse cx='200' cy='180' rx='60' ry='80' fill='%236b7c4a' opacity='0.7'/%3E%3Ccircle cx='200' cy='120' r='18' fill='%236b7c4a'/%3E%3Ccircle cx='160' cy='155' r='12' fill='%236b7c4a'/%3E%3Ccircle cx='240' cy='155' r='12' fill='%236b7c4a'/%3E%3Ccircle cx='175' cy='200' r='10' fill='%236b7c4a'/%3E%3Ccircle cx='225' cy='200' r='10' fill='%236b7c4a'/%3E%3Crect x='150' y='80' width='100' height='10' rx='5' fill='%23c9a84c' opacity='0.8'/%3E%3Ctext x='200' y='320' text-anchor='middle' fill='%23c9a84c' font-family='Georgia' font-size='22' font-style='italic'%3EOlive Bar%3C/text%3E%3Ctext x='200' y='350' text-anchor='middle' fill='rgba(255,255,255,0.4)' font-family='Arial' font-size='10' letter-spacing='4'%3EMEHRAULI · DELHI%3C/text%3E%3Ctext x='200' y='420' text-anchor='middle' fill='rgba(201,168,76,0.4)' font-family='Arial' font-size='9' letter-spacing='2'%3EEst. in a Heritage Haveli%3C/text%3E%3C/svg%3E");
+    background-size: cover;
+  }
+  .story-badge {
+    position: absolute; bottom: -1.5rem; right: -1.5rem;
+    width: 110px; height: 110px;
+    background: var(--gold); 
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .story-badge span:first-child {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 600; color: var(--charcoal);
+    line-height: 1;
+  }
+  .story-badge span:last-child {
+    font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--charcoal); opacity: 0.75;
+  }
+
+  /* ── MENU HIGHLIGHTS ── */
+  #menu { background: var(--charcoal); }
+  #menu .section-label { color: var(--gold-light); }
+  #menu .section-label::before { background: var(--gold); }
+  .menu-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 300; color: var(--cream); text-align: center;
+    margin-bottom: 1rem;
+  }
+  .menu-title em { font-style: italic; color: var(--gold-light); }
+  .menu-subtitle {
+    text-align: center; font-size: 0.72rem; letter-spacing: 0.12em;
+    color: var(--stone); margin-bottom: 4rem;
+  }
+  .menu-tabs {
+    display: flex; justify-content: center; gap: 0; margin-bottom: 4rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    width: max-content; margin-left: auto; margin-right: auto;
+  }
+  .tab-btn {
+    padding: 0.7rem 1.8rem; background: transparent;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--stone); cursor: pointer; border: none;
+    transition: all 0.3s;
+    border-right: 1px solid rgba(201,168,76,0.3);
+  }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn.active, .tab-btn:hover { background: var(--gold); color: var(--charcoal); }
+
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .menu-card {
+    background: #1e1e1e;
+    padding: 2.2rem; position: relative; overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    cursor: default;
+  }
+  .menu-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--gold);
+    transform: scaleY(0); transition: transform 0.4s;
+    transform-origin: bottom;
+  }
+  .menu-card:hover { transform: translateY(-4px); }
+  .menu-card:hover::before { transform: scaleY(1); }
+  .menu-card-category {
+    font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .menu-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 400; color: var(--cream);
+    margin-bottom: 0.7rem; line-height: 1.3;
+  }
+  .menu-card p {
+    font-size: 0.72rem; color: var(--stone); line-height: 1.7;
+    font-weight: 300;
+  }
+  .menu-card-price {
+    margin-top: 1.5rem; font-size: 0.85rem;
+    color: var(--gold-light); font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--cream); }
+  .exp-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    max-width: 1200px; margin: 3rem auto 0;
+  }
+  .exp-card {
+    text-align: center; padding: 2.5rem 1.5rem;
+    border: 1px solid rgba(107,124,74,0.2);
+    transition: all 0.4s; position: relative; overflow: hidden;
+  }
+  .exp-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: var(--olive-dark); opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .exp-card:hover::after { opacity: 1; }
+  .exp-card > * { position: relative; z-index: 1; transition: color 0.4s; }
+  .exp-card:hover .exp-icon { filter: brightness(5); }
+  .exp-card:hover .exp-title, .exp-card:hover .exp-desc { color: white; }
+  .exp-icon { font-size: 2rem; margin-bottom: 1.2rem; display: block; }
+  .exp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 400; margin-bottom: 0.7rem;
+    color: var(--charcoal);
+  }
+  .exp-desc { font-size: 0.72rem; line-height: 1.7; color: var(--stone); font-weight: 300; }
+
+  /* ── AWARDS ── */
+  .awards-strip {
+    background: var(--olive-dark); padding: 4rem;
+    display: flex; justify-content: center; gap: 5rem; flex-wrap: wrap;
+    align-items: center;
+  }
+  .award-item { text-align: center; color: var(--cream); }
+  .award-item h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-weight: 400; margin-bottom: 0.3rem;
+  }
+  .award-item p { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--warm-white); padding: 7rem 0; }
+  #gallery .section-label, #gallery h2 { padding: 0 4rem; }
+  #gallery h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 300; color: var(--charcoal); margin-bottom: 3rem;
+  }
+  #gallery h2 em { font-style: italic; color: var(--olive); }
+  .gallery-scroll {
+    display: flex; gap: 1.5rem; overflow-x: auto; padding: 0 4rem 1.5rem;
+    scrollbar-width: thin; scrollbar-color: var(--gold) transparent;
+  }
+  .gallery-card {
+    flex: 0 0 320px; aspect-ratio: 4/5;
+    background: linear-gradient(var(--angle, 135deg), var(--c1), var(--c2));
+    position: relative; overflow: hidden;
+    transition: transform 0.4s;
+  }
+  .gallery-card:hover { transform: scale(1.03); }
+  .gallery-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+  }
+  .gallery-label h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 400; margin-bottom: 0.2rem;
+  }
+  .gallery-label p { font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.6); }
+
+  /* ── VISIT ── */
+  #visit { background: var(--charcoal); }
+  .visit-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    max-width: 1200px; margin: 0 auto; align-items: start;
+  }
+  .visit-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300; color: var(--cream); margin-bottom: 2.5rem;
+    line-height: 1.2;
+  }
+  .visit-info h2 em { font-style: italic; color: var(--gold-light); }
+  .visit-detail {
+    margin-bottom: 2rem; padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .visit-detail-label {
+    font-size: 0.55rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+  .visit-detail p {
+    font-size: 0.82rem; color: rgba(255,255,255,0.65);
+    line-height: 1.7; font-weight: 300;
+  }
+  .visit-map {
+    background: #1e1e1e; aspect-ratio: 4/5;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .map-pin {
+    width: 50px; height: 50px;
+    background: var(--gold); border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    animation: pin-bounce 2s ease-in-out infinite;
+    position: relative;
+  }
+  .map-pin::after {
+    content: ''; position: absolute; inset: 8px;
+    background: var(--charcoal); border-radius: 50%;
+  }
+  @keyframes pin-bounce {
+    0%, 100% { transform: rotate(-45deg) translateY(0); }
+    50% { transform: rotate(-45deg) translateY(-8px); }
+  }
+  .map-label {
+    position: absolute; top: 2rem; left: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--gold-light); font-style: italic;
+  }
+  .map-label p { font-family: 'Josefin Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.15em; color: var(--stone); font-style: normal; margin-top: 0.3rem; }
+  .map-pulse {
+    position: absolute; width: 100px; height: 100px;
+    border: 1px solid var(--gold); border-radius: 50%;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+  .map-pulse:nth-child(2) { animation-delay: 0.7s; }
+  .map-pulse:nth-child(3) { animation-delay: 1.4s; }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.5); opacity: 0.8; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  /* ── RESERVATION ── */
+  #reservation {
+    background: linear-gradient(135deg, #1a1f12 0%, #2d3820 100%);
+    text-align: center; padding: 8rem 4rem;
+  }
+  #reservation h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300; color: var(--cream); margin-bottom: 1rem;
+  }
+  #reservation h2 em { font-style: italic; color: var(--gold-light); }
+  #reservation p {
+    font-size: 0.8rem; letter-spacing: 0.08em; color: var(--stone);
+    margin-bottom: 3rem;
+  }
+  .res-form {
+    display: flex; gap: 1rem; max-width: 700px; margin: 0 auto; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .res-form input, .res-form select {
+    flex: 1; min-width: 180px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(201,168,76,0.3);
+    color: white; padding: 0.9rem 1.2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.1em;
+    outline: none; transition: border-color 0.3s;
+  }
+  .res-form input::placeholder { color: rgba(255,255,255,0.35); }
+  .res-form input:focus, .res-form select:focus { border-color: var(--gold); }
+  .res-form select { cursor: pointer; }
+  .res-form select option { background: #1a1f12; }
+  .res-submit {
+    background: var(--gold); color: var(--charcoal);
+    border: none; padding: 0.9rem 2.5rem; cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    transition: all 0.3s; font-weight: 400;
+  }
+  .res-submit:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0f140b; padding: 4rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem;
+    align-items: start; border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-brand .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 300; color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+  .footer-brand p { font-size: 0.68rem; color: var(--stone); line-height: 1.7; max-width: 240px; }
+  .footer-col h5 {
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .footer-col a, .footer-col p {
+    display: block; font-size: 0.72rem; color: var(--stone);
+    text-decoration: none; margin-bottom: 0.6rem; line-height: 1.6;
+    transition: color 0.3s;
+  }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    background: #0a0e07; padding: 1.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p {
+    font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.25);
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .story-grid, .visit-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .awards-strip { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Olive Bar & Kitchen</div>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-reserve">Reserve a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Mehrauli · New Delhi · Est. in a Heritage Haveli</p>
+    <h1 class="hero-title">Olive Bar<br><em>&amp; Kitchen</em></h1>
+    <p class="hero-sub">Mediterranean · European · Contemporary Indian</p>
+    <div class="hero-cta">
+      <a href="#reservation" class="btn-primary"><span>Reserve a Table</span></a>
+      <a href="#menu" class="btn-ghost">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="story-grid">
+    <div class="story-text">
+      <div class="section-label reveal">Our Story</div>
+      <h2 class="reveal reveal-delay-1">Where Heritage<br><em>Meets Gastronomy</em></h2>
+      <p class="reveal reveal-delay-2">Nestled within a restored Mughal-era haveli in Mehrauli, Olive Bar & Kitchen is Delhi's most iconic upscale dining destination. Our whitewashed walls, arched windows, and leafy courtyard shaded by an ancient banyan tree create an atmosphere unlike any other in the city.</p>
+      <p class="reveal reveal-delay-2">Under the direction of Chef Dhruv Oberoi — who trained alongside legendary Spanish chef Ferran Adrià — our kitchen crafts a globally inspired Mediterranean menu that celebrates fresh ingredients, bold flavours, and artful presentation.</p>
+      <p class="reveal reveal-delay-3">From fairy-lit terrace dinners with a distant view of the Qutub Minar to live music evenings and vibrant Sunday brunches, Olive offers not just a meal, but an experience that lingers long after the last course.</p>
+    </div>
+    <div class="story-visual reveal reveal-delay-2">
+      <div class="story-img-card"></div>
+      <div class="story-badge">
+        <span>4.5</span>
+        <span>★ Rated</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-label reveal" style="justify-content:center">Culinary Journey</div>
+  <h2 class="menu-title reveal reveal-delay-1">A Taste of the <em>Mediterranean</em></h2>
+  <p class="menu-subtitle reveal reveal-delay-2">Artisanal · Wood-Fired · Freshly Crafted</p>
+  <div class="menu-tabs reveal reveal-delay-2">
+    <button class="tab-btn active">Starters</button>
+    <button class="tab-btn">Mains</button>
+    <button class="tab-btn">Pizza</button>
+    <button class="tab-btn">Desserts</button>
+  </div>
+  <div class="menu-grid" id="menuGrid">
+    <!-- filled by JS -->
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div style="text-align:center; max-width:1200px; margin:0 auto;">
+    <div class="section-label reveal" style="justify-content:center">The Olive Experience</div>
+    <h2 class="reveal reveal-delay-1" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:300;color:var(--charcoal);margin-bottom:0.5rem;">More Than Just <em style="font-style:italic;color:var(--olive);">Dining</em></h2>
+    <p class="reveal reveal-delay-2" style="font-size:0.75rem;color:var(--stone);letter-spacing:0.08em;">An escape from the city. An evening to remember.</p>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <span class="exp-icon">🌿</span>
+      <h3 class="exp-title">Heritage Courtyard</h3>
+      <p class="exp-desc">Dine beneath fairy lights in our tranquil pebbled courtyard shaded by a century-old banyan tree.</p>
+    </div>
+    <div class="exp-card reveal reveal-delay-1">
+      <span class="exp-icon">🎵</span>
+      <h3 class="exp-title">Live Music</h3>
+      <p class="exp-desc">From jazz evenings to live bands, our curated music brings the Mediterranean soul alive every night.</p>
+    </div>
+    <div class="exp-card reveal reveal-delay-2">
+      <span class="exp-icon">🥂</span>
+      <h3 class="exp-title">Craft Cocktails</h3>
+      <p class="exp-desc">Signature cocktails, curated wines and spirits crafted by our expert mixologists for every occasion.</p>
+    </div>
+    <div class="exp-card reveal reveal-delay-3">
+      <span class="exp-icon">☀️</span>
+      <h3 class="exp-title">Sunday Brunch</h3>
+      <p class="exp-desc">Delhi's most celebrated Sunday brunch — voted Best in India by TimeOut Food Awards 2014.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<div class="awards-strip">
+  <div class="award-item">
+    <h4>Best Mediterranean Restaurant</h4>
+    <p>Times Food Awards 2015 · Fine Dining</p>
+  </div>
+  <div class="award-item" style="width:1px;height:60px;background:rgba(201,168,76,0.3)"></div>
+  <div class="award-item">
+    <h4>Best Sunday Brunch in India</h4>
+    <p>TimeOut Food Awards 2014</p>
+  </div>
+  <div class="award-item" style="width:1px;height:60px;background:rgba(201,168,76,0.3)"></div>
+  <div class="award-item">
+    <h4>50 Best Discovery</h4>
+    <p>World's 50 Best · Featured Restaurant</p>
+  </div>
+  <div class="award-item" style="width:1px;height:60px;background:rgba(201,168,76,0.3)"></div>
+  <div class="award-item">
+    <h4>4.5 ★ Rated</h4>
+    <p>3,000+ Dining Reviews</p>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label reveal">Atmosphere</div>
+  <h2 class="reveal reveal-delay-1">Glimpses of <em>Olive</em></h2>
+  <div class="gallery-scroll">
+    <div class="gallery-card" style="--c1:#2d3820;--c2:#4a5733;--angle:135deg">
+      <div class="gallery-label"><h4>The Courtyard</h4><p>Alfresco Dining</p></div>
+    </div>
+    <div class="gallery-card" style="--c1:#3b2a1a;--c2:#6b4a2a;--angle:120deg">
+      <div class="gallery-label"><h4>Rooftop Terrace</h4><p>Qutub Minar Views</p></div>
+    </div>
+    <div class="gallery-card" style="--c1:#1a1a2e;--c2:#2d2d4a;--angle:150deg">
+      <div class="gallery-label"><h4>Evening Bar</h4><p>Craft Cocktails</p></div>
+    </div>
+    <div class="gallery-card" style="--c1:#2a1a10;--c2:#5a3520;--angle:110deg">
+      <div class="gallery-label"><h4>Wood-Fired Kitchen</h4><p>Artisan Pizzas</p></div>
+    </div>
+    <div class="gallery-card" style="--c1:#1a2a1a;--c2:#3a5a3a;--angle:140deg">
+      <div class="gallery-label"><h4>Heritage Interiors</h4><p>Arched Windows & Vintage Décor</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="visit-grid">
+    <div class="visit-info">
+      <div class="section-label reveal">Find Us</div>
+      <h2 class="reveal reveal-delay-1">Plan Your<br><em>Visit</em></h2>
+      <div class="visit-detail reveal reveal-delay-2">
+        <div class="visit-detail-label">Address</div>
+        <p>6-8, Kalka Das Marg, Ambawatta One Complex<br>Mehrauli, New Delhi — 110030</p>
+      </div>
+      <div class="visit-detail reveal reveal-delay-2">
+        <div class="visit-detail-label">Hours</div>
+        <p>Monday – Sunday<br>12:30 PM – 12:00 Midnight</p>
+      </div>
+      <div class="visit-detail reveal reveal-delay-2">
+        <div class="visit-detail-label">Contact</div>
+        <p>+91 98102 35472</p>
+      </div>
+      <div class="visit-detail reveal reveal-delay-3">
+        <div class="visit-detail-label">Price</div>
+        <p>₹5,000 for two (approx.) · Taxes applicable</p>
+      </div>
+      <a href="https://maps.app.goo.gl/UgLny82cdhzHfUoM9" target="_blank" class="btn-primary" style="display:inline-block;margin-top:1rem"><span>Get Directions</span></a>
+    </div>
+    <div class="visit-map reveal reveal-delay-2">
+      <div class="map-label">
+        Olive Bar & Kitchen
+        <p>MEHRAULI · NEW DELHI</p>
+      </div>
+      <div class="map-pulse"></div>
+      <div class="map-pulse"></div>
+      <div class="map-pulse"></div>
+      <div class="map-pin"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation">
+  <div class="section-label reveal" style="justify-content:center">Make a Reservation</div>
+  <h2 class="reveal reveal-delay-1">Reserve Your<br><em>Evening</em></h2>
+  <p class="reveal reveal-delay-2">Reservations recommended, especially on weekends and for outdoor courtyard seating.</p>
+  <div class="res-form reveal reveal-delay-3">
+    <input type="text" placeholder="Your Name">
+    <input type="tel" placeholder="Phone Number">
+    <input type="date">
+    <select>
+      <option value="" disabled selected>Guests</option>
+      <option>1 Guest</option>
+      <option>2 Guests</option>
+      <option>3 Guests</option>
+      <option>4 Guests</option>
+      <option>5+ Guests</option>
+    </select>
+    <button class="res-submit">Confirm</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo">Olive Bar & Kitchen</div>
+    <p>A hideaway where good food, laughter, culture and conversation come together in a delightful Mediterranean mosaic.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Explore</h5>
+    <a href="#story">Our Story</a>
+    <a href="#menu">Menu</a>
+    <a href="#experience">Experience</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reservation">Reservations</a>
+  </div>
+  <div class="footer-col">
+    <h5>Get in Touch</h5>
+    <p>6-8 Kalka Das Marg, Mehrauli</p>
+    <p>New Delhi – 110030</p>
+    <a href="tel:+919810235472">+91 98102 35472</a>
+    <p style="margin-top:0.8rem;">Open Daily 12:30 PM – Midnight</p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2026 Olive Bar & Kitchen. All rights reserved.</p>
+  <p>Mehrauli · New Delhi · India</p>
+</div>
+
+<script>
+  // ── Particles
+  const pWrap = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `--x:${Math.random()*100}%;--dur:${6+Math.random()*10}s;--delay:${Math.random()*8}s;--drift:${(Math.random()-0.5)*80}px`;
+    pWrap.appendChild(p);
+  }
+
+  // ── Nav scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Marquee
+  const items = ['Mediterranean Cuisine','Wood-Fired Pizza','Heritage Haveli','Live Music Evenings','Sunday Brunch','Craft Cocktails','Qutub Minar Views','Award Winning Chef','Alfresco Courtyard','Fine Dining Delhi'];
+  const track = document.getElementById('marqueeTrack');
+  [...items,...items].forEach(t => {
+    track.innerHTML += `<div class="marquee-item"><span class="marquee-dot"></span><span>${t}</span></div>`;
+  });
+
+  // ── Menu data
+  const menuData = {
+    Starters: [
+      { name: 'Cheese Soufflé', cat: 'Classic', desc: 'Light and airy soufflé with Gruyère and aged Parmesan, served with a herb beurre blanc.', price: '₹ 980' },
+      { name: 'Sea Crab Ceviche', cat: 'Signature', desc: 'Fresh sea crab with tangerine, micro herbs and a citrus-chilli dressing.', price: '₹ 1,200' },
+      { name: 'Mediterranean Mezze', cat: 'Sharing', desc: 'Hummus, baba ganoush, labneh, warm pita and olive tapenade.', price: '₹ 1,100' },
+    ],
+    Mains: [
+      { name: 'Sand Lobster', cat: 'Grill & Seafood', desc: 'Berber spice-cooked sand lobster with cauliflower purée and preserved lemon butter.', price: '₹ 2,800' },
+      { name: 'Moroccan Lamb Chops', cat: 'Grill', desc: 'Chargrilled lamb chops with ras el hanout, pomegranate reduction and saffron couscous.', price: '₹ 2,200' },
+      { name: 'Pesto Gnocchi', cat: 'Pasta', desc: 'Pillowy handmade gnocchi with basil pesto, pine nuts and aged Pecorino.', price: '₹ 1,100' },
+    ],
+    Pizza: [
+      { name: 'Quattro Formaggi', cat: 'Wood-Fired', desc: 'Blue cheese, Parmesan, goat cheese, bocconcini and scamorza on a thin artisanal base.', price: '₹ 1,050' },
+      { name: 'Margherita', cat: 'Classic', desc: 'Sundried tomatoes, buffalo mozzarella and cherry tomatoes fresh from the wood-fired oven.', price: '₹ 850' },
+      { name: 'Moroccan Lamb', cat: 'Signature', desc: 'Slow-spiced lamb, roasted peppers, za\'atar and labneh on a crisp thin crust.', price: '₹ 1,200' },
+    ],
+    Desserts: [
+      { name: 'Crème Brûlée', cat: 'Classic', desc: 'Silky vanilla custard with a perfectly caramelized sugar crust, served tableside.', price: '₹ 650' },
+      { name: 'Warm Chocolate Tart', cat: 'Signature', desc: 'Dark valrhona chocolate with salted caramel, vanilla ice cream and cocoa soil.', price: '₹ 720' },
+      { name: 'Tiramisu', cat: 'Italian', desc: 'House-made ladyfingers, mascarpone and freshly brewed espresso with a cocoa dusting.', price: '₹ 680' },
+    ]
+  };
+  let activeTab = 'Starters';
+  function renderMenu(cat) {
+    const grid = document.getElementById('menuGrid');
+    grid.innerHTML = menuData[cat].map(item => `
+      <div class="menu-card">
+        <div class="menu-card-category">${item.cat}</div>
+        <h3>${item.name}</h3>
+        <p>${item.desc}</p>
+        <div class="menu-card-price">${item.price}</div>
+      </div>
+    `).join('');
+  }
+  renderMenu(activeTab);
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMenu(btn.textContent);
+    });
+  });
+
+  // ── Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

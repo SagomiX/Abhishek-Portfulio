@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>38 Barracks — Restaurant & Bar · Connaught Place, Delhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --khaki:      #b8a060;
+  --khaki-pale: #d4bc88;
+  --olive:      #5a5a2a;
+  --olive-dark: #3a3a18;
+  --army:       #4a5230;
+  --bark:       #2a1e10;
+  --coal:       #0e0e0a;
+  --night:      #141410;
+  --iron:       #1e1e18;
+  --rust:       #8b3a1a;
+  --rust-bright:#c04a20;
+  --copper:     #b06020;
+  --cream:      #f0e8d0;
+  --parch:      #e8dcc0;
+  --stone:      #7a7060;
+  --smoke:      rgba(240,232,208,.55);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--coal);
+  color:var(--cream);
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--night)}
+::-webkit-scrollbar-thumb{background:var(--khaki)}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:600;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.3rem 3.5rem;
+  transition:all .5s;
+}
+nav.stuck{
+  background:rgba(14,14,10,.95);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(184,160,96,.2);
+  padding:1rem 3.5rem;
+}
+.brand{display:flex;flex-direction:column}
+.brand-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;letter-spacing:.08em;color:var(--cream);
+  line-height:.85;transition:color .4s;
+}
+nav.stuck .brand-num{color:var(--khaki)}
+.brand-sub{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.5rem;letter-spacing:.45em;text-transform:uppercase;
+  color:var(--khaki);font-weight:600;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
+  color:rgba(240,232,208,.7);text-decoration:none;transition:color .3s;
+}
+.nav-links a:hover{color:var(--khaki-pale)}
+.nav-book{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  background:var(--khaki);color:var(--coal);
+  padding:.55rem 1.6rem;text-decoration:none;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  transition:all .3s;
+}
+.nav-book:hover{background:var(--khaki-pale)}
+
+/* ═══ HERO ═══ */
+#hero{
+  position:relative;height:100vh;min-height:650px;
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+/* BG layers */
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(105deg, rgba(14,14,10,.92) 0%, rgba(14,14,10,.6) 45%, rgba(14,14,10,.85) 100%),
+    linear-gradient(180deg, #1a1a10 0%, #2a1e10 100%);
+}
+/* Real image from Google Business – bg overlay approach */
+.hero-img{
+  position:absolute;inset:0;
+  background:
+    url('https://38barracks.com/wp-content/uploads/2024/04/Untitled-design-3.png') center/cover no-repeat,
+    linear-gradient(135deg,#2a1e10,#1a1a10);
+  opacity:.35;filter:sepia(.4) brightness(.7);
+  transition:transform 8s ease;
+}
+#hero:hover .hero-img{transform:scale(1.04)}
+
+/* Animated scanlines */
+.scanlines{
+  position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,transparent 3px,
+    rgba(0,0,0,.12) 3px,rgba(0,0,0,.12) 4px
+  );
+  opacity:.4;
+}
+/* Static noise */
+.hero-noise{
+  position:absolute;inset:0;pointer-events:none;
+  opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;
+}
+/* Muzzle flash particles */
+.sparks{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.spark{
+  position:absolute;border-radius:50%;opacity:0;
+  animation:spark-fly var(--spd) ease-out infinite;
+  animation-delay:var(--sd);
+  left:var(--sx);bottom:var(--sy);
+  width:var(--ssz);height:var(--ssz);
+  background:var(--sc);
+}
+@keyframes spark-fly{
+  0%{opacity:0;transform:translate(0,0) scale(1)}
+  20%{opacity:.9}
+  100%{opacity:0;transform:translate(var(--sdx),var(--sdy)) scale(.1)}
+}
+
+/* Content */
+.hero-inner{
+  position:relative;z-index:5;
+  padding:0 4rem;
+  max-width:1000px;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;font-weight:600;
+  color:var(--khaki);margin-bottom:1.5rem;
+  animation:march-in .8s .1s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-tag-line{width:35px;height:1px;background:var(--khaki)}
+@keyframes march-in{
+  from{opacity:0;transform:translateX(-30px)}
+  to{opacity:1;transform:translateX(0)}
+}
+.hero-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(5rem,14vw,13rem);
+  line-height:.85;color:var(--cream);
+  animation:march-in .8s .25s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-word{
+  display:block;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,6vw,5.5rem);
+  letter-spacing:.18em;color:var(--khaki);
+  animation:march-in .8s .4s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-rule{
+  display:flex;align-items:center;gap:1rem;
+  margin:.8rem 0 1.5rem;
+  animation:march-in .8s .5s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-rule-line{flex:1;max-width:200px;height:1px;background:rgba(184,160,96,.4)}
+.hero-rule-text{
+  font-family:'Special Elite',serif;
+  font-size:.65rem;letter-spacing:.15em;color:var(--stone);
+  text-transform:uppercase;
+}
+.hero-desc{
+  font-family:'Barlow',sans-serif;
+  font-size:.95rem;line-height:1.8;color:rgba(240,232,208,.65);
+  max-width:550px;font-weight:300;margin-bottom:2.5rem;
+  animation:march-in .8s .6s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-cta{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:march-in .8s .75s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-mission{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  background:var(--khaki);color:var(--coal);
+  padding:.95rem 2.5rem;text-decoration:none;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition:all .35s;position:relative;overflow:hidden;
+}
+.btn-mission::before{
+  content:'';position:absolute;inset:0;
+  background:var(--rust-bright);transform:scaleX(0);transform-origin:right;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.btn-mission:hover::before{transform:scaleX(1);transform-origin:left}
+.btn-mission:hover{color:white}
+.btn-mission span{position:relative}
+.btn-scout{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  border:1px solid rgba(184,160,96,.45);color:var(--khaki-pale);
+  padding:.95rem 2rem;text-decoration:none;transition:all .3s;
+}
+.btn-scout:hover{border-color:var(--khaki);background:rgba(184,160,96,.1)}
+
+/* Stars/medals */
+.hero-medals{
+  position:absolute;right:4rem;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:1.5rem;z-index:5;
+  animation:march-in .8s 1s cubic-bezier(.22,1,.36,1) both;
+}
+.medal{
+  width:70px;height:70px;border-radius:50%;
+  border:1px solid rgba(184,160,96,.3);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  background:rgba(14,14,10,.7);
+  backdrop-filter:blur(8px);
+}
+.medal-val{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;color:var(--khaki);line-height:1;
+}
+.medal-label{
+  font-size:.38rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--stone);line-height:1.3;
+}
+
+/* Scroll cue */
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:4rem;z-index:5;
+  display:flex;align-items:center;gap:.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(240,232,208,.3);
+  animation:march-in .8s 1.2s both;
+}
+.scroll-tick{
+  width:40px;height:1px;
+  background:linear-gradient(to right,var(--khaki),transparent);
+  position:relative;
+}
+.scroll-tick::after{
+  content:'';
+  position:absolute;left:0;top:-2px;
+  width:5px;height:5px;
+  background:var(--khaki);
+  animation:tick-march 2s ease-in-out infinite;
+}
+@keyframes tick-march{
+  0%,100%{left:0;opacity:1}
+  50%{left:35px;opacity:.3}
+}
+
+/* ═══ ALERT TICKER ═══ */
+.alert-bar{
+  background:var(--army);padding:.8rem 0;overflow:hidden;
+  border-top:1px solid rgba(184,160,96,.2);
+  border-bottom:1px solid rgba(184,160,96,.2);
+  position:relative;
+}
+.alert-bar::before{
+  content:'⚑ ATTENTION';
+  position:absolute;left:0;top:0;bottom:0;
+  font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.2em;
+  background:var(--khaki);color:var(--coal);
+  display:flex;align-items:center;padding:0 1.2rem;z-index:2;
+}
+.ticker-wrap{overflow:hidden;padding-left:140px}
+.ticker-inner{
+  display:flex;width:max-content;
+  animation:ticker 28s linear infinite;
+}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{
+  display:flex;align-items:center;gap:1.5rem;padding:0 2rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cream);white-space:nowrap;
+}
+.tick-sep{
+  width:4px;height:4px;background:var(--khaki);
+  transform:rotate(45deg);flex-shrink:0;
+}
+
+/* ═══ SHARED ═══ */
+.sec{padding:7rem 4rem}
+.field-tag{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.58rem;letter-spacing:.38em;text-transform:uppercase;font-weight:700;
+  color:var(--khaki);margin-bottom:.8rem;
+}
+.field-tag::before{content:'▸';color:var(--rust-bright);font-size:.7rem}
+
+/* ═══ STORY ═══ */
+#story{background:var(--night)}
+.story-grid{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:center;
+}
+.story-text h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,5vw,5rem);letter-spacing:.05em;
+  color:var(--cream);line-height:.9;margin-bottom:1.8rem;
+}
+.story-text h2 span{display:block;color:var(--khaki)}
+.story-text p{
+  font-size:.9rem;line-height:1.9;color:var(--stone);
+  margin-bottom:1.3rem;font-weight:300;
+}
+.story-facts{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:2.5rem;background:rgba(184,160,96,.15);
+}
+.fact{
+  background:var(--night);padding:1.5rem 1.2rem;text-align:center;
+  transition:background .3s;
+}
+.fact:hover{background:rgba(184,160,96,.08)}
+.fact-val{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;color:var(--khaki);line-height:1;
+}
+.fact-key{
+  font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--stone);margin-top:.3rem;
+}
+/* Story visual */
+.story-visual{position:relative}
+.story-frame{
+  width:100%;aspect-ratio:3/4;position:relative;overflow:hidden;
+}
+.story-main-img{
+  width:100%;height:100%;
+  background:
+    url('https://38barracks.com/wp-content/uploads/2024/04/Untitled-design-5.png') center/cover no-repeat,
+    linear-gradient(145deg,#2a1e10,#1e1e18);
+  filter:sepia(.2) brightness(.85);
+  transition:transform .6s ease;
+}
+.story-frame:hover .story-main-img{transform:scale(1.05)}
+.story-stamp{
+  position:absolute;bottom:-1.5rem;right:-1.5rem;
+  width:100px;height:100px;
+  background:var(--rust-bright);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+}
+.story-stamp-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.2rem;color:white;line-height:1;
+}
+.story-stamp-text{
+  font-size:.4rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.8);
+}
+.story-ribbon{
+  position:absolute;top:1.5rem;left:-1rem;
+  background:var(--army);
+  padding:.5rem 1.2rem .5rem .8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.55rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--khaki-pale);
+  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 50%,100% 100%,0 100%);
+}
+
+/* ═══ MENU ═══ */
+#menu{background:var(--coal)}
+.menu-hdr{text-align:center;margin-bottom:3rem}
+.menu-hdr h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:.08em;
+  color:var(--cream);margin-bottom:.4rem;
+}
+.menu-hdr h2 span{color:var(--khaki)}
+.menu-hdr p{font-size:.75rem;color:var(--stone);letter-spacing:.1em}
+
+/* Real food images from the site */
+.menu-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto auto auto;
+  gap:1px;max-width:1200px;margin:0 auto;
+  background:rgba(184,160,96,.1);
+}
+.dish-card{
+  background:var(--coal);position:relative;overflow:hidden;
+  transition:all .4s cubic-bezier(.22,1,.36,1);
+  cursor:default;
+}
+.dish-card:hover{transform:translateY(-3px);z-index:2;box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.dish-img{
+  width:100%;aspect-ratio:4/3;
+  background-size:cover;background-position:center;
+  filter:brightness(.8) saturate(.9);
+  transition:all .5s;
+}
+.dish-card:hover .dish-img{filter:brightness(1) saturate(1.1);transform:scale(1.04)}
+.dish-info{padding:1.2rem}
+.dish-badge{
+  font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;
+  color:var(--khaki);display:block;margin-bottom:.3rem;
+}
+.dish-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.05rem;font-weight:600;letter-spacing:.04em;
+  color:var(--cream);margin-bottom:.3rem;
+}
+.dish-desc{font-size:.68rem;color:var(--stone);line-height:1.6;font-weight:300}
+
+/* Menu nav tabs */
+.menu-tabs{
+  display:flex;justify-content:center;gap:0;margin-bottom:2.5rem;
+  max-width:900px;margin-left:auto;margin-right:auto;
+  border:1px solid rgba(184,160,96,.2);
+}
+.mtab{
+  flex:1;padding:.7rem;background:transparent;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(184,160,96,.5);cursor:pointer;border:none;
+  border-right:1px solid rgba(184,160,96,.15);
+  transition:all .3s;
+}
+.mtab:last-child{border-right:none}
+.mtab.on,.mtab:hover{background:var(--khaki);color:var(--coal)}
+
+/* PDF Download */
+.menu-download{
+  max-width:1200px;margin:2.5rem auto 0;
+  background:var(--iron);
+  border:1px solid rgba(184,160,96,.2);
+  padding:2rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+}
+.menu-download h3{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;letter-spacing:.05em;color:var(--cream);
+}
+.menu-download p{font-size:.72rem;color:var(--stone);margin-top:.2rem}
+.btn-dl{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--khaki);color:var(--khaki);
+  padding:.8rem 2rem;text-decoration:none;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+  transition:all .3s;
+}
+.btn-dl:hover{background:var(--khaki);color:var(--coal)}
+
+/* ═══ LIVE MUSIC ═══ */
+#music{
+  background:var(--iron);
+  position:relative;overflow:hidden;
+}
+#music::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 80% at 100% 50%, rgba(139,58,26,.1) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 0% 50%, rgba(90,90,42,.12) 0%, transparent 60%);
+}
+.music-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:center;
+  position:relative;z-index:1;
+}
+.music-text h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,5vw,5rem);letter-spacing:.05em;
+  color:var(--cream);line-height:.9;margin-bottom:1.5rem;
+}
+.music-text h2 span{display:block;color:var(--khaki)}
+.music-text p{font-size:.9rem;line-height:1.9;color:var(--stone);margin-bottom:1.2rem;font-weight:300}
+.music-nights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.night-card{
+  background:rgba(255,255,255,.04);padding:1.2rem;
+  border-left:2px solid var(--khaki);
+  transition:border-color .3s,background .3s;
+}
+.night-card:hover{background:rgba(184,160,96,.08);border-color:var(--rust-bright)}
+.night-type{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.55rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--khaki);margin-bottom:.3rem;
+}
+.night-desc{font-size:.75rem;color:var(--cream);line-height:1.5}
+/* Sound wave animation */
+.soundwave{
+  display:flex;align-items:center;justify-content:center;
+  gap:4px;height:80px;
+}
+.bar-wave{
+  width:4px;border-radius:2px;background:var(--khaki);
+  animation:wave var(--wt) ease-in-out infinite alternate;
+  animation-delay:var(--wd);
+}
+@keyframes wave{
+  from{height:8px;opacity:.4}
+  to{height:var(--wh);opacity:1}
+}
+.music-visual{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;gap:2rem;
+}
+.music-stage{
+  width:100%;aspect-ratio:16/10;
+  background:
+    url('https://38barracks.com/wp-content/uploads/2025/10/ChatGPT-Image-Oct-22-2025-06_33_11-PM.png') center/cover,
+    linear-gradient(135deg,#2a1e10,#1a1a10);
+  position:relative;overflow:hidden;
+  filter:brightness(.75);
+}
+.music-stage::after{
+  content:'🎵 LIVE EVERY NIGHT';
+  position:absolute;bottom:0;left:0;right:0;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.6rem;font-weight:700;letter-spacing:.3em;
+  background:rgba(184,160,96,.9);color:var(--coal);
+  text-align:center;padding:.5rem;
+}
+
+/* ═══ PARTIES ═══ */
+#parties{background:var(--night)}
+.parties-hdr{text-align:center;margin-bottom:3.5rem;max-width:1200px;margin-left:auto;margin-right:auto}
+.parties-hdr h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:.06em;
+  color:var(--cream);
+}
+.parties-hdr h2 span{color:var(--rust-bright)}
+.party-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  max-width:1200px;margin:0 auto;
+  background:rgba(184,160,96,.1);
+}
+.party-card{
+  background:var(--night);padding:2.5rem 1.8rem;
+  position:relative;overflow:hidden;
+  transition:all .45s;
+}
+.party-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--khaki),var(--rust-bright));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.party-card:hover{background:rgba(184,160,96,.07);transform:translateY(-4px)}
+.party-card:hover::before{transform:scaleX(1)}
+.party-icon{font-size:2rem;margin-bottom:1.2rem;display:block}
+.party-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.3rem;letter-spacing:.06em;color:var(--cream);
+  margin-bottom:.6rem;
+}
+.party-desc{font-size:.72rem;color:var(--stone);line-height:1.7;font-weight:300}
+
+/* ═══ GALLERY ═══ */
+#gallery{background:var(--coal);padding:7rem 0}
+.gallery-hdr{padding:0 4rem;margin-bottom:3rem}
+.gallery-hdr h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.06em;
+  color:var(--cream);
+}
+.gallery-hdr h2 span{color:var(--khaki)}
+/* Real images grid */
+.gallery-masonry{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:240px 240px;
+  gap:3px;
+  padding:0 4rem;
+}
+.g-item{
+  overflow:hidden;position:relative;
+  background:var(--iron);
+  cursor:pointer;
+}
+.g-item.tall{grid-row:span 2}
+.g-item.wide{grid-column:span 2}
+.g-img{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  filter:brightness(.75) saturate(.8);
+  transition:all .5s cubic-bezier(.22,1,.36,1);
+}
+.g-item:hover .g-img{filter:brightness(1) saturate(1.1);transform:scale(1.08)}
+.g-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(14,14,10,.8),transparent 50%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:1rem 1.2rem;
+}
+.g-item:hover .g-overlay{opacity:1}
+.g-caption{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--khaki-pale);
+}
+/* Floating reel */
+.gallery-reel{
+  display:flex;gap:1rem;overflow-x:auto;
+  padding:3px 4rem 1.5rem;margin-top:3px;
+  scrollbar-width:thin;scrollbar-color:var(--khaki) transparent;
+}
+.reel-card{
+  flex:0 0 200px;height:200px;overflow:hidden;
+  background:var(--iron);flex-shrink:0;
+  position:relative;
+}
+.reel-img{
+  width:100%;height:100%;
+  background-size:cover;background-position:center;
+  filter:brightness(.7) sepia(.2);
+  transition:all .4s;
+}
+.reel-card:hover .reel-img{filter:brightness(1) sepia(0);transform:scale(1.1)}
+
+/* ═══ REVIEWS ═══ */
+#reviews{
+  background:var(--iron);
+  position:relative;overflow:hidden;
+}
+.reviews-hdr{text-align:center;margin-bottom:3rem}
+.reviews-hdr h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2rem,4vw,3.5rem);letter-spacing:.06em;color:var(--cream);
+}
+.reviews-hdr h2 span{color:var(--khaki)}
+.reviews-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  max-width:1200px;margin:0 auto;
+  background:rgba(184,160,96,.08);
+}
+.review-card{
+  background:var(--iron);padding:2rem 1.8rem;
+  transition:background .3s;
+  position:relative;
+}
+.review-card:hover{background:rgba(184,160,96,.06)}
+.review-stars{color:var(--khaki);font-size:.85rem;margin-bottom:.8rem;letter-spacing:.1em}
+.review-text{
+  font-family:'Special Elite',serif;
+  font-size:.78rem;line-height:1.7;color:rgba(240,232,208,.65);
+  margin-bottom:1rem;font-style:italic;
+}
+.review-author{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--khaki);
+}
+.review-source{font-size:.55rem;color:var(--stone);margin-top:.2rem;letter-spacing:.1em}
+.review-badge{
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-size:.55rem;letter-spacing:.12em;
+  padding:.25rem .7rem;
+  border:1px solid rgba(184,160,96,.25);color:var(--stone);
+  text-transform:uppercase;font-weight:600;
+}
+
+/* ═══ VISIT ═══ */
+#visit{background:var(--coal)}
+.visit-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:7rem;
+  max-width:1200px;margin:0 auto;align-items:start;
+}
+.visit-left h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,4vw,4rem);letter-spacing:.05em;
+  color:var(--cream);line-height:.9;margin-bottom:2.5rem;
+}
+.visit-left h2 span{display:block;color:var(--khaki)}
+.vrow{
+  margin-bottom:1.8rem;padding-bottom:1.8rem;
+  border-bottom:1px solid rgba(184,160,96,.1);
+}
+.vrow-lbl{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.52rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rust-bright);margin-bottom:.4rem;
+}
+.vrow p,.vrow a{
+  font-size:.85rem;color:rgba(240,232,208,.65);line-height:1.75;
+  font-weight:300;text-decoration:none;display:block;transition:color .3s;
+}
+.vrow a:hover{color:var(--khaki-pale)}
+/* Map */
+.visit-map{
+  background:var(--iron);aspect-ratio:1;
+  border:1px solid rgba(184,160,96,.12);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.map-grid-am{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(184,160,96,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(184,160,96,.06) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.map-cp-ring{
+  position:absolute;
+  width:120px;height:120px;border-radius:50%;
+  border:1px solid rgba(184,160,96,.15);
+}
+.map-cp-ring:nth-child(2){width:200px;height:200px;animation-delay:.8s}
+.map-cp-ring:nth-child(3){width:300px;height:300px;animation-delay:1.6s}
+.map-cp-ring{animation:cp-ripple 3s ease-out infinite}
+@keyframes cp-ripple{
+  0%{opacity:.8;transform:scale(.4)}
+  100%{opacity:0;transform:scale(1.5)}
+}
+.map-pin-38{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:1rem;
+}
+.pin-marker{
+  width:44px;height:44px;
+  background:var(--khaki);
+  border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  animation:pin-stand 2.5s ease-in-out infinite;
+  position:relative;
+}
+.pin-marker::after{
+  content:'';position:absolute;inset:9px;
+  background:var(--coal);border-radius:50%;
+}
+@keyframes pin-stand{
+  0%,100%{transform:rotate(-45deg) translateY(0);box-shadow:0 0 0 0 rgba(184,160,96,.4)}
+  50%{transform:rotate(-45deg) translateY(-10px);box-shadow:0 15px 0 -5px rgba(0,0,0,.2)}
+}
+.pin-label{text-align:center}
+.pin-label h4{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.1rem;letter-spacing:.08em;color:var(--cream);
+}
+.pin-label p{font-size:.52rem;letter-spacing:.2em;color:var(--stone);text-transform:uppercase}
+.map-corner{
+  position:absolute;font-family:'Special Elite',serif;font-size:.65rem;
+  color:rgba(184,160,96,.3);letter-spacing:.1em;
+}
+.map-corner.tl{top:1rem;left:1rem}
+.map-corner.br{bottom:1rem;right:1rem}
+
+/* ═══ RESERVATION ═══ */
+#reservation{
+  background:var(--army);
+  position:relative;overflow:hidden;text-align:center;
+}
+#reservation::before{
+  content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(0,0,0,.05) 40px,rgba(0,0,0,.05) 42px);
+}
+#reservation h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:.08em;
+  color:var(--cream);position:relative;
+}
+#reservation h2 span{color:var(--khaki)}
+#reservation>p{
+  font-size:.78rem;color:rgba(240,232,208,.65);letter-spacing:.08em;
+  margin-bottom:3rem;position:relative;
+}
+.res-form{
+  display:flex;gap:.8rem;max-width:900px;margin:0 auto;flex-wrap:wrap;
+  justify-content:center;position:relative;
+}
+.ri{
+  flex:1;min-width:170px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(184,160,96,.25);
+  color:var(--cream);padding:.9rem 1.1rem;
+  font-family:'Barlow',sans-serif;font-size:.72rem;
+  outline:none;transition:border-color .3s;
+}
+.ri::placeholder{color:rgba(240,232,208,.35)}
+.ri:focus{border-color:var(--khaki)}
+.ri option{background:#1e1e18}
+.res-go{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.72rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  background:var(--khaki);color:var(--coal);border:none;
+  padding:.9rem 2.5rem;cursor:pointer;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition:background .3s;
+}
+.res-go:hover{background:var(--khaki-pale)}
+
+/* ═══ FOOTER ═══ */
+footer{
+  background:var(--coal);padding:4rem;
+  display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:3rem;
+  border-top:1px solid rgba(184,160,96,.12);
+}
+.f-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;letter-spacing:.08em;color:var(--cream);line-height:1;
+}
+.f-tag{
+  font-size:.48rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--khaki);margin-bottom:.8rem;display:block;
+}
+.f-about{font-size:.7rem;color:var(--stone);line-height:1.8;max-width:230px}
+.f-call{
+  display:inline-block;margin-top:1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.85rem;font-weight:700;letter-spacing:.08em;
+  color:var(--khaki-pale);text-decoration:none;
+  transition:color .3s;
+}
+.f-call:hover{color:white}
+.fcol h5{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.55rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--khaki);margin-bottom:1.2rem;
+}
+.fcol a,.fcol p{
+  display:block;font-size:.72rem;color:var(--stone);
+  text-decoration:none;margin-bottom:.5rem;line-height:1.6;transition:color .3s;
+}
+.fcol a:hover{color:var(--khaki-pale)}
+.footer-bar{
+  background:var(--bark);padding:1.1rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-bar p{font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.2)}
+
+/* ═══ REVEAL ═══ */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1);
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.45s}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links,.hero-medals{display:none}
+  .sec{padding:5rem 1.5rem}
+  #gallery{padding:5rem 0}
+  .gallery-hdr{padding:0 1.5rem}
+  .gallery-masonry{grid-template-columns:1fr 1fr;grid-template-rows:auto;padding:0 1.5rem}
+  .g-item.tall{grid-row:span 1}
+  .gallery-reel{padding:3px 1.5rem 1.5rem}
+  .story-grid,.music-wrap,.visit-wrap{grid-template-columns:1fr;gap:3rem}
+  .menu-grid{grid-template-columns:1fr 1fr}
+  .party-grid{grid-template-columns:1fr 1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .hero-inner{padding:0 1.5rem}
+  .res-form{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="brand">
+    <div class="brand-num">38 Barracks</div>
+    <div class="brand-sub">Restaurant &amp; Bar · Connaught Place · Delhi</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#story">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#music">Live Music</a></li>
+    <li><a href="#parties">Events</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#reservation" class="nav-book">Book a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img" id="heroImg"></div>
+  <div class="scanlines"></div>
+  <div class="hero-noise"></div>
+  <div class="sparks" id="sparks"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span class="hero-tag-line"></span>
+      Connaught Place · New Delhi · India's Only Military-Themed Restobar
+    </div>
+    <div class="hero-num">38</div>
+    <span class="hero-word">Barracks</span>
+    <div class="hero-rule">
+      <span class="hero-rule-line"></span>
+      <span class="hero-rule-text">Restaurant &amp; Bar</span>
+      <span class="hero-rule-line"></span>
+    </div>
+    <p class="hero-desc">A tribute to India's Armed Forces. Where culinary artistry meets soulful live music — in the heart of Connaught Place. North Indian · Continental · Italian · Oriental · Craft Cocktails.</p>
+    <div class="hero-cta">
+      <a href="#reservation" class="btn-mission"><span>Book Your Table</span></a>
+      <a href="#menu" class="btn-scout">View Menu</a>
+    </div>
+  </div>
+
+  <div class="hero-medals">
+    <div class="medal"><div class="medal-val">4.5</div><div class="medal-label">Justdial<br>Rating</div></div>
+    <div class="medal"><div class="medal-val">206</div><div class="medal-label">Menu<br>Items</div></div>
+    <div class="medal"><div class="medal-val">40K+</div><div class="medal-label">Happy<br>Guests</div></div>
+  </div>
+  <div class="hero-scroll"><span class="scroll-tick"></span><span>Advance</span></div>
+</section>
+
+<!-- TICKER -->
+<div class="alert-bar">
+  <div class="ticker-wrap">
+    <div class="ticker-inner" id="ticker"></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story" class="sec">
+  <div class="story-grid">
+    <div class="story-text">
+      <div class="field-tag reveal">Our Story</div>
+      <h2 class="reveal d1">Designed as a<br><span>Tribute to the<br>Armed Forces</span></h2>
+      <p class="reveal d2">38 Barracks isn't just another restaurant in Connaught Place — it's a living tribute to India's brave armed forces. Inspired by the home of a decorated retired British-Indian Army colonel, every corner of 38 Barracks tells a story of honour, heritage, and hospitality.</p>
+      <p class="reveal d2">From war medals and sepia-toned photographs on the walls to antique weapons and vintage officer-mess furnishings — the interiors transport you to a different era while the menu brings you the best of today's culinary world. North Indian. Continental. Italian. Oriental. All under one legendary roof.</p>
+      <div class="story-facts reveal d3">
+        <div class="fact"><div class="fact-val">75</div><div class="fact-key">Skilled Cooks</div></div>
+        <div class="fact"><div class="fact-val">206</div><div class="fact-key">Menu Items</div></div>
+        <div class="fact"><div class="fact-val">93</div><div class="fact-key">Beverages</div></div>
+      </div>
+    </div>
+    <div class="story-visual reveal d2">
+      <div class="story-frame">
+        <div class="story-main-img"></div>
+      </div>
+      <div class="story-ribbon">M-38, Connaught Place, Delhi</div>
+      <div class="story-stamp">
+        <div class="story-stamp-num">38</div>
+        <div class="story-stamp-text">CP · Delhi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="sec">
+  <div class="menu-hdr">
+    <div class="field-tag reveal" style="justify-content:center">Battle-Ready Flavours</div>
+    <h2 class="reveal d1">Deploy <span>The Menu</span></h2>
+    <p class="reveal d2">From artillery-grade grills to officer-class cocktails — browse our full lineup</p>
+  </div>
+  <div class="menu-tabs reveal d2" id="menuTabs">
+    <button class="mtab on" data-cat="signatures">Chef's Signatures</button>
+    <button class="mtab" data-cat="grills">Grills &amp; Starters</button>
+    <button class="mtab" data-cat="mains">Main Course</button>
+    <button class="mtab" data-cat="cocktails">Cocktails &amp; Bar</button>
+    <button class="mtab" data-cat="desserts">Desserts</button>
+  </div>
+  <div class="menu-grid reveal d3" id="menuGrid"></div>
+  <div class="menu-download reveal d2">
+    <div>
+      <h3>Full Menu — April 2025</h3>
+      <p>Download the complete menu PDF · All items including seasonal specials</p>
+    </div>
+    <a href="https://38barracks.com/wp-content/uploads/2025/12/FOOD-MENU-APRIL-2025-1_compressed.pdf" target="_blank" class="btn-dl">Download Full Menu (PDF)</a>
+  </div>
+</section>
+
+<!-- LIVE MUSIC -->
+<section id="music" class="sec">
+  <div class="music-wrap">
+    <div class="music-text">
+      <div class="field-tag reveal">Live Entertainment</div>
+      <h2 class="reveal d1">Soulful Music.<br><span>Every Night.</span></h2>
+      <p class="reveal d2">At 38 Barracks, great food and live music don't just coexist — they define the experience. From soulful acoustic evenings to energetic Bollywood covers, the ambience stays electric while the flavours stay memorable.</p>
+      <p class="reveal d2">Delhi's most vibrant restobar hosts live performances every single night — making it the go-to destination for anyone searching for the best live music bar in Connaught Place.</p>
+      <div class="music-nights reveal d3">
+        <div class="night-card"><div class="night-type">Acoustic Nights</div><div class="night-desc">Soulful live singers every weekday evening</div></div>
+        <div class="night-card"><div class="night-type">Bollywood Covers</div><div class="night-desc">High-energy Bollywood live every weekend</div></div>
+        <div class="night-card"><div class="night-type">DJ Console</div><div class="night-desc">Ground floor DJ nights with laser lights</div></div>
+        <div class="night-card"><div class="night-type">Open Mic</div><div class="night-desc">Rotating talent — artists, poets, comedians</div></div>
+      </div>
+    </div>
+    <div class="music-visual reveal d2">
+      <div class="music-stage"></div>
+      <div class="soundwave" id="soundwave"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTIES -->
+<section id="parties" class="sec">
+  <div class="parties-hdr">
+    <div class="field-tag reveal" style="justify-content:center">Private Events</div>
+    <h2 class="reveal d1">Party With <span>Us</span></h2>
+    <p class="reveal d2" style="font-size:.78rem;color:var(--stone);margin-top:.5rem">Birthdays · Corporate · Kitty · Private Dining · Sports Screening</p>
+  </div>
+  <div class="party-grid reveal d2">
+    <div class="party-card">
+      <span class="party-icon">🎂</span>
+      <div class="party-title">Birthday Parties</div>
+      <p class="party-desc">Celebrate your day uniquely at 38 Barracks — with elegance, live music, cake arrangements and a curated menu for your guests.</p>
+    </div>
+    <div class="party-card">
+      <span class="party-icon">💼</span>
+      <div class="party-title">Corporate Events</div>
+      <p class="party-desc">Elevate corporate gatherings with sophistication and exquisite dining. Two floors, private rooms, and AV arrangements available.</p>
+    </div>
+    <div class="party-card">
+      <span class="party-icon">👑</span>
+      <div class="party-title">Private Lounge</div>
+      <p class="party-desc">Exclusive private parties for intimate celebrations — pre-wedding, reunions, anniversaries. Full bar and live music included.</p>
+    </div>
+    <div class="party-card">
+      <span class="party-icon">🎉</span>
+      <div class="party-title">Kitty Parties</div>
+      <p class="party-desc">Unforgettable kitty party packages blending elegance, fun, and delectable cuisine with set menus and décor arrangements.</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem" class="reveal d3">
+    <a href="#reservation" class="btn-mission"><span>Enquire for Party Booking</span></a>
+    <p style="font-size:.65rem;color:var(--stone);margin-top:1rem;letter-spacing:.1em">Call us: <a href="tel:+919717304098" style="color:var(--khaki-pale);text-decoration:none">+91 97173 04098</a></p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-hdr">
+    <div class="field-tag reveal">Inside 38 Barracks</div>
+    <h2 class="reveal d1">The <span>Barracks</span> in Action</h2>
+  </div>
+  <!-- Masonry with real images from the restaurant -->
+  <div class="gallery-masonry reveal d1">
+    <div class="g-item tall">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/04/Untitled-design-5.png'),linear-gradient(135deg,#2a1e10,#1a1a10)"></div>
+      <div class="g-overlay"><span class="g-caption">Army Décor</span></div>
+    </div>
+    <div class="g-item wide">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/04/Untitled-design-3.png'),linear-gradient(135deg,#1e1e18,#2a1e10)"></div>
+      <div class="g-overlay"><span class="g-caption">The Grand Hall</span></div>
+    </div>
+    <div class="g-item">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/02/Wine-Glass-Pasta-1-120x120.jpg'),linear-gradient(135deg,#1a1a10,#2a1e10);background-size:cover"></div>
+      <div class="g-overlay"><span class="g-caption">Wine Glass Pasta</span></div>
+    </div>
+    <div class="g-item">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/02/Chicken-Gilafi-Kebab-120x120.jpg'),linear-gradient(135deg,#2a1e10,#1a1a10);background-size:cover"></div>
+      <div class="g-overlay"><span class="g-caption">Chicken Gilafi Kebab</span></div>
+    </div>
+    <div class="g-item">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/02/Brunt-Garlic-Noodle-120x120.jpg'),linear-gradient(135deg,#1e1e18,#2a1e10);background-size:cover"></div>
+      <div class="g-overlay"><span class="g-caption">Brunt Garlic Noodle</span></div>
+    </div>
+    <div class="g-item">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/2.png'),linear-gradient(135deg,#1a1a10,#1e1e18)"></div>
+      <div class="g-overlay"><span class="g-caption">Wine Glass Pasta</span></div>
+    </div>
+    <div class="g-item wide">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2025/10/ChatGPT-Image-Oct-22-2025-06_33_11-PM.png'),linear-gradient(135deg,#2a1e10,#1a1a10)"></div>
+      <div class="g-overlay"><span class="g-caption">Live Music Stage</span></div>
+    </div>
+    <div class="g-item">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/6.png'),linear-gradient(135deg,#1e1e18,#2a1e10)"></div>
+      <div class="g-overlay"><span class="g-caption">Tandoori Platter Veg</span></div>
+    </div>
+    <div class="g-item">
+      <div class="g-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/1.png'),linear-gradient(135deg,#1a1a10,#2a1e10)"></div>
+      <div class="g-overlay"><span class="g-caption">Cheese Lamb Burger</span></div>
+    </div>
+  </div>
+  <!-- Horizontal scroll reel -->
+  <div class="gallery-reel">
+    <div class="reel-card"><div class="reel-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/3.png')"></div></div>
+    <div class="reel-card"><div class="reel-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/4.png')"></div></div>
+    <div class="reel-card"><div class="reel-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/5.png')"></div></div>
+    <div class="reel-card"><div class="reel-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/7.png')"></div></div>
+    <div class="reel-card"><div class="reel-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/8.png')"></div></div>
+    <div class="reel-card"><div class="reel-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2024/05/9.png')"></div></div>
+    <div class="reel-card"><div class="reel-img" style="background-image:url('https://38barracks.com/wp-content/uploads/2021/02/Untitled-design-1.png')"></div></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="sec">
+  <div class="reviews-hdr">
+    <div class="field-tag reveal" style="justify-content:center">Field Reports</div>
+    <h2 class="reveal d1">What Our <span>Guests Say</span></h2>
+  </div>
+  <div class="reviews-grid reveal d2">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"38 Barracks is a tribute to our armed forces. It's designed like the house of a retired colonel from the British Indian Army. His handpicked recipes from various Barracks all over the world are served here. Live music, great food, chilled beer."</p>
+      <div class="review-author">Tripadvisor Guest</div>
+      <div class="review-source">TripAdvisor · Verified Review</div>
+      <span class="review-badge">5 Stars</span>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"My husband said the biryani is by far the best he has ever tasted. The food, staff and atmosphere was second to none. Our second visit and just as amazing as the first. Do not hesitate — you won't be disappointed."</p>
+      <div class="review-author">International Guest</div>
+      <div class="review-source">TripAdvisor · Verified Review</div>
+      <span class="review-badge">Must Visit</span>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The best romantic atmosphere you can get at any restaurant in the city. Overwhelmed with the service, décor and ambience. And yes — scrumptious meals from starter to dessert. Might have been the best meal I have ever been served."</p>
+      <div class="review-author">Sloshout Guest</div>
+      <div class="review-source">Sloshout · 4.7★ Rating</div>
+      <span class="review-badge">Date Night</span>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit" class="sec">
+  <div class="visit-wrap">
+    <div class="visit-left">
+      <div class="field-tag reveal">Find Us</div>
+      <h2 class="reveal d1">Report to<br><span>HQ</span></h2>
+      <div class="vrow reveal d2">
+        <div class="vrow-lbl">Address — HQ Location</div>
+        <p>M-38, Opposite Shankar Market<br>Outer Circle, Connaught Place<br>New Delhi — 110001</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vrow-lbl">Nearest Metro</div>
+        <p>Rajiv Chowk Metro Station<br>Blue Line &amp; Yellow Line — 3 min walk</p>
+      </div>
+      <div class="vrow reveal d2">
+        <div class="vrow-lbl">Hours</div>
+        <p>Daily: 12:00 PM – 12:00 Midnight<br>Live Music: Every Evening from 8 PM</p>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vrow-lbl">Contact Command</div>
+        <a href="tel:+919717304098">+91 97173 04098</a>
+      </div>
+      <div class="vrow reveal d3">
+        <div class="vrow-lbl">Price</div>
+        <p>₹2,100 for two (approx.) · Taxes applicable</p>
+      </div>
+      <a href="https://maps.app.goo.gl/Pgs886RS3U9uD7wX7" target="_blank" class="btn-mission" style="display:inline-block;margin-top:1rem"><span>Get Directions</span></a>
+    </div>
+    <div class="visit-map reveal d2">
+      <div class="map-grid-am"></div>
+      <div class="map-cp-ring"></div>
+      <div class="map-cp-ring"></div>
+      <div class="map-cp-ring"></div>
+      <div class="map-pin-38">
+        <div class="pin-marker"></div>
+        <div class="pin-label">
+          <h4>38 Barracks</h4>
+          <p>Connaught Place · New Delhi</p>
+        </div>
+      </div>
+      <div class="map-corner tl">M-38, Outer Circle</div>
+      <div class="map-corner br">Rajiv Chowk Metro</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="sec">
+  <div class="field-tag reveal" style="justify-content:center">Mission: Dining</div>
+  <h2 class="reveal d1">Book Your <span>Table</span></h2>
+  <p class="reveal d2">Tables fill fast on weekends and music nights. Secure your position in advance.</p>
+  <div class="res-form reveal d3">
+    <input class="ri" type="text" placeholder="Your Name">
+    <input class="ri" type="tel" placeholder="Phone Number">
+    <input class="ri" type="date">
+    <select class="ri">
+      <option value="" disabled selected>No. of Guests</option>
+      <option>1–2 Guests</option><option>3–4 Guests</option>
+      <option>5–6 Guests</option><option>7–10 Guests</option>
+      <option>11+ (Party Booking)</option>
+    </select>
+    <select class="ri">
+      <option value="" disabled selected>Occasion</option>
+      <option>Dinner</option><option>Lunch</option>
+      <option>Birthday Party</option><option>Corporate Event</option>
+      <option>Kitty Party</option><option>Private Party</option>
+    </select>
+    <button class="res-go">Confirm Booking</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">38 Barracks</div>
+    <span class="f-tag">Restaurant &amp; Bar · Connaught Place</span>
+    <p class="f-about">India's only military-themed restobar — a tribute to the armed forces with soulful live music, handcrafted cocktails, and authentic Indian flavours in the heart of CP.</p>
+    <a href="tel:+919717304098" class="f-call">+91 97173 04098</a>
+  </div>
+  <div class="fcol">
+    <h5>Navigation</h5>
+    <a href="#story">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#music">Live Music</a>
+    <a href="#parties">Events</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reservation">Reserve</a>
+  </div>
+  <div class="fcol">
+    <h5>Location</h5>
+    <p>M-38, Opposite Shankar Market</p>
+    <p>Outer Circle, Connaught Place</p>
+    <p>New Delhi — 110001</p>
+    <p style="margin-top:.6rem">Mon–Sun: 12PM – 12AM</p>
+  </div>
+  <div class="fcol">
+    <h5>Follow Us</h5>
+    <a href="https://facebook.com/38barrackscp" target="_blank">Facebook</a>
+    <a href="#">Instagram @38barrackscp</a>
+    <a href="#">Zomato</a>
+    <a href="#">TripAdvisor</a>
+    <p style="margin-top:.8rem;color:var(--khaki);font-size:.68rem">4.5★ Justdial · 40,000+ Reviews<br>Best Restaurant in CP · Delhi</p>
+  </div>
+</footer>
+<div class="footer-bar">
+  <p>© 2026 38 Barracks Restaurant &amp; Bar. All rights reserved. Connaught Place, New Delhi.</p>
+  <p>A Tribute to India's Armed Forces</p>
+</div>
+
+<script>
+// Sparks
+const sparks=document.getElementById('sparks');
+const sparkColors=['#b8a060','#d4bc88','#c04a20','#e8c060','rgba(255,200,100,.8)'];
+for(let i=0;i<50;i++){
+  const s=document.createElement('div');
+  s.className='spark';
+  s.style.cssText=`--spd:${2+Math.random()*4}s;--sd:${Math.random()*6}s;--sx:${Math.random()*100}%;--sy:${Math.random()*60}%;--ssz:${2+Math.random()*3}px;--sc:${sparkColors[Math.floor(Math.random()*sparkColors.length)]};--sdx:${(Math.random()-.5)*80}px;--sdy:${-40-Math.random()*80}px`;
+  sparks.appendChild(s);
+}
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>60));
+
+// Ticker
+const ticks=['Live Music Every Night','Army-Themed Restobar','Cocktails & Craft Bar','North Indian · Continental · Italian · Oriental','Private Party Bookings','Barracks Butter Chicken','Captain\'s Chicken Burger','BBQ Pork Ribs','Brigadier\'s Old Fashioned','Old Monk Brownie','Rajiv Chowk · 3 min walk','206 Menu Items','Best Restaurant in CP'];
+const ticker=document.getElementById('ticker');
+[...ticks,...ticks].forEach(t=>{
+  ticker.innerHTML+=`<div class="tick-item"><span class="tick-sep"></span><span>${t}</span></div>`;
+});
+
+// Sound wave
+const sw=document.getElementById('soundwave');
+for(let i=0;i<32;i++){
+  const b=document.createElement('div');
+  b.className='bar-wave';
+  const h=10+Math.random()*60;
+  b.style.cssText=`--wt:${.4+Math.random()*.6}s;--wd:${Math.random()*.5}s;--wh:${h}px;height:${h/2}px`;
+  sw.appendChild(b);
+}
+
+// Menu data with real images
+const menuData={
+  signatures:[
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/2.png',badge:'Chef\'s Pick',name:'Wine Glass Pasta',desc:'Signature pasta served dramatically in a wine glass — rich tomato-cream sauce with herbs and parmesan.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/02/Chicken-Gilafi-Kebab-120x120.jpg',badge:'Must Try',name:'Chicken Gilafi Kebab',desc:'Tender minced chicken wrapped in capsicum and onion, marinated with house spices and chargrilled.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/02/Brunt-Garlic-Noodle-120x120.jpg',badge:'Bestseller',name:'Brunt Garlic Noodle',desc:'Wok-tossed noodles with char-burnt garlic, vegetables and a smoky Chinese sauce. A house favourite.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/1.png',badge:'New Launch',name:'Cheese Lamb Burger',desc:'Double-patty lamb burger with secret sauce, aged cheddar, pickled onions and crispy lettuce.'},
+  ],
+  grills:[
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/6.png',badge:'Vegetarian',name:'Tandoori Platter Veg',desc:'Paneer tikka, mushroom tikka and corn kebabs marinated in yoghurt and house spices, from the tandoor.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/4.png',badge:'Signature',name:'Chicken Gilafi Kebab',desc:'Colonel\'s chilli chicken — spiced minced chicken skewers with a fiery Gilafi masala.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/3.png',badge:'Brunt',name:'Garlic Noodles',desc:'Brunt garlic noodles served with extra chilli and fresh spring onions — a must-order starter.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/5.png',badge:'Pizza',name:'Burrata Cheese Pizza',desc:'Wood-fired base with fresh burrata, cherry tomatoes, rocket leaves and a drizzle of truffle oil.'},
+  ],
+  mains:[
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/7.png',badge:'North Indian',name:'Chicken Korma',desc:'Slow-braised chicken in a rich almond-cream korma sauce with aromatic whole spices and saffron.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/8.png',badge:'Street Style',name:'Momo Platter',desc:'Steamed and fried momos served with house fiery chilli chutney and a sesame dipping sauce.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/9.png',badge:'Vegetarian',name:'Veg Mezze Platter',desc:'Hummus, baba ganoush, falafel, pita bread and house-pickled vegetables — a Mediterranean feast.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/04/Untitled-design-3.png',badge:'Barracks Classic',name:'Barracks Butter Chicken',desc:'A unique take on the classic — smoky, creamy and rich. Pairs perfectly with a Brigadier\'s Old Fashioned.'},
+  ],
+  cocktails:[
+    {img:'https://38barracks.com/wp-content/uploads/2024/04/Untitled-design-5.png',badge:'Signature',name:"Brigadier's Old Fashioned",desc:'Whiskey-based signature cocktail with house bitters, demerara sugar and a smoky finish. For officers only.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/5.png',badge:'Craft',name:'Colonel\'s Cocktail',desc:'A house special blending aged rum, tamarind shrub, fresh lime and spiced soda. Wickedly good.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/9.png',badge:'Mock',name:'Army Punch',desc:'A refreshing non-alcoholic blend of mixed fruit, ginger, mint and a splash of sparkling lime.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/04/Untitled-design-3.png',badge:'Bar Classic',name:'Craft Beer Selection',desc:'Domestic and imported beers — Kingfisher Ultra, Hoegaarden, Stella Artois and rotating craft taps.'},
+  ],
+  desserts:[
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/3.png',badge:'Bestseller',name:'Old Monk Brownie',desc:'A decadent rum-infused brownie with Old Monk reserve, served warm with vanilla ice cream.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/8.png',badge:'Classic',name:'Gulab Jamun',desc:'Soft, melt-in-mouth gulab jamun served warm with rabri and a rose-cardamom syrup.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/6.png',badge:'Cold',name:'Kulfi Bar',desc:'Hand-churned malai kulfi on stick in seasonal flavours — kesar pista, mango and classic cream.'},
+    {img:'https://38barracks.com/wp-content/uploads/2024/05/7.png',badge:'New',name:'Brownie Sundae',desc:'Double chocolate brownie with hot fudge sauce, crushed nuts and three scoops of vanilla ice cream.'},
+  ]
+};
+let active='signatures';
+function renderMenu(cat){
+  const g=document.getElementById('menuGrid');
+  g.innerHTML=menuData[cat].map(d=>`
+    <div class="dish-card">
+      <div class="dish-img" style="background-image:url('${d.img}'),linear-gradient(135deg,#2a1e10,#1a1a10)"></div>
+      <div class="dish-info">
+        <span class="dish-badge">${d.badge}</span>
+        <div class="dish-name">${d.name}</div>
+        <p class="dish-desc">${d.desc}</p>
+      </div>
+    </div>`).join('');
+}
+renderMenu(active);
+document.querySelectorAll('.mtab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.mtab').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    renderMenu(b.dataset.cat);
+  });
+});
+
+// Scroll reveal
+const revs=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.08});
+revs.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>

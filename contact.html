@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact Abhishek | WEB X HUB — Hire a Web Designer</title>
+<meta name="description" content="Contact Abhishek at WEB X HUB. WhatsApp +91 8580999516. kumarabhishek180502@gmail.com. Free consultation for web design, WordPress, Shopify projects."/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+canvas#leaf-canvas,canvas#firefly-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.6}
+#birds-layer{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+#snake-canvas{position:fixed;right:0;top:0;height:100%;pointer-events:none;z-index:2;opacity:.4}
+.par-section{position:relative;overflow:hidden;isolation:isolate}
+.par-section::after{content:'';position:absolute;bottom:0;left:0;right:0;height:140px;z-index:8;pointer-events:none;background:linear-gradient(to bottom,transparent,var(--void))}
+.par-bg{position:absolute;inset:-40% 0;z-index:0;will-change:transform;pointer-events:none}
+.par-overlay{position:absolute;inset:0;z-index:1;pointer-events:none}
+.par-content{position:relative;z-index:5;width:100%;max-width:1100px;margin:0 auto;padding:0 5vw}
+
+/* Contact hero character */
+.dev-avatar{width:130px;height:130px;margin:0 auto 2rem;position:relative}
+.dev-circle{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,rgba(120,255,82,.15),rgba(48,240,208,.12));border:2px solid rgba(120,255,82,.3);display:flex;align-items:center;justify-content:center;font-size:4rem;animation:morph 8s ease-in-out infinite,glow 3s ease-in-out infinite}
+.dev-bub{position:absolute;top:-14px;right:-20px;background:rgba(15,31,21,.95);border:1px solid rgba(120,255,82,.3);border-radius:12px;padding:5px 10px;font-size:.7rem;font-weight:700;color:var(--lime2);font-family:var(--font-mono);animation:float 3s ease-in-out infinite;white-space:nowrap}
+
+/* layout */
+.contact-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start;padding:4rem 0 8rem}
+
+/* info cards */
+.info-card{background:rgba(15,31,21,.88);backdrop-filter:blur(10px);border:1px solid var(--border2);border-radius:14px;padding:1.3rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;text-decoration:none;color:inherit;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.info-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--lime),var(--teal));transform:scaleY(0);transition:transform .3s}
+.info-card:hover{border-color:rgba(120,255,82,.35);transform:translateX(6px);box-shadow:0 8px 30px rgba(0,0,0,.4)}
+.info-card:hover::before{transform:scaleY(1)}
+.info-icon{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,rgba(120,255,82,.12),rgba(48,240,208,.08));border:1px solid rgba(120,255,82,.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.info-label{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem;font-family:var(--font-mono)}
+.info-value{font-weight:700;font-size:.92rem}
+.avail{display:inline-flex;align-items:center;gap:8px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:100px;padding:10px 18px;color:#22c55e;font-size:.85rem;font-weight:700;margin-top:1.5rem}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:glow 2s ease-in-out infinite}
+
+/* activity strip */
+.activity-strip{background:rgba(19,37,25,.85);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;margin-top:1.5rem}
+.activity-strip h4{font-family:var(--font-mono);font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.8rem}
+.activity{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted);padding:6px 10px;border-radius:8px;opacity:.6;transition:all .4s}
+.activity.active{background:rgba(120,255,82,.08);color:var(--white);opacity:1}
+.act-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);flex-shrink:0}
+.activity.active .act-dot{background:var(--lime);box-shadow:0 0 8px var(--lime)}
+
+/* form card */
+.form-card{background:rgba(15,31,21,.9);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:24px;padding:2.5rem;position:relative;overflow:hidden}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--lime),var(--teal),var(--lime));background-size:200% 100%;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.form-card h3{font-family:var(--font-head);font-weight:900;font-size:1.5rem;letter-spacing:-.03em;margin-bottom:.4rem}
+.form-card .sub{color:var(--muted);font-size:.88rem;margin-bottom:2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.submit-btn{width:100%;padding:15px;background:var(--lime);border:none;border-radius:100px;color:var(--void);font-family:var(--font-body);font-size:1rem;font-weight:800;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(120,255,82,.35);letter-spacing:.03em;position:relative;overflow:hidden}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 0 55px rgba(120,255,82,.55)}
+.submit-btn:disabled{opacity:.7;cursor:not-allowed;transform:none}
+
+/* why grid */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.why-card{background:rgba(15,31,21,.85);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;text-align:center;transition:transform .3s,border-color .3s}
+.why-card:hover{transform:translateY(-6px);border-color:rgba(120,255,82,.25)}
+
+@media(max-width:768px){.contact-layout{grid-template-columns:1fr;gap:2rem}.form-row{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="leaf-canvas"></canvas><canvas id="firefly-canvas"></canvas>
+<canvas id="snake-canvas"></canvas><div id="birds-layer"></div>
+<div id="cursor"></div><div id="cursor-ring"></div>
+<nav>
+  <a href="index.html" class="nav-logo"><span class="leaf">🌿</span>WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB</a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li><li><a href="works.html">Works</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li><li><a href="contact.html" class="nav-cta">Hire Me 🌿</a></li>
+  </ul>
+</nav>
+
+<!-- HERO PAR -->
+<section class="par-section" data-speed="0.35" style="min-height:55vh;display:flex;align-items:center;padding:calc(var(--nav-h)+80px) 0 60px;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(10,30,15,.95),var(--void))">
+  <div class="par-bg"><svg width="100%" height="180%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%"><g fill="rgba(5,18,10,.75)"><ellipse cx="0" cy="900" rx="200" ry="500"/><ellipse cx="400" cy="900" rx="180" ry="460"/><ellipse cx="800" cy="900" rx="210" ry="520"/><ellipse cx="1200" cy="900" rx="190" ry="480"/><ellipse cx="1440" cy="900" rx="180" ry="450"/></g></svg></div>
+  <div class="par-overlay" style="background:linear-gradient(to bottom,rgba(2,5,8,.65),rgba(2,5,8,.3) 50%,rgba(2,5,8,.75))"></div>
+  <div class="par-content" style="text-align:center;">
+    <div class="dev-avatar reveal">
+      <div class="dev-circle">👨‍💻</div>
+      <div class="dev-bub">coding right now... ⚡</div>
+    </div>
+    <div class="section-label reveal rd2">Get In Touch</div>
+    <h1 class="section-title reveal rd3">Let's Build <em>Together.</em></h1>
+    <p style="color:var(--muted);max-width:480px;margin:.8rem auto 0;" class="reveal rd4">Fill the form — your details go directly to my WhatsApp. I'll respond within hours.</p>
+  </div>
+</section>
+
+<!-- FORM + INFO -->
+<section class="par-section" data-speed="0.2" style="background:radial-gradient(ellipse 70% 70% at 30% 80%,rgba(5,20,10,.97),var(--void))">
+  <div class="par-overlay" style="background:rgba(2,5,8,.5)"></div>
+  <div class="par-content">
+    <div class="contact-layout">
+
+      <!-- INFO SIDE -->
+      <div class="reveal reveal-left">
+        <div class="section-label">Direct Contact</div>
+        <h2 style="font-family:var(--font-head);font-size:2rem;font-weight:900;letter-spacing:-.04em;margin-bottom:1rem">Reach Me <em>Directly</em></h2>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:2rem">Available for freelance, contracts and consulting. Response within 24 hours.</p>
+
+        <a href="https://wa.me/918580999516" target="_blank" class="info-card">
+          <div class="info-icon">💬</div><div><div class="info-label">WhatsApp (Preferred)</div><div class="info-value">+91 85809 99516</div></div>
+        </a>
+        <a href="tel:+918580999516" class="info-card">
+          <div class="info-icon">📞</div><div><div class="info-label">Phone</div><div class="info-value">+91 85809 99516</div></div>
+        </a>
+        <a href="mailto:kumarabhishek180502@gmail.com" class="info-card">
+          <div class="info-icon">✉️</div><div><div class="info-label">Email</div><div class="info-value">kumarabhishek180502@gmail.com</div></div>
+        </a>
+        <a href="https://www.instagram.com/web_x_hub/" target="_blank" class="info-card">
+          <div class="info-icon">◎</div><div><div class="info-label">Instagram</div><div class="info-value">@web_x_hub</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/abhishek-undefined-1982913b8/" target="_blank" class="info-card">
+          <div class="info-icon">in</div><div><div class="info-label">LinkedIn</div><div class="info-value">Abhishek — WEB X HUB</div></div>
+        </a>
+        <div class="info-card" style="cursor:default"><div class="info-icon">⏰</div><div><div class="info-label">Working Hours</div><div class="info-value">Mon–Sat, 10AM–8PM IST</div></div></div>
+        <div class="avail"><span class="avail-dot"></span>Available for New Projects</div>
+
+        <div class="activity-strip">
+          <h4>Right Now I Could Be...</h4>
+          <div class="activity active"><span class="act-dot"></span>💻 Writing clean HTML & CSS</div>
+          <div class="activity"><span class="act-dot"></span>🎨 Designing in Figma</div>
+          <div class="activity"><span class="act-dot"></span>📱 Creating Instagram posts</div>
+          <div class="activity"><span class="act-dot"></span>🛍️ Building a Shopify store</div>
+          <div class="activity"><span class="act-dot"></span>🖼️ Making graphic design assets</div>
+          <div class="activity"><span class="act-dot"></span>📣 Setting up Facebook Ads</div>
+          <div class="activity"><span class="act-dot"></span>🔧 Customising WordPress</div>
+        </div>
+      </div>
+
+      <!-- FORM SIDE -->
+      <div class="reveal reveal-right">
+        <div class="form-card">
+          <!-- Success overlay -->
+          <div id="successOverlay" style="position:absolute;inset:0;z-index:10;background:rgba(15,31,21,.98);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;gap:1rem;">
+            <div style="font-size:4rem">✅</div>
+            <div style="font-family:var(--font-head);font-weight:900;font-size:1.6rem">WhatsApp Opened!</div>
+            <p style="color:var(--muted);font-size:.9rem;text-align:center;max-width:280px">Your details are pre-filled. Just hit Send in WhatsApp — Abhishek will reply fast!</p>
+            <button onclick="document.getElementById('successOverlay').style.opacity='0';document.getElementById('successOverlay').style.pointerEvents='none'" class="btn btn-outline" style="margin-top:.5rem;cursor:pointer">Close</button>
+          </div>
+
+          <h3>Send Me a Message</h3>
+          <p class="sub">All fields * required. Submitting opens WhatsApp with your details pre-filled.</p>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group"><label for="name">Full Name *</label><input type="text" id="name" name="name" placeholder="Your full name" required/></div>
+              <div class="form-group"><label for="contact">Phone Number *</label><input type="tel" id="contact" name="contact" placeholder="+91 00000 00000" required/></div>
+            </div>
+            <div class="form-group"><label for="email">Email Address *</label><input type="email" id="email" name="email" placeholder="your@email.com" required/></div>
+            <div class="form-group"><label for="service">Service Required *</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Select a service...</option>
+                <option>Custom Website Design (HTML/CSS/JS)</option>
+                <option>WordPress Development</option>
+                <option>Shopify Store Design</option>
+                <option>Webflow Development</option>
+                <option>BigCommerce Store</option>
+                <option>Figma UI/UX Design & Prototyping</option>
+                <option>Graphic Design</option>
+                <option>Social Media Marketing & Posts</option>
+                <option>SEO & Google Business Setup</option>
+                <option>Website Redesign</option>
+                <option>Other / Not Sure</option>
+              </select>
+            </div>
+            <div class="form-group"><label for="budget">Budget Range</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Select budget range...</option>
+                <option>Under ₹10,000</option><option>₹10,000 – ₹25,000</option>
+                <option>₹25,000 – ₹50,000</option><option>₹50,000 – ₹1,00,000</option>
+                <option>₹1,00,000+</option><option>Let's Discuss</option>
+              </select>
+            </div>
+            <div class="form-group"><label for="reason">Project Details / Message *</label><textarea id="reason" name="reason" placeholder="Tell me about your project — what you need, timeline, any references..." required></textarea></div>
+            <div class="form-group"><label for="website">Current Website (if any)</label><input type="url" id="website" name="website" placeholder="https://yourwebsite.com"/></div>
+            <button type="submit" class="submit-btn">Send via WhatsApp 💬</button>
+            <p style="text-align:center;color:var(--muted);font-size:.76rem;margin-top:1rem">💬 Opens WhatsApp with all your details pre-filled — instant contact!</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="par-section" data-speed="0.25" style="padding:6rem 0 8rem;background:radial-gradient(ellipse 80% 60% at 70% 20%,rgba(8,14,20,.98),var(--void))">
+  <div class="par-overlay" style="background:rgba(2,5,8,.5)"></div>
+  <div class="par-content">
+    <div class="reveal" style="text-align:center;margin-bottom:1rem;"><div class="section-label">Why WEB X HUB</div><h2 class="section-title">Why Clients <em>Choose Me</em></h2></div>
+    <div class="why-grid">
+      <div class="why-card reveal rd1"><div style="font-size:2.5rem;margin-bottom:1rem">⚡</div><h3 style="font-family:var(--font-head);font-weight:700;margin-bottom:.5rem">Fast Delivery</h3><p style="color:var(--muted);font-size:.86rem">7–14 days without compromising quality.</p></div>
+      <div class="why-card reveal rd2"><div style="font-size:2.5rem;margin-bottom:1rem">💎</div><h3 style="font-family:var(--font-head);font-weight:700;margin-bottom:.5rem">Premium Quality</h3><p style="color:var(--muted);font-size:.86rem">Every pixel deliberate. Clean code, stunning design.</p></div>
+      <div class="why-card reveal rd3"><div style="font-size:2.5rem;margin-bottom:1rem">🎯</div><h3 style="font-family:var(--font-head);font-weight:700;margin-bottom:.5rem">100% Success Rate</h3><p style="color:var(--muted);font-size:.86rem">50+ projects. Zero unhappy clients. Guaranteed.</p></div>
+      <div class="why-card reveal rd1"><div style="font-size:2.5rem;margin-bottom:1rem">📱</div><h3 style="font-family:var(--font-head);font-weight:700;margin-bottom:.5rem">Fully Responsive</h3><p style="color:var(--muted);font-size:.86rem">Perfect on mobile, tablet and desktop.</p></div>
+      <div class="why-card reveal rd2"><div style="font-size:2.5rem;margin-bottom:1rem">🔍</div><h3 style="font-family:var(--font-head);font-weight:700;margin-bottom:.5rem">SEO Optimized</h3><p style="color:var(--muted);font-size:.86rem">Built-in SEO, fast load times, Google-ready.</p></div>
+      <div class="why-card reveal rd3"><div style="font-size:2.5rem;margin-bottom:1rem">🤝</div><h3 style="font-family:var(--font-head);font-weight:700;margin-bottom:.5rem">Ongoing Support</h3><p style="color:var(--muted);font-size:.86rem">Post-launch support and updates included.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="nav-logo" style="text-decoration:none;"><span class="leaf">🌿</span>WEB&thinsp;<span class="brand-x">✕</span>&thinsp;HUB</a><p>Professional web design &amp; development. India — serving clients worldwide.</p><div class="social-links" style="margin-top:1.2rem;"><a href="mailto:kumarabhishek180502@gmail.com">✉</a><a href="tel:+918580999516">📞</a><a href="https://www.linkedin.com/in/abhishek-undefined-1982913b8/" target="_blank">in</a><a href="https://www.instagram.com/web_x_hub/" target="_blank">◎</a><a href="https://wa.me/918580999516" target="_blank">💬</a></div></div>
+    <div class="footer-col"><h4>Pages</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="projects.html">Projects</a></li><li><a href="works.html">Works</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Custom HTML</a></li><li><a href="#">WordPress</a></li><li><a href="#">Shopify</a></li><li><a href="#">Graphic Design</a></li><li><a href="#">Social Marketing</a></li></ul></div>
+    <div class="footer-col"><h4>Direct</h4><ul><li><a href="tel:+918580999516">+91 85809 99516</a></li><li><a href="https://wa.me/918580999516" target="_blank">WhatsApp 💬</a></li><li><a href="https://www.instagram.com/web_x_hub/" target="_blank">@web_x_hub</a></li><li><a href="https://www.linkedin.com/in/abhishek-undefined-1982913b8/" target="_blank">LinkedIn</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2024 WEB X HUB · Abhishek. All rights reserved.</p><p style="color:var(--lime);opacity:.6">// grown with ❤️ in the digital jungle</p></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>
